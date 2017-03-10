@@ -48,7 +48,7 @@ public class Coalesse : MonoBehaviour {
                     Debug.Log("Too far");
                 }
             }
-            yield return new WaitForSeconds(Random.Range(15.0f, 20.0f));
+            yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
         }
     }
 	

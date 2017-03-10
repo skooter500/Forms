@@ -10,7 +10,6 @@ namespace BGE.Forms
     public class NewFishParts : MonoBehaviour
     {
         public GameObject head;
-        public GameObject body;
         public GameObject tail;
 
         List<GameObject> segments;
@@ -21,9 +20,6 @@ namespace BGE.Forms
         // Animation stuff
         float theta;
         float angularVelocity = 5.00f;
-
-        public GameObject headRotGameObject;
-        public GameObject tailRotGameObject;
 
         private Vector3 headSize;
         private Vector3 bodySize;
@@ -72,19 +68,6 @@ namespace BGE.Forms
 
         public void Start()
         {            
-            if (head.GetComponent<Collider>() != null)
-            {
-                head.GetComponent<Collider>().enabled = false;
-            }
-            if (body.GetComponent<Collider>() != null)
-            {
-                body.GetComponent<Collider>().enabled = false;
-            }
-            if (tail.GetComponent<Collider>() != null)
-            {
-                tail.GetComponent<Collider>().enabled = false;
-            }
-
             boid = (boidGameObject == null) ? GetComponent<Boid>() : boidGameObject.GetComponent<Boid>();
 
         }
@@ -100,13 +83,13 @@ namespace BGE.Forms
         {
             // Animate the head            
             float headRot = Mathf.Sin(theta) * headField;
-            head.transform.RotateAround(headRotGameObject.transform.position, headRotGameObject.transform.up, headRot - oldHeadRot);
+            head.transform.Rotate(0, headRot - oldHeadRot, 0);
 
             oldHeadRot = headRot;
 
             // Animate the tail
             float tailRot = Mathf.Sin(theta) * tailField;
-            tail.transform.RotateAround(tailRotGameObject.transform.position, - tailRotGameObject.transform.up, tailRot - oldTailRot);
+            tail.transform.Rotate(0, tailRot - oldTailRot, 0);
             oldTailRot = tailRot;
 
             float speed;
