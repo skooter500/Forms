@@ -24,6 +24,7 @@ public class Coalesse : MonoBehaviour {
                 boid.GetComponent<JitterWander>().Activate(true);
                 boid.GetComponent<Seek>().Activate(false);
                 boid.GetComponent<SceneAvoidance>().Activate(true);
+                boid.GetComponent<Flee>().Activate(true);
             }
             yield return new WaitForSeconds(Random.Range(20.0f, 30.0f));
             Debug.Log("Coalessing");
@@ -39,6 +40,7 @@ public class Coalesse : MonoBehaviour {
                     boid.GetComponent<Alignment>().Activate(true);
                     boid.GetComponent<JitterWander>().Activate(true);
                     boid.GetComponent<Seek>().Activate(true);
+                    boid.GetComponent<Flee>().Activate(false);
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
                     boid.GetComponent<Seek>().targetGameObject = player;
                     boid.GetComponent<Seek>().target.y += 10;

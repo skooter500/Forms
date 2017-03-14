@@ -17,7 +17,7 @@ namespace BGE.Forms
 
         public float radius = 100;
 
-        [HideInInspector]
+        //[HideInInspector]
         public volatile List<Boid> boids = new List<Boid>();
 
         [Range(0, 2)]
