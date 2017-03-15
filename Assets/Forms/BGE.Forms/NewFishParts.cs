@@ -111,12 +111,9 @@ namespace BGE.Forms
 
             float speed;
 
-            speed = boidSpeedToAnimationSpeed ? boid.acceleration.magnitude : 1.0f; ;
+            speed = boidSpeedToAnimationSpeed ? boid.velocity.magnitude : 1.0f; ;
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
-            if (theta >= Mathf.PI * 2.0f)
-            {
-                theta -= (Mathf.PI * 2.0f);
-            }
+
         }
     }
 }
