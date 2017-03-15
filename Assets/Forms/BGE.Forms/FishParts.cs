@@ -172,10 +172,6 @@ namespace BGE.Forms
 
             float speed = boid.velocity.magnitude;
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
-            if (theta >= Mathf.PI * 2.0f)
-            {
-                theta -= (Mathf.PI * 2.0f);
-            }
         }
     }
 }
