@@ -6,13 +6,11 @@ namespace BGE.Forms
 {
     public class Formation : SteeringBehaviour
     {
-        [HideInInspector]
         public Boid leaderBoid;
         public GameObject leader;
         public Vector3 offset;
         private Vector3 targetPos;
         public bool useDeadReconing = false;
-        public float tracking = 0.2f;
 
         public float reformationDistance = 10.0f;
 
@@ -24,7 +22,7 @@ namespace BGE.Forms
                 leaderBoid = leader.GetComponentInChildren<Boid>();
                 offset = transform.position - leader.transform.position;
                 offset = Quaternion.Inverse(leader.transform.rotation) * offset;
-                targetPos = leader.transform.TransformPoint(offset);
+                targetPos = leaderBoid.TransformPoint(offset);
             }
         }
 
@@ -62,14 +60,14 @@ namespace BGE.Forms
                     float lookAhead = (dist / boid.maxSpeed);
                     newTarget = newTarget + (lookAhead * leaderBoid.velocity);
                 }
-                targetPos = Vector3.Lerp(targetPos, newTarget, boid.TimeDelta * tracking);
+                targetPos = Vector3.Lerp(targetPos, newTarget, boid.TimeDelta * 0.2f);
 
                 if (Vector3.Distance(targetPos, boid.position) > reformationDistance)
                 {
                     RecalculateOffest();                                        
                 }
 
-                return boid.SeekForce(targetPos); ; // , boid.maxSpeed / 2, 15f);
+                return boid.ArriveForce(targetPos, boid.maxSpeed / 2, 15f);
             }
             else
             {

@@ -9,6 +9,11 @@ namespace BGE.Forms
 {
     public class NewFishParts : MonoBehaviour
     {
+        public enum Driver { velocity, force, acceleration }
+
+        public Driver driver = Driver.velocity;
+
+
         public GameObject head;
         public GameObject tail;
 
@@ -92,9 +97,20 @@ namespace BGE.Forms
             tail.transform.Rotate(0, tailRot - oldTailRot, 0);
             oldTailRot = tailRot;
 
-            float speed;
+            float speed = 1.0f;
 
-            speed = boidSpeedToAnimationSpeed ? boid.velocity.magnitude : 1.0f; ;
+            switch (driver)
+            {
+                case Driver.velocity:
+                    speed = boidSpeedToAnimationSpeed ? boid.velocity.magnitude : 1.0f;
+                    break;
+                case Driver.acceleration:
+                    speed = boidSpeedToAnimationSpeed ? boid.acceleration.magnitude : 1.0f;
+                    break;
+                case Driver.force:
+                    speed = boidSpeedToAnimationSpeed ? boid.force.magnitude : 1.0f;
+                    break;
+            }
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
 
         }
