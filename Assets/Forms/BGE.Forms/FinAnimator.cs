@@ -48,7 +48,7 @@ namespace BGE.Forms
                 float offset = rotationOffset * Mathf.Deg2Rad;
 
                 // Are we Banking?
-                if (((side == Side.left && boid.bank < -bankThreshold) || (side == Side.right && boid.bank > bankThreshold)))
+                /*if (((side == Side.left && boid.bank < -bankThreshold) || (side == Side.right && boid.bank > bankThreshold)))
                 {
                     lerpedAmplitude = Mathf.Lerp(lerpedAmplitude, 0, Time.deltaTime);
                 }
@@ -56,7 +56,9 @@ namespace BGE.Forms
                 {
                     lerpedAmplitude  = Mathf.Lerp(lerpedAmplitude, amplitude, Time.deltaTime);
                 }
-            
+                */
+                lerpedAmplitude = Mathf.Lerp(lerpedAmplitude, amplitude, Time.deltaTime);
+
                 float angle = Mathf.Sin((theta * wigglyness + offset))
                               * (harmonic.rampedAmplitude / initialAmplitude) * lerpedAmplitude;
                 angle = flipDirection ? -angle : angle;
