@@ -96,12 +96,7 @@ namespace BGE.Forms
             Vector3 localTarget = target + (Vector3.forward * distance);
             //Vector3 worldTarget = boid.TransformPoint(localTarget);
 
-            worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;
-            if (this.theta > Utilities.TWO_PI)
-            {
-                this.theta = Utilities.TWO_PI - this.theta;
-            }
-        
+            worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;        
             rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
             this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
             return boid.SeekForce(worldTarget);

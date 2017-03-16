@@ -43,6 +43,8 @@ namespace BGE.Forms
 
         public float bank;
 
+        public float speed;
+
         [HideInInspector]
         public List<Boid> tagged = new List<Boid>();
 
@@ -180,11 +182,12 @@ namespace BGE.Forms
                 Vector3 tempUp = transform.up;
                 Utilities.BlendIntoAccumulator(smoothRate, bankUp, ref tempUp);
 
-                float speed = velocity.magnitude;
+                speed = velocity.magnitude;
                 if (speed > maxSpeed)
                 {
                     velocity.Normalize();
                     velocity *= maxSpeed;
+                    speed = velocity.magnitude;
                 }
                 Utilities.checkNaN(velocity);
 

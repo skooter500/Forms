@@ -86,7 +86,6 @@ namespace BGE.Forms
 
         void Fly(float units)
         {
-            Debug.Log(units);
             rigidBody.AddForce(Vector3.up * units);
         }
 
@@ -133,12 +132,13 @@ namespace BGE.Forms
             }
 
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime);
-            float joyX = Input.GetAxis("Joy X");
+
+            /*float joyX = Input.GetAxis("Joy X");
             float joyY = Input.GetAxis("Joy Y");
 
             Yaw(joyX * angularSpeed * Time.deltaTime);
             Fly(-joyY * contSpeed * Time.deltaTime);
-
+            */
             float contWalk = Input.GetAxis("Vertical");
             float contStrafe = Input.GetAxis("Horizontal");
             if (Mathf.Abs(contWalk) > 0.1f && moveEnabled)

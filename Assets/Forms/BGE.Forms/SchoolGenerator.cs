@@ -17,7 +17,10 @@ namespace BGE.Forms
 
         [Range(0, 1)]
         public float spread;
-        
+
+        [Range(0, 1)]
+        public float speedVariation = 0.1f;
+
         SchoolGenerator()
         {
             boidCount = 200;
@@ -61,6 +64,7 @@ namespace BGE.Forms
                     boid.school = this;
                     boid.GetComponent<Constrain>().radius = radius;
                     boid.GetComponent<Constrain>().centreOnPosition = true;
+                    boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
 
                     boids.Add(boid);
                 }
