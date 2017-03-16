@@ -25,7 +25,7 @@ namespace BGE.Forms
         {
             Debug.Log("Curious State");
             boid.GetComponent<Constrain>().Activate(false);
-            boid.GetComponent<JitterWander>().Activate(false);
+            //boid.GetComponent<JitterWander>().Activate(false);
             boid.GetComponent<Seek>().Activate(true);
             boid.GetComponent<Seek>().targetGameObject = player;
             state = State.curious;
