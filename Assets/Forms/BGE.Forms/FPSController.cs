@@ -15,6 +15,10 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
+            if (mainCamera == null)
+            {
+                mainCamera = Camera.main.gameObject;
+            }
         }
 
         void Yaw(float angle)
