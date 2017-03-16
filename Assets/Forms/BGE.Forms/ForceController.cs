@@ -86,7 +86,6 @@ namespace BGE.Forms
 
         void Fly(float units)
         {
-            Debug.Log(units);
             rigidBody.AddForce(Vector3.up * units);
         }
 

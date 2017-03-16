@@ -64,28 +64,30 @@ namespace BGE.Forms
         void Update()
         {
             float mouseX, mouseY;
-            float contSpeed = this.speed;
+            float speed = this.speed;
 
-            float runAxis = Input.GetAxis("Fire1");
-
-            if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
-            {
-                contSpeed *= 2f;
-            }
+            float runAxis = 0; // Input.GetAxis("Run Axis");
 
             if (Input.GetKey(KeyCode.Escape))
             {
                 Application.Quit();
             }
+
+            if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
+            {
+                speed *= 5.0f;
+            }
             
             if (Input.GetKey(KeyCode.E))
             {
-                Fly(Time.deltaTime * contSpeed);
+                Fly(Time.deltaTime * speed);
             }
             if (Input.GetKey(KeyCode.F))
             {
-                Fly(-Time.deltaTime * contSpeed);
+                Fly(-Time.deltaTime * speed);
             }
+
+
 
             mouseX = Input.GetAxis("Mouse X");
             mouseY = Input.GetAxis("Mouse Y");
@@ -97,13 +99,13 @@ namespace BGE.Forms
             float joyX = Input.GetAxis("Joy X");
             float joyY = Input.GetAxis("Joy Y");
 
-            Yaw(joyX * contSpeed * Time.deltaTime);
-            Fly(-joyY * contSpeed * Time.deltaTime);
+            Yaw(joyX * speed * Time.deltaTime);
+            Fly(-joyY * speed * Time.deltaTime);
 
             float contWalk = Input.GetAxis("Vertical");
             float contStrafe = Input.GetAxis("Horizontal");
-            Walk(contWalk * contSpeed * Time.deltaTime);
-            Strafe(contStrafe * contSpeed * Time.deltaTime);
+            Walk(contWalk * speed * Time.deltaTime);
+            Strafe(contStrafe * speed * Time.deltaTime);
         }
     }
 }
