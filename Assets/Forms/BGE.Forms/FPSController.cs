@@ -91,17 +91,17 @@ namespace BGE.Forms
 
             mouseX = Input.GetAxis("Mouse X");
             mouseY = Input.GetAxis("Mouse Y");
+            
 
             Yaw(mouseX * speed * Time.deltaTime);
             Pitch(mouseY * speed * Time.deltaTime);
 
-
-            float joyX = Input.GetAxis("Joy X");
+            /*float joyX = Input.GetAxis("Joy X");
             float joyY = Input.GetAxis("Joy Y");
 
             Yaw(joyX * speed * Time.deltaTime);
             Fly(-joyY * speed * Time.deltaTime);
-
+            */
             float contWalk = Input.GetAxis("Vertical");
             float contStrafe = Input.GetAxis("Horizontal");
             Walk(contWalk * speed * Time.deltaTime);
