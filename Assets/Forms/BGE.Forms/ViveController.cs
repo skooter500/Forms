@@ -104,7 +104,7 @@ namespace BGE.Forms
 
                 if (leftTrig > 0.2f)
                 {
-                    if (boid != null)
+                    if (boid == null)
                     {
                         rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
                         leftEngine.GetComponent<JetFire>().fire = leftTrig;
@@ -124,7 +124,7 @@ namespace BGE.Forms
 
                 if (rightTrig > 0.2f)
                 {
-                    if (boid != null)
+                    if (boid == null)
                     {
                         rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
                         rightEngine.GetComponent<JetFire>().fire = rightTrig;

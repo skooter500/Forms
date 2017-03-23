@@ -22,7 +22,10 @@ namespace BGE.Forms
         public override void Update()
         {
             base.Update();
-            target = targetGameObject.transform.position;
+            if (targetGameObject != null)
+            {
+                target = targetGameObject.transform.position;
+            }
         }
 
         public override Vector3 Calculate()
