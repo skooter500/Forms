@@ -22,6 +22,7 @@ namespace BGE.Forms
         public float amplitudeVariation = 0.5f;
 
         public bool glide = false;
+        public bool running = false;
 
         // Use this for initialization
         void Start () {
@@ -32,10 +33,17 @@ namespace BGE.Forms
             initialSpeed = harmonic.speed;
             StartCoroutine("VaryWiggleInterval");
         }
+        
+
+        public void OnDisable()
+        {
+            running = false;
+        }
 
         System.Collections.IEnumerator VaryWiggleInterval()
         {
-            while (true)
+            running = true;
+            while (running)
             {
                 //Debug.Log("Accelerated");
                 harmonic.enabled = true;
@@ -51,8 +59,7 @@ namespace BGE.Forms
                     harmonic.amplitude = initialAmplitude * 0.2f;
                     harmonic.speed = initialSpeed;
                     yield return new WaitForSeconds(Random.Range(3, 7));
-                }
-                
+                }                
             }
         }
     }

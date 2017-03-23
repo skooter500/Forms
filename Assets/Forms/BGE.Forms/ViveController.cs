@@ -111,8 +111,8 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        boid.maxSpeed *= leftTrig;
-                        boid.GetComponent<Harmonic>().speed *= leftTrig;
+                        boid.speed = boid.maxSpeed * leftTrig;
+                        boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed *  leftTrig;
                     }
                 }
             }
@@ -131,8 +131,8 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        boid.maxSpeed *= rightTrig;
-                        boid.GetComponent<Harmonic>().speed *= rightTrig;
+                        //boid.maxSpeed *= rightTrig;
+                        //boid.GetComponent<Harmonic>().speed *= rightTrig;
                     }
                 }
             }
