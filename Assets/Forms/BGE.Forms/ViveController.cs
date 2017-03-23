@@ -100,39 +100,47 @@ namespace BGE.Forms
             if (leftTrackedObject != null && leftTrackedObject.isActiveAndEnabled)
             {
                 // The trigger button
-                leftTrig = leftController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;            
+                leftTrig = leftController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
+
+                if (leftTrig > 0.2f)
+                {
+                    if (boid != null)
+                    {
+                        rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
+                        leftEngine.GetComponent<JetFire>().fire = leftTrig;
+                    }
+                    else
+                    {
+                        boid.maxSpeed *= leftTrig;
+                        boid.GetComponent<Harmonic>().speed *= leftTrig;
+                    }
+                }
             }
         
             if (rightTrackedObject != null && rightTrackedObject.isActiveAndEnabled)
             {
                 // The trigger button
                 rightTrig = rightController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
-            }
-        
-            if (leftTrig > 0.2f)
-            {
-                DetatchFromBoid();
-                rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-            }
-            else
-            {
 
-            }
-            leftEngine.GetComponent<JetFire>().fire = leftTrig;        
-            rightEngine.GetComponent<JetFire>().fire = rightTrig;
-            if (rightTrig > 0.2f)
-            {
-                DetatchFromBoid();
-                rigidBody.AddForceAtPosition(rightTrackedObject.transform.forward * power * rightTrig, rightTrackedObject.transform.position);
-            }
-            else
-            {
+                if (rightTrig > 0.2f)
+                {
+                    if (boid != null)
+                    {
+                        rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
+                        rightEngine.GetComponent<JetFire>().fire = rightTrig;
+                    }
+                    else
+                    {
+                        boid.maxSpeed *= rightTrig;
+                        boid.GetComponent<Harmonic>().speed *= rightTrig;
+                    }
+                }
             }
 
             rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
 
             float max = 3500;
-
+            /*
             try
             {
 
@@ -154,8 +162,7 @@ namespace BGE.Forms
             {
                 
             }
-
-            //rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, 10f);
+            */
 
             /*
             if (leftTrig > 0.2f && rightTrig > 0.2f)
