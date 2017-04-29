@@ -19,9 +19,11 @@ namespace BGE.Forms
 
         private Vector3 target;
 
+		public bool is_wanderenabled = true;
+
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled)
+			if (isActiveAndEnabled && is_wanderenabled)
             {
                 Gizmos.color = Color.blue;
                 Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward*distance, transform);
@@ -34,21 +36,29 @@ namespace BGE.Forms
 
         public void Start()
         {
-            target = Utilities.RandomInsideUnitSphere() * radius;
+
+			if (isActiveAndEnabled && is_wanderenabled)
+            	target = Utilities.RandomInsideUnitSphere() * radius;
         }
 
         public override Vector3 Calculate()
         {
-            float jitterTimeSlice = jitter * boid.TimeDelta;
 
-            Vector3 toAdd = Utilities.RandomInsideUnitSphere() * jitterTimeSlice;
-            target += toAdd;
-            target.Normalize();
-            target *= radius;
+			if (is_wanderenabled) {
+				
+				float jitterTimeSlice = jitter * boid.TimeDelta;
 
-            Vector3 localTarget = target + Vector3.forward * distance;
-            Vector3 worldTarget = boid.TransformPoint(localTarget);
-            return (worldTarget - boid.position);
+				Vector3 toAdd = Utilities.RandomInsideUnitSphere () * jitterTimeSlice;
+				target += toAdd;
+				target.Normalize ();
+				target *= radius;
+
+				Vector3 localTarget = target + Vector3.forward * distance;
+				Vector3 worldTarget = boid.TransformPoint (localTarget);
+				return (worldTarget - boid.position);
+			} else {
+				return new Vector3 (0, 0, 0);
+			}
         }
     }
 }
