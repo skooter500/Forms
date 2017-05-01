@@ -62,8 +62,11 @@ namespace BGE.Forms
                 if (boid != null)
                 {
                     boid.school = this;
-                    boid.GetComponent<Constrain>().radius = this.radius;
-                    boid.GetComponent<Constrain>().centreOnPosition = true;
+					Constrain cons = boid.GetComponent<Constrain> ();
+					if (cons != null) {
+						boid.GetComponent<Constrain>().radius = this.radius;
+						boid.GetComponent<Constrain>().centreOnPosition = true;
+					}
                     boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
 
                     boids.Add(boid);
