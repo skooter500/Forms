@@ -72,6 +72,12 @@ namespace BGE.Forms
                     boids.Add(boid);
                 }
 
+				FrogMovement frog = fish.GetComponentInChildren<FrogMovement> ();
+				if (frog != null) {
+					frog.central_pos = transform.position;
+					frog.range_radius = this.radius;
+				}
+
                 AudioSource audioSource = fish.GetComponent<AudioSource>();
                 if (audioSource != null)
                 {
