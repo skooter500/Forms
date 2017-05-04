@@ -60,7 +60,32 @@ public class swimController : MonoBehaviour
                 }
                 float leftHandDist = Vector3.Distance(oldLeftHandPos, leftHandPos);
                 float rightHandDist = Vector3.Distance(rightHandPos, oldRightHandPos);
-                if ((leftHandDist >= 0.1f) || (rightHandDist >= 0.1f))
+                if(leftHandDist >= 1)
+                {
+                    leftHandDist = 0;
+                }
+                if(rightHandDist >= 1)
+                {
+                    rightHandDist = 0;
+                }
+
+                if ((leftHandDist >= 0.2f) || (rightHandDist >= 0.2f))
+                {
+                    Vector3 relLeftHandPos = oldLeftHandPos - leftHandPos;
+                    Vector3 relRightHandPos = oldRightHandPos - rightHandPos;
+                    Vector3 leftHandDir = Vector3.Normalize(relLeftHandPos);
+                    Vector3 rightHandDir = Vector3.Normalize(relRightHandPos);
+
+                    Vector3 relOldHand = oldLeftHandPos + oldRightHandPos;
+                    Vector3 relNewHand = leftHandPos + rightHandPos;
+
+                    Vector3 tempHandDir = leftHandDir + rightHandDir;
+                    tempHandDir.x = -tempHandDir.x * 15 * Vector3.Distance(relOldHand, relNewHand);
+                    tempHandDir.z = 0;
+                    tempHandDir.y = 0;
+                    combinedHandDir += tempHandDir;
+                }
+                if ((leftHandDist >= 0.3f) || (rightHandDist >= 0.3f))
                 {
                     Vector3 relLeftHandPos = oldLeftHandPos - leftHandPos;
                     Vector3 relRightHandPos = oldRightHandPos - rightHandPos;
@@ -69,13 +94,7 @@ public class swimController : MonoBehaviour
 
                     combinedHandMovement = relLeftHandPos + relRightHandPos;
                     combinedHandMovement = Quaternion.Inverse(Quaternion.Euler(combinedHandMovement)) * combinedHandMovement;
-                    if(leftHandDist >= 0.3f || rightHandDist >= 0.3f)
-                    {
-                        Vector3 tempHandDir = leftHandDir + rightHandDir;
-                        tempHandDir.x = -tempHandDir.x * 15;
-                        tempHandDir.z = 0;
-                        combinedHandDir += tempHandDir;
-                    }
+                    
                     //combinedHandDir = Quaternion.Inverse(combinedHandDir);
 
                     force += combinedHandMovement * speed * (Vector3.Distance(oldLeftHandPos, leftHandPos) + Vector3.Distance(oldRightHandPos, rightHandPos));
