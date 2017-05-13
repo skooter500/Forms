@@ -55,7 +55,7 @@ namespace BGE.Forms
                 yield return null;
             }
         }
-
+        /*
         void DetatchFromBoid()
         {
             if (boid != null)
@@ -86,8 +86,9 @@ namespace BGE.Forms
                     rm.speed = 0.1f;
                 }                
             }
+            
         }
-
+        */
 
         Quaternion desiredYaw;
 
