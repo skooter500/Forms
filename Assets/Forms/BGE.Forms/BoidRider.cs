@@ -40,7 +40,6 @@ namespace BGE.Forms
                     hc.enabled = false;
                     boid.GetComponent<Harmonic>().amplitude = hc.initialAmplitude;
                     boid.GetComponent<Harmonic>().speed = hc.initialSpeed;
-                    boid.maxSpeed = 0.0f;
                 }
                 
                 Constrain con = boid.GetComponent<Constrain>();
