@@ -5,8 +5,9 @@ namespace BGE.Forms
 {
     public class GameOfLifeTextureGenerator : TextureGenerator
     {
-        public int intervals = 5;
-       
+        public Color backGround = Color.black;
+        public Color foreGround = Color.gray;
+
         public float updatesPerSecond = 30.0f;
 
         [Range(0.01f, 100)]
@@ -15,15 +16,14 @@ namespace BGE.Forms
         Color[,] current;
         Color[,] next;
 
-        float saturation = 0.9f;
-        float brightness = 0.9f;
-
         public bool wrap = false;
 
         public void Clear()
         {
             ClearBoard(current);
         }
+
+
 
         private void ClearBoard(Color[,] board)
         {
@@ -35,15 +35,22 @@ namespace BGE.Forms
                 }
             }
         }
+            
+        public float sat = 1.0f;
+        public float brightness = 1.0f;
+
+        Color RandomStart()
+        {
+            return Color.HSVToRGB(Random.Range(0.0f, 1.0f), sat, brightness);
+        }
 
         private void StartingPattern(Color[,] board)
         {
             generation = 0;
-            ClearBoard(current);
             for (int col = 0; col < size; col++)
             {
-                board[20, col] = Color.HSVToRGB(Random.Range(0, 1), saturation, brightness);
-                board[30, col] = Color.HSVToRGB(Random.Range(0, 1), saturation, brightness);
+                board[20, col] = RandomStart();
+                board[30, col] = RandomStart();
             }
         }
 
@@ -69,7 +76,7 @@ namespace BGE.Forms
             next = new Color[size, size];
             //MakeGosperGun(size / 2, size / 2);
             //MakeTumbler(size / 2, size / 2);        
-            //StartingPattern(current);
+            StartingPattern(current);
             Randomise();
             StartCoroutine("UpdateBoard");
             //StartCoroutine("Spawner");
@@ -113,6 +120,11 @@ namespace BGE.Forms
             return r;
         }
 
+        bool Alive(Color cell)
+        {
+            return !(cell == Color.black);
+        }
+
         int CountNeighboursWrapped(int row, int col)
         {
             int count = 0;
@@ -123,54 +135,47 @@ namespace BGE.Forms
             up = ModNeg(row - 1, size);
             down = ModNeg(row + 1, size);
 
-
-
             // Top left
-            if (current[up, left] > 0)
+            if ((Alive(current[up, left])))
             {
                 count++;
             }
             // Top
-            if (current[up, col] > 0)
+            if (Alive(current[up, col]))
             {
                 count++;
             }
             // Top right
-            if (current[up, right] > 0)
+            if (Alive(current[up, right]))
             {
                 count++;
             }
             // Left
-            if (current[row, left] > 0)
+            if (Alive(current[row, left]))
             {
                 count++;
             }
             // Right
-            if (current[row, right] > 0)
+            if (Alive(current[row, right]))
             {
                 count++;
             }
             // Bottom left
-            if (current[down, left] > 0)
+            if (Alive(current[down, left]))
             {
                 count++;
             }
             // Bottom
-            if (current[down, col] > 0)
+            if (Alive(current[down, col]))
             {
                 count++;
             }
             // Bottom right
-            if (current[down, right] > 0)
+            if (Alive(current[down, right]))
             {
                 count++;
             }
             return count;
-        }
-
-        bool Alive(Color c)
-        {
-            return c != Color.black;
         }
 
         int CountNeighbours(int row, int col)
@@ -188,12 +193,12 @@ namespace BGE.Forms
                 count++;
             }
             // Top right
-            if ((row > 0) && (col < (size - 1)) && Alive(current[row - 1, col + 1]))
+            if ((row > 0) && (col < (size - 1)) && (Alive(current[row - 1, col + 1])))
             {
                 count++;
             }
             // Left
-            if ((col > 0) && Alive(current[row, col - 1]))
+            if ((col > 0) && (Alive(current[row, col - 1])))
             {
                 count++;
             }
@@ -209,7 +214,7 @@ namespace BGE.Forms
                 count++;
             }
             // Bottom
-            if ((row < (size - 1)) && Alive(current[row + 1, col]))
+            if ((row < (size - 1)) && (Alive(current[row + 1, col])))
             {
                 count++;
             }
@@ -231,7 +236,11 @@ namespace BGE.Forms
                     float f = UnityEngine.Random.Range(0.0f, 1.0f);
                     if (f < 0.5f)
                     {
-                        current[row, col] = Color.HSVToRGB(Random.Range(0, 1), saturation, brightness);
+                        current[row, col] = RandomStart();
+                    }
+                    else
+                    {
+                        current[row, col] = Color.black;
                     }
                 }
             }
@@ -249,8 +258,7 @@ namespace BGE.Forms
         }
 
         System.Collections.IEnumerator UpdateBoard()
-        {
-            generation = 1;
+        {        
             while (true)
             {
                 if (texture == null)
@@ -261,9 +269,11 @@ namespace BGE.Forms
                 for (int row = 0; row < size; row++)
                 {
                     for (int col = 0; col < size; col++)
-                    {                    
-                        int count = (wrap) ? CountNeighboursWrapped(row, col) : CountNeighbours(row, col);
-                        if (current[row, col] > 0)
+                    {
+                        //int count = (wrap) ? CountNeighboursWrapped(row, col) : CountNeighbours(row, col);
+                        int count = CountNeighbours(row, col);
+                        //Debug.Log(count);
+                        if (Alive(current[row, col]))
                         {
                             if (count < 2)
                             {
@@ -282,7 +292,7 @@ namespace BGE.Forms
                         {
                             if (count == 3)
                             {
-                                next[row, col] = generation;
+                                next[row, col] = AverageColorAround(current, row, col);
                             }
                         }
                         // next[row, col] = current[row, col];
@@ -294,8 +304,6 @@ namespace BGE.Forms
                 current = next;
                 next = temp;
                 float t = 0.0f;
-                generation++;
-
 
                 /*for (int y = 0; y < size; y++)
             {
@@ -318,16 +326,16 @@ namespace BGE.Forms
                     {
                         for (int x = 0; x < size; x++)
                         {
-                            texture.SetPixel(x, y, Color.Lerp(
-                                texture.GetPixel(x, y)
-                                , current[x, y], t));                        
+                            Color from = (next[y, x] == Color.black) ? backGround : next[y, x];
+                            Color to = (current[y, x] == Color.black) ? backGround : current[y,x];
+                            texture.SetPixel(x, y, Color.Lerp(from, to, t));                        
                         }
                     }
                     t += tDelta;
                     texture.Apply();
                     yield return new WaitForSeconds(delay);
                 }
-
+                generation++;
                 if (generation >= 150)
                 {
                     StartingPattern(current);
@@ -335,11 +343,42 @@ namespace BGE.Forms
             }
         }
 
+        private Color AverageColorAround(Color[,] board, int row, int col)
+        {
+            Color average = Color.black;
+            float count = 0;
+            for (int r = row - 1; r <= row + 1; r++)
+            {
+                for (int c = col - 1; c <= col + 1; c++)
+                {
+                    if (Get(board, r, c) != Color.black)
+                    {
+                        average += Get(board, r, c);
+                        count++;
+                    }
+                } 
+            }
+            return average / count;
+        }
+
+        public Color Get(Color[,] board, int row, int col)
+        {
+            if (row >= 0 && row < size && col >= 0 && col < size)
+            {
+                return board[row, col];
+            }
+            else
+            {
+                return Color.black;
+            }
+        }
+
+        /*
         public void On(int x, int y)
         {
             if ((x >= 0) && (x < size) && (y >= 0) && (y < size))
             {
-                current[y, x] = generation;
+                current[y, x] = true;
             }
         }
 
@@ -347,10 +386,10 @@ namespace BGE.Forms
         {
             if ((x >= 0) && (x < size) && (y >= 0) && (y < size))
             {
-                current[y, x] = 0;
+                current[y, x] = false;
             }
         }
-
+        
         public void MakeGliderRow()
         {
             for (int x = 5; x < size; x += 10)
@@ -467,5 +506,7 @@ namespace BGE.Forms
             On(x + 6, y + 5);
 
         }
+            */
+
     }
 }
