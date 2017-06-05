@@ -128,8 +128,8 @@ namespace BGE.Forms
             GameOfLifeTextureGenerator tg = FindObjectOfType<GameOfLifeTextureGenerator>();
             if (tg != null)
             {
-                tg.backGround = p.backColors[0];
-                tg.foreGround = p.backColors[1];
+                //tg.backGround = p.backColors[0];
+                //tg.foreGround = p.backColors[1];
             }
 
             Camera[] cameras = FindObjectsOfType<Camera>();

@@ -18,7 +18,7 @@ public class Palette
         backColors = new Color[count];
 
         // Algorithm 1, random hue, same sat and value
-        
+        /*
         float s = Utilities.RandomRange(cRandom, 0.9f, 1.0f);
         float b = Utilities.RandomRange(cRandom, 0.0f, 1.0f);
         float h = Utilities.RandomRange(cRandom, 0.0f, 1.0f);
@@ -43,6 +43,23 @@ public class Palette
                 );
             backColors[i] = thisColor.ToColor();
         }
+        */
+
+        float s = 0.8f;
+        float b = 1;
+        float h = 0;
+        float interval = 1.0f / count;
+        for (int i = 0; i < count; i++)
+        {
+            HSBColor thisColor = new HSBColor(
+                (h + (interval * i)) % 1.0f
+                , s
+                , b
+                );
+            creatureColors[i] = thisColor.ToColor();
+        }
+
+
         /*
         float b = 0.9f;
         float h = 0.6f;
