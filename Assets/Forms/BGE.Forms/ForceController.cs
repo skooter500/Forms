@@ -136,7 +136,7 @@ namespace BGE.Forms
             float joyX = Input.GetAxis("Joy X");
             float joyY = Input.GetAxis("Joy Y");
 
-            Yaw(joyX * angularSpeed * Time.deltaTime);
+            //Yaw(joyX * angularSpeed * Time.deltaTime);
             Fly(-joyY * contSpeed * Time.deltaTime);
                     
             float contWalk = Input.GetAxis("Vertical");

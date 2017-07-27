@@ -3,7 +3,9 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+
 Assets/Plugins/
+Assets/GoogleVR/
 SteamVR
 Standard Assets
 Assets/SteamVR.meta
