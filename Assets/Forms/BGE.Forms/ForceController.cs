@@ -138,7 +138,7 @@ namespace BGE.Forms
 
             if (Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
-                Fly(contSpeed * Time.deltaTime);
+                Fly(10 * contSpeed * Time.deltaTime);
             }
             if (Input.GetKeyDown(KeyCode.Joystick1Button2))
             {
