@@ -34,7 +34,13 @@ namespace BGE.Forms
                     }
                     mesh.SetTriangles(triangles, m);
                 }
+                MeshCollider mc = GetComponent<MeshCollider>();
+                if (mc != null)
+                {
+                    mc.sharedMesh = mesh;
+                }
             }
+            
             done = true;
         }
     }
