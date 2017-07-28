@@ -124,7 +124,7 @@ namespace BGE.Forms
 
             if (mouseX != 0)
             {
-                Yaw(mouseX * Time.deltaTime * angularSpeed);
+                //Yaw(mouseX * Time.deltaTime * angularSpeed);
             }
             else if (mouseY != 0)
             {
@@ -133,8 +133,11 @@ namespace BGE.Forms
 
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime);
 
-            //float joyX = Input.GetAxis("Joy X");
-            //float joyY = Input.GetAxis("Joy Y");
+            float joyX = Input.GetAxis("Joy X");
+            float joyY = Input.GetAxis("Joy Y");
+
+            Fly(- joyY * contSpeed *  Time.deltaTime);
+            Yaw(joyX * contSpeed * Time.deltaTime);
 
             if (Input.GetKey(KeyCode.Joystick1Button1))
             {
