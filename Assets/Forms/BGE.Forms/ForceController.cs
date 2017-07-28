@@ -137,7 +137,7 @@ namespace BGE.Forms
             float joyY = Input.GetAxis("Joy Y");
 
             Fly(- joyY * contSpeed *  Time.deltaTime);
-            Yaw(joyX * contSpeed * Time.deltaTime);
+            Yaw(joyX * angularSpeed * Time.deltaTime);
 
             if (Input.GetKey(KeyCode.Joystick1Button1))
             {
