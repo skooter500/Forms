@@ -49,7 +49,14 @@ namespace BGE.Forms
             Boid boid = root.GetComponentInChildren<Boid>();
             if (boid == null)
             {
-                return FindBoidInHierarchy(root.transform.parent.gameObject, startDepth ++);
+                if (root.transform.parent == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return FindBoidInHierarchy(root.transform.parent.gameObject, startDepth++);
+                }
             }
             else
             {
