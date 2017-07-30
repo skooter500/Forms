@@ -10,41 +10,56 @@ namespace BGE.Forms
         public int spawnRate = 5;
         public int maxJellys = 20;
 
-        public float playerRadius = 2000;
+        public float playerRadius = 1000;
 
         public static List<GameObject> alive = new List<GameObject>();
         public static List<GameObject> dead = new List<GameObject>();
 
         public GameObject jellyPrefab;
 
+        public LayerMask environmentLM;
+
         System.Collections.IEnumerator SpawnJellys()
         {
             float delay = 1.0f / (float)spawnRate;
-            WorldGenerator wg = GetComponent<WorldGenerator>();
+            WorldGenerator wg = FindObjectOfType<WorldGenerator>();
             while (true)
             {
+                // Remove too far jellys
+                for (int i = alive.Count -1; i > 0; i --)
+                {
+                    GameObject jelly = alive[i];
+                    Boid boid = Utilities.FindBoidInHierarchy(jelly);
+                    if (Vector3.Distance(boid.position, Camera.main.transform.position) > playerRadius)
+                    {
+                        dead.Add(jelly);
+                        alive.Remove(jelly);
+                    }
+                }
+
                 if (alive.Count < maxJellys)
                 {
                     // Find a spawn point
                     // Calculate the position
                     bool found = false;
                     int count = 0;
+                    Vector3 newPos = Vector3.zero;
                     while (!found)
                     {
                         Vector2 r = Random.insideUnitCircle;
-                        Vector3 newPos = Camera.main.transform.position
+                        newPos = Camera.main.transform.position
                             + new Vector3
                             (r.x * playerRadius
                             , 0
                             , r.y * playerRadius);
-                        newPos.y = wg.SamplePos(newPos.x, newPos.y) + 20;
+                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + 5;
                         float dist = Vector3.Distance(Camera.main.transform.position, newPos);
                         RaycastHit rch;
                         bool hit = Physics.Raycast(Camera.main.transform.position
                             , newPos - Camera.main.transform.position
                             , out rch
                             , dist
-                            , LayerMask.NameToLayer("Environment")
+                            , environmentLM
                             );
 
                         if (hit)
@@ -70,10 +85,17 @@ namespace BGE.Forms
                         }
                         else
                         {
+                            Debug.Log("Creating a new jelly: " + alive.Count + 1);
                             newJelly = GameObject.Instantiate<GameObject>(jellyPrefab);
                         }
+                        newJelly.transform.position = newPos;
+                        Utilities.FindBoidInHierarchy(newJelly).desiredPosition = newPos;
                         alive.Add(newJelly);
-                    }                    
+                    }
+                    else
+                    {
+                        Debug.Log("Couldnt find a place to spawn the jelly");
+                    }
                 }
                 yield return new WaitForSeconds(delay);
             }            
@@ -82,13 +104,13 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
-
+            StartCoroutine(SpawnJellys());
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            CreatureManager.Log("Num jellys: " + alive.Count);
         }
     }
 }
