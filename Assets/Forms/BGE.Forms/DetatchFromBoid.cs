@@ -12,7 +12,8 @@ public class DetatchFromBoid : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) 
+            || Input.GetAxis("Detach1") > 0.5f || Input.GetAxis("Detach2") > 0.5f)
         {
             Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
             
@@ -25,6 +26,8 @@ public class DetatchFromBoid : MonoBehaviour {
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 GetComponent<Rigidbody>().isKinematic = false;
                 GetComponent<ForceController>().enabled = true;
+
+                FindObjectOfType<ViveController>().boid = null;
 
                 Quaternion desired = transform.rotation;
                 Vector3 cv = desired.eulerAngles;

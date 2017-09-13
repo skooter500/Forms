@@ -93,7 +93,7 @@ namespace BGE.Forms
         Quaternion desiredYaw;
 
         // Update is called once per frame
-        void FixedUpdate()
+        void Update()
         {
             float leftTrig = 0.0f;
             float rightTrig = 0.0f;
@@ -102,13 +102,13 @@ namespace BGE.Forms
             {
                 // The trigger button
                 leftTrig = leftController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
-
+                leftEngine.GetComponent<JetFire>().fire = leftTrig;
                 if (leftTrig > 0.2f)
                 {
                     if (boid == null)
                     {
                         rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-                        leftEngine.GetComponent<JetFire>().fire = leftTrig;
+                        
                     }
                     else
                     {
@@ -122,13 +122,13 @@ namespace BGE.Forms
             {
                 // The trigger button
                 rightTrig = rightController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
-
+                rightEngine.GetComponent<JetFire>().fire = rightTrig;
                 if (rightTrig > 0.2f)
                 {
                     if (boid == null)
                     {
                         rigidBody.AddForceAtPosition(rightTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-                        rightEngine.GetComponent<JetFire>().fire = rightTrig;
+                        
                     }
                     else
                     {

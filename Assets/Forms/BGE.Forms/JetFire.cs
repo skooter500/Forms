@@ -15,8 +15,8 @@ namespace BGE.Forms
 	
         // Update is called once per frame
         void Update () {
-            Vector3 newScale = transform.localScale;
-            newScale = Vector3.Lerp(newScale, maxScale * fire, Time.deltaTime * speed * 2);
+            CreatureManager.Log("Fire: " + fire);
+            Vector3 newScale = Vector3.Lerp(transform.localScale, maxScale * fire, Time.deltaTime * speed * 2);
             transform.localScale = newScale;
         }
     }
