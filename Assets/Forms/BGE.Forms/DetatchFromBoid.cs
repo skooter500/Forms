@@ -12,8 +12,11 @@ public class DetatchFromBoid : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) 
+        /*if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) 
             || Input.GetAxis("Detach1") > 0.5f || Input.GetAxis("Detach2") > 0.5f)
+            */
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+            
         {
             Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
             
