@@ -124,7 +124,7 @@ namespace BGE.Forms
 
             if (mouseX != 0)
             {
-                //Yaw(mouseX * Time.deltaTime * angularSpeed);
+                Yaw(mouseX * Time.deltaTime * angularSpeed);
             }
             else if (mouseY != 0)
             {
@@ -138,6 +138,15 @@ namespace BGE.Forms
 
             Fly(- joyY * contSpeed *  Time.deltaTime);
             Yaw(joyX * angularSpeed * Time.deltaTime);
+
+			if (Input.GetKey(KeyCode.E))
+			{
+				Fly(Time.deltaTime * speed);
+			}
+			if (Input.GetKey(KeyCode.F))
+			{
+				Fly(-Time.deltaTime * speed);
+			}
 
             if (Input.GetKey(KeyCode.Joystick1Button1))
             {
