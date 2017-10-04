@@ -1,216 +1,116 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+
 
 namespace BGE.Forms
 {
-    class Baby
-    {
-        public GameObject baby;
-        public Boid boid;
-        public Vector3 key;
-        public float creationTime;
-        
-        public Baby(GameObject t, float ct)
-        {
-            baby = t;
-            boid = null; // Utilities.FindBoidInHierarchy(baby);
-            key = t.transform.position;
-            creationTime = ct;
-        }
-    }
-    public class Mother : MonoBehaviour
-    {
-        public int gridWidth = 4;
-        public float density = 0.2f;
-        public float playerMaxDistance = 20000;
+	public class Mother : MonoBehaviour
+	{
+		public int spawnRate = 5;
+		public int maxcreatures = 20;
 
-        public GameObject[] prefabs;
-        public GameObject player;
-        private WorldGenerator wg;
-        // Use this for 
+		public float playerRadius = 1000;
 
-        private Dictionary<Vector3, Baby> wakingBabies = new Dictionary<Vector3, Baby>();
-        private Dictionary<Vector3, Baby> sleepingBabies = new Dictionary<Vector3, Baby>();
+		public static List<GameObject> alive = new List<GameObject>();
+		public static List<GameObject> dead = new List<GameObject>();
 
-        Vector3 startPos;
+		public GameObject prefab;
 
-        
+		public LayerMask environmentLM;
 
-        void Awake()
-        {
-            if (!isActiveAndEnabled)
-            {
-                return;
-            }
-            player = GameObject.FindWithTag("Player");
-            wg = FindObjectOfType<WorldGenerator>();
+		System.Collections.IEnumerator Spawn()
+		{
+			float delay = 1.0f / (float)spawnRate;
+			WorldGenerator wg = FindObjectOfType<WorldGenerator>();
+			while (true)
+			{
+				// Remove too far creatures
+				for (int i = alive.Count -1; i > 0; i --)
+				{
+					GameObject creature = alive[i];
+					Boid boid = Utilities.FindBoidInHierarchy(creature);
+					if (Vector3.Distance(boid.position, Camera.main.transform.position) > playerRadius)
+					{
+						dead.Add(creature);
+						alive.Remove(creature);
+					}
+				}
 
-            if (player == null)
-            {
-                Debug.Log("No player!");
-                return;
-            }
-            System.Random r = new System.Random(42);
+				if (alive.Count < maxcreatures)
+				{
+					// Find a spawn point
+					// Calculate the position
+					bool found = false;
+					int count = 0;
+					Vector3 newPos = Vector3.zero;
+					while (!found)
+					{
+						Vector2 r = Random.insideUnitCircle;
+						newPos = Camera.main.transform.position
+							+ new Vector3
+							(r.x * playerRadius
+								, 0
+								, r.y * playerRadius);
+						newPos.y = wg.SamplePos(newPos.x, newPos.z) + 5;
+						float dist = Vector3.Distance(Camera.main.transform.position, newPos);
+						RaycastHit rch;
+						bool hit = Physics.Raycast(Camera.main.transform.position
+							, newPos - Camera.main.transform.position
+							, out rch
+							, dist
+							, environmentLM
+						);
 
-            StartCoroutine(GenerateCreaturesAroundPlayer());
+						if (hit)
+						{
+							found = true;
+							break;
+						}
+						count++;
+						if (count == 10)
+						{
+							found = false;
+							break;
+						}
+					}
+					if (found)
+					{
+						GameObject newcreature = null;
+						if (dead.Count > 0)
+						{
+							newcreature = dead[dead.Count - 1];
+							dead.Remove(newcreature);
+							newcreature.transform.GetChild(0).localPosition = Vector3.zero;
+						}
+						else
+						{
+							Debug.Log("Creating a new creature: " + alive.Count + 1);
+							newcreature = GameObject.Instantiate<GameObject>(prefab);
+						}
+						newcreature.transform.position = newPos;
+						Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
+						alive.Add(newcreature);
+					}
+					else
+					{
+						Debug.Log("Couldnt find a place to spawn the creature");
+					}
+				}
+				yield return new WaitForSeconds(delay);
+			}            
+		}
 
-            /*
-            float cellWidth = playerMaxDistance/gridWidth;
-            float c = playerMaxDistance/2.0f;
-            int dice = (int)Utilities.RandomRange(r, 0, prefabs.Length);
-            for (int row = 0; row < gridWidth; row++)
-            {
-                for (int col = 0; col < gridWidth; col++)
-                {
-                    if (r.NextDouble() > density)
-                    {
-                        break;
-                    }
-                    
-                    Vector3 spawnPos = new Vector3();
-                    spawnPos.x = -c + player.transform.position.x + (col*cellWidth);
-                    spawnPos.z = -c + player.transform.position.z + (row*cellWidth);
+		// Use this for initialization
+		void Start()
+		{
+			StartCoroutine(Spawn());
+		}
 
-                    if (Vector3.Distance(player.transform.position
-                            , spawnPos) > playerMaxDistance)
-                    {
-                        break;
-                    }
-
-                    Vector3 cell = spawnPos/wg.cellSize;
-                    if (wg != null)
-                    {
-                        spawnPos.y = Utilities.RandomRange(r, 200, 1000) + wg.Sample(cell.x, cell.z);
-                    }
-                    
-                    GameObject go = GameObject.Instantiate(prefabs[dice % prefabs.Length]);
-                    go.transform.position = spawnPos;
-                    wakingBabies[dice] = go;
-                    go.transform.parent = this.transform;
-                    dice++;
-                }
-            }
-            */
-        }
-
-        void Start () {
-	        
-        }
-
-
-
-        private System.Collections.IEnumerator GenerateCreaturesAroundPlayer()
-        {
-            yield return null;
-
-            // Make sure this happens at once at the start
-            int xMove = int.MaxValue;
-            int zMove = int.MaxValue;
-
-            float tileSize = playerMaxDistance / gridWidth;
-
-            while (true)
-            {
-                if (Mathf.Abs(xMove) >= tileSize || Mathf.Abs(zMove) >= tileSize)
-                {
-                    float updateTime = Time.realtimeSinceStartup;
-
-                    //force integer position and round to nearest tilesize
-                    int playerX = (int)(Mathf.Floor((player.transform.position.x) / (tileSize)) * tileSize);
-                    int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (tileSize)) * tileSize);
-                    List<Vector3> newBabies = new List<Vector3>();
-                    int halfGridWidth = gridWidth / 2;
-                    for (int col = - halfGridWidth; col <= halfGridWidth; col ++)
-                    {
-                        for (int row = -halfGridWidth; row <= halfGridWidth; row ++)
-                        {
-                            Vector3 pos = new Vector3((col * tileSize + playerX),
-                                0,
-                                (row * tileSize + playerZ));
-                            //string tilename = "Tile_" + ((int)(pos.x)).ToString() + "_" + ((int)(pos.z)).ToString();
-                            if (!wakingBabies.ContainsKey(pos))
-                            {
-                                newBabies.Add(pos);
-                            }
-                            else
-                            {
-                                wakingBabies[pos].creationTime = updateTime;
-                            }
-                        }
-                    }
-                    // Sort in order of distance from the player
-                    newBabies.Sort((a, b) => (int)Vector3.SqrMagnitude(player.transform.position - a) - (int)Vector3.SqrMagnitude(player.transform.position - b));
-                    foreach (Vector3 pos in newBabies)
-                    {
-                        GameObject t = MakeABaby(pos);
-                        //string tilename = "Tile_" + ((int)(pos.x)).ToString() + "_" + ((int)(pos.z)).ToString();
-                        //t.name = tilename;
-                        Baby baby = new Baby(t, updateTime);
-                        wakingBabies[pos] = baby;
-                        yield return WaitFor.Frames(Random.Range(1, 3));
-                    }
-
-                    //destroy all tiles not just created or with time updated
-                    //and put new tiles and tiles to be kepts in a new hashtable
-                    Dictionary<Vector3, Baby> newWakingBabies = new Dictionary<Vector3, Baby>();
-                    foreach (Baby baby in wakingBabies.Values)
-                    {
-                        if (baby.creationTime != updateTime)
-                        {
-                            Debug.Log("Deleting baby: " + baby.key);
-                            Destroy(baby.baby);
-                            yield return WaitFor.Frames(Random.Range(1, 3));
-                        }
-                        else
-                        {
-                            newWakingBabies[baby.key] = baby;
-                        }
-                    }
-                    //copy new hashtable contents to the working hashtable
-                    wakingBabies = newWakingBabies;
-                    startPos = player.transform.position;
-                }
-                yield return null;
-                //determine how far the player has moved since last terrain update
-                xMove = (int)(player.transform.position.x - startPos.x);
-                zMove = (int)(player.transform.position.z - startPos.z);
-            }
-        }
-
-        int dice = 0;
-
-        int Hash(Vector3 pos)
-        {
-            float f = pos.x + pos.y + pos.z;
-            Debug.Log(pos);
-            Debug.Log(f);
-            return (int) f; 
-        }
-
-        private GameObject MakeABaby(Vector3 pos)
-        {
-            // This should always generate the same creature at the same point
-
-            //int dice = (int) Utilities.Map(Mathf.PerlinNoise(pos.x, pos.z), 0, 1, 0, prefabs.Length);
-            //int dice = 12;
-            int dice = Random.Range(0, prefabs.Length);
-            Debug.Log(dice);
-            GameObject go = GameObject.Instantiate(prefabs[dice]);
-
-            if (wg != null)
-            {
-                pos.y = Utilities.RandomRange(200, 1000) + wg.SamplePos(pos.x, pos.z);
-            }
-
-            go.transform.position = pos;
-            go.transform.parent = this.transform;
-            dice++;
-            return go;
-        }
-
-        // Update is called once per frame
-        void Update () {
-	        
-        }
-    }
+		// Update is called once per frame
+		void Update()
+		{
+			CreatureManager.Log("Num creatures: " + alive.Count);
+		}
+	}
 }
