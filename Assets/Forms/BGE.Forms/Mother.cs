@@ -78,13 +78,11 @@ namespace BGE.Forms
 					Vector3 newPos = Vector3.zero;
 					while (!found)
 					{
-						Vector2 r = Random.insideUnitCircle;
-
-						newPos = Camera.main.transform.position
-							+ new Vector3
-							(r.x * playerRadius
-								, 0
-								, r.y * playerRadius);
+						Vector3 r = Random.insideUnitSphere;
+                        r.z = Mathf.Abs(r.z);
+                        r.y = 0;
+                        r *= playerRadius;
+                        newPos = Camera.main.transform.TransformPoint(r);
 						newPos.y = wg.SamplePos(newPos.x, newPos.z) + spaceRequired[nextCreature];						
 						bool clear = TestPos(newPos, spaceRequired[nextCreature]);
 						if (clear)
