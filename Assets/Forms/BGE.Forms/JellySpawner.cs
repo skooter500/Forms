@@ -87,6 +87,7 @@ namespace BGE.Forms
                         {
                             Debug.Log("Creating a new jelly: " + alive.Count + 1);
                             newJelly = GameObject.Instantiate<GameObject>(jellyPrefab);
+							newJelly.transform.parent = this.transform.parent;
                         }
                         newJelly.transform.position = newPos;
                         Utilities.FindBoidInHierarchy(newJelly).desiredPosition = newPos;

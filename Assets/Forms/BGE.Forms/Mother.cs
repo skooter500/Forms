@@ -16,10 +16,11 @@ namespace BGE.Forms
 		public static List<GameObject> dead = new List<GameObject>();
 
 		public GameObject[] prefabs;
+		public float[] spaceRequired;
 
 		public LayerMask environmentLM;
 
-        private bool TestPos(Vector3 newPos)
+        private bool TestPos(Vector3 newPos, float spaceRequired)
         {
             // Testing visibility to the player
             float dist = Vector3.Distance(Camera.main.transform.position, newPos);
@@ -37,7 +38,7 @@ namespace BGE.Forms
             }
 
             // Testing enough space
-            hit = Physics.SphereCast(newPos, 2000, Vector3.up, out rch, 2000, environmentLM);
+			hit = Physics.SphereCast(newPos, spaceRequired, Vector3.up, out rch, spaceRequired, environmentLM);
             if (hit)
             {
                 return false;
@@ -84,8 +85,8 @@ namespace BGE.Forms
 							(r.x * playerRadius
 								, 0
 								, r.y * playerRadius);
-						newPos.y = wg.SamplePos(newPos.x, newPos.z) + 1000;						
-                        bool clear = TestPos(newPos);
+						newPos.y = wg.SamplePos(newPos.x, newPos.z) + spaceRequired[nextCreature];						
+						bool clear = TestPos(newPos, spaceRequired[nextCreature]);
 						if (clear)
 						{
 							found = true;
@@ -111,8 +112,8 @@ namespace BGE.Forms
                         */
 						{
 							Debug.Log("Creating a new creature: " + alive.Count + 1);
-							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature]);
-                            nextCreature = (nextCreature + 1) % prefabs.Length;
+							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature]);  
+							newcreature.transform.parent = this.transform.parent;
 						}
 						newcreature.transform.position = newPos;
 						//Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
@@ -122,6 +123,7 @@ namespace BGE.Forms
 					{
 						Debug.Log("Couldnt find a place to spawn the creature");
 					}
+					nextCreature = (nextCreature + 1) % prefabs.Length;
 				}
 				yield return new WaitForSeconds(delay);
 			}            
