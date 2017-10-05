@@ -28,7 +28,7 @@ namespace BGE.Forms
             spread = 1.0f;
         }
 
-        void Awake()
+        void Start()
         {
             if (!isActiveAndEnabled)
             {
