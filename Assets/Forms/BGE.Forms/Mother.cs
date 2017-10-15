@@ -117,7 +117,7 @@ namespace BGE.Forms
 						else
                         */
 						{
-							Debug.Log("Creating a new creature: " + alive.Count + 1);
+							//Debug.Log("Creating a new creature: " + alive.Count + 1);
 							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));  
 							newcreature.transform.parent = this.transform.parent;
 						}
@@ -126,7 +126,7 @@ namespace BGE.Forms
 					}
 					else
 					{
-						Debug.Log("Couldnt find a place to spawn the creature");
+						//Debug.Log("Couldnt find a place to spawn the creature");
 					}
 					nextCreature = (nextCreature + 1) % prefabs.Length;
 				}

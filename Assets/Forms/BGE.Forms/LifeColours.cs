@@ -30,6 +30,11 @@ namespace BGE.Forms
             {
                 foreach (Renderer child in children)
                 {
+                    if (child.material.color.a != 1.0f)
+                    {
+                        continue;
+                    }
+
                     RaycastHit hit;
                     if (Physics.Raycast(child.transform.position, -Vector3.up, out hit))
                     {

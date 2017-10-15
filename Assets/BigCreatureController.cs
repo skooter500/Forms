@@ -29,23 +29,25 @@ class FindTarget : State
     Boid boid;
     public override void Enter()
     {
-        Vector3 pos = Random.insideUnitCircle * 500;
+        Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 5000);
         WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
         pos.y = wg.SamplePos(pos.x, pos.z);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
         seek.Activate(true);
+        boid.GetComponent<NoiseWander>().Activate(false);
         boid.GetComponent<Seek>().target = pos;
     }
 
     public override void Exit()
     {
+        boid.GetComponent<NoiseWander>().Activate(true);
         seek.Activate(false);
     }
 
     public override void Think()
     {
-        if (Vector3.Distance(seek.target, boid.transform.position) < 200)
+        if (Vector3.Distance(seek.target, boid.position) < 1000)
         {
             owner.ChangeState(new IdleState());
         }
@@ -56,7 +58,7 @@ public class BigCreatureController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        GetComponent<StateMachine>().ChangeState(new FindTarget());
 	}
 	
 	// Update is called once per frame

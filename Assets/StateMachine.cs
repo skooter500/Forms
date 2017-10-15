@@ -27,7 +27,11 @@ public class StateMachine : MonoBehaviour {
 
     public void ChangeState(State newState)
     {
-        currentState.Exit();
+        Debug.Log("Changing state to: " + newState.GetType().Name);
+        if (currentState != null)
+        {
+            currentState.Exit();
+        }
         currentState = newState;
         currentState.owner = this;
         currentState.Enter();
