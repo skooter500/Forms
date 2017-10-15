@@ -12,8 +12,8 @@ namespace BGE.Forms
 
 		public float playerRadius = 1000;
 
-		public static List<GameObject> alive = new List<GameObject>();
-		public static List<GameObject> dead = new List<GameObject>();
+		public List<GameObject> alive = new List<GameObject>();
+		public List<GameObject> dead = new List<GameObject>();
 
 		public GameObject[] prefabs;
 
@@ -56,11 +56,13 @@ namespace BGE.Forms
 			while (true)
 			{
 				// Remove too far creatures
-				for (int i = alive.Count -1; i > 0; i --)
+				for (int i = alive.Count -1; i >= 0; i --)
 				{
 					GameObject creature = alive[i];
-					//Boid boid = Utilities.FindBoidInHierarchy(creature);
-					if (Vector3.Distance(creature.transform.position, Camera.main.transform.position) > playerRadius)
+                    //Boid boid = Utilities.FindBoidInHierarchy(creature);
+                    float dist = Vector3.Distance(creature.transform.position, Camera.main.transform.position);
+                    //Debug.Log(i + "\t" + dist);
+                    if (dist > playerRadius)
 					{
                         GameObject.Destroy(creature);
                         // dead.Add(creature);
@@ -81,8 +83,9 @@ namespace BGE.Forms
                         SpawnParameters sp = prefabs[nextCreature].GetComponent<SpawnParameters>();
                         Vector3 r = Random.insideUnitSphere;
                         r.z = Mathf.Abs(r.z);
+                        r.y = 0;
                         r *= sp.end - sp.start;
-                        r += r.normalized * sp.start;
+                        r += (r.normalized * sp.start);
                        
                         newPos = Camera.main.transform.TransformPoint(r);
 						newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(sp.minHeight, sp.maxHeight);

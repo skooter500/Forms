@@ -26,7 +26,7 @@ namespace BGE.Forms
             while (true)
             {
                 // Remove too far jellys
-                for (int i = alive.Count -1; i > 0; i --)
+                for (int i = alive.Count -1; i >= 0; i --)
                 {
                     GameObject jelly = alive[i];
                     Boid boid = Utilities.FindBoidInHierarchy(jelly);
@@ -85,7 +85,6 @@ namespace BGE.Forms
                         }
                         else
                         {
-                            Debug.Log("Creating a new jelly: " + alive.Count + 1);
                             newJelly = GameObject.Instantiate<GameObject>(jellyPrefab);
 							newJelly.transform.parent = this.transform.parent;
                         }
@@ -95,7 +94,7 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        Debug.Log("Couldnt find a place to spawn the jelly");
+                        //Debug.Log("Couldnt find a place to spawn the jelly");
                     }
                 }
                 yield return new WaitForSeconds(delay);
