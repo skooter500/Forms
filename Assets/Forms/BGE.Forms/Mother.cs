@@ -16,7 +16,6 @@ namespace BGE.Forms
 		public static List<GameObject> dead = new List<GameObject>();
 
 		public GameObject[] prefabs;
-		public float[] spaceRequired;
 
 		public LayerMask environmentLM;
 
@@ -64,7 +63,8 @@ namespace BGE.Forms
 					if (Vector3.Distance(creature.transform.position, Camera.main.transform.position) > playerRadius)
 					{
                         GameObject.Destroy(creature);
-						// dead.Add(creature);
+                        // dead.Add(creature);
+                        Debug.Log("Deleting a creature");
 						alive.Remove(creature);
 					}
 				}
@@ -78,13 +78,17 @@ namespace BGE.Forms
 					Vector3 newPos = Vector3.zero;
 					while (!found)
 					{
-						Vector3 r = Random.insideUnitSphere;
+                        SpawnParameters sp = prefabs[nextCreature].GetComponent<SpawnParameters>();
+                        Vector3 r = Random.insideUnitSphere;
                         r.z = Mathf.Abs(r.z);
-                        r.y = 0;
-                        r *= playerRadius;
+                        r *= sp.end - sp.start;
+                        r += r.normalized * sp.start;
+                       
                         newPos = Camera.main.transform.TransformPoint(r);
-						newPos.y = wg.SamplePos(newPos.x, newPos.z) + spaceRequired[nextCreature];						
-						bool clear = TestPos(newPos, spaceRequired[nextCreature]);
+						newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(sp.minHeight, sp.maxHeight);
+                        found = true;
+                        /*
+                        bool clear = TestPos(newPos, spaceRequired[nextCreature]);
 						if (clear)
 						{
 							found = true;
@@ -96,6 +100,7 @@ namespace BGE.Forms
 							found = false;
 							break;
 						}
+                        */
 					}
 					if (found)
 					{
@@ -110,10 +115,9 @@ namespace BGE.Forms
                         */
 						{
 							Debug.Log("Creating a new creature: " + alive.Count + 1);
-							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature]);  
+							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));  
 							newcreature.transform.parent = this.transform.parent;
 						}
-						newcreature.transform.position = newPos;
 						//Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
 						alive.Add(newcreature);
 					}

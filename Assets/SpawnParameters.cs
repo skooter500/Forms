@@ -5,8 +5,11 @@ using UnityEngine;
 public class SpawnParameters : MonoBehaviour {
     public float start = 3000;
     public float end = 5000;
-	// Use this for initialization
-	void Start () {
+    public float minHeight = 500;
+    public float maxHeight = 2000;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
