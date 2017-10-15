@@ -79,32 +79,25 @@ namespace BGE.Forms
             StartingPattern(current);
             Randomise();
             StartCoroutine("UpdateBoard");
-            //StartCoroutine("Spawner");
+            StartCoroutine("Spawner");
         }
 
         IEnumerator Spawner()
         {
             while (true)
             {
-                /*int i = Random.Range(0, 6);
-            int x = Random.Range(5, size - 5);
-            switch (i)
-            {
-                case 0:
-                    
-                    //MakeGlider(x, 5);
-                    break;
-                //case 1:
-                //    MakeLightWeightSpaceShip(x, 5);
-                //    break;
-                //case 2:
-                //    break;
-                case 5:
-                    //ClearBoard(current);
-                    break;
-            }
-            */
                 yield return new WaitForSeconds(Random.Range(10.0f, 30.0f));
+                int i = Random.Range(0, 2);
+                switch (i)
+                {
+                    case 0:
+                            Randomise();
+                            break;
+                    case 1:
+                            StartingPattern(current);
+                            break;
+                }
+                
             }
         }
 
