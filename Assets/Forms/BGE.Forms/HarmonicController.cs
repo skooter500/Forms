@@ -50,9 +50,9 @@ namespace BGE.Forms
                 harmonic.amplitude = Random.Range(initialAmplitude - (initialAmplitude * amplitudeVariation), initialAmplitude + (initialAmplitude * amplitudeVariation));
                 harmonic.speed = Random.Range(initialSpeed - (initialSpeed * speedVariation), initialSpeed + (initialSpeed * speedVariation));
 
-                float variationThisTime = harmonic.speed / initialSpeed;
+                //float variationThisTime = harmonic.speed / initialSpeed;
 
-                boid.maxSpeed = initialBoidSpeed * variationThisTime;
+                //boid.maxSpeed = initialBoidSpeed * variationThisTime;
                 yield return new WaitForSeconds(Random.Range(3, 7));
                 if (glide)
                 {

@@ -15,7 +15,8 @@ public class DetatchFromBoid : MonoBehaviour {
         /*if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) 
             || Input.GetAxis("Detach1") > 0.5f || Input.GetAxis("Detach2") > 0.5f)
             */
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+        CreatureManager.Log("" + Input.GetKeyDown(KeyCode.JoystickButton0));
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
             
         {
             Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
@@ -23,6 +24,7 @@ public class DetatchFromBoid : MonoBehaviour {
             if (boid != null)
             {
                 GetComponent<ForceController>().moveEnabled = true;
+                GetComponent<ForceController>().joyYControllsPitch = false;
                 boid.GetComponent<Harmonic>().Activate(true);
                 boid.GetComponent<NoiseWander>().Activate(true);
                 boid.GetComponent<PlayerSteering>().Activate(false);

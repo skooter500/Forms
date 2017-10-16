@@ -501,5 +501,14 @@ namespace BGE.Forms
         }
             */
 
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.JoystickButton1))
+            {
+                Randomise();
+            }
+        }
+
+
     }
 }

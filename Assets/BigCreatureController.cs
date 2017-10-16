@@ -26,22 +26,34 @@ class FindTarget : State
 {
     float close = 500;
     Seek seek;
+    NoiseWander nw;
     Boid boid;
     public override void Enter()
     {
         Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 5000);
         WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
-        pos.y = wg.SamplePos(pos.x, pos.z);
+        //SpawnParameters sp = owner.GetComponent<SpawnParameters>();
+        pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(800, 3000);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
         seek.Activate(true);
-        boid.GetComponent<NoiseWander>().Activate(false);
+        nw = boid.GetComponent<NoiseWander>();
+        if (nw != null)
+        {
+            nw.Activate(false);
+        }
+        boid.GetComponent<Constrain>().Activate(false);
         boid.GetComponent<Seek>().target = pos;
     }
 
     public override void Exit()
     {
-        boid.GetComponent<NoiseWander>().Activate(true);
+        if (nw != null)
+        {
+            nw.Activate(true);
+        }
+        boid.GetComponent<Constrain>().Activate(true);
+        boid.GetComponent<Constrain>().centre = boid.position;
         seek.Activate(false);
     }
 

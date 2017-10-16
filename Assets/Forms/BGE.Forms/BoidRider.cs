@@ -27,6 +27,8 @@ namespace BGE.Forms
             {
                 other.transform.parent = this.transform.parent;
                 other.GetComponent<ForceController>().moveEnabled = false;
+                other.GetComponent<ForceController>().joyYControllsPitch = true;
+
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);

@@ -16,6 +16,9 @@ namespace BGE.Forms
         [HideInInspector]
         public bool rotating = false;
 
+        [HideInInspector]
+        public bool joyYControllsPitch = false;
+
         public ForceController()
         {
             vrMode = true;
@@ -38,6 +41,7 @@ namespace BGE.Forms
             //rigidBody.AddTorque(Vector3.up * angle * 150);
             Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
             desiredRotation = rot * desiredRotation;
+            rotating = true;
             //transform.rotation = rot * transform.rotation;
         }
 
@@ -64,7 +68,7 @@ namespace BGE.Forms
         
             Quaternion rot = Quaternion.AngleAxis(angle, transform.right);
             desiredRotation = rot * desiredRotation;
-
+            rotating = true;
         
             //Quaternion rot = Quaternion.AngleAxis(angle, transform.right);
             //transform.rotation = rot * transform.rotation;
@@ -136,9 +140,21 @@ namespace BGE.Forms
             float joyX = Input.GetAxis("Joy X");
             float joyY = Input.GetAxis("Joy Y");
 
-            Fly(- joyY * contSpeed *  Time.deltaTime);
-            Yaw(joyX * angularSpeed * Time.deltaTime);
-
+            if (Mathf.Abs(joyY) > 0)
+            {
+                if (joyYControllsPitch)
+                {
+                    Pitch(-joyY * angularSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    Fly(-joyY * contSpeed * Time.deltaTime);
+                }
+            }
+            if (Mathf.Abs(joyX) > 0)
+            {
+                Yaw(joyX * angularSpeed * Time.deltaTime);
+            }
 			if (Input.GetKey(KeyCode.E))
 			{
 				Fly(Time.deltaTime * speed);

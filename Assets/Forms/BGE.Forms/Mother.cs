@@ -59,7 +59,7 @@ namespace BGE.Forms
 				for (int i = alive.Count -1; i >= 0; i --)
 				{
 					GameObject creature = alive[i];
-                    //Boid boid = Utilities.FindBoidInHierarchy(creature);
+                    Boid boid = Utilities.FindBoidInHierarchy(creature);
                     float dist = Vector3.Distance(creature.transform.position, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
