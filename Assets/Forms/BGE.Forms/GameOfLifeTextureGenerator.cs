@@ -87,12 +87,9 @@ namespace BGE.Forms
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(10.0f, 30.0f));
-                int i = Random.Range(0, 2);
+                int i = Random.Range(0, 1);
                 switch (i)
                 {
-                    case 0:
-                            Randomise();
-                            break;
                     case 1:
                             StartingPattern(current);
                             break;
