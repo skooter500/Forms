@@ -39,7 +39,7 @@ namespace BGE.Forms
         public float sat = 1.0f;
         public float brightness = 1.0f;
 
-        Color RandomStart()
+        public Color RandomColor()
         {
             return Color.HSVToRGB(Random.Range(0.0f, 1.0f), sat, brightness);
         }
@@ -49,8 +49,8 @@ namespace BGE.Forms
             generation = 0;
             for (int col = 0; col < size; col++)
             {
-                board[20, col] = RandomStart();
-                board[30, col] = RandomStart();
+                board[20, col] = RandomColor();
+                board[30, col] = RandomColor();
             }
         }
 
@@ -226,7 +226,7 @@ namespace BGE.Forms
                     float f = UnityEngine.Random.Range(0.0f, 1.0f);
                     if (f < 0.5f)
                     {
-                        current[row, col] = RandomStart();
+                        current[row, col] = RandomColor();
                     }
                     else
                     {
