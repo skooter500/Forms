@@ -67,25 +67,37 @@ namespace BGE.Forms
                     Color c; = colorGrid[row, col];
                     */
 
+
+                    int col = ((int)(Mathf.Abs(child.transform.position.x / colorMapScaling))) % size;
+                    int row = ((int)(Mathf.Abs(child.transform.position.z / colorMapScaling))) % size;
+
+                    Color c = colorGrid[row, col];
+                    child.material.color = Color.Lerp(child.material.color, c, 0.01f);
+
+                    /*
                     RaycastHit hit;
                     if (Physics.Raycast(child.transform.position, -Vector3.up, out hit))
                     {
 
-                        Color c = lifeTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y);
-
+                        Color c = Color.black;
                         int col = ((int)(Mathf.Abs(child.transform.position.x / 200))) % size;
                         int row = ((int)(Mathf.Abs(child.transform.position.z / 200))) % size;
 
 
+                        //c = lifeTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y);
                         if (c == textureGenerator.backGround)
                         {
                             c = colorGrid[row, col];
+                            child.material.color = Color.Lerp(child.material.color, c, 0.01f);
                         }
                         else
                         {
+                            c =  lifeTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y);
+                            child.material.color = Color.Lerp(child.material.color, c, 0.1f);
+
                         }
-                        child.material.color = Color.Lerp(child.material.color, c, 0.01f);
-                    }                    
+                    }     
+                    */               
                     //yield return WaitFor.Frames(1);
                 }
                 yield return new WaitForSeconds(1.0f / updatesPerSecond);
