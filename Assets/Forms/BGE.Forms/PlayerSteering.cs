@@ -20,7 +20,7 @@ public class PlayerSteering : SteeringBehaviour {
     public void Start()
     {
         viveController = FindObjectOfType<ViveController>();
-        viveControllers = UnityEngine.VR.VRDevice.isPresent;
+        viveControllers = UnityEngine.XR.XRDevice.isPresent;
     }
 
     public override void Update()

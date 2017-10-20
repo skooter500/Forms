@@ -9,7 +9,7 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
-            viveControllers = UnityEngine.VR.VRDevice.isPresent;
+            viveControllers = UnityEngine.XR.XRDevice.isPresent;
         }
 
         // Update is called once per frame
