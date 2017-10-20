@@ -38,10 +38,10 @@ namespace BGE.Forms
             int boidCount = Random.Range(minBoidCount, maxBoidCount);
             for (int i = 0; i < boidCount; i++)
             {
-                GameObject fish = GameObject.Instantiate<GameObject>(prefab);
                 Vector3 unit = UnityEngine.Random.insideUnitSphere;
+                Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * spread);
+                GameObject fish = GameObject.Instantiate<GameObject>(prefab, unit, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
 
-                Vector3 pos = transform.position + unit*UnityEngine.Random.Range(0, radius*spread);
                 if (wg != null)
                 {
                     float groundHeight = wg.SamplePos(pos.x, pos.z);

@@ -36,7 +36,7 @@ class CrossPlayer : State
         Vector3 reflectedOffset = - Vector3.Reflect(offset, player.transform.forward);
         Vector3 pos = player.transform.position + reflectedOffset;
 
-        pos.y = WorldGenerator.Instance.SamplePos(pos.x, pos.z) + Random.Range(800, 3000);
+        pos.y = WorldGenerator.Instance.SamplePos(pos.x, pos.z) + Random.Range(1000, 3000);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
         seek.Activate(true);
@@ -62,10 +62,12 @@ class MoveCloseToPlayer : State
         Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 5000);
         WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
         //SpawnParameters sp = owner.GetComponent<SpawnParameters>();
-        pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(800, 3000);
+        pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(1000, 3000);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
         seek.Activate(true);
+        
+        boid.GetComponent<Seek>().target = pos;
         nw = boid.GetComponent<NoiseWander>();
         if (nw != null)
         {
