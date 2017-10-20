@@ -21,8 +21,37 @@ class IdleState : State
     }
 }
 
+class CrossPlayer : State
+{
+    float close = 500;
+    Seek seek;
+    NoiseWander nw;
+    Boid boid;
 
-class FindTarget : State
+    public override void Enter()
+    {
+        Camera player = Camera.main;
+        // Reflect the point in the players forward vector
+        Vector3 offset = owner.transform.position - player.transform.position;
+        Vector3 reflectedOffset = - Vector3.Reflect(offset, player.transform.forward);
+        Vector3 pos = player.transform.position + reflectedOffset;
+
+        pos.y = WorldGenerator.Instance.SamplePos(pos.x, pos.z) + Random.Range(800, 3000);
+        boid = Utilities.FindBoidInHierarchy(owner.gameObject);
+        seek = boid.GetComponent<Seek>();
+        seek.Activate(true);
+        nw = boid.GetComponent<NoiseWander>();
+        if (nw != null)
+        {
+            nw.Activate(false);
+        }
+        boid.GetComponent<Constrain>().Activate(false);
+        boid.GetComponent<Seek>().target = pos;
+    }
+}
+
+
+class MoveCloseToPlayer : State
 {
     float close = 500;
     Seek seek;
@@ -61,7 +90,7 @@ class FindTarget : State
     {
         if (Vector3.Distance(seek.target, boid.position) < 1000)
         {
-            owner.ChangeState(new IdleState());
+            owner.ChangeState(new CrossPlayer());
         }
     }
 }
@@ -70,7 +99,7 @@ public class BigCreatureController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GetComponent<StateMachine>().ChangeState(new FindTarget());
+        GetComponent<StateMachine>().ChangeState(new MoveCloseToPlayer());
 	}
 	
 	// Update is called once per frame

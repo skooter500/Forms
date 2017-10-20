@@ -5,9 +5,9 @@ using UnityEngine;
 public abstract class State
 {
     public StateMachine owner;
-    public abstract void Enter();
-    public abstract void Exit();
-    public abstract void Think();
+    public virtual void Enter() {}
+    public virtual void Exit() { }
+    public virtual void Think() { }
 }
 
 public class StateMachine : MonoBehaviour {

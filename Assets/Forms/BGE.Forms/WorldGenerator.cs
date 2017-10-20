@@ -43,7 +43,10 @@ namespace BGE.Forms
     }
 
     public class WorldGenerator : MonoBehaviour {
-        public GameObject player;
+
+        public static WorldGenerator Instance;
+        
+            public GameObject player;
 
         public int cellsPerTile = 10;
         public int halfTile = 5;
@@ -103,12 +106,15 @@ namespace BGE.Forms
 
         void Awake()
         {
+            Instance = this;
             samplers = GetSamplers();
             if (samplers == null)
             {
                 Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
             }
-            Random.seed = 42;
+
+            Random.seed = (int)System.DateTime.Now.Ticks;
+            //Random.seed = 42;
         }
 
 

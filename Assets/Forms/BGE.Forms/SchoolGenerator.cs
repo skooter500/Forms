@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,8 @@ namespace BGE.Forms
 {
     public class SchoolGenerator : School
     {
-        public int boidCount;
+        public int minBoidCount = 50;
+        public int maxBoidCount = 100;
         public GameObject prefab;
 
         public bool spawnInTopHemisphere;
@@ -21,12 +21,6 @@ namespace BGE.Forms
         [Range(0, 1)]
         public float speedVariation = 0.1f;
 
-        SchoolGenerator()
-        {
-            boidCount = 200;
-
-            spread = 1.0f;
-        }
 
         void Start()
         {
@@ -41,6 +35,7 @@ namespace BGE.Forms
 
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
 
+            int boidCount = Random.Range(minBoidCount, maxBoidCount);
             for (int i = 0; i < boidCount; i++)
             {
                 GameObject fish = GameObject.Instantiate<GameObject>(prefab);

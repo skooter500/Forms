@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace BGE.Forms
 {
     public class FormationGenerator : School {
-        public int sideWidth = 10;
+        public int minSideWith = 10;
+        public int maxSideWith = 10;
         public float gap = 50;
 
         [Range(0.0f, 1.0f)]
@@ -45,6 +46,7 @@ namespace BGE.Forms
         void GeneratePositions()
         {
             positions.Clear();
+            int sideWidth = Random.Range(minSideWith, maxSideWith + 1);
             GenerateCreaturePosition(transform.position, transform.position, 0, sideWidth);
         }
 

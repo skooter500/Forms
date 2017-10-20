@@ -23,18 +23,7 @@ namespace BGE.Forms
             ClearBoard(current);
         }
 
-
-
-        private void ClearBoard(Color[,] board)
-        {
-            for (int x = 0; x < size; x++)
-            {
-                for (int y = 0; y < size; y++)
-                {
-                    board[y, x] = Color.black;
-                }
-            }
-        }
+        
             
         public float sat = 1.0f;
         public float brightness = 1.0f;
@@ -44,13 +33,31 @@ namespace BGE.Forms
             return Color.HSVToRGB(Random.Range(0.0f, 1.0f), sat, brightness);
         }
 
+        public void ClearBoard(Color[,] board)
+        {
+            for (int row = 0; row < size; row++)
+            {
+                for (int col = 0; col < size; col++)
+                {
+                    board[row, col] = Color.black;
+                }
+            }
+        }
+
         private void StartingPattern(Color[,] board)
         {
             generation = 0;
+
+            ClearBoard(board);
+
             for (int col = 0; col < size; col++)
             {
-                board[20, col] = RandomColor();
-                board[30, col] = RandomColor();
+                int x1 = (int)(size * 0.2);
+                int x2 = (int)(size * 0.8);
+                board[x1, col] = RandomColor();
+                board[x2, col] = RandomColor();
+                board[col, x1] = RandomColor();
+                board[col, x2] = RandomColor();
             }
         }
 
@@ -77,9 +84,9 @@ namespace BGE.Forms
             //MakeGosperGun(size / 2, size / 2);
             //MakeTumbler(size / 2, size / 2);        
             StartingPattern(current);
-            Randomise();
+            //Randomise();
             StartCoroutine("UpdateBoard");
-            StartCoroutine("Spawner");
+            //StartCoroutine("Spawner");
         }
 
         IEnumerator Spawner()
@@ -108,6 +115,18 @@ namespace BGE.Forms
                 r += mod;
             }
             return r;
+        }
+
+        bool IsAlive(int row, int col)
+        {
+            if (row < 0 || row >= size || col < 0 || col >= size)
+            {
+                return false;
+            }
+            else
+            {
+                return (current[row, col] != Color.black);
+            }
         }
 
         bool Alive(Color cell)
@@ -170,49 +189,17 @@ namespace BGE.Forms
 
         int CountNeighbours(int row, int col)
         {
-            int count = 0;
 
-            // Top left
-            if ((row > 0) && (col > 0) && (Alive(current[row - 1, col - 1])))
+            int count = 0;
+            for (int r = row - 1; r <= row + 1; r++)
             {
-                count++;
-            }
-            // Top
-            if ((row > 0) && Alive(current[row - 1, col]))
-            {
-                count++;
-            }
-            // Top right
-            if ((row > 0) && (col < (size - 1)) && (Alive(current[row - 1, col + 1])))
-            {
-                count++;
-            }
-            // Left
-            if ((col > 0) && (Alive(current[row, col - 1])))
-            {
-                count++;
-            }
-            // Right
-            if ((col < (size - 1)) && Alive(current[row, col + 1]))
-            {
-                count++;
-            }
-            // Bottom left
-            if ((col > 0) && (row < (size - 1))
-                && Alive(current[row + 1, col - 1]))
-            {
-                count++;
-            }
-            // Bottom
-            if ((row < (size - 1)) && (Alive(current[row + 1, col])))
-            {
-                count++;
-            }
-            // Bottom right
-            if ((col < (size - 1)) && (row < (size - 1))
-                && Alive(current[row + 1, col + 1]))
-            {
-                count++;
+                for (int c = col - 1; c <= col + 1; c++)
+                {
+                    if (!(r == row && c == col) && IsAlive(r, c))
+                    {
+                        count++;
+                    }
+                }
             }
             return count;
         }
@@ -248,7 +235,7 @@ namespace BGE.Forms
         }
 
         System.Collections.IEnumerator UpdateBoard()
-        {        
+        {
             while (true)
             {
                 if (texture == null)
@@ -287,7 +274,7 @@ namespace BGE.Forms
                         }
                         // next[row, col] = current[row, col];
                     }
-                
+
                 }
                 Color[,] temp;
                 temp = current;
@@ -311,14 +298,14 @@ namespace BGE.Forms
                 float delay = 1.0f / updatesPerSecond;
                 float tDelta = 1.0f / (updatesPerSecond / speed);
                 while (t <= 1.0f)
-                {                
+                {
                     for (int y = 0; y < size; y++)
                     {
                         for (int x = 0; x < size; x++)
                         {
                             Color from = (next[y, x] == Color.black) ? backGround : next[y, x];
-                            Color to = (current[y, x] == Color.black) ? backGround : current[y,x];
-                            texture.SetPixel(x, y, Color.Lerp(from, to, t));                        
+                            Color to = (current[y, x] == Color.black) ? backGround : current[y, x];
+                            texture.SetPixel(x, y, Color.Lerp(from, to, t));
                         }
                     }
                     t += tDelta;
@@ -332,6 +319,7 @@ namespace BGE.Forms
                 }
             }
         }
+
 
         private Color AverageColorAround(Color[,] board, int row, int col)
         {
