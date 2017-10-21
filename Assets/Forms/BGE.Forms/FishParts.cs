@@ -132,7 +132,7 @@ namespace BGE.Forms
             tailSize = tail.GetComponent<Renderer>().bounds.size;
 
             body.transform.position = transform.position;
-
+            body.transform.rotation = transform.rotation;
             float headOffset = (bodySize.z / 2.0f) + gap + (headSize.z / 2.0f);
             head.transform.position = transform.position + new Vector3(0, 0, headOffset);
 
@@ -149,6 +149,10 @@ namespace BGE.Forms
             tailRotPoint = tail.transform.localPosition;
             tailRotPoint.z += tailSize.z / 2;
 
+
+            head.transform.rotation = transform.rotation;
+            body.transform.rotation = transform.rotation;
+            tail.transform.rotation = transform.rotation;
         }
 
         float oldHeadRot = 0;

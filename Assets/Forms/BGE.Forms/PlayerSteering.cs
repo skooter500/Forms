@@ -35,6 +35,8 @@ public class PlayerSteering : SteeringBehaviour
         maxSpeed = boid.maxSpeed;
     }
 
+    
+
     public override void Update()
     {
         base.Update();
@@ -56,7 +58,7 @@ public class PlayerSteering : SteeringBehaviour
             }
             
         }
-        float hSpeed = Utilities.Map(Input.GetAxis("LeftTrigger"), 0, 1, 0.1f, 1); 
+        float hSpeed = Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 1);
         harmonic.theta += hSpeed * Time.deltaTime;
         boid.maxSpeed = maxSpeed * hSpeed;
         //Debug.Log("Cont: " + contWalk);

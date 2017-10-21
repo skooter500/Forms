@@ -17,6 +17,8 @@ namespace BGE.Forms
         public float maxSpeed = 250.0f;
         public float power = 1000.0f;
 
+        public static ViveController Instance;
+
         public Boid boid; // Am I controlling a boid?
 
         private SteamVR_Controller.Device leftController
@@ -35,11 +37,30 @@ namespace BGE.Forms
             }
         }
 
+        void Awake()
+        {
+            Instance = this;
+        }
+
         // Use this for initialization
         void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
             desiredYaw = transform.rotation;
+        }
+
+        public bool GetGrip()
+        {
+            if (leftTrackedObject == null || rightTrackedObject == null)
+            {
+                return false;
+            }
+            else
+            {
+                return
+                    leftController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)
+                    || rightController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip);
+            }
         }
 
         System.Collections.IEnumerator StraightenUp()
@@ -95,6 +116,7 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
+            CreatureManager.Log("Grip: " + GetGrip());
             float leftTrig = 0.0f;
             float rightTrig = 0.0f;
 
