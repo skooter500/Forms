@@ -35,6 +35,7 @@ namespace BGE.Forms
                 FindObjectOfType<ViveController>().boid = boid;
                 boid.GetComponent<PlayerSteering>().Activate(true);
                 boid.GetComponent<Harmonic>().Activate(true);
+                boid.GetComponent<Harmonic>().auto = false;
 
                 HarmonicController hc = boid.GetComponent<HarmonicController>();
                 if (boid.GetComponent<HarmonicController>() != null)

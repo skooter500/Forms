@@ -26,8 +26,10 @@ public class DetatchFromBoid : MonoBehaviour {
                 GetComponent<ForceController>().moveEnabled = true;
                 GetComponent<ForceController>().joyYControllsPitch = false;
                 boid.GetComponent<Harmonic>().Activate(true);
+                boid.GetComponent<Harmonic>().auto = true;
                 boid.GetComponent<NoiseWander>().Activate(true);
                 boid.GetComponent<PlayerSteering>().Activate(false);
+                boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 GetComponent<Rigidbody>().isKinematic = false;
                 GetComponent<ForceController>().enabled = true;
