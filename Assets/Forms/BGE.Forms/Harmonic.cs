@@ -15,6 +15,8 @@ namespace BGE.Forms
         public Axis direction = Axis.Horizontal;
         public enum Axis { Horizontal, Vertical };
 
+        public bool automatic = true;
+
         [Range(0.0f, Utilities.TWO_PI)]
         public float theta = 0.0f;
 
@@ -98,7 +100,11 @@ namespace BGE.Forms
 
             worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;        
             rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
-            this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
+
+            if (automatic)
+            {
+                this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
+            }
             return boid.SeekForce(worldTarget);
         }
     }

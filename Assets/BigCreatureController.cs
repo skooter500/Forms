@@ -48,6 +48,25 @@ class CrossPlayer : State
         boid.GetComponent<Constrain>().Activate(false);
         boid.GetComponent<Seek>().target = pos;
     }
+
+    public override void Exit()
+    {
+        if (nw != null)
+        {
+            nw.Activate(true);
+        }
+        boid.GetComponent<Constrain>().Activate(true);
+        boid.GetComponent<Constrain>().centre = boid.position;
+        seek.Activate(false);
+    }
+
+    public override void Think()
+    {
+        if (Vector3.Distance(seek.target, boid.position) < 1000)
+        {
+            owner.ChangeState(new IdleState());
+        }
+    }
 }
 
 
