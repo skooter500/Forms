@@ -140,7 +140,7 @@ namespace BGE.Forms
             float joyX = Input.GetAxis("Joy X");
             float joyY = Input.GetAxis("Joy Y");
 
-            if (Mathf.Abs(joyY) > 0)
+            if (Mathf.Abs(joyY) > 0.1f)
             {
                 if (joyYControllsPitch)
                 {
@@ -151,7 +151,7 @@ namespace BGE.Forms
                     Fly(-joyY * contSpeed * Time.deltaTime);
                 }
             }
-            if (Mathf.Abs(joyX) > 0)
+            if (Mathf.Abs(joyX) > 0.3f)
             {
                 Yaw(joyX * angularSpeed * Time.deltaTime);
             }

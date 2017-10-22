@@ -12840,7 +12840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 3
-  maxcreatures: 5
+  maxcreatures: 20
   playerRadius: 15000
   alive: []
   dead: []
