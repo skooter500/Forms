@@ -32,7 +32,7 @@ namespace BGE.Forms
             Vector3 force = Vector3.zero;
             theta = theta % (Utilities.TWO_PI);
             rampedAmplitude = Mathf.Lerp(rampedAmplitude, amplitude, boid.TimeDelta);
-
+            rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
             thetaDelta = theta - oldTheta;
             if ((theta < Mathf.PI & thetaDelta > 0) || (theta > Mathf.PI && thetaDelta < 0))
             {

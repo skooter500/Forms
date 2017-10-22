@@ -18,7 +18,7 @@ public class PlayerSteering : SteeringBehaviour
 
     private bool pickedUp = false;
 
-    public enum ControlType { Ride, Tenticle, TenticleFlipped };
+    public enum ControlType { Ride, Tenticle, TenticleFlipped, JellyTenticle };
 
     public ControlType controlType = ControlType.Ride;
 
@@ -52,7 +52,7 @@ public class PlayerSteering : SteeringBehaviour
                 average = Quaternion.Slerp(viveController.leftTrackedObject.transform.rotation
                     , viveController.rightTrackedObject.transform.rotation, 0.5f);
 
-                if (controlType == ControlType.Tenticle)
+                if (controlType == ControlType.Tenticle || controlType == ControlType.JellyTenticle)
                 {
                     Vector3 xyz = average.eulerAngles;
                     CreatureManager.Log("T angle: " + xyz.x);
@@ -80,7 +80,7 @@ public class PlayerSteering : SteeringBehaviour
             , 2.0f * Time.deltaTime);
             */
         harmonic.theta += hSpeed * Time.deltaTime;
-        if (controlType == ControlType.Ride)
+        if (controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {
             boid.maxSpeed = maxSpeed * hSpeed;
         }
