@@ -8,7 +8,6 @@ namespace BGE.Forms
 {
     public class Hover:Harmonic
     {
-        public bool automatic = true;
         public override void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
@@ -34,20 +33,19 @@ namespace BGE.Forms
             theta = theta % (Utilities.TWO_PI);
             rampedAmplitude = Mathf.Lerp(rampedAmplitude, amplitude, boid.TimeDelta);
 
-            if (automatic)
-            {
-                rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
-                theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
-            }
-
             thetaDelta = theta - oldTheta;
             if ((theta < Mathf.PI & thetaDelta > 0) || (theta > Mathf.PI && thetaDelta < 0))
             {
                 force = boid.forward 
                         * Mathf.Abs(thetaDelta)
                         * rampedAmplitude;                    
-            }        
-        
+            }
+
+            if (auto)
+            {
+                this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
+            }
+
             oldTheta = theta;
             return force;
         }
