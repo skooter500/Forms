@@ -34,6 +34,7 @@ namespace BGE.Forms
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 FindObjectOfType<ViveController>().boid = boid;
                 boid.GetComponent<PlayerSteering>().Activate(true);
+                boid.GetComponent<PlayerSteering>().hSpeed = 1.0f;
                 boid.GetComponent<Harmonic>().Activate(true);
                 boid.GetComponent<Harmonic>().auto = false;
 
@@ -44,14 +45,23 @@ namespace BGE.Forms
                     boid.GetComponent<Harmonic>().amplitude = hc.initialAmplitude;
                     boid.GetComponent<Harmonic>().speed = hc.initialSpeed;
                 }
+
+                VaryTenticles vt = boid.transform.parent.GetComponent<VaryTenticles>();
+                if (vt != null)
+                {
+                    vt.UnVary();
+                }
                 
-                Constrain con = boid.GetComponent<Constrain>();
+                    Constrain con = boid.GetComponent<Constrain>();
                 if (con != null)
                 {
                     con.Activate(false);
                 }
-                boid.GetComponent<NoiseWander>().Activate(false);
-                
+
+                if (boid.GetComponent<NoiseWander>() != null)
+                {
+                    boid.GetComponent<NoiseWander>().Activate(false);
+                }
                 RotateMe r = GetComponent<RotateMe>();
                 if (r != null)
                 {
@@ -70,7 +80,7 @@ namespace BGE.Forms
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);
 
                 // Dont do this in VR!
-                if (!viveControllers)
+                //if (!viveControllers)
                 {
                     GameObject parent = this.transform.parent.gameObject;
                     ForceController fc = other.GetComponent<ForceController>();

@@ -25,7 +25,10 @@ public class DetatchFromBoid : MonoBehaviour {
                 GetComponent<ForceController>().joyYControllsPitch = false;
                 boid.GetComponent<Harmonic>().Activate(true);
                 boid.GetComponent<Harmonic>().auto = true;
-                boid.GetComponent<NoiseWander>().Activate(true);
+                if (boid.GetComponent<NoiseWander>() != null)
+                {
+                    boid.GetComponent<NoiseWander>().Activate(true);
+                }
                 boid.GetComponent<PlayerSteering>().Activate(false);
                 boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -36,10 +39,15 @@ public class DetatchFromBoid : MonoBehaviour {
 
                 Quaternion desired = transform.rotation;
                 Vector3 cv = desired.eulerAngles;
-                desired = Quaternion.Euler(desired.x, desired.y, 0);
-
-                GetComponent<ForceController>().desiredRotation = desired;
+                desired = Quaternion.Euler(0, 0, 0);
                 this.transform.parent = null;
+                GetComponent<ForceController>().desiredRotation = desired;
+                VaryTenticles vt = boid.transform.parent.GetComponent<VaryTenticles>();
+                if (vt != null)
+                {
+                    vt.Vary();
+                }
+
             }
             RotateMe[] r = FindObjectsOfType<RotateMe>();
             foreach (RotateMe rm in r)

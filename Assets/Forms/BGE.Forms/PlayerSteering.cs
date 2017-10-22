@@ -18,7 +18,7 @@ public class PlayerSteering : SteeringBehaviour
 
     private bool pickedUp = false;
 
-    public enum ControlType { Ride, Tenticle };
+    public enum ControlType { Ride, Tenticle, TenticleFlipped };
 
     public ControlType controlType = ControlType.Ride;
 
@@ -41,28 +41,54 @@ public class PlayerSteering : SteeringBehaviour
     {
         base.Update();
         upForce = -Input.GetAxis("Vertical");
-        rightForce = Input.GetAxis("Horizontal") * 0.3f;
+        rightForce = Input.GetAxis("Horizontal") * 0.6f;
+        CreatureManager.Log("Player force: " + force);
+        CreatureManager.Log("RightForce: " + rightForce);
         // Control the boid
         if (viveController != null)
         {
-            if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null)
+            if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null  && viveController.leftTrackedObject.isActiveAndEnabled)
             {
                 average = Quaternion.Slerp(viveController.leftTrackedObject.transform.rotation
                     , viveController.rightTrackedObject.transform.rotation, 0.5f);
 
                 if (controlType == ControlType.Tenticle)
                 {
-                    //float theta = Vector3.SignedAngle(Vector3.right, average * Vector3.right, Vector3.forward);
-                    //harmonic.theta = theta;
+                    Vector3 xyz = average.eulerAngles;
+                    CreatureManager.Log("T angle: " + xyz.x);
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
                 }
+                if (controlType == ControlType.TenticleFlipped)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    CreatureManager.Log("T angle: " + xyz.x);
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+                }
+
+
             }
-            
+
         }
-        float hSpeed = Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 1);
+
+        hSpeed = Mathf.Lerp(hSpeed
+            ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)
+            , 2.0f * Time.deltaTime
+            );
+            /*Mathf.Lerp(
+            hSpeed
+            , Mathf.Clamp(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0.0f, 1.0f)
+            , 2.0f * Time.deltaTime);
+            */
         harmonic.theta += hSpeed * Time.deltaTime;
-        boid.maxSpeed = maxSpeed * hSpeed;
+        if (controlType == ControlType.Ride)
+        {
+            boid.maxSpeed = maxSpeed * hSpeed;
+        }
         //Debug.Log("Cont: " + contWalk);
     }
+
+    [HideInInspector]
+    public float hSpeed = 0;
 
     public override Vector3 Calculate()
     {
@@ -79,6 +105,7 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = Vector3.zero;
         }
+        CreatureManager.Log("Player force: " + force);
         return force;
     }
 }

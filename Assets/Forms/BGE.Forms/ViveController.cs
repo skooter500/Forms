@@ -51,7 +51,7 @@ namespace BGE.Forms
 
         public bool GetGrip()
         {
-            if (leftTrackedObject == null || rightTrackedObject == null)
+            if (leftTrackedObject == null || rightTrackedObject == null || !leftTrackedObject.isActiveAndEnabled || !rightTrackedObject.isActiveAndEnabled)
             {
                 return false;
             }
@@ -124,39 +124,49 @@ namespace BGE.Forms
             {
                 // The trigger button
                 leftTrig = leftController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
-                leftEngine.GetComponent<JetFire>().fire = leftTrig;
+
                 if (leftTrig > 0.2f)
                 {
                     if (boid == null)
                     {
                         rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-                        
+                        leftEngine.GetComponent<JetFire>().fire = leftTrig;
                     }
                     else
                     {
                         boid.speed = boid.maxSpeed * leftTrig;
-                        boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed *  leftTrig;
+                        boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
+
+
                     }
                 }
+                else
+                {
+                    leftEngine.GetComponent<JetFire>().fire = 0;
+                }
             }
-        
+
             if (rightTrackedObject != null && rightTrackedObject.isActiveAndEnabled)
             {
                 // The trigger button
                 rightTrig = rightController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
-                rightEngine.GetComponent<JetFire>().fire = rightTrig;
+
                 if (rightTrig > 0.2f)
                 {
                     if (boid == null)
                     {
                         rigidBody.AddForceAtPosition(rightTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-                        
+                        rightEngine.GetComponent<JetFire>().fire = rightTrig;
                     }
                     else
                     {
                         //boid.maxSpeed *= rightTrig;
                         //boid.GetComponent<Harmonic>().speed *= rightTrig;
                     }
+                }
+                else
+                {
+                    rightEngine.GetComponent<JetFire>().fire = 0;
                 }
             }
 

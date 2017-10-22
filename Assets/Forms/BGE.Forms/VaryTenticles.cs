@@ -21,7 +21,7 @@ namespace BGE.Forms
             Vary();
         }
 
-        void Vary()
+        public void Vary()
         {
             foreach (FinAnimator ani in animators)
             {
@@ -29,7 +29,19 @@ namespace BGE.Forms
                 ani.amplitude = Random.Range(20, 60);
             }
         }
-	
+
+        public void UnVary()
+        {
+            foreach (FinAnimator ani in animators)
+            {
+                ani.rotationOffset = 0;
+                ani.amplitude = 60;
+            }
+        }
+
+
+
+
         // Update is called once per frame
         void Update () {
 	
