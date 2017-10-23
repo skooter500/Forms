@@ -82,12 +82,12 @@ namespace BGE.Forms
                 // Dont do this in VR!
                 //if (!viveControllers)
                 {
-                    GameObject parent = this.transform.parent.gameObject;
+                    Transform parent = transform.parent;
                     ForceController fc = other.GetComponent<ForceController>();
 
                     if (!fc.rotating)
                     {
-                        fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.transform.rotation, Time.deltaTime * 1.5f);
+                        fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.rotation, Time.deltaTime * 1.5f);
                     }
                     //other.transform.rotation = Quaternion.Slerp(other.transform.rotation, parent.transform.rotation, Time.deltaTime);
                     //other.transform.forward = Vector3.forward;

@@ -52,9 +52,11 @@ namespace BGE.Forms
             {
                 float theta = i * thetaInc;
                 Vector3 pos = new Vector3();
-                pos.x = transform.position.x + Mathf.Sin(theta) * radius;
-                pos.z = transform.position.z - Mathf.Cos(theta) * radius;
-                pos.y = transform.position.y;
+                pos.x = Mathf.Sin(theta) * radius;
+                pos.z = - Mathf.Cos(theta) * radius;
+                pos.y = 0;
+                pos += transform.position;
+
                 Quaternion q = Quaternion.identity;
                 q.eulerAngles = new Vector3(- tenticleAngle, Mathf.Rad2Deg * -theta, 0); // Quaternion.AngleAxis(Mathf.Rad2Deg * -theta, Vector3.up) * Quaternion.;
                 CreaturePart cp = new CreaturePart(pos, tenticleScale
@@ -70,6 +72,8 @@ namespace BGE.Forms
         {
             List<CreaturePart> parts = CreateCreatureParams();
             Boid boid = null;
+            GameObject temp = new GameObject();
+            temp.transform.position = transform.position;
             for(int i = 0; i < parts.Count; i ++)
             {
                 CreaturePart part = parts[i];
@@ -78,8 +82,8 @@ namespace BGE.Forms
                 newPart.transform.position = part.position;
                 newPart.transform.rotation = part.rotation;
                 newPart.transform.localScale = new Vector3(part.size, part.size, part.size);
-
-                newPart.transform.parent = transform;
+                
+                newPart.transform.parent = temp.transform;          
 
                 Boid thisBoid = newPart.GetComponentInChildren<Boid>();
                 if (thisBoid != null)
@@ -96,6 +100,14 @@ namespace BGE.Forms
                 }
                 newPart.SetActive(true);
             }
+            // A hacky trick to rotate everything
+            temp.transform.Rotate(transform.rotation.eulerAngles);
+            temp.transform.parent = transform;
+            for (int i = 0; i < temp.transform.childCount; i++)
+            {
+                temp.transform.GetChild(i).transform.parent = transform;
+            }
+            GameObject.Destroy(temp);
         }
 
         void Awake()

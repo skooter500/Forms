@@ -33,6 +33,10 @@ namespace BGE.Forms
             theta = theta % (Utilities.TWO_PI);
             rampedAmplitude = Mathf.Lerp(rampedAmplitude, amplitude, boid.TimeDelta);
             rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
+            if (auto)
+            {
+                this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
+            }
             thetaDelta = theta - oldTheta;
             if ((theta < Mathf.PI & thetaDelta > 0) || (theta > Mathf.PI && thetaDelta < 0))
             {
@@ -41,10 +45,7 @@ namespace BGE.Forms
                         * rampedAmplitude;                    
             }
 
-            if (auto)
-            {
-                this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
-            }
+            
 
             oldTheta = theta;
             return force;

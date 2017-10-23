@@ -5,6 +5,7 @@ namespace BGE.Forms
 {
     public class HarmonicController : MonoBehaviour {
 
+        public bool modifySpeed = false;
         Harmonic harmonic;
         Boid boid;
 
@@ -50,9 +51,12 @@ namespace BGE.Forms
                 harmonic.amplitude = Random.Range(initialAmplitude - (initialAmplitude * amplitudeVariation), initialAmplitude + (initialAmplitude * amplitudeVariation));
                 harmonic.speed = Random.Range(initialSpeed - (initialSpeed * speedVariation), initialSpeed + (initialSpeed * speedVariation));
 
-                //float variationThisTime = harmonic.speed / initialSpeed;
 
-                //boid.maxSpeed = initialBoidSpeed * variationThisTime;
+                if (modifySpeed)
+                {
+                    float variationThisTime = harmonic.speed / initialSpeed;
+                    boid.maxSpeed = initialBoidSpeed * variationThisTime;
+                }
                 yield return new WaitForSeconds(Random.Range(3, 7));
                 if (glide)
                 {
