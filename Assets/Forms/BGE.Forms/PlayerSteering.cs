@@ -101,11 +101,15 @@ public class PlayerSteering : SteeringBehaviour
                 force += average * Vector3.forward * power;
             }
         }
+        else if (controlType == ControlType.JellyTenticle)
+        {
+            force = (boid.right * rightForce * power)
+                            + (boid.up * upForce * power);
+        }
         else
         {
             force = Vector3.zero;
         }
-        CreatureManager.Log("Player force: " + force);
         return force;
     }
 }

@@ -49,6 +49,7 @@ namespace BGE.Forms
                     , yAxis ? angle : 1
                     , zAxis ? angle : 1
                 );
+                theta = harmonic.theta;
             }
         }
     }
