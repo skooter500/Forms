@@ -7,7 +7,9 @@ class IdleState : State
 {
     public override void Enter()
     {
-        
+        owner.ChangeStateDelayed(new MoveCloseToPlayer()
+            , Random.Range(30, 60)
+            ); 
     }
 
     public override void Exit()
@@ -67,6 +69,7 @@ class CrossPlayer : State
             owner.ChangeState(new IdleState());
         }
     }
+
 }
 
 

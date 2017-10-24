@@ -25,6 +25,17 @@ public class StateMachine : MonoBehaviour {
 		
 	}
 
+    public void ChangeStateDelayed(State newState, float delay)
+    {
+        StartCoroutine(ChangeStateCoRoutine(newState, delay));
+    }
+
+    IEnumerator ChangeStateCoRoutine(State newState, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ChangeState(newState);
+    }
+
     public void ChangeState(State newState)
     {
         Debug.Log("Changing state to: " + newState.GetType().Name);
