@@ -19,7 +19,7 @@ namespace BGE.Forms
         public float colorMapScaling = 250;
 
         public Texture2D texture;
-
+        public float colorScale = 0.7f;
 
         // Use this for initialization
         void Start()
@@ -32,13 +32,13 @@ namespace BGE.Forms
             size = textureGenerator.size;
             colorGrid = new Color[size, size];
             texture = new Texture2D(size, size);
-            float colorScale = 0.7f;
+            
             for (int row = 0; row < size; row++)
             {
                 for (int col = 0; col < size; col++)
                 {
                     float hue = (row / (float) size * colorScale) + (col / (float) size * colorScale) / 2.0f;
-                    colorGrid[row, col] = Color.HSVToRGB(hue, 1, 1); ; // textureGenerator.RandomColor(); // ;; ;
+                    colorGrid[row, col] = Color.HSVToRGB(hue, 1, 1);
 
                     texture.SetPixel(row, col, colorGrid[row, col]);
                 }
