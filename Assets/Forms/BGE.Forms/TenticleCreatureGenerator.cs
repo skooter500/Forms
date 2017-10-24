@@ -103,9 +103,21 @@ namespace BGE.Forms
             // A hacky trick to rotate everything
             temp.transform.Rotate(transform.rotation.eulerAngles);
             temp.transform.parent = transform;
+
+            /*
             for (int i = 0; i < temp.transform.childCount; i++)
             {
                 temp.transform.GetChild(i).transform.parent = transform;
+            }
+            GameObject.Destroy(temp);
+            */
+
+
+
+
+            while(temp.transform.childCount > 0)
+            {
+                temp.transform.GetChild(0).transform.parent = transform;
             }
             GameObject.Destroy(temp);
         }
@@ -133,3 +145,4 @@ namespace BGE.Forms
         }
     }
 }
+ 
