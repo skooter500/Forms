@@ -38,6 +38,10 @@ namespace BGE.Forms
                 boid.GetComponent<Harmonic>().Activate(true);
                 boid.GetComponent<Harmonic>().auto = false;
 
+                if (boid.GetComponent<Seek>() != null)
+                {
+                    boid.GetComponent<Seek>().Activate(false);
+                }
                 HarmonicController hc = boid.GetComponent<HarmonicController>();
                 if (boid.GetComponent<HarmonicController>() != null)
                 {

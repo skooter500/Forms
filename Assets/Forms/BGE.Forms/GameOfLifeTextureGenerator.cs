@@ -490,7 +490,7 @@ namespace BGE.Forms
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton1))
             {
-                Randomise();
+                StartingPattern(current);
             }
         }
 

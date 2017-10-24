@@ -37,6 +37,11 @@ public class DetatchFromBoid : MonoBehaviour {
 
                 FindObjectOfType<ViveController>().boid = null;
 
+                if (boid.GetComponent<Seek>() != null)
+                {
+                    boid.GetComponent<Seek>().Activate(true);
+                }
+
                 Quaternion desired = transform.rotation;
                 Vector3 cv = desired.eulerAngles;
                 desired = Quaternion.Euler(0, 0, 0);
