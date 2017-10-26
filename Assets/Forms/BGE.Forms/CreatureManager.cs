@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Threading;
 using System.Text;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace BGE.Forms
 {
@@ -15,7 +15,9 @@ namespace BGE.Forms
         public static float threadTimeDelta;
 
         Thread thread;
-        Boid[] boids;
+
+        [HideInInspector]
+        public List<Boid> boids;
 
         StringBuilder message = new StringBuilder();
 
@@ -117,7 +119,7 @@ namespace BGE.Forms
         void Start ()
         {
         
-            boids = FindObjectsOfType<Boid>(); // Find all the boids
+            boids = new List<Boid>(FindObjectsOfType<Boid>()); // Find all the boids
             foreach (Boid boid in boids)
             {
                 boid.multiThreaded = true;
@@ -177,7 +179,7 @@ namespace BGE.Forms
                 stopwatch.Start();
 
                 // Update all the boids
-                for (int i = 0; i < boids.Length; i++)
+                for (int i = 0; i < boids.Count; i++)
                 {
                     Boid boid = boids[i];
                     boid.force = boid.CalculateForce();
@@ -206,7 +208,7 @@ namespace BGE.Forms
             running = true;
             Debug.Log("Starting thread...");
 
-            for (int i = 0; i < boids.Length; i++)
+            for (int i = 0; i < boids.Count; i++)
             {
                 Boid boid = boids[i];
                 boid.multiThreaded = true;

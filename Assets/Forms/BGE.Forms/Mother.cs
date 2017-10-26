@@ -68,6 +68,7 @@ namespace BGE.Forms
                         // dead.Add(creature);
                         Debug.Log("Deleting a creature");
 						alive.Remove(creature);
+                        CreatureManager.Instance.boids.Remove(boid);
 					}
 				}
                 
