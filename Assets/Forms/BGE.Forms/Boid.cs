@@ -131,7 +131,13 @@ namespace BGE.Forms
 
         void Update()
         {
-            //return;
+            Renderer r = GetComponentInChildren<Renderer>();
+            if (!r.isVisible)
+            {
+                CreatureManager.Log("Not updating");
+                return;
+            }
+
             float smoothRate;
 
             if (!multiThreaded)
