@@ -129,7 +129,7 @@ namespace BGE.Forms
         [HideInInspector]
         public float gravityAcceleration = 0;
 
-        void FixedUpdate()
+        void Update()
         {
             //return;
             float smoothRate;
