@@ -24,6 +24,8 @@ namespace BGE.Forms
         [HideInInspector]
         public Quaternion averageRotation;
 
+        public bool suspended = false;
+
         void Start()
         {
             Transform prevFollower;
@@ -63,30 +65,13 @@ namespace BGE.Forms
 
             }
         }
-
-        private Renderer renderer = null;
-        public bool isVisible()
-        {
-            if (renderer == null)
-            {
-                renderer = GetComponent<Renderer>();
-                if (renderer == null)
-                {
-                    renderer = GetComponentInChildren<Renderer>();
-                }
-            }
-            return (renderer == null) ? false : renderer.isVisible;
-        }
-
+        
         void Update ()
         {
-
-            //if (!isVisible())
-            //{
-            //    return;
-            //}
-            
-
+            if (suspended)
+            {
+                return;
+            }
             centerOfMass = Vector3.zero ; 
             Transform prevFollower;
             for (int i = 0 ; i < bones.Count; i++)

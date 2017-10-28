@@ -41,7 +41,6 @@ namespace BGE.Forms
         [HideInInspector]
         public float lerpedAmplitude;
 
-        public bool suspended;
 
         // Update is called once per frame
         void Update () {

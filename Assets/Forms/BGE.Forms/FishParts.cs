@@ -161,6 +161,8 @@ namespace BGE.Forms
         private float fleeColourWait;
         private bool fleeColourStarted;
 
+        public bool suspended = false;
+
         public void Update()
         {
             if (!boid.isVisible())

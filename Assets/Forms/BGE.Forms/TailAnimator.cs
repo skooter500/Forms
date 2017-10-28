@@ -21,25 +21,13 @@ namespace BGE.Forms
         }
 
         private Renderer renderer = null;
-        public bool isVisible()
-        {
-            if (renderer == null)
-            {
-                renderer = GetComponent<Renderer>();
-                if (renderer == null)
-                {
-                    renderer = GetComponentInChildren<Renderer>();
-                }
-            }
-            return (renderer == null) ? false : renderer.isVisible;
-        }
 
         // Update is called once per frame
         void Update()
         {
             if (boid == null) return;
 
-            if (!isVisible())
+            if (suspended)
             {
                 return;
             }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 namespace BGE.Forms
 {
     public class Animator : MonoBehaviour {
-        public Boid boid;    
+        public Boid boid;
+
+        public bool suspended = false;
     }
 }
