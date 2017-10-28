@@ -37,13 +37,14 @@ namespace BGE.Forms
             Transform cam = Camera.main.transform;
             float distToPlayer = Vector3.Distance(boids[0].position, cam.position);
 
+            bool visibleThisFrame; 
             if (Vector3.Dot(boids[0].position - cam.position, cam.forward) > 0)
             {
-                visible = (distToPlayer < visibleInFrontDistance);
+                visibleThisFrame = (distToPlayer < visibleInFrontDistance);
             }
             else
             {
-                visible = (distToPlayer < visibleBehindDistance);
+                visibleThisFrame = (distToPlayer < visibleBehindDistance);
             }
 
             
@@ -58,23 +59,28 @@ namespace BGE.Forms
                 }
             }
             */
-            CreatureManager.Log("Visible:" + visible);
+            CreatureManager.Log("Visible:" + visibleThisFrame);
 
-            foreach (Boid b in boids)
+
+            if (visibleThisFrame != visible)
             {
-                b.suspended = !visible;
+                foreach (Boid b in boids)
+                {
+                    b.suspended = !visible;
+                }
+
+                foreach (SpineAnimator sa in spineAnimators)
+                {
+                    sa.suspended = !visible;
+                }
+
+                foreach (FishParts fp in fishParts)
+                {
+                    fp.suspended = !visible;
+                }
             }
 
-            foreach (SpineAnimator sa in spineAnimators)
-            {
-                sa.suspended = !visible;
-            }
-
-            foreach (FishParts fp in fishParts)
-            {
-                fp.suspended = !visible;
-            }
-
+            visible = visibleThisFrame;
 
         }
     }
