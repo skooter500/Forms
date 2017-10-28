@@ -63,7 +63,7 @@ public class PlayerSteering : SteeringBehaviour
                 {
                     Vector3 xyz = average.eulerAngles;
                     CreatureManager.Log("T angle: " + xyz.x);
-                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x);
                 }
 
 
