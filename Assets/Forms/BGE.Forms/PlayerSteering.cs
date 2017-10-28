@@ -49,10 +49,11 @@ public class PlayerSteering : SteeringBehaviour
         {
             if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null  && viveController.leftTrackedObject.isActiveAndEnabled)
             {
+
                 average = Quaternion.Slerp(viveController.leftTrackedObject.transform.rotation
                     , viveController.rightTrackedObject.transform.rotation, 0.5f);
 
-                if (controlType == ControlType.Tenticle || controlType == ControlType.JellyTenticle)
+                if (controlType == ControlType.Tenticle)
                 {
                     Vector3 xyz = average.eulerAngles;
                     CreatureManager.Log("T angle: " + xyz.x);
@@ -74,11 +75,7 @@ public class PlayerSteering : SteeringBehaviour
             ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)
             , 2.0f * Time.deltaTime
             );
-            /*Mathf.Lerp(
-            hSpeed
-            , Mathf.Clamp(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0.0f, 1.0f)
-            , 2.0f * Time.deltaTime);
-            */
+
         harmonic.theta += hSpeed * Time.deltaTime;
         if (controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {
@@ -96,7 +93,7 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = (boid.right * rightForce * power)
                 + (boid.up * upForce * power);
-            if (viveControllers)
+            if (viveControllers && rightForce > 0.05f)
             {
                 force += average * Vector3.forward * power;
             }

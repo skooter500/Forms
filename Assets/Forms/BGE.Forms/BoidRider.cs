@@ -84,7 +84,7 @@ namespace BGE.Forms
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);
 
                 // Dont do this in VR!
-                //if (!viveControllers)
+                if (!viveControllers)
                 {
                     Transform parent = transform.parent;
                     ForceController fc = other.GetComponent<ForceController>();
