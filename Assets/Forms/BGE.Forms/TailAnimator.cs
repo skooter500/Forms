@@ -20,12 +20,26 @@ namespace BGE.Forms
             theta = 0;
         }
 
-       // Update is called once per frame
+        private Renderer renderer = null;
+        public bool isVisible()
+        {
+            if (renderer == null)
+            {
+                renderer = GetComponent<Renderer>();
+                if (renderer == null)
+                {
+                    renderer = GetComponentInChildren<Renderer>();
+                }
+            }
+            return (renderer == null) ? false : renderer.isVisible;
+        }
+
+        // Update is called once per frame
         void Update()
         {
             if (boid == null) return;
 
-            if (!boid.isVisible())
+            if (!isVisible())
             {
                 return;
             }

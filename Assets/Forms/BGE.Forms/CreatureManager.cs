@@ -155,6 +155,7 @@ namespace BGE.Forms
             PrintFloat("ThreadCount: ", (int)threadCount);
             PrintFloat("Thread TimeDelta", threadTimeDelta);
             Log("Num boids:" + boids.Count);
+            Log("Suspended boids:" + suspended);
 
             if (Input.GetKey(KeyCode.Escape))
             {
@@ -170,20 +171,30 @@ namespace BGE.Forms
         long lastThreadCount = 0;
         float threadFPS;
 
+        int suspended = 0;
+
         void UpdateThread()
         {
             float maxFPS = 100.0f;
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            
             while (running)
             {
                 stopwatch.Reset();
                 stopwatch.Start();
-
+                suspended = 0;
                 // Update all the boids
                 for (int i = 0; i < boids.Count; i++)
                 {
                     Boid boid = boids[i];
-                    boid.force = boid.CalculateForce();
+                    if (boid.suspended)
+                    {
+                        suspended++;
+                    }
+                    else
+                    {
+                        boid.force = boid.CalculateForce();
+                    }
                 }
                 stopwatch.Stop();
                 threadTimeDelta = (float) ((double) stopwatch.ElapsedTicks / System.Diagnostics.Stopwatch.Frequency);
@@ -203,6 +214,8 @@ namespace BGE.Forms
         {
             running = false;
         }
+
+
 
         void StartUpdateThreads()
         {

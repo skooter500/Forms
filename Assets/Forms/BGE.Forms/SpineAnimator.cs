@@ -63,9 +63,30 @@ namespace BGE.Forms
 
             }
         }
-    
-        void FixedUpdate ()
+
+        private Renderer renderer = null;
+        public bool isVisible()
         {
+            if (renderer == null)
+            {
+                renderer = GetComponent<Renderer>();
+                if (renderer == null)
+                {
+                    renderer = GetComponentInChildren<Renderer>();
+                }
+            }
+            return (renderer == null) ? false : renderer.isVisible;
+        }
+
+        void Update ()
+        {
+
+            //if (!isVisible())
+            //{
+            //    return;
+            //}
+            
+
             centerOfMass = Vector3.zero ; 
             Transform prevFollower;
             for (int i = 0 ; i < bones.Count; i++)

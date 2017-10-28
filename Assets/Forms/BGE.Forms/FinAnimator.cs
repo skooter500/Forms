@@ -40,14 +40,17 @@ namespace BGE.Forms
 
         [HideInInspector]
         public float lerpedAmplitude;
+
+        public bool suspended;
+
         // Update is called once per frame
         void Update () {
-
-            if (!boid.isVisible())
+            
+            if (suspended)
             {
                 return;
             }
-
+            
             if (harmonic != null)
             {
                 theta = harmonic.theta;

@@ -94,30 +94,33 @@ namespace BGE.Forms
 
             for (int i = 0; i < positions.Count; i++)
             {
+                Boid boid;
                 if (i == 0)
                 {
                     leader = GameObject.Instantiate<GameObject>(leaderPrefab);
                     leader.transform.position = positions[i];
                     leader.transform.parent = transform;
                     leader.SetActive(true);
+                    boid = leader.GetComponentInChildren<Boid>();
                 }
                 else
                 {
-                    GameObject go = GameObject.Instantiate<GameObject>(followerPrefab);
-                    go.transform.position = positions[i];
-                    go.transform.parent = transform;
-                    go.SetActive(true);
-                    Formation formation = go.GetComponentInChildren<Formation>();
+                    GameObject follower = GameObject.Instantiate<GameObject>(followerPrefab);
+                    follower.transform.position = positions[i];
+                    follower.transform.parent = transform;
+                    follower.SetActive(true);
+                    boid = follower.GetComponentInChildren<Boid>();
+                    Formation formation = follower.GetComponentInChildren<Formation>();
                     if (formation == null)
                     {
-                        formation = go.GetComponentInChildren<Boid>().gameObject.AddComponent<Formation>();
+                        formation = follower.GetComponentInChildren<Boid>().gameObject.AddComponent<Formation>();
                         formation.weight = 100.0f;
                     }
-                    GameObject myLeader = leader; // ClosestChild(go);
-                    Boid boid = myLeader.GetComponentInChildren<Boid>();
-                    formation.leader = myLeader.gameObject;
-                    go.GetComponentInChildren<Boid>().school = this;
+                    formation.leader = leader;
+                    follower.GetComponentInChildren<Boid>().school = this;
+                
                 }
+                boids.Add(boid);
             }
 
             Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);

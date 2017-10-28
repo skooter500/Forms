@@ -64,13 +64,25 @@ namespace BGE.Forms
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
 					{
+                        if (creature.GetComponent<School>() != null)
+                        {
+                            foreach (Boid b in creature.GetComponent<School>().boids)
+                            {
+                                CreatureManager.Instance.boids.Remove(b);
+                            }
+                        }
+                        else
+                        {
+                            CreatureManager.Instance.boids.Remove(boid);
+                        }
+
                         GameObject.Destroy(creature);
                         // dead.Add(creature);
                         Debug.Log("Deleting a creature");
-						alive.Remove(creature);
-                        CreatureManager.Instance.boids.Remove(boid);
-					}
-				}
+                        alive.Remove(creature);
+
+                    }
+                }
                 
 				if (alive.Count < maxcreatures)
 				{

@@ -147,12 +147,18 @@ namespace BGE.Forms
             return (renderer == null) ? false : renderer.isVisible;
         }
 
+        public bool suspended = false;
+
         void Update()
         {
-            if (suspendIfNotVisible && ! isVisible())
+            if (suspendIfNotVisible && !isVisible())
             {
-                CreatureManager.Log("Suspended");
+                suspended = true;
                 return;
+            }
+            else
+            {
+                suspended = false;
             }
             float smoothRate;
 
