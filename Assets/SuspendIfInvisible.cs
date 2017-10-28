@@ -13,75 +13,80 @@ namespace BGE.Forms
         public FishParts[] fishParts;
 
         public bool visible = false;
+
+        public int updatesPerSecond = 10;
+
         // Use this for initialization
         void Start() {
             renderers = GetComponentsInChildren<Renderer>();
             boids = GetComponentsInChildren<Boid>();
             animators = GetComponentsInChildren<Animator>();
             spineAnimators = GetComponentsInChildren<SpineAnimator>();
+            StartCoroutine(CheckVisibility());
         }
 
         public float visibleBehindDistance = 1000;
         public float visibleInFrontDistance = 8000;
-
         
 
         // Update is called once per frame
-        void Update() {
-            visible = false;
-            // Break as soon as one is viaible
-            int maxNumToCheck = 20;
-            int numToCheck = (renderers.Length < maxNumToCheck) ? renderers.Length : maxNumToCheck;
-            int gap = renderers.Length / numToCheck;
-
-            Transform cam = Camera.main.transform;
-            float distToPlayer = Vector3.Distance(boids[0].position, cam.position);
-
-            bool visibleThisFrame; 
-            if (Vector3.Dot(boids[0].position - cam.position, cam.forward) > 0)
+        System.Collections.IEnumerator CheckVisibility() {
+            yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
+            while (true)
             {
-                visibleThisFrame = (distToPlayer < visibleInFrontDistance);
-            }
-            else
-            {
-                visibleThisFrame = (distToPlayer < visibleBehindDistance);
-            }
+                // Break as soon as one is viaible
+                int maxNumToCheck = 20;
+                int numToCheck = (renderers.Length < maxNumToCheck) ? renderers.Length : maxNumToCheck;
+                int gap = renderers.Length / numToCheck;
 
-            
-            /*
-            for (int i = 0; i < numToCheck; i += gap)
-            {
-                Renderer r = renderers[i];
-                if (r.isVisible)
+                Transform cam = Camera.main.transform;
+                float distToPlayer = Vector3.Distance(boids[0].transform.position, cam.position);
+
+                bool visibleThisFrame;
+                if (Vector3.Dot(boids[0].transform.position - cam.position, cam.forward) > 0)
                 {
-                    visible = true;
-                    break;
+                    visibleThisFrame = (distToPlayer < visibleInFrontDistance);
                 }
-            }
-            */
-            CreatureManager.Log("Visible:" + visibleThisFrame);
-
-
-            if (visibleThisFrame != visible)
-            {
-                foreach (Boid b in boids)
+                else
                 {
-                    b.suspended = !visible;
+                    visibleThisFrame = (distToPlayer < visibleBehindDistance);
                 }
 
-                foreach (SpineAnimator sa in spineAnimators)
+
+                /*
+                for (int i = 0; i < numToCheck; i += gap)
                 {
-                    sa.suspended = !visible;
+                    Renderer r = renderers[i];
+                    if (r.isVisible)
+                    {
+                        visible = true;
+                        break;
+                    }
+                }
+                */
+                
+
+                if (visibleThisFrame != visible)
+                {
+                    foreach (Boid b in boids)
+                    {
+                        b.suspended = !visibleThisFrame;
+                    }
+
+                    foreach (SpineAnimator sa in spineAnimators)
+                    {
+                        sa.suspended = !visibleThisFrame;
+                    }
+
+                    foreach (FishParts fp in fishParts)
+                    {
+                        fp.suspended = !visibleThisFrame;
+                    }
                 }
 
-                foreach (FishParts fp in fishParts)
-                {
-                    fp.suspended = !visible;
-                }
+                visible = visibleThisFrame;
+                yield return new WaitForSeconds(1.0f / (float)updatesPerSecond);
             }
-
-            visible = visibleThisFrame;
-
         }
     }
 }

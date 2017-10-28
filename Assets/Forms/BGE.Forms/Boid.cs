@@ -147,18 +147,19 @@ namespace BGE.Forms
             return (renderer == null) ? false : renderer.isVisible;
         }
 
-        public bool suspended = false;
+        public bool suspendedByMe = false;
 
+        public bool suspended = false;
         void Update()
         {
-            if (suspendIfNotVisible && !isVisible())
+            if (suspended || (suspendIfNotVisible && !isVisible()))
             {
-                suspended = true;
+                suspendedByMe = true;
                 return;
             }
             else
             {
-                suspended = false;
+                suspendedByMe = false;
             }
             float smoothRate;
 
