@@ -93,7 +93,7 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = (boid.right * rightForce * power)
                 + (boid.up * upForce * power);
-            if (viveControllers && rightForce > 0.05f)
+            if (viveControllers)
             {
                 force += average * Vector3.forward * power;
             }
