@@ -24,6 +24,8 @@ namespace BGE.Forms
         public float visibleBehindDistance = 1000;
         public float visibleInFrontDistance = 8000;
 
+        
+
         // Update is called once per frame
         void Update() {
             visible = false;
