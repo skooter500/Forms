@@ -118,13 +118,13 @@ namespace BGE.Forms
         // Use this for initialization
         void Start ()
         {
-        
+            /*
             boids = new List<Boid>(FindObjectsOfType<Boid>()); // Find all the boids
             foreach (Boid boid in boids)
             {
                 boid.multiThreaded = true;
             }
-
+            */
             StartUpdateThreads();
         }
 
@@ -154,6 +154,7 @@ namespace BGE.Forms
             PrintFloat("Boid FPS: ", threadFPS);
             PrintFloat("ThreadCount: ", (int)threadCount);
             PrintFloat("Thread TimeDelta", threadTimeDelta);
+            Log("Num boids:" + boids.Count);
 
             if (Input.GetKey(KeyCode.Escape))
             {

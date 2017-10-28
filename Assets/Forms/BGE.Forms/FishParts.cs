@@ -163,6 +163,11 @@ namespace BGE.Forms
 
         public void Update()
         {
+            if (!boid.isVisible())
+            {
+                return;
+            }
+
             // Animate the head            
             float headRot = Mathf.Sin(theta) * headField;
             head.transform.RotateAround(transform.TransformPoint(headRotPoint), transform.up, headRot - oldHeadRot);

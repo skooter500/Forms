@@ -88,6 +88,8 @@ namespace BGE.Forms
             timeAcc = preferredTimeDelta;
             UpdateLocalFromTransform();
 
+            CreatureManager.Instance.boids.Add(this);
+            multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
 
             //if (transform.parent.gameObject.GetComponent<School>() != null)
@@ -129,15 +131,29 @@ namespace BGE.Forms
         [HideInInspector]
         public float gravityAcceleration = 0;
 
+        public bool suspendIfNotVisible = false;
+
+        private Renderer renderer = null;
+        public bool isVisible()
+        {
+            if (renderer == null)
+            {
+                renderer = GetComponent<Renderer>();
+                if (renderer == null)
+                {
+                    renderer = GetComponentInChildren<Renderer>();
+                }
+            }
+            return (renderer == null) ? false : renderer.isVisible;
+        }
+
         void Update()
         {
-            Renderer r = GetComponentInChildren<Renderer>();
-            if (!r.isVisible)
+            if (suspendIfNotVisible && ! isVisible())
             {
-                CreatureManager.Log("Not updating");
+                CreatureManager.Log("Suspended");
                 return;
             }
-
             float smoothRate;
 
             if (!multiThreaded)
