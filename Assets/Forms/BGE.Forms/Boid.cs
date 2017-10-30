@@ -150,7 +150,7 @@ namespace BGE.Forms
         public bool suspendedByMe = false;
 
         public bool suspended = false;
-        void Update()
+        void FixedUpdate()
         {
             if (suspended || (suspendIfNotVisible && !isVisible()))
             {

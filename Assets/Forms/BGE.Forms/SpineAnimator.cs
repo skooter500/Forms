@@ -66,7 +66,7 @@ namespace BGE.Forms
             }
         }
         
-        void Update ()
+        void FixedUpdate ()
         {
             if (suspended)
             {

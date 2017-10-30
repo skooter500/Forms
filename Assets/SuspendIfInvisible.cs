@@ -33,12 +33,7 @@ namespace BGE.Forms
         System.Collections.IEnumerator CheckVisibility() {
             yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
             while (true)
-            {
-                // Break as soon as one is viaible
-                int maxNumToCheck = 20;
-                int numToCheck = (renderers.Length < maxNumToCheck) ? renderers.Length : maxNumToCheck;
-                int gap = renderers.Length / numToCheck;
-
+            {    
                 Transform cam = Camera.main.transform;
                 float distToPlayer = Vector3.Distance(boids[0].transform.position, cam.position);
 
@@ -50,21 +45,7 @@ namespace BGE.Forms
                 else
                 {
                     visibleThisFrame = (distToPlayer < visibleBehindDistance);
-                }
-
-
-                /*
-                for (int i = 0; i < numToCheck; i += gap)
-                {
-                    Renderer r = renderers[i];
-                    if (r.isVisible)
-                    {
-                        visible = true;
-                        break;
-                    }
-                }
-                */
-                
+                }                
 
                 if (visibleThisFrame != visible)
                 {
