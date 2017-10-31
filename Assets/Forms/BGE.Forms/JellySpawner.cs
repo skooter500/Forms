@@ -29,8 +29,13 @@ namespace BGE.Forms
                 for (int i = alive.Count -1; i >= 0; i --)
                 {
                     GameObject jelly = alive[i];
+                    Transform cam = Camera.main.transform;
                     Boid boid = Utilities.FindBoidInHierarchy(jelly);
-                    if (Vector3.Distance(boid.position, Camera.main.transform.position) > playerRadius)
+                    // If the jelly is behind the player, divide the distance
+                    float deadDistance = (Vector3.Dot(boid.position - cam.position, cam.forward) > 0)
+                        ? playerRadius
+                        : playerRadius / 4;
+                    if (Vector3.Distance(boid.position, Camera.main.transform.position) > deadDistance)
                     {
                         dead.Add(jelly);
                         alive.Remove(jelly);
@@ -52,7 +57,7 @@ namespace BGE.Forms
                             (r.x * playerRadius
                             , 0
                             , r.y * playerRadius);
-                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + 5;
+                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + 30;
                         float dist = Vector3.Distance(Camera.main.transform.position, newPos);
                         RaycastHit rch;
                         bool hit = Physics.Raycast(Camera.main.transform.position

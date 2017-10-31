@@ -32,7 +32,7 @@ public class Coalesse : MonoBehaviour {
             {
                 // Only affect boids in front of the player
                 Vector3 toBoid = boid.transform.position - player.transform.position;
-                if ((Vector3.Dot(player.transform.forward, toBoid) >= 0) && (Random.Range(0, 0.5f) < 0.5f) && toBoid.magnitude < flock.radius * 5.0f)
+                if ((Vector3.Dot(player.transform.forward, toBoid) >= 0) && (Random.Range(0, 0.5f) < 0.5f) && toBoid.magnitude < flock.radius * 4.0f)
                 {
                     boid.GetComponent<Seperation>().Activate(true);
                     boid.GetComponent<SceneAvoidance>().Activate(false);

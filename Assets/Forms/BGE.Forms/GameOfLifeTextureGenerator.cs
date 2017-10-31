@@ -313,7 +313,7 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(delay);
                 }
                 generation++;
-                if (generation >= 150)
+                if (generation >= 50)
                 {
                     StartingPattern(current);
                 }

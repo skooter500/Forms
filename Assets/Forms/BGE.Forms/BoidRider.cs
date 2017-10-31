@@ -6,6 +6,10 @@ namespace BGE.Forms
     public class BoidRider : MonoBehaviour
     {
         bool viveControllers = false;
+
+        [HideInInspector]
+        PlayerSteering ps;
+
         // Use this for initialization
         void Start()
         {
@@ -33,8 +37,9 @@ namespace BGE.Forms
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 FindObjectOfType<ViveController>().boid = boid;
-                boid.GetComponent<PlayerSteering>().Activate(true);
-                boid.GetComponent<PlayerSteering>().hSpeed = 1.0f;
+                ps = boid.GetComponent<PlayerSteering>();
+                ps.Activate(true);
+                ps.hSpeed = 1.0f;
                 boid.GetComponent<Harmonic>().Activate(true);
                 boid.GetComponent<Harmonic>().auto = false;
 
@@ -56,7 +61,7 @@ namespace BGE.Forms
                     vt.UnVary();
                 }
                 
-                    Constrain con = boid.GetComponent<Constrain>();
+                Constrain con = boid.GetComponent<Constrain>();
                 if (con != null)
                 {
                     con.Activate(false);
@@ -79,22 +84,24 @@ namespace BGE.Forms
         void OnTriggerStay(Collider c)
         {
             GameObject other = c.gameObject;
-            if (other.tag == "Player")
+            // iF its a player and still attached
+            if (other.tag == "Player" && other.transform.parent == this.transform.parent)
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);
 
-                // Dont do this in VR!
+                // Dont do this in VR or if we are controlling a jellyfish
                 if (!viveControllers)
                 {
-                    Transform parent = transform.parent;
-                    ForceController fc = other.GetComponent<ForceController>();
-
-                    if (!fc.rotating)
+                    if (ps.controlType == PlayerSteering.ControlType.Ride || ps.controlType == PlayerSteering.ControlType.JellyTenticle)
                     {
-                        fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.rotation, Time.deltaTime * 1.5f);
+                        Transform parent = transform.parent;
+                        ForceController fc = other.GetComponent<ForceController>();
+
+                        if (!fc.rotating)
+                        {
+                            fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.rotation, Time.deltaTime * 1.5f);
+                        }
                     }
-                    //other.transform.rotation = Quaternion.Slerp(other.transform.rotation, parent.transform.rotation, Time.deltaTime);
-                    //other.transform.forward = Vector3.forward;
                 }
             }
         }

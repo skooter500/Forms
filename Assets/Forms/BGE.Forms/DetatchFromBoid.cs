@@ -42,9 +42,7 @@ public class DetatchFromBoid : MonoBehaviour {
                     boid.GetComponent<Seek>().Activate(true);
                 }
 
-                Quaternion desired = transform.rotation;
-                Vector3 cv = desired.eulerAngles;
-                desired = Quaternion.Euler(0, 0, 0);
+                Quaternion desired = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
                 this.transform.parent = null;
                 GetComponent<ForceController>().desiredRotation = desired;
                 VaryTenticles vt = boid.transform.parent.GetComponent<VaryTenticles>();
