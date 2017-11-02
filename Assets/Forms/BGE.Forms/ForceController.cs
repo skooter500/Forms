@@ -108,7 +108,7 @@ namespace BGE.Forms
         int test = 0;
 
         // Update is called once per frame
-        void FixedUpdate()
+        void Update()
         {
 
             rotating = false;
@@ -120,7 +120,7 @@ namespace BGE.Forms
 
             if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
             {
-                contSpeed *= 2f;
+                contSpeed *= 10f;
             }
 
             mouseX = Input.GetAxis("Mouse X");
