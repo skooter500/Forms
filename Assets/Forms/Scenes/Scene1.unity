@@ -7631,7 +7631,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400004, guid: 63ff915a25456fc488eb83a835611500, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 443815633}
-  m_LocalRotation: {x: -0.6532815, y: -0.27059802, z: 0.27059805, w: 0.65328145}
+  m_LocalRotation: {x: -0.65328157, y: -0.27059805, z: 0.27059808, w: 0.6532815}
   m_LocalPosition: {x: -0.079, y: -0.109, z: 0}
   m_LocalScale: {x: 100.00004, y: 100.000046, z: 100.000015}
   m_Children: []
@@ -14120,7 +14120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2012074538}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &871067665
 MonoBehaviour:
@@ -18465,7 +18465,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2012074538}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1101573695
 MonoBehaviour:
@@ -18505,7 +18505,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1101573693}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee205220e4c41f742a401542a8fe746d, type: 3}
   m_Name: 
@@ -20302,108 +20302,6 @@ Transform:
   m_Father: {fileID: 1926753223}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1238402215
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1238402216}
-  - component: {fileID: 1238402220}
-  - component: {fileID: 1238402219}
-  - component: {fileID: 1238402218}
-  - component: {fileID: 1238402217}
-  m_Layer: 15
-  m_Name: controlableTentacleFlower
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1238402216
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1238402215}
-  m_LocalRotation: {x: -0, y: -0, z: 7.245835e-16, w: 1}
-  m_LocalPosition: {x: -1073.4807, y: 10076, z: 8855}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2012074538}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1238402217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1238402215}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15007f6dd5a90bd438bb2dd6dcee367e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderers: []
-  boids: []
-  animators: []
-  spineAnimators: []
-  fishParts: []
-  visible: 0
-  updatesPerSecond: 5
-  visibleBehindDistance: 1000
-  visibleInFrontDistance: 15000
---- !u!114 &1238402218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1238402215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: 10000
-  end: 16000
-  minHeight: 5000
-  maxHeight: 8000
---- !u!114 &1238402219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1238402215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updatesPerSecond: 10
-  colorMapScaling: 250
-  texture: {fileID: 0}
-  colorScale: 0.7
---- !u!114 &1238402220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1238402215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9164c1e9c6c3f4848b76c0f13331fa21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tenticlePrefab: {fileID: 2081058756}
-  headPrefab: {fileID: 1640788282}
-  numTenticles: 8
-  radius: -2500
-  headScale: 1000
-  tenticleScale: 400
-  tenticleAngle: 0
-  color: {r: 0, g: 0, b: 0, a: 1}
-  assignColors: 1
 --- !u!1 &1242375046
 GameObject:
   m_ObjectHideFlags: 0
@@ -23525,7 +23423,7 @@ MonoBehaviour:
   modifySpeed: 0
   initialSpeed: 0
   initialAmplitude: 0
-  speedVariation: 0.312
+  speedVariation: 0.75
   amplitudeVariation: 0.585
   glide: 0
   running: 1
@@ -24510,7 +24408,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 63ff915a25456fc488eb83a835611500, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1547534617}
-  m_LocalRotation: {x: -0.6532815, y: -0.27059802, z: 0.27059805, w: 0.65328145}
+  m_LocalRotation: {x: -0.65328157, y: -0.27059805, z: 0.27059808, w: 0.6532815}
   m_LocalPosition: {x: 0.157, y: -0.015, z: -0}
   m_LocalScale: {x: 100.00004, y: 100.000046, z: 100.000015}
   m_Children: []
@@ -25912,7 +25810,7 @@ MonoBehaviour:
   modifySpeed: 0
   initialSpeed: 0
   initialAmplitude: 0
-  speedVariation: 0.5
+  speedVariation: 0.7
   amplitudeVariation: 0.51
   glide: 0
   running: 1
@@ -26001,7 +25899,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1640788282}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee61d1cf1d7a5b244a99e409e809d291, type: 3}
   m_Name: 
@@ -26066,7 +25964,7 @@ MonoBehaviour:
   modifySpeed: 0
   initialSpeed: 0
   initialAmplitude: 0
-  speedVariation: 0.381
+  speedVariation: 0.75
   amplitudeVariation: 0.585
   glide: 0
   running: 1
@@ -30970,7 +30868,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1238402216}
   - {fileID: 871067664}
   - {fileID: 1101573694}
   - {fileID: 2102087580}
@@ -32684,7 +32581,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2012074538}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2102087581
 MonoBehaviour:
