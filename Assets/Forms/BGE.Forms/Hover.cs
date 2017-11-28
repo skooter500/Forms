@@ -38,7 +38,7 @@ namespace BGE.Forms
                 this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
             }
             thetaDelta = theta - oldTheta;
-            if ((theta < Mathf.PI & thetaDelta > 0) || (theta > Mathf.PI && thetaDelta < 0))
+            if ((theta < Mathf.PI && thetaDelta > 0) || (theta > Mathf.PI && thetaDelta < 0))
             {
                 force = boid.forward 
                         * Mathf.Abs(thetaDelta)

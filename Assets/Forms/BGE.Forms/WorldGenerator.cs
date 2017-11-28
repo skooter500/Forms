@@ -77,7 +77,7 @@ namespace BGE.Forms
                 textureGenerator = GetComponent<TextureGenerator>();
                 if (samplers == null)
                 {
-                    Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
+                    Debug.Log("Sampler is null! Add a sampler to the world gen");
                 }            
                 int playerX = (int)(Mathf.Floor((player.transform.position.x) / (cellsPerTile * cellSize)) * cellsPerTile);
                 int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (cellsPerTile * cellSize)) * cellsPerTile);
