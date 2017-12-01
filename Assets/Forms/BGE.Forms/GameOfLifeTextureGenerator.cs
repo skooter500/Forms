@@ -55,9 +55,9 @@ namespace BGE.Forms
                 int x1 = (int)(size * 0.2);
                 int x2 = (int)(size * 0.8);
                 board[x1, col] = RandomColor();
-                board[x2, col] = RandomColor();
+                //board[x2, col] = RandomColor();
                 board[col, x1] = RandomColor();
-                board[col, x2] = RandomColor();
+                //board[col, x2] = RandomColor();
             }
         }
 

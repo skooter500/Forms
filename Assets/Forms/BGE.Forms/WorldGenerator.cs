@@ -356,14 +356,14 @@ namespace BGE.Forms
             meshCollider.sharedMesh = null;
             meshCollider.sharedMesh = mesh;
 
-            GameObject surface = MakeSurface();
+            GameObject surface = MakeSurface(position);
             surface.name = "Surface";
             surface.transform.parent = tile.transform;
             surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             return tile;
         }
 
-        GameObject MakeSurface()
+        GameObject MakeSurface(Vector3 position)
         {
             // Make the surface
             GameObject surface = new GameObject();
@@ -392,13 +392,21 @@ namespace BGE.Forms
                 gm.triangles[i] = i;
             }
 
-            gm.uv[0] = new Vector2(1, 1);
+            gm.uv[0] = MakeUV(position, cellsPerTile, cellsPerTile);
+            gm.uv[1] = MakeUV(position, 0, cellsPerTile);
+            gm.uv[2] = MakeUV(position, 0, 0);
+            gm.uv[3] = MakeUV(position, cellsPerTile, 0);
+            gm.uv[4] = MakeUV(position, cellsPerTile, cellsPerTile);
+            gm.uv[5] = MakeUV(position, 0, 0);
+
+
+            /*gm.uv[0] = new Vector2(1, 1);
             gm.uv[1] = new Vector2(0, 1);
             gm.uv[2] = new Vector2(0, 0); 
             gm.uv[3] = new Vector2(1, 0);
             gm.uv[4] = new Vector2(1, 1);
             gm.uv[5] = new Vector2(0, 0); 
-
+            */
             Mesh mesh = new Mesh();
             mesh.vertices = gm.vertices;
             mesh.uv = gm.uv;
