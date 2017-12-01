@@ -40,6 +40,15 @@ namespace BGE.Forms
         public Vector2[] uv;
         public Color[] colors;
         public int[] triangles;
+
+        public GeneratedMesh(int vertexCount)
+        {
+            vertices = new Vector3[vertexCount];
+            normals = new Vector3[vertexCount];
+            uv = new Vector2[vertexCount];
+            triangles = new int[vertexCount];
+            colors = new Color[vertexCount];
+        }
     }
 
     public class WorldGenerator : MonoBehaviour {
@@ -63,6 +72,8 @@ namespace BGE.Forms
         public float textureScaling = 1.0f;
 
         public Color color = Color.blue;
+
+        public float surfaceHeight = 6000;
 
         public Sampler[] GetSamplers()
         {
@@ -235,14 +246,8 @@ namespace BGE.Forms
             tileBottomLeft.x = -(cellsPerTile * cellSize) / 2;
             tileBottomLeft.z = -(cellsPerTile * cellSize) / 2;
         
-            GeneratedMesh gm = new GeneratedMesh();
-
-            gm.vertices = new Vector3[vertexCount];
-            gm.normals = new Vector3[vertexCount];
-            gm.uv = new Vector2[vertexCount];
-            gm.triangles = new int[vertexCount];
-            gm.colors = new Color[vertexCount];
-
+            GeneratedMesh gm = new GeneratedMesh(vertexCount);
+            
             Vector2 texOrigin = position / cellSize;
             texOrigin.x = texOrigin.x % textureGenerator.size;
             texOrigin.y = texOrigin.y % textureGenerator.size;
@@ -351,7 +356,62 @@ namespace BGE.Forms
             meshCollider.sharedMesh = null;
             meshCollider.sharedMesh = mesh;
 
+            GameObject surface = MakeSurface();
+            surface.name = "Surface";
+            surface.transform.parent = tile.transform;
+            surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             return tile;
+        }
+
+        GameObject MakeSurface()
+        {
+            // Make the surface
+            GameObject surface = new GameObject();
+            MeshRenderer mr = surface.AddComponent<MeshRenderer>();
+            MeshFilter mf = surface.AddComponent<MeshFilter>();
+
+            Vector3 tileBottomLeft = new Vector3();
+            tileBottomLeft.x = -(cellsPerTile * cellSize) / 2;
+            tileBottomLeft.z = -(cellsPerTile * cellSize) / 2;
+
+            Vector3 tileTopRight = new Vector3();
+            tileTopRight.x = (cellsPerTile * cellSize) / 2;
+            tileTopRight.z = (cellsPerTile * cellSize) / 2;
+
+            GeneratedMesh gm = new GeneratedMesh(6);
+            
+            gm.vertices[0] = tileTopRight;
+            gm.vertices[1] = new Vector3(tileBottomLeft.x, 0, tileTopRight.z);
+            gm.vertices[2] = tileBottomLeft;
+            gm.vertices[3] = new Vector3(tileTopRight.x, 0, tileBottomLeft.z);
+            gm.vertices[4] = tileTopRight;
+            gm.vertices[5] = tileBottomLeft;
+
+            for (int i = 0; i < 6; i++)
+            {
+                gm.triangles[i] = i;
+            }
+
+            gm.uv[0] = new Vector2(1, 1);
+            gm.uv[1] = new Vector2(0, 1);
+            gm.uv[2] = new Vector2(0, 0); 
+            gm.uv[3] = new Vector2(1, 0);
+            gm.uv[4] = new Vector2(1, 1);
+            gm.uv[5] = new Vector2(0, 0); 
+
+            Mesh mesh = new Mesh();
+            mesh.vertices = gm.vertices;
+            mesh.uv = gm.uv;
+            mesh.triangles = gm.triangles;
+            mesh.colors = gm.colors;
+            mesh.RecalculateNormals();
+
+
+            mf.mesh = mesh;
+
+
+            mr.material.SetTexture("_MainTex", textureGenerator.texture);
+            return surface;
         }
 
         // Update is called once per frame
