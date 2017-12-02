@@ -8,6 +8,8 @@ namespace BGE.Forms
     {
         Camera camera;
 
+        float startFOV;
+
         // Use this for initialization
         void Start()
         {
@@ -20,9 +22,40 @@ namespace BGE.Forms
 
         }
 
-        void OnTriggerStay()
+        System.Collections.IEnumerator UnToad()
         {
-            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 180, Time.deltaTime);
+            float t = 0;
+            while (camera.fieldOfView -startFOV > 0.01f)
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, startFOV, Time.deltaTime / 3.0f);
+                yield return null;
+            }
+            camera.fieldOfView = startFOV;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                startFOV = camera.fieldOfView;
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 179, Time.deltaTime);
+            }
+        }
+
+        void OnTriggerStay(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 179, Time.deltaTime);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                StartCoroutine(UnToad());
+            }
         }
     }
 }
