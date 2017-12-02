@@ -47,7 +47,7 @@ namespace BGE.Forms
         public static Boid FindBoidInHierarchy(GameObject root, int startDepth = 0)
         {
             Boid boid = root.GetComponentInChildren<Boid>();
-            if (boid == null)
+            if (boid == null || ! boid.isActiveAndEnabled)
             {
                 if (root.transform.parent == null)
                 {

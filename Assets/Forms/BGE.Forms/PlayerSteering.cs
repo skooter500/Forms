@@ -44,6 +44,7 @@ public class PlayerSteering : SteeringBehaviour
         rightForce = Input.GetAxis("Horizontal") * 0.6f;
         CreatureManager.Log("Player force: " + force);
         CreatureManager.Log("RightForce: " + rightForce);
+
         // Control the boid
         if (viveController != null)
         {

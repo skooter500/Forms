@@ -28,14 +28,14 @@ namespace BGE.Forms
         {
             GameObject other = c.gameObject;
             if (other.tag == "Player")
-            {
+            {                
                 other.transform.parent = this.transform.parent;
+                Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 other.GetComponent<ForceController>().moveEnabled = false;
                 other.GetComponent<ForceController>().joyYControllsPitch = true;
 
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
-                Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 FindObjectOfType<ViveController>().boid = boid;
                 ps = boid.GetComponent<PlayerSteering>();
                 ps.Activate(true);
@@ -70,6 +70,11 @@ namespace BGE.Forms
                 if (boid.GetComponent<NoiseWander>() != null)
                 {
                     boid.GetComponent<NoiseWander>().Activate(false);
+                }
+
+                if (boid.GetComponent<JitterWander>() != null)
+                {
+                    boid.GetComponent<JitterWander>().Activate(false);
                 }
                 RotateMe r = GetComponent<RotateMe>();
                 if (r != null)

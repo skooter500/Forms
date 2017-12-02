@@ -119,6 +119,9 @@ namespace BGE.Forms
         {
             Instance = this;
             samplers = GetSamplers();
+
+        
+
             if (samplers == null)
             {
                 Debug.Log("Sampler is null! Add a sampler to the NoiseForm");

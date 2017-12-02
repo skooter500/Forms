@@ -29,6 +29,11 @@ public class DetatchFromBoid : MonoBehaviour {
                 {
                     boid.GetComponent<NoiseWander>().Activate(true);
                 }
+
+                if (boid.GetComponent<JitterWander>() != null)
+                {
+                    boid.GetComponent<JitterWander>().Activate(true);
+                }
                 boid.GetComponent<PlayerSteering>().Activate(false);
                 boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;

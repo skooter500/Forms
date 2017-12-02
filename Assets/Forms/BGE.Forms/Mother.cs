@@ -19,6 +19,8 @@ namespace BGE.Forms
 
 		public LayerMask environmentLM;
 
+        public static Mother Instance;
+
         private bool TestPos(Vector3 newPos, float spaceRequired)
         {
             // Testing visibility to the player
@@ -149,8 +151,17 @@ namespace BGE.Forms
 			}            
 		}
 
-		// Use this for initialization
-		void Start()
+        private void Awake()
+        {
+            Instance = this;
+            if (Application.isEditor)
+            {
+                //maxcreatures = 10;
+            }
+        }
+
+        // Use this for initialization
+        void Start()
 		{
 			StartCoroutine(Spawn());
 		}
