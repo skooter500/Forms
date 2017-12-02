@@ -104,6 +104,16 @@ namespace BGE.Forms
                        
                         newPos = Camera.main.transform.TransformPoint(r);
 						newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(sp.minHeight, sp.maxHeight);
+                        if (newPos.y > WorldGenerator.Instance.surfaceHeight)
+                        {
+                            count++;
+                            if (count == 10)
+                            {
+                                found = false;
+                                break;
+                            }
+                            continue;
+                        }
                         found = true;
                         /*
                         bool clear = TestPos(newPos, spaceRequired[nextCreature]);

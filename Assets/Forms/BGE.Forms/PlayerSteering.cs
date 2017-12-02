@@ -72,6 +72,15 @@ public class PlayerSteering : SteeringBehaviour
 
         }
 
+        /*
+              hSpeed = Mathf.Lerp(hSpeed
+            ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 2, 0.0f, 0.01f)
+            , 2.0f * Time.deltaTime
+            );
+
+        harmonic.theta += hSpeed * Time.deltaTime * harmonic.speed;
+        */
+
         hSpeed = Mathf.Lerp(hSpeed
             ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)
             , 2.0f * Time.deltaTime
