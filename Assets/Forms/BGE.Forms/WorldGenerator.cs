@@ -125,6 +125,13 @@ namespace BGE.Forms
             }
 
             Random.seed = (int)System.DateTime.Now.Ticks;
+            foreach (Sampler s in samplers)
+            {
+                ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
+            }
+
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 100, 0);
+            
             //Random.seed = 42;
         }
 
@@ -369,6 +376,7 @@ namespace BGE.Forms
             GameObject surface = new GameObject();
             MeshRenderer mr = surface.AddComponent<MeshRenderer>();
             MeshFilter mf = surface.AddComponent<MeshFilter>();
+            
 
             Vector3 tileBottomLeft = new Vector3();
             tileBottomLeft.x = -(cellsPerTile * cellSize) / 2;
@@ -399,25 +407,18 @@ namespace BGE.Forms
             gm.uv[4] = MakeUV(position, cellsPerTile, cellsPerTile);
             gm.uv[5] = MakeUV(position, 0, 0);
 
-
-            /*gm.uv[0] = new Vector2(1, 1);
-            gm.uv[1] = new Vector2(0, 1);
-            gm.uv[2] = new Vector2(0, 0); 
-            gm.uv[3] = new Vector2(1, 0);
-            gm.uv[4] = new Vector2(1, 1);
-            gm.uv[5] = new Vector2(0, 0); 
-            */
             Mesh mesh = new Mesh();
             mesh.vertices = gm.vertices;
             mesh.uv = gm.uv;
             mesh.triangles = gm.triangles;
             mesh.colors = gm.colors;
             mesh.RecalculateNormals();
-
-
+            
             mf.mesh = mesh;
 
+            surface.layer = this.gameObject.layer;
 
+            surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             return surface;
         }
