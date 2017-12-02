@@ -136,7 +136,7 @@ namespace BGE.Forms
 							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                                 );  
-							newcreature.transform.parent = this.transform.parent;
+							newcreature.transform.parent = this.transform;
 						}
 						//Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
 						alive.Add(newcreature);
