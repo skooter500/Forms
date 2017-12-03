@@ -13,15 +13,33 @@ namespace BGE.Forms
         public float fov;
 
         Seek seek;
+        Boid boid;
+        SceneAvoidance sceneAvoidance;
         public float seekDistange = 5000;
         GameObject player;
+        ViveController viveController;
 
         // Use this for initialization
         void Start() {
-            seek = GetComponent<Seek>();
             player = Camera.main.gameObject;
-
+            viveController = GetComponent<ViveController>();
             StartCoroutine(CheckForNewTarget());
+        }
+
+        void AssignBehaviours()
+        {
+            if (viveController.boid != null)
+            {
+                boid = viveController.boid;
+                seek = boid.GetComponent<Seek>();
+                sceneAvoidance = boid.GetComponent<SceneAvoidance>();
+            }
+            else
+            {
+                boid = GetComponent<Boid>();
+                seek = GetComponent<Seek>();
+                sceneAvoidance = GetComponent<SceneAvoidance>();
+            }
         }
 
         GameObject PickNewTarget()
@@ -81,23 +99,47 @@ namespace BGE.Forms
                     case ControlType.Player:
                         Debug.Log("Automatic");
                         controlType = ControlType.Automatic;
-                        GetComponent<ViveController>().enabled = false;
+                        AssignBehaviours();
+                        viveController.enabled = false;
                         GetComponent<ForceController>().enabled = false;
-                        GetComponent<Boid>().enabled = true;
+                        boid.enabled = true;
                         seek.targetGameObject = PickNewTarget();
                         seek.Activate(true);
-                        GetComponent<NoiseWander>().Activate(true);
-                        GetComponent<SceneAvoidance>().Activate(true);
+                        sceneAvoidance.Activate(true);
+                        if (boid.GetComponent<Harmonic>() != null)
+                        {
+                            boid.GetComponent<Harmonic>().auto = true;
+                        }
+
+                        if (boid.GetComponent<PlayerSteering>() != null)
+                        {
+                            boid.GetComponent<PlayerSteering>().controlSpeed = false;
+                        }
                         break;
                     case ControlType.Automatic:
                         Debug.Log("Player");
                         controlType = ControlType.Player;
-                        GetComponent<ViveController>().enabled = true;
+                        AssignBehaviours();
+                        viveController.enabled = true;
                         GetComponent<ForceController>().enabled = true;
-                        GetComponent<Boid>().enabled = false;
+
+                        if (viveController.boid == null)
+                        {
+                            boid.enabled = false;
+                            sceneAvoidance.Activate(false);
+                        }
                         seek.Activate(false);
-                        GetComponent<NoiseWander>().Activate(false);
-                        GetComponent<SceneAvoidance>().Activate(false);
+
+                        if (boid.GetComponent<PlayerSteering>() != null)
+                        {
+                            boid.GetComponent<PlayerSteering>().Activate(true);
+                            boid.GetComponent<PlayerSteering>().controlSpeed = true;
+                        }
+
+                        if (boid.GetComponent<Harmonic>() != null)
+                        {
+                            boid.GetComponent<Harmonic>().auto = false;
+                        }
                         break;
                 }
             }

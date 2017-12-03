@@ -133,7 +133,7 @@ namespace BGE.Forms
                 ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
             }
 
-            player.transform.position = new Vector3(0, SamplePos(0,0) + 100, 0);
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
             
             //Random.seed = 42;
         }

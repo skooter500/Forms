@@ -25,9 +25,9 @@ namespace BGE.Forms
         System.Collections.IEnumerator UnToad()
         {
             float t = 0;
-            while (camera.fieldOfView -startFOV > 0.01f)
+            while (camera.fieldOfView -startFOV > 0.1f)
             {
-                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, startFOV, Time.deltaTime / 3.0f);
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, startFOV, Time.deltaTime / 4.0f);
                 yield return null;
             }
             camera.fieldOfView = startFOV;

@@ -27,6 +27,9 @@ public class PlayerSteering : SteeringBehaviour
     [HideInInspector]
     public float maxSpeed = 0;
 
+    [HideInInspector]
+    public bool controlSpeed = true;
+
     public void Start()
     {
         viveController = FindObjectOfType<ViveController>();
@@ -34,7 +37,6 @@ public class PlayerSteering : SteeringBehaviour
         viveControllers = UnityEngine.XR.XRDevice.isPresent;
         maxSpeed = boid.maxSpeed;
     }
-
     
 
     public override void Update()
@@ -87,7 +89,7 @@ public class PlayerSteering : SteeringBehaviour
             );
 
         harmonic.theta += hSpeed * Time.deltaTime;
-        if (controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
+        if (controlSpeed && controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {
             boid.maxSpeed = maxSpeed * hSpeed;
         }
