@@ -38,7 +38,7 @@ namespace BGE.Forms
                 for (int col = 0; col < size; col++)
                 {
                     float hue = (row / (float) size * colorScale) + (col / (float) size * colorScale) / 2.0f;
-                    colorGrid[row, col] = Color.HSVToRGB(hue, 1, 0.9f);
+                    colorGrid[row, col] = Color.HSVToRGB(hue, 1, 0.8f);
 
                     texture.SetPixel(row, col, colorGrid[row, col]);
                 }
