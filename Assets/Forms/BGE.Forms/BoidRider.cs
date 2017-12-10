@@ -94,6 +94,7 @@ namespace BGE.Forms
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);
 
+                /*
                 // Dont do this in VR or if we are controlling a jellyfish
                 if (!viveControllers)
                 {
@@ -108,6 +109,7 @@ namespace BGE.Forms
                         }
                     }
                 }
+                */
             }
         }
     }

@@ -57,7 +57,7 @@ namespace BGE.Forms
                             (r.x * playerRadius
                             , 0
                             , r.y * playerRadius);
-                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + 30;
+                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(50, 1000);
                         float dist = Vector3.Distance(Camera.main.transform.position, newPos);
                         RaycastHit rch;
                         bool hit = Physics.Raycast(Camera.main.transform.position

@@ -66,7 +66,14 @@ class CrossPlayer : State
     {
         if (Vector3.Distance(seek.target, boid.position) < 1000)
         {
-            owner.ChangeState(new IdleState());
+            if (owner.GetComponent<BigCreatureController>().canIdle)
+            {
+                owner.ChangeState(new IdleState());
+            }
+            else
+            {
+                owner.ChangeState(new MoveCloseToPlayer());
+            }
         }
     }
 
@@ -120,6 +127,8 @@ class MoveCloseToPlayer : State
 }
 
 public class BigCreatureController : MonoBehaviour {
+
+    public bool canIdle = true;
 
 	// Use this for initialization
 	void Start () {
