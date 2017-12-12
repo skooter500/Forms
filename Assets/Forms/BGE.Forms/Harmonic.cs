@@ -65,11 +65,16 @@ namespace BGE.Forms
             float t = Utilities.Map(n, -1.0f, 1.0f, -rampedAmplitude, rampedAmplitude);
             float theta = Utilities.DegreesToRads(t);
 
+            yawRoll = boid.rotation.eulerAngles;
+            yawRoll.x = 0;
+
+
             if (direction == Axis.Horizontal)
             {
                 target.x = Mathf.Sin(theta);
                 target.z = Mathf.Cos(theta);
                 target.y = 0;
+                yawRoll.z = 0;
             }
             else
             {
@@ -80,20 +85,6 @@ namespace BGE.Forms
 
             target *= radius;
         
-            // The forces 
-            /*
-        Vector3 noPitch = boid.force;
-        //if (boid.force.magnitude < 0.01)
-        {
-            noPitch = boid.forward;
-            //noPitch.y = 0;           
-        }
-        noPitch.Normalize();
-        worldTarget = boid.position + (target + (noPitch * distance));
-        */
-
-            yawRoll = boid.rotation.eulerAngles;
-            yawRoll.x = 0;
 
             Vector3 localTarget = target + (Vector3.forward * distance);
             //Vector3 worldTarget = boid.TransformPoint(localTarget);
