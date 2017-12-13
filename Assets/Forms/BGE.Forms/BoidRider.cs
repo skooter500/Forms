@@ -5,6 +5,10 @@ namespace BGE.Forms
 {
     public class BoidRider : MonoBehaviour
     {
+        public enum CameraType { free, forward };
+
+        public CameraType cameraType = CameraType.forward;
+
         bool viveControllers = false;
 
         [HideInInspector]
@@ -19,7 +23,11 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
-            
+            if (Input.GetKeyDown(KeyCode.JoystickButton2))
+            {
+                int ct = ((int)(cameraType + 1) % System.Enum.GetNames(typeof(CameraType)).Length);
+                cameraType = (CameraType)ct;
+            }
         }
 
         Quaternion targetQuaternion = Quaternion.identity;
@@ -94,11 +102,12 @@ namespace BGE.Forms
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);
 
-                /*
-                // Dont do this in VR or if we are controlling a jellyfish
+                
+
+                // Dont do this in VR
                 if (!viveControllers)
                 {
-                    if (ps.controlType == PlayerSteering.ControlType.Ride || ps.controlType == PlayerSteering.ControlType.JellyTenticle)
+                    if (cameraType == CameraType.forward)
                     {
                         Transform parent = transform.parent;
                         ForceController fc = other.GetComponent<ForceController>();
@@ -108,8 +117,7 @@ namespace BGE.Forms
                             fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.rotation, Time.deltaTime * 1.5f);
                         }
                     }
-                }
-                */
+                }                
             }
         }
     }

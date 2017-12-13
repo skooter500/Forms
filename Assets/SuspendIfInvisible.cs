@@ -4,17 +4,34 @@ using UnityEngine;
 
 namespace BGE.Forms
 {
+
+    public struct SuspendDistance
+    {
+        float behind;
+        float inFront;
+    }
+
     public class SuspendIfInvisible : MonoBehaviour {
 
+        [HideInInspector]
         public Renderer[] renderers;
+        [HideInInspector]
         public Boid[] boids;
+        [HideInInspector]
         public Animator[] animators;
+        [HideInInspector]
         public SpineAnimator[] spineAnimators;
+        [HideInInspector]
         public FishParts[] fishParts;
 
         public bool visible = false;
 
         public int updatesPerSecond = 10;
+
+        public bool suspendBoids = false;
+        public float boidsInFront, boidsBehind;
+
+        public SuspendDistance suspendDistance;
 
         // Use this for initialization
         void Start() {
@@ -24,10 +41,6 @@ namespace BGE.Forms
             spineAnimators = GetComponentsInChildren<SpineAnimator>();
             StartCoroutine(CheckVisibility());
         }
-
-        public float visibleBehindDistance = 1000;
-        public float visibleInFrontDistance = 8000;
-        
 
         // Update is called once per frame
         System.Collections.IEnumerator CheckVisibility() {
@@ -40,11 +53,11 @@ namespace BGE.Forms
                 bool visibleThisFrame;
                 if (Vector3.Dot(boids[0].transform.position - cam.position, cam.forward) > 0)
                 {
-                    visibleThisFrame = (distToPlayer < visibleInFrontDistance);
+                    visibleThisFrame = true;
                 }
                 else
                 {
-                    visibleThisFrame = (distToPlayer < visibleBehindDistance);
+                    visibleThisFrame = false;
                 }                
 
                 if (visibleThisFrame != visible)
