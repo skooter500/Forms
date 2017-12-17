@@ -62,6 +62,7 @@ namespace BGE.Forms
 
                 if (visibleThisFrame != visible)
                 {
+                    /*
                     foreach (Boid b in boids)
                     {
                         b.suspended = !visibleThisFrame;
@@ -71,7 +72,7 @@ namespace BGE.Forms
                     {
                         sa.suspended = !visibleThisFrame;
                     }
-
+                    */
                     foreach (FishParts fp in fishParts)
                     {
                         fp.suspended = !visibleThisFrame;
