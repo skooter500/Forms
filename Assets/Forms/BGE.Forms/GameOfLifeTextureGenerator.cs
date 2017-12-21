@@ -313,7 +313,7 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(delay);
                 }
                 generation++;
-                if (generation >= 50)
+                if (generation >= 100)
                 {
                     StartingPattern(current);
                 }
@@ -336,7 +336,9 @@ namespace BGE.Forms
                     }
                 } 
             }
-            return average / count;
+            float h, s, b;
+            Color.RGBToHSV(average / count, out h, out s, out b);
+            return  Color.HSVToRGB(h, sat, brightness);
         }
 
         public Color Get(Color[,] board, int row, int col)
@@ -491,6 +493,10 @@ namespace BGE.Forms
             if (Input.GetKeyDown(KeyCode.JoystickButton1))
             {
                 StartingPattern(current);
+            }
+            if (Input.GetKeyDown(KeyCode.JoystickButton9))
+            {
+                Randomise();
             }
         }
 
