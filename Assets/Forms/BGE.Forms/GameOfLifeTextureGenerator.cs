@@ -44,7 +44,7 @@ namespace BGE.Forms
             }
         }
 
-        private void StartingPattern(Color[,] board)
+        private void GridStartingPattern(Color[,] board)
         {
             generation = 0;
 
@@ -57,6 +57,39 @@ namespace BGE.Forms
                 board[x1, col] = RandomColor();
                 //board[x2, col] = RandomColor();
                 board[col, x1] = RandomColor();
+                //board[col, x2] = RandomColor();
+            }
+        }
+
+        private void BoxStartingPattern(Color[,] board)
+        {
+            generation = 0;
+
+            ClearBoard(board);
+            int x1 = (int)(size * 0.2);
+            int x2 = (int)(size * 0.8);
+            for (int col = x1; col < x2; col++)
+            {
+                board[x1, col] = RandomColor();
+                board[x2, col] = RandomColor();
+                //board[x2, col] = RandomColor();
+                board[col, x1] = RandomColor();
+                board[col, x2] = RandomColor();
+                //board[col, x2] = RandomColor();
+            }
+        }
+
+        private void CrossStartingPattern(Color[,] board)
+        {
+            generation = 0;
+
+            ClearBoard(board);
+
+            for (int col = 0; col < size; col++)
+            {
+                board[col, col] = RandomColor();
+                //board[x2, col] = RandomColor();
+                board[col, size - (col + 1)] = RandomColor();
                 //board[col, x2] = RandomColor();
             }
         }
@@ -83,7 +116,7 @@ namespace BGE.Forms
             next = new Color[size, size];
             //MakeGosperGun(size / 2, size / 2);
             //MakeTumbler(size / 2, size / 2);        
-            StartingPattern(current);
+            GridStartingPattern(current);
             //Randomise();
             StartCoroutine("UpdateBoard");
             //StartCoroutine("Spawner");
@@ -98,7 +131,7 @@ namespace BGE.Forms
                 switch (i)
                 {
                     case 1:
-                            StartingPattern(current);
+                            GridStartingPattern(current);
                             break;
                 }
                 
@@ -230,7 +263,7 @@ namespace BGE.Forms
             while (true)
             {
                 yield return new WaitForSeconds(speed * 50);
-                StartingPattern(current);
+                GridStartingPattern(current);
             }
         }
 
@@ -315,7 +348,7 @@ namespace BGE.Forms
                 generation++;
                 if (generation >= 100)
                 {
-                    StartingPattern(current);
+                    GridStartingPattern(current);
                 }
             }
         }
@@ -488,16 +521,30 @@ namespace BGE.Forms
         }
             */
 
+        float lastX, lastY;
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.JoystickButton1))
+            float x = Input.GetAxis("DPadX");
+            float y = Input.GetAxis("DPadY");
+            if (x == -1 && x != lastX)
             {
-                StartingPattern(current);
+                GridStartingPattern(current);
             }
-            if (Input.GetKeyDown(KeyCode.JoystickButton9))
+            if (x == 1 && x != lastX)
+            {
+                CrossStartingPattern(current);
+            }
+            if (y == 1 && y != lastY)
+            {
+                BoxStartingPattern(current);
+            }
+            if (y == -1 && y != lastY)
             {
                 Randomise();
             }
+
+            lastX = x;
+            lastY = y;
         }
 
 
