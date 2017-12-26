@@ -72,10 +72,8 @@ namespace BGE.Forms
             {
                 board[x1, col] = RandomColor();
                 board[x2, col] = RandomColor();
-                //board[x2, col] = RandomColor();
                 board[col, x1] = RandomColor();
                 board[col, x2] = RandomColor();
-                //board[col, x2] = RandomColor();
             }
         }
 

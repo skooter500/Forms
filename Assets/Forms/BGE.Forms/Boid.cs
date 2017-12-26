@@ -73,6 +73,11 @@ namespace BGE.Forms
 
         public string testField;
 
+        public bool inFrontOfPlayer = false;
+        public float distanceToPlayer = 0;
+        [HideInInspector] Vector3 playerPosition;
+        [HideInInspector] Vector3 playerForward;
+
         public float TimeDelta
         {
             get
@@ -92,6 +97,8 @@ namespace BGE.Forms
             multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
 
+            player = Camera.main.transform;
+
             //if (transform.parent.gameObject.GetComponent<School>() != null)
             //{
             //    school = transform.parent.gameObject.GetComponent<School>();
@@ -109,6 +116,9 @@ namespace BGE.Forms
             right = transform.right;
             forward = transform.forward;
             rotation = transform.rotation;
+
+            playerPosition = Camera.main.transform.position;
+            playerForward = Camera.main.transform.forward;
         }
 
         public Vector3 TransformDirection(Vector3 direction)
@@ -315,6 +325,11 @@ namespace BGE.Forms
             projectRight.Normalize();
             bank = Vector3.Angle(right, projectRight);
             bank = (right.y > 0) ? bank : -bank;
+
+            // Calculate distance to the player
+            inFrontOfPlayer = Vector3.Dot(position - playerPosition, playerForward) > 0;
+            distanceToPlayer = Vector3.Distance(position, playerPosition);
+
             return totalForce;
         }
         #endregion
