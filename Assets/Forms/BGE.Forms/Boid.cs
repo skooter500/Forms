@@ -77,6 +77,7 @@ namespace BGE.Forms
         public float distanceToPlayer = 0;
         [HideInInspector] Vector3 playerPosition;
         [HideInInspector] Vector3 playerForward;
+        Transform player;
 
         public float TimeDelta
         {
@@ -97,13 +98,18 @@ namespace BGE.Forms
             multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
 
-            player = Camera.main.transform;
+            
 
             //if (transform.parent.gameObject.GetComponent<School>() != null)
             //{
             //    school = transform.parent.gameObject.GetComponent<School>();
             //}
 
+        }
+
+        public void Awake()
+        {
+            player = Camera.main.transform;
         }
 
         #region Integration
@@ -117,8 +123,8 @@ namespace BGE.Forms
             forward = transform.forward;
             rotation = transform.rotation;
 
-            playerPosition = Camera.main.transform.position;
-            playerForward = Camera.main.transform.forward;
+            playerPosition = player.position;
+            playerForward = player.forward;
         }
 
         public Vector3 TransformDirection(Vector3 direction)
