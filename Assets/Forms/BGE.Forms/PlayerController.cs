@@ -104,8 +104,8 @@ namespace BGE.Forms
                         GetComponent<ForceController>().enabled = false;
                         boid.enabled = true;
                         seek.targetGameObject = PickNewTarget();
-                        seek.Activate(true);
-                        sceneAvoidance.Activate(true);
+                        seek.SetActive(true);
+                        sceneAvoidance.SetActive(true);
                         if (boid.GetComponent<Harmonic>() != null)
                         {
                             boid.GetComponent<Harmonic>().auto = true;
@@ -126,13 +126,13 @@ namespace BGE.Forms
                         if (viveController.boid == null)
                         {
                             boid.enabled = false;
-                            sceneAvoidance.Activate(false);
+                            sceneAvoidance.SetActive(false);
                         }
-                        seek.Activate(false);
+                        seek.SetActive(false);
 
                         if (boid.GetComponent<PlayerSteering>() != null)
                         {
-                            boid.GetComponent<PlayerSteering>().Activate(true);
+                            boid.GetComponent<PlayerSteering>().SetActive(true);
                             boid.GetComponent<PlayerSteering>().controlSpeed = true;
                         }
 

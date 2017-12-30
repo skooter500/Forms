@@ -14,12 +14,46 @@ class IdleState : State
 
     public override void Exit()
     {
-        
+        owner.CancelDelayedStateChange();
     }
 
     public override void Think()
     {
         
+    }
+}
+
+class BackFlip : State
+{
+    Seek seek;
+    NoiseWander nw;
+    Constrain constrain;
+    Boid boid;
+    public override void Enter()
+    {
+        boid = Utilities.FindBoidInHierarchy(owner.gameObject);
+        seek = boid.GetComponent<Seek>();
+        nw = boid.GetComponent<NoiseWander>();
+        constrain = boid.GetComponent<Constrain>();
+
+        // Set the constrain target to be behind the boid
+        // Project the forward vector onto the XZ plane
+        Vector3 backwards = boid.transform.forward;
+        backwards.y = 0;
+        backwards = -backwards;
+        float dist = 100;
+        constrain.centre = boid.transform.position + (backwards * dist);
+        constrain.radius = dist;
+
+        Utilities.SetActive(seek, false);
+        Utilities.SetActive(nw, false);
+        Utilities.SetActive(constrain, true);
+        owner.ChangeStateDelayed(new IdleState(), 3);
+    }
+
+    public override void Exit()
+    {
+        Utilities.SetActive(constrain, false);
     }
 }
 
@@ -41,13 +75,13 @@ class CrossPlayer : State
         pos.y = WorldGenerator.Instance.SamplePos(pos.x, pos.z) + Random.Range(500, 2000);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
-        seek.Activate(true);
+        seek.SetActive(true);
         nw = boid.GetComponent<NoiseWander>();
         if (nw != null)
         {
-            nw.Activate(false);
+            nw.SetActive(false);
         }
-        boid.GetComponent<Constrain>().Activate(false);
+        boid.GetComponent<Constrain>().SetActive(false);
         boid.GetComponent<Seek>().target = pos;
     }
 
@@ -55,11 +89,11 @@ class CrossPlayer : State
     {
         if (nw != null)
         {
-            nw.Activate(true);
+            nw.SetActive(true);
         }
-        boid.GetComponent<Constrain>().Activate(true);
+        boid.GetComponent<Constrain>().SetActive(true);
         boid.GetComponent<Constrain>().centre = boid.position;
-        seek.Activate(false);
+        seek.SetActive(false);
     }
 
     public override void Think()
@@ -94,15 +128,15 @@ class MoveCloseToPlayer : State
         pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(500, 2000);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
-        seek.Activate(true);
+        seek.SetActive(true);
         
         boid.GetComponent<Seek>().target = pos;
         nw = boid.GetComponent<NoiseWander>();
         if (nw != null)
         {
-            nw.Activate(false);
+            nw.SetActive(false);
         }
-        boid.GetComponent<Constrain>().Activate(false);
+        boid.GetComponent<Constrain>().SetActive(false);
         boid.GetComponent<Seek>().target = pos;
     }
 
@@ -110,11 +144,11 @@ class MoveCloseToPlayer : State
     {
         if (nw != null)
         {
-            nw.Activate(true);
+            nw.SetActive(true);
         }
-        boid.GetComponent<Constrain>().Activate(true);
+        boid.GetComponent<Constrain>().SetActive(true);
         boid.GetComponent<Constrain>().centre = boid.position;
-        seek.Activate(false);
+        seek.SetActive(false);
     }
 
     public override void Think()
@@ -122,6 +156,7 @@ class MoveCloseToPlayer : State
         if (Vector3.Distance(seek.target, boid.position) < 1000)
         {
             owner.ChangeState(new CrossPlayer());
+            //owner.ChangeState(new BackFlip());
         }
     }
 }

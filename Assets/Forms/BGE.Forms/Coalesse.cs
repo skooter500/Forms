@@ -18,13 +18,13 @@ public class Coalesse : MonoBehaviour {
             Debug.Log("Schooling");
             foreach (Boid boid in flock.boids)
             {
-                boid.GetComponent<Seperation>().Activate(true);
-                boid.GetComponent<Cohesion>().Activate(true);
-                boid.GetComponent<Alignment>().Activate(true);
-                boid.GetComponent<JitterWander>().Activate(true);
-                boid.GetComponent<Seek>().Activate(false);
-                boid.GetComponent<SceneAvoidance>().Activate(true);
-                boid.GetComponent<Flee>().Activate(true);
+                boid.GetComponent<Seperation>().SetActive(true);
+                boid.GetComponent<Cohesion>().SetActive(true);
+                boid.GetComponent<Alignment>().SetActive(true);
+                boid.GetComponent<JitterWander>().SetActive(true);
+                boid.GetComponent<Seek>().SetActive(false);
+                boid.GetComponent<SceneAvoidance>().SetActive(true);
+                boid.GetComponent<Flee>().SetActive(true);
             }
             yield return new WaitForSeconds(Random.Range(20.0f, 30.0f));
             Debug.Log("Coalessing");
@@ -34,13 +34,13 @@ public class Coalesse : MonoBehaviour {
                 Vector3 toBoid = boid.transform.position - player.transform.position;
                 if ((Vector3.Dot(player.transform.forward, toBoid) >= 0) && (Random.Range(0, 0.5f) < 0.5f) && toBoid.magnitude < flock.radius * 4.0f)
                 {
-                    boid.GetComponent<Seperation>().Activate(true);
-                    boid.GetComponent<SceneAvoidance>().Activate(false);
-                    boid.GetComponent<Cohesion>().Activate(true);
-                    boid.GetComponent<Alignment>().Activate(true);
-                    boid.GetComponent<JitterWander>().Activate(true);
-                    boid.GetComponent<Seek>().Activate(true);
-                    boid.GetComponent<Flee>().Activate(false);
+                    boid.GetComponent<Seperation>().SetActive(true);
+                    boid.GetComponent<SceneAvoidance>().SetActive(false);
+                    boid.GetComponent<Cohesion>().SetActive(true);
+                    boid.GetComponent<Alignment>().SetActive(true);
+                    boid.GetComponent<JitterWander>().SetActive(true);
+                    boid.GetComponent<Seek>().SetActive(true);
+                    boid.GetComponent<Flee>().SetActive(false);
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
                     boid.GetComponent<Seek>().targetGameObject = player;
                     boid.GetComponent<Seek>().target.y += 10;

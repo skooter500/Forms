@@ -12,13 +12,19 @@ public abstract class State
 
 public class StateMachine : MonoBehaviour {
 
-    State currentState;
+    public State currentState;
+    public State globalState;
+    public State previousState;
+
+    private IEnumerator coroutine;
     
     public int updatesPerSecond;
 	// Use this for initialization
 	void Start () {
         StartCoroutine(Think());
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,7 +33,16 @@ public class StateMachine : MonoBehaviour {
 
     public void ChangeStateDelayed(State newState, float delay)
     {
-        StartCoroutine(ChangeStateCoRoutine(newState, delay));
+        coroutine = ChangeStateCoRoutine(newState, delay);
+        StartCoroutine(coroutine);
+    }
+
+    public void CancelDelayedStateChange()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 
     IEnumerator ChangeStateCoRoutine(State newState, float delay)
@@ -36,9 +51,15 @@ public class StateMachine : MonoBehaviour {
         ChangeState(newState);
     }
 
+    public void RevertToPreviousState()
+    {
+        ChangeState(previousState);
+    }
+
     public void ChangeState(State newState)
     {
         Debug.Log("Changing state to: " + newState.GetType().Name);
+        previousState = currentState;
         if (currentState != null)
         {
             currentState.Exit();
@@ -53,6 +74,10 @@ public class StateMachine : MonoBehaviour {
         yield return new WaitForSeconds(Random.Range(0, 0.5f));
         while (true)
         {
+            if (globalState != null)
+            {
+                globalState.Think();
+            }
             currentState.Think();
             yield return new WaitForSeconds(1.0f / (float)updatesPerSecond);
         }

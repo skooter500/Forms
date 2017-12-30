@@ -296,6 +296,14 @@ namespace BGE.Forms
             }
             return list;
         }
+
+        public static void SetActive(SteeringBehaviour b, bool activate)
+        {
+            if (b != null)
+            {
+                b.SetActive(activate);
+            }
+        }
      
 
         public static void SetLayerRecursively(GameObject obj, int newLayer)
