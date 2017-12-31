@@ -68,7 +68,7 @@ namespace BGE.Forms
         private void BoxStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 100;
+            generationMax = 30;
             ClearBoard(board);
             int x1 = (int)(size * 0.2);
             int x2 = (int)(size * 0.8);
@@ -84,7 +84,7 @@ namespace BGE.Forms
         private void CrossStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 100;
+            generationMax = 40;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
@@ -264,7 +264,7 @@ namespace BGE.Forms
         }
 
         [HideInInspector] public int generation = 0;
-        [HideInInspector] public int generationMax = 150;
+        [HideInInspector] public int generationMax = 100;
 
         System.Collections.IEnumerator ResetBoard()
         {
@@ -533,24 +533,28 @@ namespace BGE.Forms
         {
             float x = Input.GetAxis("DPadX");
             float y = Input.GetAxis("DPadY");
+            
             if (x == -1 && x != lastX)
             {
                 startingPattern = new StartingPattern(GridStartingPattern);
+                startingPattern(current);
             }
             if (x == 1 && x != lastX)
             {
                 startingPattern = new StartingPattern(CrossStartingPattern);
+                startingPattern(current);
             }
             if (y == 1 && y != lastY)
             {
                 startingPattern = new StartingPattern(BoxStartingPattern);
+                startingPattern(current);
             }
             if (y == -1 && y != lastY)
             {
                 startingPattern = new StartingPattern(Randomise);
+                startingPattern(current);
             }
             CreatureManager.Log("Generation: " + generation);
-            startingPattern(current);
 
             lastX = x;
             lastY = y;

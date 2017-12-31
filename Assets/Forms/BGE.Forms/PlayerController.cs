@@ -12,10 +12,10 @@ namespace BGE.Forms
         public float maxHeight = 1000;
         public float fov;
 
-        Seek seek;
+        Arrive arrive;
         Boid boid;
         SceneAvoidance sceneAvoidance;
-        public float seekDistange = 5000;
+        public float arriveDistange = 5000;
         GameObject player;
         ViveController viveController;
 
@@ -31,13 +31,13 @@ namespace BGE.Forms
             if (viveController.boid != null)
             {
                 boid = viveController.boid;
-                seek = boid.GetComponent<Seek>();
+                arrive = boid.GetComponent<Arrive>();
                 sceneAvoidance = boid.GetComponent<SceneAvoidance>();
             }
             else
             {
                 boid = GetComponent<Boid>();
-                seek = GetComponent<Seek>();
+                arrive = GetComponent<Arrive>();
                 sceneAvoidance = GetComponent<SceneAvoidance>();
             }
         }
@@ -65,7 +65,7 @@ namespace BGE.Forms
                 Random.Range(-fov, fov)
                 , Vector3.up
                 ) * target;
-            target *= Random.Range(seekDistange / 2, seekDistange);
+            target *= Random.Range(arriveDistange / 2, arriveDistange);
 
             ;
             target.y = WorldGenerator.Instance.SamplePos(target.x, target.z)
@@ -80,12 +80,15 @@ namespace BGE.Forms
         {
             while (true)
             {
-                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < 1000)
+                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, arrive.targetPosition) < 1000)
                 {
-                    Utilities.SetActive(seek, false);
+                    Utilities.SetActive(arrive, false);
+                    boid.damping = 0.5f;
                     Debug.Log("Waiting...");
-                    yield return new WaitForSeconds(5);
-                    seek.targetGameObject = PickNewTarget();
+                    yield return new WaitForSeconds(Random.Range(10, 20));
+                    boid.damping = 0.01f;
+                    arrive.targetGameObject = PickNewTarget();
+                    Utilities.SetActive(arrive, true);
                 }
                 yield return new WaitForSeconds(1);
             }
@@ -106,8 +109,8 @@ namespace BGE.Forms
                         viveController.enabled = false;
                         GetComponent<ForceController>().enabled = false;
                         boid.enabled = true;
-                        seek.targetGameObject = PickNewTarget();
-                        seek.SetActive(true);
+                        arrive.targetGameObject = PickNewTarget();
+                        arrive.SetActive(true);
                         sceneAvoidance.SetActive(true);
                         if (boid.GetComponent<Harmonic>() != null)
                         {
@@ -131,7 +134,7 @@ namespace BGE.Forms
                             boid.enabled = false;
                             sceneAvoidance.SetActive(false);
                         }
-                        seek.SetActive(false);
+                        arrive.SetActive(false);
 
                         if (boid.GetComponent<PlayerSteering>() != null)
                         {
