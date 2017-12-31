@@ -51,7 +51,7 @@ namespace BGE.Forms
         private void GridStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 100;
+            generationMax = 60;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
