@@ -44,10 +44,14 @@ namespace BGE.Forms
             }
         }
 
+        private delegate void StartingPattern(Color[,] board);
+
+        StartingPattern startingPattern;
+
         private void GridStartingPattern(Color[,] board)
         {
             generation = 0;
-
+            generationMax = 100;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
@@ -64,7 +68,7 @@ namespace BGE.Forms
         private void BoxStartingPattern(Color[,] board)
         {
             generation = 0;
-
+            generationMax = 100;
             ClearBoard(board);
             int x1 = (int)(size * 0.2);
             int x2 = (int)(size * 0.8);
@@ -80,7 +84,7 @@ namespace BGE.Forms
         private void CrossStartingPattern(Color[,] board)
         {
             generation = 0;
-
+            generationMax = 100;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
@@ -113,8 +117,11 @@ namespace BGE.Forms
             current = new Color[size, size];
             next = new Color[size, size];
             //MakeGosperGun(size / 2, size / 2);
-            //MakeTumbler(size / 2, size / 2);        
-            GridStartingPattern(current);
+            //MakeTumbler(size / 2, size / 2);   
+
+            startingPattern = new StartingPattern(GridStartingPattern);
+            startingPattern(current);
+
             //Randomise();
             StartCoroutine("UpdateBoard");
             //StartCoroutine("Spawner");
@@ -235,8 +242,10 @@ namespace BGE.Forms
             return count;
         }
 
-        public void Randomise()
+        public void Randomise(Color[,] board)
         {
+            generation = 0;
+            generationMax = 100;
             for (int row = 0; row < size; row++)
             {
                 for (int col = 0; col < size; col++)
@@ -244,17 +253,18 @@ namespace BGE.Forms
                     float f = UnityEngine.Random.Range(0.0f, 1.0f);
                     if (f < 0.5f)
                     {
-                        current[row, col] = RandomColor();
+                        board[row, col] = RandomColor();
                     }
                     else
                     {
-                        current[row, col] = Color.black;
+                        board[row, col] = Color.black;
                     }
                 }
             }
         }
 
-        public int generation = 0;
+        [HideInInspector] public int generation = 0;
+        [HideInInspector] public int generationMax = 150;
 
         System.Collections.IEnumerator ResetBoard()
         {
@@ -344,14 +354,13 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(delay);
                 }
                 generation++;
-                if (generation >= 100)
+                if (generation >= generationMax)
                 {
-                    GridStartingPattern(current);
+                    startingPattern(current);
                 }
             }
         }
-
-
+        
         private Color AverageColorAround(Color[,] board, int row, int col)
         {
             Color average = Color.black;
@@ -526,25 +535,25 @@ namespace BGE.Forms
             float y = Input.GetAxis("DPadY");
             if (x == -1 && x != lastX)
             {
-                GridStartingPattern(current);
+                startingPattern = new StartingPattern(GridStartingPattern);
             }
             if (x == 1 && x != lastX)
             {
-                CrossStartingPattern(current);
+                startingPattern = new StartingPattern(CrossStartingPattern);
             }
             if (y == 1 && y != lastY)
             {
-                BoxStartingPattern(current);
+                startingPattern = new StartingPattern(BoxStartingPattern);
             }
             if (y == -1 && y != lastY)
             {
-                Randomise();
+                startingPattern = new StartingPattern(Randomise);
             }
+            CreatureManager.Log("Generation: " + generation);
+            startingPattern(current);
 
             lastX = x;
             lastY = y;
-        }
-
-
+        }        
     }
 }

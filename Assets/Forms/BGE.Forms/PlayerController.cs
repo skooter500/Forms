@@ -82,9 +82,12 @@ namespace BGE.Forms
             {
                 if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < 1000)
                 {
+                    Utilities.SetActive(seek, false);
+                    Debug.Log("Waiting...");
+                    yield return new WaitForSeconds(5);
                     seek.targetGameObject = PickNewTarget();
                 }
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(1);
             }
         }
 
