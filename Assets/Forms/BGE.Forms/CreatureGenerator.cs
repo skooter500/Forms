@@ -6,6 +6,7 @@ namespace BGE.Forms
 {
     public class CreatureGenerator : MonoBehaviour {
 
+        public Transform parentSegmentsTo = null;
         public bool makeRotator = false;
 
         public bool scaleFins = true;
@@ -83,19 +84,26 @@ namespace BGE.Forms
                 if (i == 0)
                 {
                     boid = part.GetComponent<Boid>();
+                    part.transform.parent = transform;
                 }
                 else
                 {
-                    part.transform.parent = transform;
+                    if (parentSegmentsTo != null)
+                    {
+                        part.transform.parent = parentSegmentsTo;
+                    }
+                    else
+                    {
+                        part.transform.parent = transform;
+                    }
                 }
 
                 Utilities.SetUpAnimators(part, boid);
             
                 part.transform.localScale = new Vector3(cp.size * part.transform.localScale.x, cp.size * part.transform.localScale.y, cp.size * part.transform.localScale.z);
                 part.transform.rotation = transform.rotation;
-                part.transform.parent = transform;
-              
 
+                
                 // Make fins if required            
                 if (System.Array.Find(fla, p => p == "" + i) != null)
                 {

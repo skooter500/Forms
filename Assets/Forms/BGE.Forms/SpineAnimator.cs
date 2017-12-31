@@ -5,6 +5,7 @@ namespace BGE.Forms
 {
     public class SpineAnimator : MonoBehaviour {
 
+        public Transform boneParentForAutoAssiging;
         public enum AlignmentStrategy { LookAt, AlignToHead, LocalAlignToHead }
         public AlignmentStrategy alignmentStrategy = AlignmentStrategy.LookAt;
         public bool autoAssignBones = true;    
@@ -35,10 +36,18 @@ namespace BGE.Forms
             {
                 bones.Clear();
                 startRotations.Add(transform.rotation);
-                Transform parent = (transform.parent.childCount > 1) ? transform.parent : transform.parent.parent;
-                for (int i = 0; i < transform.parent.childCount; i++)
+                Transform parent;
+                if (boneParentForAutoAssiging != null)
                 {
-                    GameObject child = transform.parent.GetChild(i).gameObject;
+                    parent = boneParentForAutoAssiging;
+                }
+                else
+                {
+                    parent = (transform.parent.childCount > 1) ? transform.parent : transform.parent.parent;
+                }
+                for (int i = 0; i < parent.childCount; i++)
+                {
+                    GameObject child = parent.GetChild(i).gameObject;
                     if (child != this.gameObject)
                     {
                         bones.Add(child);
