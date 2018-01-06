@@ -157,15 +157,13 @@ namespace BGE.Forms
                         MrFreeze mf = newcreature.GetComponent<MrFreeze>();
                         if (mf != null)
                         {
-                            mf.UnFreeze();
+                            //mf.UnFreeze();
                         }
                         Boid newBoid = Utilities.FindBoidInHierarchy(newcreature);
                         newBoid.suspended = false;
                         newBoid.transform.position = newPos; // The boid gameobject
                         newBoid.position = newPos; // The boid
                         newBoid.desiredPosition = newPos;
-
-                        
                         alive.Add(newcreature);
 					}
 					else
