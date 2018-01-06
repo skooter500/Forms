@@ -169,9 +169,14 @@ public class BigCreatureController : MonoBehaviour {
     public float minHeight = 500;
     public float maxHeight = 2000;
 
+    public void Restart()
+    {
+        GetComponent<StateMachine>().ChangeState(new MoveCloseToPlayer());
+    }
+
     // Use this for initialization
     void Start () {
-        GetComponent<StateMachine>().ChangeState(new MoveCloseToPlayer());
+        Restart();
 	}
 	
 	// Update is called once per frame

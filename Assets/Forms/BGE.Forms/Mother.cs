@@ -153,6 +153,11 @@ namespace BGE.Forms
                             boid.transform.position = newPos;
                             boid.position = newPos; // The boid
                             boid.desiredPosition = newPos;
+
+                            if (newcreature.GetComponent<BigCreatureController>())
+                            {
+                                newcreature.GetComponent<BigCreatureController>().Restart();
+                            }
                         }
                         else                        
 						{
