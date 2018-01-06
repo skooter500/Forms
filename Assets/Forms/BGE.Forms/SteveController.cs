@@ -10,12 +10,12 @@ public class SteveController : MonoBehaviour {
     {
         while (true)
         {
-            GetComponent<NoiseWander>().Activate(true);
-            GetComponent<Seek>().Activate(false);
+            GetComponent<NoiseWander>().SetActive(true);
+            GetComponent<Seek>().SetActive(false);
             yield return new WaitForSeconds(Random.Range(0, 20.0f));
             Debug.Log("Seeking the player");
-            GetComponent<Seek>().Activate(true);
-            GetComponent<NoiseWander>().Activate(false);
+            GetComponent<Seek>().SetActive(true);
+            GetComponent<NoiseWander>().SetActive(false);
             GetComponent<Seek>().targetGameObject = player;
             yield return new WaitForSeconds(Random.Range(0, 5.0f));
         }

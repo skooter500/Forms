@@ -23,18 +23,18 @@ public class DetatchFromBoid : MonoBehaviour {
             {
                 GetComponent<ForceController>().moveEnabled = true;
                 GetComponent<ForceController>().joyYControllsPitch = false;
-                boid.GetComponent<Harmonic>().Activate(true);
+                boid.GetComponent<Harmonic>().SetActive(true);
                 boid.GetComponent<Harmonic>().auto = true;
                 if (boid.GetComponent<NoiseWander>() != null)
                 {
-                    boid.GetComponent<NoiseWander>().Activate(true);
+                    boid.GetComponent<NoiseWander>().SetActive(true);
                 }
 
                 if (boid.GetComponent<JitterWander>() != null)
                 {
-                    boid.GetComponent<JitterWander>().Activate(true);
+                    boid.GetComponent<JitterWander>().SetActive(true);
                 }
-                boid.GetComponent<PlayerSteering>().Activate(false);
+                boid.GetComponent<PlayerSteering>().SetActive(false);
                 boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 GetComponent<Rigidbody>().isKinematic = false;
@@ -44,7 +44,7 @@ public class DetatchFromBoid : MonoBehaviour {
 
                 if (boid.GetComponent<Seek>() != null)
                 {
-                    boid.GetComponent<Seek>().Activate(true);
+                    boid.GetComponent<Seek>().SetActive(true);
                 }
 
                 Quaternion desired = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);

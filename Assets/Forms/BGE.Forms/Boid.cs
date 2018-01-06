@@ -78,6 +78,7 @@ namespace BGE.Forms
         [HideInInspector] Vector3 playerForward;
         Transform player;
 
+
         public float TimeDelta
         {
             get
@@ -103,6 +104,8 @@ namespace BGE.Forms
             multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
 
+            
+
             //if (transform.parent.gameObject.GetComponent<School>() != null)
             //{
             //    school = transform.parent.gameObject.GetComponent<School>();
@@ -110,6 +113,7 @@ namespace BGE.Forms
 
         }
 
+    
         #region Integration
 
 

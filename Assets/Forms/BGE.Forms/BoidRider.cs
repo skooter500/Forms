@@ -46,14 +46,14 @@ namespace BGE.Forms
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 FindObjectOfType<ViveController>().boid = boid;
                 ps = boid.GetComponent<PlayerSteering>();
-                ps.Activate(true);
+                ps.SetActive(true);
                 ps.hSpeed = 1.0f;
-                boid.GetComponent<Harmonic>().Activate(true);
+                boid.GetComponent<Harmonic>().SetActive(true);
                 boid.GetComponent<Harmonic>().auto = false;
 
                 if (boid.GetComponent<Seek>() != null)
                 {
-                    boid.GetComponent<Seek>().Activate(false);
+                    boid.GetComponent<Seek>().SetActive(false);
                 }
                 HarmonicController hc = boid.GetComponent<HarmonicController>();
                 if (boid.GetComponent<HarmonicController>() != null)
@@ -72,17 +72,17 @@ namespace BGE.Forms
                 Constrain con = boid.GetComponent<Constrain>();
                 if (con != null)
                 {
-                    con.Activate(false);
+                    con.SetActive(false);
                 }
 
                 if (boid.GetComponent<NoiseWander>() != null)
                 {
-                    boid.GetComponent<NoiseWander>().Activate(false);
+                    boid.GetComponent<NoiseWander>().SetActive(false);
                 }
 
                 if (boid.GetComponent<JitterWander>() != null)
                 {
-                    boid.GetComponent<JitterWander>().Activate(false);
+                    boid.GetComponent<JitterWander>().SetActive(false);
                 }
                 RotateMe r = GetComponent<RotateMe>();
                 if (r != null)

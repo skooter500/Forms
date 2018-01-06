@@ -38,7 +38,7 @@ namespace BGE.Forms
             active = isActiveAndEnabled;
         }
 
-        public void Activate(bool b)
+        public void SetActive(bool b)
         {
             active = b;
             enabled = b;

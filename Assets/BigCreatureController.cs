@@ -14,12 +14,46 @@ class IdleState : State
 
     public override void Exit()
     {
-        
+        owner.CancelDelayedStateChange();
     }
 
     public override void Think()
     {
         
+    }
+}
+
+class BackFlip : State
+{
+    Seek seek;
+    NoiseWander nw;
+    Constrain constrain;
+    Boid boid;
+    public override void Enter()
+    {
+        boid = Utilities.FindBoidInHierarchy(owner.gameObject);
+        seek = boid.GetComponent<Seek>();
+        nw = boid.GetComponent<NoiseWander>();
+        constrain = boid.GetComponent<Constrain>();
+
+        // Set the constrain target to be behind the boid
+        // Project the forward vector onto the XZ plane
+        Vector3 backwards = boid.transform.forward;
+        backwards.y = 0;
+        backwards = -backwards;
+        float dist = 100;
+        constrain.centre = boid.transform.position + (backwards * dist);
+        constrain.radius = dist;
+
+        Utilities.SetActive(seek, false);
+        Utilities.SetActive(nw, false);
+        Utilities.SetActive(constrain, true);
+        owner.ChangeStateDelayed(new IdleState(), 3);
+    }
+
+    public override void Exit()
+    {
+        Utilities.SetActive(constrain, false);
     }
 }
 
@@ -38,16 +72,17 @@ class CrossPlayer : State
         Vector3 reflectedOffset = - Vector3.Reflect(offset, player.transform.forward);
         Vector3 pos = player.transform.position + reflectedOffset;
 
-        pos.y = WorldGenerator.Instance.SamplePos(pos.x, pos.z) + Random.Range(500, 2000);
+        pos.y = WorldGenerator.Instance.SamplePos(pos.x, pos.z) + Random.Range(owner.GetComponent<BigCreatureController>().minHeight, owner.GetComponent<BigCreatureController>().maxHeight);
+        
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
-        seek.Activate(true);
+        seek.SetActive(true);
         nw = boid.GetComponent<NoiseWander>();
         if (nw != null)
         {
-            nw.Activate(false);
+            nw.SetActive(false);
         }
-        boid.GetComponent<Constrain>().Activate(false);
+        boid.GetComponent<Constrain>().SetActive(false);
         boid.GetComponent<Seek>().target = pos;
     }
 
@@ -55,11 +90,11 @@ class CrossPlayer : State
     {
         if (nw != null)
         {
-            nw.Activate(true);
+            nw.SetActive(true);
         }
-        boid.GetComponent<Constrain>().Activate(true);
+        boid.GetComponent<Constrain>().SetActive(true);
         boid.GetComponent<Constrain>().centre = boid.position;
-        seek.Activate(false);
+        seek.SetActive(false);
     }
 
     public override void Think()
@@ -91,18 +126,18 @@ class MoveCloseToPlayer : State
         Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 5000);
         WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
         //SpawnParameters sp = owner.GetComponent<SpawnParameters>();
-        pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(500, 2000);
+        pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(owner.GetComponent<BigCreatureController>().minHeight, owner.GetComponent<BigCreatureController>().maxHeight);
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
         seek = boid.GetComponent<Seek>();
-        seek.Activate(true);
+        seek.SetActive(true);
         
         boid.GetComponent<Seek>().target = pos;
         nw = boid.GetComponent<NoiseWander>();
         if (nw != null)
         {
-            nw.Activate(false);
+            nw.SetActive(false);
         }
-        boid.GetComponent<Constrain>().Activate(false);
+        boid.GetComponent<Constrain>().SetActive(false);
         boid.GetComponent<Seek>().target = pos;
     }
 
@@ -110,11 +145,11 @@ class MoveCloseToPlayer : State
     {
         if (nw != null)
         {
-            nw.Activate(true);
+            nw.SetActive(true);
         }
-        boid.GetComponent<Constrain>().Activate(true);
+        boid.GetComponent<Constrain>().SetActive(true);
         boid.GetComponent<Constrain>().centre = boid.position;
-        seek.Activate(false);
+        seek.SetActive(false);
     }
 
     public override void Think()
@@ -122,6 +157,7 @@ class MoveCloseToPlayer : State
         if (Vector3.Distance(seek.target, boid.position) < 1000)
         {
             owner.ChangeState(new CrossPlayer());
+            //owner.ChangeState(new BackFlip());
         }
     }
 }
@@ -130,8 +166,11 @@ public class BigCreatureController : MonoBehaviour {
 
     public bool canIdle = true;
 
-	// Use this for initialization
-	void Start () {
+    public float minHeight = 500;
+    public float maxHeight = 2000;
+
+    // Use this for initialization
+    void Start () {
         GetComponent<StateMachine>().ChangeState(new MoveCloseToPlayer());
 	}
 	
