@@ -187,7 +187,7 @@ namespace BGE.Forms
                 for (int i = 0; i < boids.Count; i++)
                 {
                     Boid boid = boids[i];
-                    if (boid.suspendedByMe)
+                    if (boid.suspended)
                     {
                         suspended++;
                     }

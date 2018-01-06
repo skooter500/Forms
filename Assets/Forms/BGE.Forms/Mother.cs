@@ -70,16 +70,18 @@ namespace BGE.Forms
                         {
                             foreach (Boid b in creature.GetComponent<School>().boids)
                             {
-                                CreatureManager.Instance.boids.Remove(b);
+                                b.suspended = true;
+                                //CreatureManager.Instance.boids.Remove(b);
                             }
                         }
                         else
                         {
-                            CreatureManager.Instance.boids.Remove(boid);
+                            boid.suspended = true;
+                            //CreatureManager.Instance.boids.Remove(boid);
                         }
 
-                        GameObject.Destroy(creature);
-                        // dead.Add(creature);
+                        //GameObject.Destroy(creature);
+                        dead.Add(creature);
                         Debug.Log("Deleting a creature");
                         alive.Remove(creature);
 
@@ -133,22 +135,27 @@ namespace BGE.Forms
 					if (found)
 					{
 						GameObject newcreature = null;
-						/*if (dead.Count > 0)
+						if (dead.Count > 0)
 						{
 							newcreature = dead[dead.Count - 1];
 							dead.Remove(newcreature);
-							newcreature.transform.GetChild(0).localPosition = Vector3.zero;
+
+                            // Restore the creature to its original state
+                            MrFreeze mf = newcreature.GetComponent<MrFreeze>();
+                            if (mf != null)
+                            {
+                                mf.UnFreeze();
+                            }
 						}
-						else
-                        */
+						else                        
 						{
-							//Debug.Log("Creating a new creature: " + alive.Count + 1);
+							Debug.Log("Creating a new creature: " + alive.Count + 1);
 							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                                 );  
 							newcreature.transform.parent = this.transform;
 						}
-						//Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
+						Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
 						alive.Add(newcreature);
 					}
 					else

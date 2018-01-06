@@ -410,10 +410,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &4329277
 MonoBehaviour:
@@ -1106,10 +1106,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!33 &62183386
 MeshFilter:
@@ -2593,10 +2593,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!1 &144680798
 GameObject:
@@ -3440,10 +3440,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &189166078
 MonoBehaviour:
@@ -3776,10 +3776,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &213049152
 MonoBehaviour:
@@ -4513,10 +4513,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &233267918
 MonoBehaviour:
@@ -5806,10 +5806,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!23 &270032590
 MeshRenderer:
@@ -6362,7 +6362,7 @@ MonoBehaviour:
   minHeight: 200
   maxHeight: 500
   fov: 10
-  arriveDistange: 5000
+  seekDistange: 5000
 --- !u!114 &278026191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6464,10 +6464,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &278026195
 MonoBehaviour:
@@ -7684,10 +7684,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &349846119
 MonoBehaviour:
@@ -8468,7 +8468,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418250397}
-  m_Mesh: {fileID: 1409034271}
+  m_Mesh: {fileID: 976189897}
 --- !u!23 &418250401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8484,7 +8484,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 1602861654}
+  - {fileID: 1299109926}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9526,10 +9526,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &475269959
 MonoBehaviour:
@@ -11094,10 +11094,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &587879531
 MonoBehaviour:
@@ -12486,10 +12486,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 1
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &669171462
 MonoBehaviour:
@@ -12950,10 +12950,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &677497273
 MonoBehaviour:
@@ -13298,10 +13298,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &690350624
 MonoBehaviour:
@@ -14588,10 +14588,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &795903291
 MonoBehaviour:
@@ -16923,10 +16923,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!1 &957180854
 GameObject:
@@ -17494,10 +17494,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &971480305
 MonoBehaviour:
@@ -17717,10 +17717,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!1 &973878178
 GameObject:
@@ -17787,6 +17787,134 @@ MonoBehaviour:
   finRotationOffset: 60
   finList: 3,5
   lengthVariation: 0
+--- !u!43 &976189897
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
 --- !u!1 &978536642 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
@@ -18201,10 +18329,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1001253723
 MonoBehaviour:
@@ -18730,6 +18858,7 @@ GameObject:
   - component: {fileID: 1023230265}
   - component: {fileID: 1023230267}
   - component: {fileID: 1023230266}
+  - component: {fileID: 1023230268}
   m_Layer: 10
   m_Name: bigCreature (2)
   m_TagString: Untagged
@@ -18839,6 +18968,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updatesPerSecond: 5
+--- !u!114 &1023230268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1023230261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97b1d03f737ec6468ba4d9c3f9569ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1026808520
 GameObject:
   m_ObjectHideFlags: 0
@@ -18943,10 +19083,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1026808524
 MonoBehaviour:
@@ -19253,10 +19393,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!1001 &1037557211
 Prefab:
@@ -19940,10 +20080,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1072054589
 MonoBehaviour:
@@ -20200,10 +20340,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1087607916
 MonoBehaviour:
@@ -20543,7 +20683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1101573694
 Transform:
   m_ObjectHideFlags: 0
@@ -21028,10 +21168,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!23 &1114504142
 MeshRenderer:
@@ -21300,6 +21440,90 @@ Transform:
   m_Father: {fileID: 866614426}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1142574649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1142574650}
+  - component: {fileID: 1142574653}
+  - component: {fileID: 1142574652}
+  - component: {fileID: 1142574651}
+  m_Layer: 8
+  m_Name: creatures (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1142574650
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142574649}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2012074538}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1142574651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142574649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e4b46648dd1714998e7adcc574ed0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 5
+  maxJellys: 10
+  playerRadius: 5000
+  jellyPrefab: {fileID: 1029936032}
+  environmentLM:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1142574652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142574649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fc3fd8caedb354c8e27ce36d7d45c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threadCount: 0
+  boids: []
+  showMessages: 0
+--- !u!114 &1142574653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142574649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee205220e4c41f742a401542a8fe746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 5
+  maxcreatures: 30
+  playerRadius: 17000
+  alive: []
+  dead: []
+  prefabs:
+  - {fileID: 1023230261}
+  environmentLM:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1152049871
 GameObject:
   m_ObjectHideFlags: 0
@@ -21626,10 +21850,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1173810745
 MonoBehaviour:
@@ -22320,10 +22544,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!4 &1210218214
 Transform:
@@ -22859,10 +23083,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1249419336
 MonoBehaviour:
@@ -23173,6 +23397,39 @@ MonoBehaviour:
   end: 15000
   minHeight: 800
   maxHeight: 1500
+--- !u!21 &1299109926
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1301831680
 GameObject:
   m_ObjectHideFlags: 0
@@ -23397,10 +23654,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1320999003
 MonoBehaviour:
@@ -23871,10 +24128,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!1 &1347067921
 GameObject:
@@ -24453,134 +24710,6 @@ Transform:
   m_Father: {fileID: 1478788283}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &1409034271
-Mesh:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 8
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_Skin: []
-  m_VertexData:
-    m_CurrentChannels: 13
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshOptimized: 0
 --- !u!1 &1410089815
 GameObject:
   m_ObjectHideFlags: 0
@@ -25980,10 +26109,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1499815791
 MonoBehaviour:
@@ -26458,10 +26587,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!1 &1514659861
 GameObject:
@@ -27593,10 +27722,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1597977372
 MonoBehaviour:
@@ -27715,39 +27844,6 @@ MonoBehaviour:
   maxSpeed: 0
   controlSpeed: 1
   hSpeed: 0
---- !u!21 &1602861654
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1604079856
 GameObject:
   m_ObjectHideFlags: 0
@@ -28486,10 +28582,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1640788287
 MonoBehaviour:
@@ -28643,10 +28739,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1641147838
 MonoBehaviour:
@@ -31571,10 +31667,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1866507633
 MonoBehaviour:
@@ -31935,10 +32031,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1874633688
 MonoBehaviour:
@@ -32395,10 +32491,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1885644606
 MonoBehaviour:
@@ -33009,10 +33105,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &1909564950
 MonoBehaviour:
@@ -34707,6 +34803,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1101573694}
+  - {fileID: 1142574650}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35910,10 +36007,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &2077325301
 MonoBehaviour:
@@ -37087,10 +37184,10 @@ MonoBehaviour:
   testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
+  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!114 &2132951114
 MonoBehaviour:
