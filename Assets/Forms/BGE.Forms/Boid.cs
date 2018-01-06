@@ -71,6 +71,13 @@ namespace BGE.Forms
         [HideInInspector]
         public SteeringBehaviour[] behaviours;
 
+        public bool inFrontOfPlayer = false;
+        public float distanceToPlayer = 0;
+
+        [HideInInspector] Vector3 playerPosition;
+        [HideInInspector] Vector3 playerForward;
+        Transform player;
+
         public float TimeDelta
         {
             get
@@ -80,6 +87,12 @@ namespace BGE.Forms
                 return timeDelta * flockMultiplier * timeMultiplier;
             }
         }
+
+        public void Awake()
+        {
+            player = Camera.main.transform;
+        }
+
         void Start()
         {
             desiredPosition = transform.position;
@@ -107,6 +120,9 @@ namespace BGE.Forms
             right = transform.right;
             forward = transform.forward;
             rotation = transform.rotation;
+
+            playerPosition = player.position;
+            playerForward = player.forward;
         }
 
         public Vector3 TransformDirection(Vector3 direction)
@@ -313,6 +329,11 @@ namespace BGE.Forms
             projectRight.Normalize();
             bank = Vector3.Angle(right, projectRight);
             bank = (right.y > 0) ? bank : -bank;
+
+            // Calculate distance to the player
+            inFrontOfPlayer = Vector3.Dot(position - playerPosition, playerForward) > 0;
+            distanceToPlayer = Vector3.Distance(position, playerPosition);
+
             return totalForce;
         }
         #endregion

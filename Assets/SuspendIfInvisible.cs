@@ -73,10 +73,6 @@ namespace BGE.Forms
                         sa.suspended = !visibleThisFrame;
                     }
                     */
-                    foreach (FishParts fp in fishParts)
-                    {
-                        fp.suspended = !visibleThisFrame;
-                    }
                 }
 
                 visible = visibleThisFrame;
