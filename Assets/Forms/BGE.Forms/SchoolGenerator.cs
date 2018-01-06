@@ -21,22 +21,15 @@ namespace BGE.Forms
         [Range(0, 1)]
         public float speedVariation = 0.1f;
 
-
-        void Start()
+        System.Collections.IEnumerator CreateSchool()
         {
-            if (!isActiveAndEnabled)
-            {
-                return;
-            }
-
-            //Application.targetFrameRate = 20;
             int maxAudioBoids = 5;
             int audioBoids = 0;
 
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
 
             int boidCount = Random.Range(minBoidCount, maxBoidCount);
-            for (int i = 0; i < boidCount; i++)
+            while (boids.Count < boidCount)
             {
                 Vector3 unit = UnityEngine.Random.insideUnitSphere;
                 Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * spread);
@@ -50,7 +43,7 @@ namespace BGE.Forms
                         pos.y = groundHeight + UnityEngine.Random.Range(10, radius * spread);
                     }
                 }
-                
+
                 fish.transform.position = pos;
                 fish.transform.parent = transform;
                 Boid boid = fish.GetComponentInChildren<Boid>();
@@ -79,7 +72,18 @@ namespace BGE.Forms
                         audioSource.enabled = false;
                     }
                 }
+                // Wait for a frame
+                yield return null;
             }
-        }        
+        }
+
+        void Start()
+        {
+            if (!isActiveAndEnabled)
+            {
+                return;
+            }
+            StartCoroutine(CreateSchool());
+        }
     }
 }

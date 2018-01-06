@@ -71,8 +71,6 @@ namespace BGE.Forms
         [HideInInspector]
         public SteeringBehaviour[] behaviours;
 
-        public string testField;
-
         public float TimeDelta
         {
             get
