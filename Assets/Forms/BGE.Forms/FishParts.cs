@@ -32,6 +32,8 @@ namespace BGE.Forms
         private Vector3 bodySize;
         private Vector3 tailSize;
 
+        public float closeness = 100;
+
         public Color[] segmentColors = {
             Color.blue
             , Color.cyan
@@ -165,7 +167,7 @@ namespace BGE.Forms
 
         public void Update()
         {
-            if (!boid.isVisible())
+            if (!boid.isVisible() || boid.dis)
             {
                 return;
             }
