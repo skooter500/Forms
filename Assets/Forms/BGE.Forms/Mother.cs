@@ -62,7 +62,7 @@ namespace BGE.Forms
 				{
 					GameObject creature = alive[i];
                     Boid boid = Utilities.FindBoidInHierarchy(creature);
-                    float dist = Vector3.Distance(boid.position, Camera.main.transform.position);
+                    float dist = Vector3.Distance(boid.transform.position, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
 					{
@@ -136,35 +136,36 @@ namespace BGE.Forms
 					if (found)
 					{
 						GameObject newcreature = null;
+                        Boid boid;
 						if (dead.Count > 0)
 						{
+                            Debug.Log("Teleporting an old creature");
 							newcreature = dead[dead.Count - 1];
 							dead.Remove(newcreature);
-                            Boid nb = Utilities.FindBoidInHierarchy(newcreature);
-
-                            // Restore the creature to its original state
                             newcreature.SetActive(true);
-						}
-						else                        
+                            
+                            boid = Utilities.FindBoidInHierarchy(newcreature);
+                            // Restore the creature to its original state
+                            Vector3 trans = newPos - boid.transform.position;
+                            newcreature.transform.position += trans;
+                            // Translate it to the new position                            
+                            boid.suspended = false;
+                            boid.transform.position = newPos;
+                            boid.position = newPos; // The boid
+                            boid.desiredPosition = newPos;
+                        }
+                        else                        
 						{
 							Debug.Log("Creating a new creature: " + alive.Count + 1);
 							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                                 );  
 							newcreature.transform.parent = this.transform;
-						}
-                        newcreature.transform.position = newPos; // The generator
-                        MrFreeze mf = newcreature.GetComponent<MrFreeze>();
-                        if (mf != null)
-                        {
-                            //mf.UnFreeze();
+                            newcreature.transform.position = newPos;
                         }
-                        Boid newBoid = Utilities.FindBoidInHierarchy(newcreature);
-                        newBoid.suspended = false;
-                        newBoid.transform.position = newPos; // The boid gameobject
-                        newBoid.position = newPos; // The boid
-                        newBoid.desiredPosition = newPos;
+                         // The generator
                         alive.Add(newcreature);
+                        //newcreature.GetComponent<CreatureGenerator>().CreateCreature();
 					}
 					else
 					{

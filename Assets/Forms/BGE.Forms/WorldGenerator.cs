@@ -206,7 +206,6 @@ namespace BGE.Forms
                     {
                         if (tile.creationTime != updateTime)
                         {
-                            Debug.Log("Deleting tile: " + tile.theTile.name);
                             Destroy(tile.theTile);
                             yield return WaitFor.Frames(Random.Range(1, 3));
                         }

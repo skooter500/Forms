@@ -49,6 +49,22 @@ namespace BGE.Forms
         public string finList;
 
         public float lengthVariation = 0;
+
+        Dictionary<string, GameObject> bodyParts = new Dictionary<string, GameObject>();
+
+        GameObject GetCreaturePart(string key, GameObject prefab)
+        {
+            if (bodyParts.ContainsKey(key))
+            {
+                return bodyParts[key];
+            }
+            else
+            {
+                GameObject part = GameObject.Instantiate<GameObject>(prefab);
+                bodyParts[key] = part;
+                return part;
+            }
+        }
     
         public void OnDrawGizmos()
         {
@@ -63,7 +79,7 @@ namespace BGE.Forms
             }
         }
 
-        void CreateCreature()
+        public void CreateCreature()
         {
             string[] fla = finList.Split(',');
             List<CreaturePart> creatureParts = CreateCreatureParams();
@@ -74,7 +90,7 @@ namespace BGE.Forms
             for (int i = 0; i < creatureParts.Count; i ++)
             {
                 CreaturePart cp = creatureParts[i];
-                GameObject part = GameObject.Instantiate<GameObject>(cp.prefab);
+                GameObject part = GetCreaturePart("body part " + i, cp.prefab);
                 part.transform.position = cp.position;
                 if (i != 0)
                 {
@@ -108,25 +124,25 @@ namespace BGE.Forms
                 if (System.Array.Find(fla, p => p == "" + i) != null)
                 {
                     float scale = cp.size / ((finNumber / 2) + 1);
-                    GameObject leftFin = GenerateFin(scale, cp, boid, (finNumber * finRotationOffset), part, FinAnimator.Side.left);
-                    GameObject rightFin = GenerateFin(scale, cp, boid, (finNumber * finRotationOffset), part, FinAnimator.Side.right);
+                    GameObject leftFin = GenerateFin(scale, cp, boid, (finNumber * finRotationOffset), part, FinAnimator.Side.left, finNumber);
+                    GameObject rightFin = GenerateFin(scale, cp, boid, (finNumber * finRotationOffset), part, FinAnimator.Side.right, finNumber);
                     finNumber++;
                 }
             }
         }
 
-        private GameObject GenerateFin(float scale, CreaturePart cp, Boid boid, float rotationOffset, GameObject part, FinAnimator.Side side)
+        private GameObject GenerateFin(float scale, CreaturePart cp, Boid boid, float rotationOffset, GameObject part, FinAnimator.Side side, int finNumber)
         {
             GameObject fin = null; 
             Vector3 pos = cp.position;
             switch (side)
             {
                 case FinAnimator.Side.left:
-                    fin = GameObject.Instantiate<GameObject>(leftFinPrefab);
+                    fin = GetCreaturePart("left fin" + finNumber, leftFinPrefab);
                     pos -= (transform.right * cp.size / 2);                
                     break;
                 case FinAnimator.Side.right:
-                    fin = GameObject.Instantiate<GameObject>(rightFinPrefab);
+                    fin = GetCreaturePart("right fin" + finNumber, rightFinPrefab);
                     pos += (transform.right * cp.size / 2);
                     break;
             }
