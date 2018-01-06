@@ -81,6 +81,7 @@ namespace BGE.Forms
                         }
 
                         //GameObject.Destroy(creature);
+                        creature.SetActive(false);
                         dead.Add(creature);
                         Debug.Log("Deleting a creature");
                         alive.Remove(creature);
@@ -139,13 +140,10 @@ namespace BGE.Forms
 						{
 							newcreature = dead[dead.Count - 1];
 							dead.Remove(newcreature);
+                            Boid nb = Utilities.FindBoidInHierarchy(newcreature);
 
                             // Restore the creature to its original state
-                            MrFreeze mf = newcreature.GetComponent<MrFreeze>();
-                            if (mf != null)
-                            {
-                                mf.UnFreeze();
-                            }
+                            newcreature.SetActive(true);
 						}
 						else                        
 						{
@@ -155,8 +153,20 @@ namespace BGE.Forms
                                 );  
 							newcreature.transform.parent = this.transform;
 						}
-						Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
-						alive.Add(newcreature);
+                        newcreature.transform.position = newPos; // The generator
+                        MrFreeze mf = newcreature.GetComponent<MrFreeze>();
+                        if (mf != null)
+                        {
+                            mf.UnFreeze();
+                        }
+                        Boid newBoid = Utilities.FindBoidInHierarchy(newcreature);
+                        newBoid.suspended = false;
+                        newBoid.transform.position = newPos; // The boid gameobject
+                        newBoid.position = newPos; // The boid
+                        newBoid.desiredPosition = newPos;
+
+                        
+                        alive.Add(newcreature);
 					}
 					else
 					{
@@ -186,7 +196,8 @@ namespace BGE.Forms
 		// Update is called once per frame
 		void Update()
 		{
-			CreatureManager.Log("Num creatures: " + alive.Count);
-		}
-	}
+            CreatureManager.Log("Alive creatures: " + alive.Count);
+            CreatureManager.Log("Suspended creatures: " + dead.Count);
+        }
+    }
 }

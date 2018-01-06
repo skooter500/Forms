@@ -33,6 +33,10 @@ public class MrFreeze : MonoBehaviour {
     public void UnFreeze()
     {
         int i = 0;
+        if (childTransforms.Count != transform.childCount)
+        {
+            return;
+        }
         foreach (Transform child in transform)
         {
             child.localPosition = childTransforms[i].position;
