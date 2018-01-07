@@ -32,7 +32,7 @@ namespace BGE.Forms
         private Vector3 bodySize;
         private Vector3 tailSize;
 
-        public float closeness = 100;
+        public float closeness = 500;
 
         public Color[] segmentColors = {
             Color.blue
@@ -167,7 +167,7 @@ namespace BGE.Forms
 
         public void Update()
         {
-            if (!boid.isVisible() || boid.dis)
+            if (!boid.isVisible() || boid.distanceToPlayer > closeness)
             {
                 return;
             }
