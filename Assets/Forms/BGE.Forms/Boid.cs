@@ -71,15 +71,12 @@ namespace BGE.Forms
         [HideInInspector]
         public SteeringBehaviour[] behaviours;
 
-        public string testField;
-
         public bool inFrontOfPlayer = false;
         public float distanceToPlayer = 0;
+
         [HideInInspector] Vector3 playerPosition;
         [HideInInspector] Vector3 playerForward;
         Transform player;
-
-        [HideInInspector] public bool sleeping = false;
 
         public float TimeDelta
         {
@@ -90,6 +87,12 @@ namespace BGE.Forms
                 return timeDelta * flockMultiplier * timeMultiplier;
             }
         }
+
+        public void Awake()
+        {
+            player = Camera.main.transform;
+        }
+
         void Start()
         {
             desiredPosition = transform.position;
@@ -100,8 +103,6 @@ namespace BGE.Forms
             multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
 
-            sleeping = false;
-
             //if (transform.parent.gameObject.GetComponent<School>() != null)
             //{
             //    school = transform.parent.gameObject.GetComponent<School>();
@@ -109,11 +110,7 @@ namespace BGE.Forms
 
         }
 
-        public void Awake()
-        {
-            player = Camera.main.transform;
-        }
-
+    
         #region Integration
 
 

@@ -407,10 +407,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -1103,10 +1101,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -2590,10 +2586,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -3437,10 +3431,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -3773,10 +3765,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -100, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -4510,10 +4500,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -5803,10 +5791,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -6461,10 +6447,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -7681,10 +7665,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -8412,7 +8394,7 @@ GameObject:
   - component: {fileID: 418250400}
   - component: {fileID: 418250399}
   m_Layer: 0
-  m_Name: '[CameraRig] (1)'
+  m_Name: '[CameraRig]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8468,7 +8450,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418250397}
-  m_Mesh: {fileID: 741758163}
+  m_Mesh: {fileID: 2106077389}
 --- !u!23 &418250401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8484,7 +8466,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 671087764}
+  - {fileID: 1439861330}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8964,7 +8946,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400004, guid: 63ff915a25456fc488eb83a835611500, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 443815633}
-  m_LocalRotation: {x: -0.65328157, y: -0.27059805, z: 0.27059808, w: 0.6532815}
+  m_LocalRotation: {x: -0.6532815, y: -0.27059802, z: 0.27059805, w: 0.65328145}
   m_LocalPosition: {x: -0.079, y: -0.109, z: 0}
   m_LocalScale: {x: 100.00004, y: 100.000046, z: 100.000015}
   m_Children: []
@@ -9523,10 +9505,8 @@ MonoBehaviour:
   gravity: {x: 0, y: 1, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -10384,7 +10364,6 @@ GameObject:
   - component: {fileID: 553050736}
   - component: {fileID: 553050735}
   - component: {fileID: 553050738}
-  - component: {fileID: 553050739}
   m_Layer: 0
   m_Name: school (1)
   m_TagString: Untagged
@@ -10467,31 +10446,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 12000
+  start: 0
+  end: 200
   minHeight: 500
   maxHeight: 1000
---- !u!114 &553050739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 553050733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15007f6dd5a90bd438bb2dd6dcee367e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderers: []
-  boids: []
-  animators: []
-  spineAnimators: []
-  fishParts: []
-  visible: 0
-  updatesPerSecond: 10
-  suspendBoids: 0
-  boidsInFront: 0
-  boidsBehind: 0
 --- !u!1 &553252210
 GameObject:
   m_ObjectHideFlags: 0
@@ -11091,10 +11049,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -12415,6 +12371,7 @@ MonoBehaviour:
   tail: {fileID: 0}
   segmentExtents: 3
   gap: 0
+  closeness: 10
   segmentColors:
   - {r: 1, g: 0, b: 0.9084506, a: 0}
   - {r: 0.022545436, g: 1, b: 0.7325446, a: 0}
@@ -12424,7 +12381,6 @@ MonoBehaviour:
   tailField: 30
   boidGameObject: {fileID: 0}
   boid: {fileID: 0}
-  suspended: 0
 --- !u!4 &669171460
 Transform:
   m_ObjectHideFlags: 0
@@ -12483,10 +12439,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -12838,39 +12792,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670134079}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!21 &671087764
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &674164806
 GameObject:
   m_ObjectHideFlags: 0
@@ -12980,10 +12901,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -100, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -13328,10 +13247,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -13978,134 +13895,6 @@ Transform:
   m_Father: {fileID: 1875887123}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &741758163
-Mesh:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 8
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_Skin: []
-  m_VertexData:
-    m_CurrentChannels: 13
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshOptimized: 0
 --- !u!1001 &745845520
 Prefab:
   m_ObjectHideFlags: 0
@@ -14746,10 +14535,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -17081,10 +16868,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -17652,10 +17437,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -17875,10 +17658,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -18359,10 +18140,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -19101,10 +18880,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -19411,10 +19188,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -20098,10 +19873,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -1, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -20358,10 +20131,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -100, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -21186,10 +20957,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -21537,7 +21306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRate: 5
   maxcreatures: 1
-  playerRadius: 17000
+  playerRadius: 1000
   alive: []
   dead: []
   prefabs:
@@ -21868,10 +21637,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -22562,10 +22329,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -23101,10 +22866,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -23639,10 +23402,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -1, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -24113,10 +23874,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -25273,6 +25032,39 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1438902523}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!21 &1439861330
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1441999838
 GameObject:
   m_ObjectHideFlags: 0
@@ -26094,10 +25886,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -26517,6 +26307,7 @@ MonoBehaviour:
   tail: {fileID: 0}
   segmentExtents: 10
   gap: 0
+  closeness: 10
   segmentColors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 0.95063317, g: 0.9632353, b: 0.04957822, a: 0}
@@ -26526,7 +26317,6 @@ MonoBehaviour:
   tailField: 30
   boidGameObject: {fileID: 0}
   boid: {fileID: 0}
-  suspended: 0
 --- !u!114 &1512335836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26572,10 +26362,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -27071,7 +26859,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 63ff915a25456fc488eb83a835611500, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1547534617}
-  m_LocalRotation: {x: -0.65328157, y: -0.27059805, z: 0.27059808, w: 0.6532815}
+  m_LocalRotation: {x: -0.6532815, y: -0.27059802, z: 0.27059805, w: 0.65328145}
   m_LocalPosition: {x: 0.157, y: -0.015, z: -0}
   m_LocalScale: {x: 100.00004, y: 100.000046, z: 100.000015}
   m_Children: []
@@ -27707,10 +27495,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -100, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -28567,10 +28353,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -28724,10 +28508,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -31652,10 +31434,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -32016,10 +31796,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -32476,10 +32254,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -33090,10 +32866,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -35992,10 +35766,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0
@@ -36644,6 +36416,134 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2102409400}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!43 &2106077389
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
 --- !u!1 &2110726311
 GameObject:
   m_ObjectHideFlags: 0
@@ -37114,6 +37014,7 @@ MonoBehaviour:
   tail: {fileID: 0}
   segmentExtents: 3
   gap: 0
+  closeness: 10
   segmentColors:
   - {r: 0, g: 1, b: 1, a: 0}
   - {r: 1, g: 0, b: 0.5686275, a: 0}
@@ -37123,7 +37024,6 @@ MonoBehaviour:
   tailField: 30
   boidGameObject: {fileID: 0}
   boid: {fileID: 0}
-  suspended: 0
 --- !u!114 &2132951113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37169,10 +37069,8 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
   inFrontOfPlayer: 0
   distanceToPlayer: 0
-  sleeping: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
   autoSuspendWhenInvisible: 0

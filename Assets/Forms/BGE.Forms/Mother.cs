@@ -143,21 +143,10 @@ namespace BGE.Forms
 							newcreature = dead[dead.Count - 1];
 							dead.Remove(newcreature);
                             newcreature.SetActive(true);
+                            Teleport(newcreature, newPos);
                             
-                            boid = Utilities.FindBoidInHierarchy(newcreature);
-                            // Restore the creature to its original state
-                            Vector3 trans = newPos - boid.transform.position;
-                            newcreature.transform.position += trans;
-                            // Translate it to the new position                            
-                            boid.suspended = false;
-                            boid.transform.position = newPos;
-                            boid.position = newPos; // The boid
-                            boid.desiredPosition = newPos;
 
-                            if (newcreature.GetComponent<BigCreatureController>())
-                            {
-                                newcreature.GetComponent<BigCreatureController>().Restart();
-                            }
+                            
                         }
                         else                        
 						{
@@ -181,6 +170,41 @@ namespace BGE.Forms
 				yield return new WaitForSeconds(delay);
 			}            
 		}
+
+        private void Teleport(GameObject newcreature, Vector3 newPos)
+        {
+
+            // Restore the creature to its original state
+            Boid calculationBoid = Utilities.FindBoidInHierarchy(newcreature);
+            Vector3 trans = newPos - calculationBoid.transform.position;
+            newcreature.transform.position += trans;
+            // Translate it to the new position                            
+            calculationBoid.suspended = false;
+            calculationBoid.transform.position = newPos;
+            calculationBoid.position = newPos; // The boid
+            calculationBoid.desiredPosition = newPos;
+            if (calculationBoid.GetComponent<Constrain>() != null)
+            {
+                calculationBoid.GetComponent<Constrain>().centre += trans;
+            }
+
+            if (newcreature.GetComponent<BigCreatureController>())
+            {
+                newcreature.GetComponent<BigCreatureController>().Restart();
+            }
+
+            // Teleport any schools
+            School[] schools = newcreature.GetComponentsInChildren<School>();
+            foreach(School school in schools)
+            {
+                school.Teleport(newPos, trans, calculationBoid);
+            }
+
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = newPos;
+            cube.transform.localScale = Vector3.one * 50;
+
+        }
 
         private void Awake()
         {
