@@ -8,6 +8,8 @@ public class SpawnParameters : MonoBehaviour {
     public float minHeight = 500;
     public float maxHeight = 2000;
 
+    public string Species;
+
     // Use this for initialization
     void Start () {
 		
