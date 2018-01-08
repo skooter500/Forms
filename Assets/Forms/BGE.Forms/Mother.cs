@@ -213,7 +213,7 @@ namespace BGE.Forms
 
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = newPos;
-            cube.transform.localScale = Vector3.one * 50;
+            cube.transform.localScale = Vector3.one * 200;
 
         }
 
