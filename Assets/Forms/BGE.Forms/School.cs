@@ -26,6 +26,8 @@ namespace BGE.Forms
         [Header("Debug")]
         public bool drawGizmos;
 
+        public int targetCreatureCount = 100;
+
         public virtual void Teleport(Vector3 newHome, Vector3 trans, Boid calculationBoid)
         {
             foreach (Boid b in boids)
