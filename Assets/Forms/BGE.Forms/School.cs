@@ -40,13 +40,12 @@ namespace BGE.Forms
                     {
                         b.GetComponent<Constrain>().centre += trans;
                     }
-                    b.suspended = false;
-                    if (b.GetComponent<TrailRenderer>()!= null)
-                    {
-                        b.GetComponent<TrailRenderer>().Clear();
-                    }
                 }
-                
+                b.suspended = false;
+                if (b.GetComponent<TrailRenderer>() != null)
+                {
+                    b.GetComponent<TrailRenderer>().Clear();
+                }
             }
 
 

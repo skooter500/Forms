@@ -47,6 +47,12 @@ namespace BGE.Forms
                         fish = suspended[suspended.Count - 1];
                         suspended.RemoveAt(suspended.Count - 1);
                         fish.SetActive(true);
+                        fish.GetComponentInChildren<Boid>().suspended = false;
+                        TrailRenderer tr = fish.GetComponentInChildren<TrailRenderer>();
+                        if (tr != null)
+                        {
+                            tr.Clear();
+                        }
                     }
                     else
                     {
@@ -116,6 +122,19 @@ namespace BGE.Forms
         public void Update()
         {
             CreatureManager.Log("T: " + targetCreatureCount + " A: " + alive.Count + " S: " + suspended.Count);
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                targetCreatureCount += 5;
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                if (targetCreatureCount > 5)
+                {
+                    targetCreatureCount -= 5;
+                }
+            }
+
         }
 
         void Start()
@@ -124,6 +143,11 @@ namespace BGE.Forms
             {
                 return;
             }
+            
+        }
+
+        void OnEnable()
+        {
             StartCoroutine(ManageSchool());
         }
     }

@@ -165,7 +165,9 @@ namespace BGE.Forms
         public bool suspended = false;
         void FixedUpdate()
         {
-            if (suspended || (autoSuspendWhenInvisible && !isVisible()))
+            inFrontOfPlayer = Vector3.Dot(position - playerPosition, playerForward) > 0;
+            distanceToPlayer = Vector3.Distance(position, playerPosition);
+            if (suspended || (autoSuspendWhenInvisible && !inFrontOfPlayer))
             {
                 suspended = true;
                 return;
@@ -330,8 +332,6 @@ namespace BGE.Forms
             bank = (right.y > 0) ? bank : -bank;
 
             // Calculate distance to the player
-            inFrontOfPlayer = Vector3.Dot(position - playerPosition, playerForward) > 0;
-            distanceToPlayer = Vector3.Distance(position, playerPosition);
 
             return totalForce;
         }

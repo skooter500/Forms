@@ -13,13 +13,44 @@ namespace BGE.Forms
 		public float playerRadius = 1000;
 
 		public List<GameObject> alive = new List<GameObject>();
-		public List<GameObject> dead = new List<GameObject>();
+		public List<GameObject> suspended = new List<GameObject>();
 
 		public GameObject[] prefabs;
 
 		public LayerMask environmentLM;
 
         public static Mother Instance;
+
+        bool FindPlace(GameObject creature, out Vector3 newPos)
+        {
+            bool found = false;
+            int count = 0;
+            newPos = Vector3.zero;
+            while (!found)
+            {
+                SpawnParameters sp = creature.GetComponent<SpawnParameters>();
+                Vector3 r = Random.insideUnitSphere;
+                r.z = Mathf.Abs(r.z);
+                r.y = 0;
+                r *= sp.end - sp.start;
+                r += (r.normalized * sp.start);
+
+                newPos = Camera.main.transform.TransformPoint(r);
+                newPos.y = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z) + Random.Range(sp.minHeight, sp.maxHeight);
+                if (newPos.y > WorldGenerator.Instance.surfaceHeight)
+                {
+                    count++;
+                    if (count == 10)
+                    {
+                        found = false;
+                        break;
+                    }
+                    continue;
+                }
+                found = true;
+            }
+            return found;
+        }
 
         private bool TestPos(Vector3 newPos, float spaceRequired)
         {
@@ -68,103 +99,56 @@ namespace BGE.Forms
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
 					{
-                        if (creature.GetComponent<School>() != null)
+                        Boid[] boids = creature.GetComponentsInChildren<Boid>();
+                        foreach (Boid b in boids)
                         {
-                            foreach (Boid b in creature.GetComponent<School>().boids)
-                            {
-                                b.suspended = true;
-                                //CreatureManager.Instance.boids.Remove(b);
-                            }
+                            b.suspended = true;
                         }
-                        else
-                        {
-                            boid.suspended = true;
-                            //CreatureManager.Instance.boids.Remove(boid);
-                        }
-
-                        //GameObject.Destroy(creature);
                         creature.SetActive(false);
-                        dead.Add(creature);
+                        suspended.Add(creature);
                         Debug.Log("Deleting a creature");
                         alive.Remove(creature);
-
                     }
                 }
                 
 				if (alive.Count < maxcreatures)
 				{
-					// Find a spawn point
-					// Calculate the position
-					bool found = false;
-					int count = 0;
-					Vector3 newPos = Vector3.zero;
-					while (!found)
+                    // Find a spawn point
+                    // Calculate the position
+                    Vector3 newPos = Vector3.zero;
+
+                    GameObject newcreature = null;
+					if (suspended.Count > 0)
 					{
-                        SpawnParameters sp = prefabs[nextCreature].GetComponent<SpawnParameters>();
-                        Vector3 r = Random.insideUnitSphere;
-                        r.z = Mathf.Abs(r.z);
-                        r.y = 0;
-                        r *= sp.end - sp.start;
-                        r += (r.normalized * sp.start);
-                       
-                        newPos = Camera.main.transform.TransformPoint(r);
-						newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(sp.minHeight, sp.maxHeight);
-                        if (newPos.y > WorldGenerator.Instance.surfaceHeight)
+                        Debug.Log("Teleporting an old creature");
+						newcreature = suspended[suspended.Count - 1];
+						suspended.Remove(newcreature);
+                        newcreature.SetActive(true);
+                        bool found = FindPlace(newcreature, out newPos);
+
+                        Teleport(newcreature, newPos);
+                        // Change the school size every time we teleport a school
+                        SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
+                        if (sg != null)
                         {
-                            count++;
-                            if (count == 10)
-                            {
-                                found = false;
-                                break;
-                            }
-                            continue;
+                            sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                         }
-                        found = true;
-                        /*
-                        bool clear = TestPos(newPos, spaceRequired[nextCreature]);
-						if (clear)
-						{
-							found = true;
-							break;
-						}
-						count++;
-						if (count == 10)
-						{
-							found = false;
-							break;
-						}
-                        */
-					}
-					if (found)
+                    }
+                    else                        
 					{
-						GameObject newcreature = null;
-                        Boid boid;
-						if (dead.Count > 0)
-						{
-                            Debug.Log("Teleporting an old creature");
-							newcreature = dead[dead.Count - 1];
-							dead.Remove(newcreature);
-                            newcreature.SetActive(true);
-                            Teleport(newcreature, newPos);
-                        }
-                        else                        
-						{
-							Debug.Log("Creating a new creature: " + alive.Count + 1);
-							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
-                                , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
-                                );  
-							newcreature.transform.parent = this.transform;
-                            newcreature.transform.position = newPos;
-                        }
-                         // The generator
-                        alive.Add(newcreature);
-                        //newcreature.GetComponent<CreatureGenerator>().CreateCreature();
-					}
-					else
-					{
-						//Debug.Log("Couldnt find a place to spawn the creature");
-					}
-					nextCreature = (nextCreature + 1) % prefabs.Length;
+						Debug.Log("Creating a new creature: " + alive.Count + 1);
+						newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
+                            , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
+                            );  
+						newcreature.transform.parent = this.transform;
+                        bool found = FindPlace(newcreature, out newPos);
+                        newcreature.transform.position = newPos;
+                        nextCreature = (nextCreature + 1) % prefabs.Length;
+                    }
+                    // The generator
+                    alive.Add(newcreature);
+                    //newcreature.GetComponent<CreatureGenerator>().CreateCreature();
+					
 				}
 				yield return new WaitForSeconds(delay);
 			}            
@@ -204,17 +188,23 @@ namespace BGE.Forms
                 newcreature.GetComponent<BigCreatureController>().Restart();
             }
 
+            if (calculationBoid.GetComponent<TrailRenderer>() != null)
+            {
+                calculationBoid.GetComponent<TrailRenderer>().Clear();
+            }
+
             // Teleport any schools
             School[] schools = newcreature.GetComponentsInChildren<School>();
             foreach(School school in schools)
             {
                 school.Teleport(newPos, trans, calculationBoid);
+                
             }
 
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = newPos;
             cube.transform.localScale = Vector3.one * 50;
-
+            */
         }
 
         private void Awake()
@@ -236,7 +226,7 @@ namespace BGE.Forms
 		void Update()
 		{
             CreatureManager.Log("Alive creatures: " + alive.Count);
-            CreatureManager.Log("Suspended creatures: " + dead.Count);
+            CreatureManager.Log("Suspended creatures: " + suspended.Count);
         }
     }
 }
