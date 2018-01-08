@@ -131,7 +131,7 @@ namespace BGE.Forms
                         SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
                         if (sg != null)
                         {
-                            sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
+                           // sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                         }
                     }
                     else                        
