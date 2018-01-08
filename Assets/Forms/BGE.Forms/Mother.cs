@@ -61,7 +61,9 @@ namespace BGE.Forms
 				for (int i = alive.Count -1; i >= 0; i --)
 				{
 					GameObject creature = alive[i];
-                    Boid boid = Utilities.FindBoidInHierarchy(creature);
+                    Boid boid = GetCalculationBoid(creature);
+                    
+            
                     float dist = Vector3.Distance(boid.transform.position, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
@@ -144,9 +146,6 @@ namespace BGE.Forms
 							dead.Remove(newcreature);
                             newcreature.SetActive(true);
                             Teleport(newcreature, newPos);
-                            
-
-                            
                         }
                         else                        
 						{
@@ -171,11 +170,23 @@ namespace BGE.Forms
 			}            
 		}
 
+        public Boid GetCalculationBoid(GameObject creature)
+        {
+            if (creature.GetComponent<TenticleCreatureGenerator>() != null)
+            {
+                return creature.GetComponent<TenticleCreatureGenerator>().head.GetComponent<Boid>();
+            }
+            else
+            {
+                return Utilities.FindBoidInHierarchy(creature);
+            }
+        }
+
         private void Teleport(GameObject newcreature, Vector3 newPos)
         {
 
             // Restore the creature to its original state
-            Boid calculationBoid = Utilities.FindBoidInHierarchy(newcreature);
+            Boid calculationBoid = GetCalculationBoid(newcreature);
             Vector3 trans = newPos - calculationBoid.transform.position;
             newcreature.transform.position += trans;
             // Translate it to the new position                            

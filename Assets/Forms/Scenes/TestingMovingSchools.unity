@@ -786,6 +786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1289191467}
   headPrefab: {fileID: 0}
+  head: {fileID: 0}
   numTenticles: 3
   radius: 1.4
   headScale: 1
@@ -2459,8 +2460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!1 &142989181
@@ -3103,6 +3104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 2081058756}
   headPrefab: {fileID: 142989181}
+  head: {fileID: 0}
   numTenticles: 8
   radius: -500
   headScale: 250
@@ -3136,8 +3138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 16000
+  start: 0
+  end: 1000
   minHeight: 2000
   maxHeight: 3000
 --- !u!114 &169623128
@@ -4141,6 +4143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1397187949}
   headPrefab: {fileID: 213049149}
+  head: {fileID: 0}
   numTenticles: 9
   radius: 60
   headScale: 80
@@ -7505,8 +7508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!114 &344264677
@@ -8266,6 +8269,134 @@ Transform:
   m_Father: {fileID: 85318452}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &412853387
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
 --- !u!1 &417132866
 GameObject:
   m_ObjectHideFlags: 0
@@ -8450,7 +8581,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418250397}
-  m_Mesh: {fileID: 927395486}
+  m_Mesh: {fileID: 412853387}
 --- !u!23 &418250401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8466,7 +8597,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 1428190370}
+  - {fileID: 1966185097}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8685,8 +8816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!114 &422678083
@@ -10447,7 +10578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start: 0
-  end: 200
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!1 &553252210
@@ -11338,8 +11469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 5000
-  end: 10000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 800
 --- !u!1 &610898395
@@ -14002,8 +14133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 2500
   maxHeight: 3000
 --- !u!1 &766180393
@@ -14048,8 +14179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!114 &766180396
@@ -16109,6 +16240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1289191467}
   headPrefab: {fileID: 0}
+  head: {fileID: 0}
   numTenticles: 3
   radius: 1
   headScale: 1
@@ -16179,8 +16311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 400
   maxHeight: 1000
 --- !u!114 &923987086
@@ -16234,134 +16366,6 @@ MonoBehaviour:
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
---- !u!43 &927395486
-Mesh:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 8
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_Skin: []
-  m_VertexData:
-    m_CurrentChannels: 13
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshOptimized: 0
 --- !u!1 &929821599
 GameObject:
   m_ObjectHideFlags: 0
@@ -16481,8 +16485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 8000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 800
 --- !u!1 &936940527
@@ -18877,8 +18881,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 2000
 --- !u!114 &1023230266
@@ -19207,6 +19211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 102725021}
   headPrefab: {fileID: 677497270}
+  head: {fileID: 0}
   numTenticles: 9
   radius: 11
   headScale: 11
@@ -20438,8 +20443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!114 &1095588358
@@ -21433,12 +21438,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 5
-  maxcreatures: 5
-  playerRadius: 1000
+  maxcreatures: 7
+  playerRadius: 2000
   alive: []
   dead: []
   prefabs:
+  - {fileID: 1294032684}
   - {fileID: 553050733}
+  - {fileID: 1670858058}
+  - {fileID: 1347067921}
+  - {fileID: 605557721}
+  - {fileID: 1444958981}
+  - {fileID: 1152049871}
   environmentLM:
     serializedVersion: 2
     m_Bits: 256
@@ -21507,8 +21518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 100
   maxHeight: 600
 --- !u!1 &1158661309
@@ -21555,6 +21566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1289191467}
   headPrefab: {fileID: 0}
+  head: {fileID: 0}
   numTenticles: 3
   radius: 1.4
   headScale: 1
@@ -22108,8 +22120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 2500
   maxHeight: 3000
 --- !u!1 &1198319233
@@ -23251,6 +23263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 2081058756}
   headPrefab: {fileID: 1641147833}
+  head: {fileID: 0}
   numTenticles: 8
   radius: 60
   headScale: 150
@@ -23279,7 +23292,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1294032684}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15007f6dd5a90bd438bb2dd6dcee367e, type: 3}
   m_Name: 
@@ -23289,7 +23302,7 @@ MonoBehaviour:
   animators: []
   spineAnimators: []
   fishParts: []
-  visible: 0
+  visible: 1
   updatesPerSecond: 5
   suspendBoids: 0
   boidsInFront: 0
@@ -23305,8 +23318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 800
   maxHeight: 1500
 --- !u!1 &1301831680
@@ -24083,8 +24096,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 2000
 --- !u!114 &1347067925
@@ -24992,39 +25005,6 @@ Transform:
   m_Father: {fileID: 1875887123}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1428190370
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1428600956
 GameObject:
   m_ObjectHideFlags: 0
@@ -25337,8 +25317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 8000
-  end: 1500
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 800
 --- !u!1 &1451908333
@@ -27082,8 +27062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!114 &1555320047
@@ -27127,6 +27107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 2081058756}
   headPrefab: {fileID: 1499815783}
+  head: {fileID: 0}
   numTenticles: 8
   radius: 60
   headScale: 150
@@ -29146,8 +29127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 8000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 100
   maxHeight: 1000
 --- !u!114 &1670858061
@@ -29163,6 +29144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1397187949}
   headPrefab: {fileID: 1597977369}
+  head: {fileID: 0}
   numTenticles: 8
   radius: 80
   headScale: 75
@@ -29460,6 +29442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1397187949}
   headPrefab: {fileID: 213049149}
+  head: {fileID: 0}
   numTenticles: 6
   radius: 60
   headScale: 60
@@ -31027,8 +31010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 800
   maxHeight: 2000
 --- !u!1 &1819329695
@@ -31721,6 +31704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1289191467}
   headPrefab: {fileID: 0}
+  head: {fileID: 0}
   numTenticles: 3
   radius: 1.4
   headScale: 1
@@ -34151,6 +34135,39 @@ Transform:
   m_Father: {fileID: 85318452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1966185097
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1967199108
 Prefab:
   m_ObjectHideFlags: 0
@@ -34314,8 +34331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 15000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 2000
 --- !u!114 &1988060754
@@ -34331,6 +34348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 2081058756}
   headPrefab: {fileID: 955624314}
+  head: {fileID: 0}
   numTenticles: 8
   radius: -200
   headScale: 100
@@ -34938,8 +34956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 10000
-  end: 12000
+  start: 0
+  end: 1000
   minHeight: 500
   maxHeight: 1000
 --- !u!114 &2042051346
@@ -35390,6 +35408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 2081058756}
   headPrefab: {fileID: 1640788282}
+  head: {fileID: 0}
   numTenticles: 8
   radius: -500
   headScale: 250
@@ -35408,8 +35427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f964e771fecdb948950d35afb9e7752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 9000
-  end: 16000
+  start: 0
+  end: 1000
   minHeight: 2000
   maxHeight: 3000
 --- !u!114 &2060980790
@@ -37136,6 +37155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tenticlePrefab: {fileID: 1289191467}
   headPrefab: {fileID: 0}
+  head: {fileID: 0}
   numTenticles: 3
   radius: 1
   headScale: 1

@@ -34,15 +34,19 @@ namespace BGE.Forms
                 {
                     b.position += trans;
                     b.desiredPosition += trans;
-                    b.GetComponent<Constrain>().centre += trans;
+                    if (b.GetComponent<Constrain>() != null)
+                    {
+                        b.GetComponent<Constrain>().centre += trans;
+                    }
                     b.suspended = false;
                     if (b.GetComponent<TrailRenderer>()!= null)
                     {
                         b.GetComponent<TrailRenderer>().Clear();
                     }
                 }
+                
             }
-            
+
 
         }
 
