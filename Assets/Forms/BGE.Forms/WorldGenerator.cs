@@ -206,7 +206,6 @@ namespace BGE.Forms
                     {
                         if (tile.creationTime != updateTime)
                         {
-                            Debug.Log("Deleting tile: " + tile.theTile.name);
                             Destroy(tile.theTile);
                             yield return WaitFor.Frames(Random.Range(1, 3));
                         }
@@ -341,6 +340,7 @@ namespace BGE.Forms
             tile.layer = this.gameObject.layer;
             tile.transform.parent = this.transform;
             MeshRenderer renderer = tile.AddComponent<MeshRenderer>();
+            tile.SetActive(false);
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             renderer.receiveShadows = true;
             MeshCollider meshCollider = tile.AddComponent<MeshCollider>();        

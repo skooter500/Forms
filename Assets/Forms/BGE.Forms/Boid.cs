@@ -78,7 +78,6 @@ namespace BGE.Forms
         [HideInInspector] Vector3 playerForward;
         Transform player;
 
-
         public float TimeDelta
         {
             get
@@ -103,8 +102,6 @@ namespace BGE.Forms
             CreatureManager.Instance.boids.Add(this);
             multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
-
-            
 
             //if (transform.parent.gameObject.GetComponent<School>() != null)
             //{
@@ -149,7 +146,7 @@ namespace BGE.Forms
         [HideInInspector]
         public float gravityAcceleration = 0;
 
-        public bool suspendIfNotVisible = false;
+        public bool autoSuspendWhenInvisible = false;
 
         private Renderer renderer = null;
         public bool isVisible()
@@ -165,19 +162,17 @@ namespace BGE.Forms
             return (renderer == null) ? false : renderer.isVisible;
         }
 
-        public bool suspendedByMe = false;
-
         public bool suspended = false;
         void FixedUpdate()
         {
-            if (suspended || (suspendIfNotVisible && !isVisible()))
+            if (suspended || (autoSuspendWhenInvisible && !isVisible()))
             {
-                suspendedByMe = true;
+                suspended = true;
                 return;
             }
             else
             {
-                suspendedByMe = false;
+                suspended = false;
             }
             float smoothRate;
 

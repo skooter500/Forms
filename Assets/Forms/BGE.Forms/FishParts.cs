@@ -32,6 +32,8 @@ namespace BGE.Forms
         private Vector3 bodySize;
         private Vector3 tailSize;
 
+        public float closeness = 500;
+
         public Color[] segmentColors = {
             Color.blue
             , Color.cyan
@@ -160,8 +162,6 @@ namespace BGE.Forms
 
         private float fleeColourWait;
         private bool fleeColourStarted;
-
-        public float closeness = 10;
 
         public void Update()
         {

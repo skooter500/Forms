@@ -61,8 +61,10 @@ namespace BGE.Forms
 				for (int i = alive.Count -1; i >= 0; i --)
 				{
 					GameObject creature = alive[i];
-                    Boid boid = Utilities.FindBoidInHierarchy(creature);
-                    float dist = Vector3.Distance(boid.position, Camera.main.transform.position);
+                    Boid boid = GetCalculationBoid(creature);
+                    
+            
+                    float dist = Vector3.Distance(boid.transform.position, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
 					{
@@ -70,16 +72,19 @@ namespace BGE.Forms
                         {
                             foreach (Boid b in creature.GetComponent<School>().boids)
                             {
-                                CreatureManager.Instance.boids.Remove(b);
+                                b.suspended = true;
+                                //CreatureManager.Instance.boids.Remove(b);
                             }
                         }
                         else
                         {
-                            CreatureManager.Instance.boids.Remove(boid);
+                            boid.suspended = true;
+                            //CreatureManager.Instance.boids.Remove(boid);
                         }
 
-                        GameObject.Destroy(creature);
-                        // dead.Add(creature);
+                        //GameObject.Destroy(creature);
+                        creature.SetActive(false);
+                        dead.Add(creature);
                         Debug.Log("Deleting a creature");
                         alive.Remove(creature);
 
@@ -133,23 +138,27 @@ namespace BGE.Forms
 					if (found)
 					{
 						GameObject newcreature = null;
-						/*if (dead.Count > 0)
+                        Boid boid;
+						if (dead.Count > 0)
 						{
+                            Debug.Log("Teleporting an old creature");
 							newcreature = dead[dead.Count - 1];
 							dead.Remove(newcreature);
-							newcreature.transform.GetChild(0).localPosition = Vector3.zero;
-						}
-						else
-                        */
+                            newcreature.SetActive(true);
+                            Teleport(newcreature, newPos);
+                        }
+                        else                        
 						{
-							//Debug.Log("Creating a new creature: " + alive.Count + 1);
+							Debug.Log("Creating a new creature: " + alive.Count + 1);
 							newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                                 );  
 							newcreature.transform.parent = this.transform;
-						}
-						//Utilities.FindBoidInHierarchy(newcreature).desiredPosition = newPos;
-						alive.Add(newcreature);
+                            newcreature.transform.position = newPos;
+                        }
+                         // The generator
+                        alive.Add(newcreature);
+                        //newcreature.GetComponent<CreatureGenerator>().CreateCreature();
 					}
 					else
 					{
@@ -160,6 +169,53 @@ namespace BGE.Forms
 				yield return new WaitForSeconds(delay);
 			}            
 		}
+
+        public Boid GetCalculationBoid(GameObject creature)
+        {
+            if (creature.GetComponent<TenticleCreatureGenerator>() != null)
+            {
+                return creature.GetComponent<TenticleCreatureGenerator>().head.GetComponent<Boid>();
+            }
+            else
+            {
+                return Utilities.FindBoidInHierarchy(creature);
+            }
+        }
+
+        private void Teleport(GameObject newcreature, Vector3 newPos)
+        {
+
+            // Restore the creature to its original state
+            Boid calculationBoid = GetCalculationBoid(newcreature);
+            Vector3 trans = newPos - calculationBoid.transform.position;
+            newcreature.transform.position += trans;
+            // Translate it to the new position                            
+            calculationBoid.suspended = false;
+            calculationBoid.transform.position = newPos;
+            calculationBoid.position = newPos; // The boid
+            calculationBoid.desiredPosition = newPos;
+            if (calculationBoid.GetComponent<Constrain>() != null)
+            {
+                calculationBoid.GetComponent<Constrain>().centre += trans;
+            }
+
+            if (newcreature.GetComponent<BigCreatureController>())
+            {
+                newcreature.GetComponent<BigCreatureController>().Restart();
+            }
+
+            // Teleport any schools
+            School[] schools = newcreature.GetComponentsInChildren<School>();
+            foreach(School school in schools)
+            {
+                school.Teleport(newPos, trans, calculationBoid);
+            }
+
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = newPos;
+            cube.transform.localScale = Vector3.one * 50;
+
+        }
 
         private void Awake()
         {
@@ -179,7 +235,8 @@ namespace BGE.Forms
 		// Update is called once per frame
 		void Update()
 		{
-			CreatureManager.Log("Num creatures: " + alive.Count);
-		}
-	}
+            CreatureManager.Log("Alive creatures: " + alive.Count);
+            CreatureManager.Log("Suspended creatures: " + dead.Count);
+        }
+    }
 }

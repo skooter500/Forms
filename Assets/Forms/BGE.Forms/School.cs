@@ -26,6 +26,30 @@ namespace BGE.Forms
         [Header("Debug")]
         public bool drawGizmos;
 
+        public virtual void Teleport(Vector3 newHome, Vector3 trans, Boid calculationBoid)
+        {
+            foreach (Boid b in boids)
+            {
+                if (b != calculationBoid)
+                {
+                    b.position += trans;
+                    b.desiredPosition += trans;
+                    if (b.GetComponent<Constrain>() != null)
+                    {
+                        b.GetComponent<Constrain>().centre += trans;
+                    }
+                    b.suspended = false;
+                    if (b.GetComponent<TrailRenderer>()!= null)
+                    {
+                        b.GetComponent<TrailRenderer>().Clear();
+                    }
+                }
+                
+            }
+
+
+        }
+
         System.Collections.IEnumerator UpdateCenterOfMass()
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 0.5f));

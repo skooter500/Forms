@@ -8,6 +8,7 @@ namespace BGE.Forms
         public GameObject tenticlePrefab;
         public GameObject headPrefab;
 
+        public GameObject head;
 
         public int numTenticles = 8;
         public float radius = 20;
@@ -90,6 +91,7 @@ namespace BGE.Forms
                 {
                     boid = thisBoid;
                     newPart.transform.parent = boid.transform.GetChild(0).transform;
+                    head = boid.gameObject;
                 }
 
                 FinAnimator anim = newPart.GetComponentInChildren<FinAnimator>();

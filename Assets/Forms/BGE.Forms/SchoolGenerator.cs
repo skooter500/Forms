@@ -20,7 +20,7 @@ namespace BGE.Forms
 
         [Range(0, 1)]
         public float speedVariation = 0.1f;
-
+        
         System.Collections.IEnumerator CreateSchool()
         {
             int maxAudioBoids = 5;
