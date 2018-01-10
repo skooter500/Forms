@@ -21,13 +21,17 @@ public class StateMachine : MonoBehaviour {
     public int updatesPerSecond = 5;
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(Think());
+        
 	}
 
+    private void OnEnable()
+    {        
+        StartCoroutine(Think());
+    }
+    
 
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 		
 	}
 

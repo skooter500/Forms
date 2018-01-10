@@ -163,18 +163,20 @@ namespace BGE.Forms
         }
 
         public bool suspended = false;
-        void FixedUpdate()
+
+        void Update()
         {
+            playerPosition = player.position;
+            playerForward = player.forward;        
             inFrontOfPlayer = Vector3.Dot(position - playerPosition, playerForward) > 0;
             distanceToPlayer = Vector3.Distance(position, playerPosition);
-            if (suspended || (autoSuspendWhenInvisible && !inFrontOfPlayer))
+            if (autoSuspendWhenInvisible)
             {
-                suspended = true;
-                return;
+                suspended = !inFrontOfPlayer;
             }
-            else
+            if (suspended)
             {
-                suspended = false;
+                return;
             }
             float smoothRate;
 

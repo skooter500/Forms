@@ -30,7 +30,7 @@ namespace BGE.Forms
 
         public LayerMask mask = -1;
 
-        public void Start()
+        public void OnEnable()
         {
             StartCoroutine(UpdateFrontFeelers());
             StartCoroutine(UpdateSideFeelers());
