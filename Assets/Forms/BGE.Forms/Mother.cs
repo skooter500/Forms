@@ -126,7 +126,7 @@ namespace BGE.Forms
                         newcreature.SetActive(true);
                         bool found = FindPlace(newcreature, out newPos);
 
-                        Teleport(newcreature, newPos);
+                        Teleport(newcreature, newPos); 
                         // Change the school size every time we teleport a school
                         SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
                         if (sg != null)
@@ -200,10 +200,17 @@ namespace BGE.Forms
                 school.Teleport(newPos, trans, calculationBoid);
                 
             }
-            Renderer[] rs = GetComponentsInChildren<Renderer>();
+            Renderer[] rs = newcreature.GetComponentsInChildren<Renderer>();
             foreach (Renderer r in rs)
             {
-                r.material.color = Color.black;
+                if (r is TrailRenderer || r.material.name.Contains("Trans"))
+                {
+                    return;
+                }
+                else
+                {
+                    r.material.color = Color.black;
+                }
             }
         }
 
