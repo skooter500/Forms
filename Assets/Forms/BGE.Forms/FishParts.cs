@@ -165,7 +165,7 @@ namespace BGE.Forms
 
         public void Update()
         {
-            if (!boid.isVisible() || boid.distanceToPlayer > closeness)
+            if (boid.distanceToPlayer > closeness)
             {
                 return;
             }

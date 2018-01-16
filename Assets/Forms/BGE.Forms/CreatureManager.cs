@@ -152,8 +152,6 @@ namespace BGE.Forms
                 StartUpdateThreads();
             }
             PrintFloat("Boid FPS: ", threadFPS);
-            PrintFloat("ThreadCount: ", (int)threadCount);
-            PrintFloat("Thread TimeDelta", threadTimeDelta);
             Log("Num boids:" + boids.Count);
             Log("Suspended boids:" + suspended);
 

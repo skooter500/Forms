@@ -38,7 +38,11 @@ namespace BGE.Forms
             renderers = GetComponentsInChildren<Renderer>();
             boids = GetComponentsInChildren<Boid>();
             animators = GetComponentsInChildren<Animator>();
-            spineAnimators = GetComponentsInChildren<SpineAnimator>();
+            spineAnimators = GetComponentsInChildren<SpineAnimator>();            
+        }
+
+        private void OnEnable()
+        {
             StartCoroutine(CheckVisibility());
         }
 

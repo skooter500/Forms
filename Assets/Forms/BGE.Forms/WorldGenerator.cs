@@ -340,7 +340,7 @@ namespace BGE.Forms
             tile.layer = this.gameObject.layer;
             tile.transform.parent = this.transform;
             MeshRenderer renderer = tile.AddComponent<MeshRenderer>();
-            tile.SetActive(false);
+            tile.SetActive(true);
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             renderer.receiveShadows = true;
             MeshCollider meshCollider = tile.AddComponent<MeshCollider>();        
