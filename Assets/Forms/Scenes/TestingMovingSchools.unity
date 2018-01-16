@@ -694,6 +694,90 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 22206476}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &35779028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 35779029}
+  - component: {fileID: 35779032}
+  - component: {fileID: 35779031}
+  - component: {fileID: 35779030}
+  m_Layer: 8
+  m_Name: creatures (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &35779029
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 35779028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2012074538}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &35779030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 35779028}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e4b46648dd1714998e7adcc574ed0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 5
+  maxJellys: 10
+  playerRadius: 5000
+  jellyPrefab: {fileID: 1029936032}
+  environmentLM:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &35779031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 35779028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fc3fd8caedb354c8e27ce36d7d45c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threadCount: 0
+  boids: []
+  showMessages: 1
+--- !u!114 &35779032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 35779028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee205220e4c41f742a401542a8fe746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 5
+  maxcreatures: 1
+  playerRadius: 2000
+  alive: []
+  suspended: []
+  prefabs:
+  - {fileID: 553050733}
+  environmentLM:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &45500660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,12 +2527,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.8
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 20
   maxBoidCount: 50
   prefab: {fileID: 2132951101}
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!114 &139620098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2464,6 +2551,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!1 &142989181
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,6 +3230,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2000
   maxHeight: 3000
+  Species: 
 --- !u!114 &169623128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7512,6 +7601,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!114 &344264677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7557,12 +7647,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.8
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 20
   maxBoidCount: 50
   prefab: {fileID: 2132951101}
   spawnInTopHemisphere: 0
   spread: 0.1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &349846115
 GameObject:
   m_ObjectHideFlags: 0
@@ -7930,12 +8023,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 50
   maxBoidCount: 100
   prefab: {fileID: 324860675}
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!114 &360858793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8453,7 +8549,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418250397}
-  m_Mesh: {fileID: 911948821}
+  m_Mesh: {fileID: 1989485940}
 --- !u!23 &418250401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8469,7 +8565,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 1086662378}
+  - {fileID: 672961323}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8692,6 +8788,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!114 &422678083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8737,12 +8834,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.8
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 20
   maxBoidCount: 30
   prefab: {fileID: 2132951101}
   spawnInTopHemisphere: 0
   spread: 0.1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &434888515
 GameObject:
   m_ObjectHideFlags: 0
@@ -10432,12 +10532,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.5
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 10
   maxBoidCount: 200
   prefab: {fileID: 669171458}
   spawnInTopHemisphere: 0
   spread: 0.5
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!114 &553050738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10453,6 +10556,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!1 &553252210
 GameObject:
   m_ObjectHideFlags: 0
@@ -11345,6 +11449,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 800
+  Species: 
 --- !u!1 &610898395
 GameObject:
   m_ObjectHideFlags: 0
@@ -12795,6 +12900,39 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670134079}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!21 &672961323
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &674164806
 GameObject:
   m_ObjectHideFlags: 0
@@ -13988,6 +14126,7 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minSideWith: 0
   maxSideWith: 5
   gap: 800
@@ -14009,6 +14148,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2500
   maxHeight: 3000
+  Species: 
 --- !u!1 &766180393
 GameObject:
   m_ObjectHideFlags: 0
@@ -14055,6 +14195,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!114 &766180396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14088,12 +14229,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.5
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 5
   maxBoidCount: 10
   prefab: {fileID: 421526402}
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &772794220
 GameObject:
   m_ObjectHideFlags: 0
@@ -15215,12 +15359,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 50
   maxBoidCount: 100
   prefab: {fileID: 1029936032}
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &840373461
 GameObject:
   m_ObjectHideFlags: 0
@@ -16140,134 +16287,6 @@ MonoBehaviour:
   xAxis: 1
   yAxis: 1
   zAxis: 1
---- !u!43 &911948821
-Mesh:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 8
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_Skin: []
-  m_VertexData:
-    m_CurrentChannels: 13
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshOptimized: 0
 --- !u!1 &923987083
 GameObject:
   m_ObjectHideFlags: 0
@@ -16315,6 +16334,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 400
   maxHeight: 1000
+  Species: 
 --- !u!114 &923987086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16360,12 +16380,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.5
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 1
   maxBoidCount: 6
   prefab: {fileID: 228709090}
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &929821599
 GameObject:
   m_ObjectHideFlags: 0
@@ -16444,6 +16467,7 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minSideWith: 10
   maxSideWith: 10
   gap: 200
@@ -16468,12 +16492,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 2
   maxBoidCount: 4
   prefab: {fileID: 1444958981}
   spawnInTopHemisphere: 1
   spread: 0.1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!114 &929821605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16489,6 +16516,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 800
+  Species: 
 --- !u!1 &936940527
 GameObject:
   m_ObjectHideFlags: 0
@@ -18885,6 +18913,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 2000
+  Species: 
 --- !u!114 &1023230266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20184,39 +20213,6 @@ Transform:
   m_Father: {fileID: 1604079857}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!21 &1086662378
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1087607913
 GameObject:
   m_ObjectHideFlags: 0
@@ -20480,6 +20476,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!114 &1095588358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20525,12 +20522,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.8
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 20
   maxBoidCount: 30
   prefab: {fileID: 2132951101}
   spawnInTopHemisphere: 0
   spread: 0.1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1001 &1098949744
 Prefab:
   m_ObjectHideFlags: 0
@@ -20702,7 +20702,7 @@ MonoBehaviour:
   maxcreatures: 30
   playerRadius: 17000
   alive: []
-  dead: []
+  suspended: []
   prefabs:
   - {fileID: 1196453628}
   - {fileID: 1023230261}
@@ -21413,7 +21413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1142574650
 Transform:
   m_ObjectHideFlags: 0
@@ -21474,7 +21474,7 @@ MonoBehaviour:
   maxcreatures: 8
   playerRadius: 2000
   alive: []
-  dead: []
+  suspended: []
   prefabs:
   - {fileID: 1294032684}
   - {fileID: 553050733}
@@ -21535,6 +21535,7 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minSideWith: 1
   maxSideWith: 2
   gap: 300
@@ -21556,6 +21557,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 100
   maxHeight: 600
+  Species: 
 --- !u!1 &1158661309
 GameObject:
   m_ObjectHideFlags: 0
@@ -22158,6 +22160,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2500
   maxHeight: 3000
+  Species: 
 --- !u!1 &1198319233
 GameObject:
   m_ObjectHideFlags: 0
@@ -23356,6 +23359,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 800
   maxHeight: 1500
+  Species: 
 --- !u!1 &1301831680
 GameObject:
   m_ObjectHideFlags: 0
@@ -24134,6 +24138,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 2000
+  Species: 
 --- !u!114 &1347067925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25355,6 +25360,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 800
+  Species: 
 --- !u!1 &1451908333
 GameObject:
   m_ObjectHideFlags: 0
@@ -26104,12 +26110,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 50
   maxBoidCount: 100
   prefab: {fileID: 1937542275}
   spawnInTopHemisphere: 0
   spread: 0.2
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &1501455734
 GameObject:
   m_ObjectHideFlags: 0
@@ -27100,6 +27109,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!114 &1555320047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29165,6 +29175,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 100
   maxHeight: 1000
+  Species: 
 --- !u!114 &1670858061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31048,6 +31059,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 800
   maxHeight: 2000
+  Species: 
 --- !u!1 &1819329695
 GameObject:
   m_ObjectHideFlags: 0
@@ -34336,6 +34348,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 2000
+  Species: 
 --- !u!114 &1988060754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34456,6 +34469,134 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1989203584}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!43 &1989485940
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
 --- !u!1 &1999578661
 GameObject:
   m_ObjectHideFlags: 0
@@ -34713,6 +34854,7 @@ Transform:
   m_Children:
   - {fileID: 1101573694}
   - {fileID: 1142574650}
+  - {fileID: 35779029}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34961,6 +35103,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  Species: 
 --- !u!114 &2042051346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35006,12 +35149,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 0.5
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 20
   maxBoidCount: 30
   prefab: {fileID: 669171458}
   spawnInTopHemisphere: 0
   spread: 0.1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!1 &2043790157
 GameObject:
   m_ObjectHideFlags: 0
@@ -35432,6 +35578,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2000
   maxHeight: 3000
+  Species: 
 --- !u!114 &2060980790
 MonoBehaviour:
   m_ObjectHideFlags: 0
