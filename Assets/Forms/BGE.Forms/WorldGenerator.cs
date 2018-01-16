@@ -150,6 +150,8 @@ namespace BGE.Forms
             StartCoroutine(GenerateWorldAroundPlayer());
         }
 
+        Queue<GameObject> oldGameObjects = new Queue<GameObject>();
+
         private System.Collections.IEnumerator GenerateWorldAroundPlayer()
         {
             yield return null;
@@ -159,7 +161,11 @@ namespace BGE.Forms
             int zMove = int.MaxValue;
 
             while (true)
-            {            
+            {
+                if (oldGameObjects.Count > 0)
+                {
+                    GameObject.Destroy(oldGameObjects.Dequeue());
+                }
                 if (Mathf.Abs(xMove) >= cellsPerTile * cellSize || Mathf.Abs(zMove) >= cellsPerTile * cellSize)
                 {
                     float updateTime = Time.realtimeSinceStartup;
@@ -206,8 +212,7 @@ namespace BGE.Forms
                     {
                         if (tile.creationTime != updateTime)
                         {
-                            Destroy(tile.theTile);
-                            yield return WaitFor.Frames(Random.Range(1, 3));
+                            oldGameObjects.Enqueue(tile.theTile);
                         }
                         else
                         {

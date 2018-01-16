@@ -164,7 +164,7 @@ namespace BGE.Forms
 
         public bool suspended = false;
 
-        void Update()
+        void FixedUpdate()
         {
             playerPosition = player.position;
             playerForward = player.forward;        
