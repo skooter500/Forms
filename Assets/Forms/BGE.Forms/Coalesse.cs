@@ -6,7 +6,7 @@ public class Coalesse : MonoBehaviour {
     School flock;
     public GameObject player;
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
         flock = GetComponent<School>();
         StartCoroutine("CoalesseBoids");
 	}
@@ -53,9 +53,4 @@ public class Coalesse : MonoBehaviour {
             yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

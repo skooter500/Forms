@@ -30,9 +30,6 @@ namespace BGE.Forms
             int audioBoids = 0;
 
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
-            
-            targetCreatureCount = Random.Range(minBoidCount, maxBoidCount);
-
             while (true)
             {
                 yield return new WaitForSeconds(0.2f);
@@ -77,8 +74,10 @@ namespace BGE.Forms
                     {
                         boid.school = this;
                         boid.GetComponent<Constrain>().radius = radius;
-                        boid.GetComponent<Constrain>().centreOnPosition = true;
-                        boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
+                        boid.GetComponent<Constrain>().centre = pos;
+                        boid.position = pos;
+                        boid.desiredPosition = pos;
+                        //boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
 
                         boids.Add(boid);
                     }
@@ -114,6 +113,7 @@ namespace BGE.Forms
                     }
                     suspended.Add(creature);
                     alive.RemoveAt(alive.Count - 1);
+                    boids.Remove(b);
                     yield return null;
                 }
             }
@@ -143,7 +143,7 @@ namespace BGE.Forms
             {
                 return;
             }
-            
+            targetCreatureCount = Random.Range(minBoidCount, maxBoidCount);
         }
 
         void OnEnable()

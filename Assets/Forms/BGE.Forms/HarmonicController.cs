@@ -32,9 +32,13 @@ namespace BGE.Forms
             initialBoidSpeed = boid.maxSpeed;
             initialAmplitude = harmonic.amplitude;
             initialSpeed = harmonic.speed;
+        }
+
+        public void OnEnable()
+        {
             StartCoroutine("VaryWiggleInterval");
         }
-        
+
 
         public void OnDisable()
         {
@@ -44,6 +48,7 @@ namespace BGE.Forms
         System.Collections.IEnumerator VaryWiggleInterval()
         {
             running = true;
+            yield return new WaitForSeconds(Random.Range(0.5f, 1.0f));
             while (running)
             {
                 //Debug.Log("Accelerated");

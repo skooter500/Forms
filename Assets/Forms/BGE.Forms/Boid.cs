@@ -164,7 +164,7 @@ namespace BGE.Forms
 
         public bool suspended = false;
 
-        void Update()
+        void FixedUpdate()
         {
             playerPosition = player.position;
             playerForward = player.forward;        
@@ -384,7 +384,7 @@ namespace BGE.Forms
                 float inRangeSq = inRange * inRange;
                 foreach (Boid boid in school.boids)
                 {
-                    if (boid != this)
+                    if (boid != this && ! boid.suspended)
                     {
                         if ((position - boid.position).sqrMagnitude < inRangeSq)
                         {

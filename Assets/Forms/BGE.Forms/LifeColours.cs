@@ -43,8 +43,11 @@ namespace BGE.Forms
                     texture.SetPixel(row, col, colorGrid[row, col]);
                 }
             }
-            texture.Apply();
+            texture.Apply();            
+        }
 
+        private void OnEnable()
+        {
             StartCoroutine(UpdateColours());
         }
 

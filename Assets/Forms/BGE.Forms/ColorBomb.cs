@@ -35,7 +35,6 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator ColourCycle()
         {
-            running = true;
             while (true)
             {
                 Vector3 center = school.transform.position; // CenterOfMass();
@@ -83,19 +82,9 @@ namespace BGE.Forms
         }
 
         // Use this for initialization
-        void Start () {
+        void OnEnable() {
             school = GetComponent<School>();
-
-        }
-
-        bool running = false;
-
-        // Update is called once per frame
-        void Update () {
-            if (!running)
-            {
-                StartCoroutine("ColourCycle");
-            }
+            StartCoroutine("ColourCycle");
         }
     }
 }

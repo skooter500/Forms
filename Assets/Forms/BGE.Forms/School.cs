@@ -47,8 +47,6 @@ namespace BGE.Forms
                     b.GetComponent<TrailRenderer>().Clear();
                 }
             }
-
-
         }
 
         System.Collections.IEnumerator UpdateCenterOfMass()
