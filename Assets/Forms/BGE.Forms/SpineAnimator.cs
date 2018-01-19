@@ -27,6 +27,9 @@ namespace BGE.Forms
 
         public bool suspended = false;
 
+        public enum JointType { Lerping, Physics };
+        public JointType jointType = JointType.Lerping;
+
         void Start()
         {
             Transform prevFollower;
@@ -56,28 +59,37 @@ namespace BGE.Forms
                 }
             }
 
-            for (int i = 0; i < bones.Count; i++)
+            if (jointType == JointType.Lerping)
             {
-                if (i == 0)
+                for (int i = 0; i < bones.Count; i++)
                 {
-                    prevFollower = this.transform;
+                    if (i == 0)
+                    {
+                        prevFollower = this.transform;
+                    }
+                    else
+                    {
+                        prevFollower = bones[i - 1].transform;
+                    }
+
+                    Transform follower = bones[i].transform;
+                    Vector3 offset = follower.position - prevFollower.position;
+                    offset = Quaternion.Inverse(prevFollower.transform.rotation) * offset;
+                    bondOffsets.Add(offset);
                 }
-                else
+            }
+            else
+            {
+                for (int i = 0; i < bones.Count; i++)
                 {
-                    prevFollower = bones[i - 1].transform;
+
                 }
-
-                Transform follower = bones[i].transform;
-                Vector3 offset = follower.position - prevFollower.position;
-                offset = Quaternion.Inverse(prevFollower.transform.rotation) * offset;
-                bondOffsets.Add(offset);
-
             }
         }
         
         void FixedUpdate ()
         {
-            if (suspended)
+            if (suspended || jointType == JointType.Physics)
             {
                 return;
             }
