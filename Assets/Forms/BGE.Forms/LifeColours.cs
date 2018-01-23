@@ -31,11 +31,7 @@ namespace BGE.Forms
             {
                 for (int col = 0; col < size; col++)
                 {
-                    float hue = (row / (float)size * colorScale) + (col / (float)size * colorScale) / 2.0f;
-                    /*float hue = (col < halfSize)
-                        ? Utilities.Map(col, 0, halfSize -1, 0.01f, colorScale)
-                        : Utilities.Map(col, halfSize, size -1, colorScale, 0.01f);
-                    */
+                    float hue = ((row / (float)size) * colorScale) + ((col / (float)size) * colorScale) / 2.0f;
                     texture.SetPixel(row, col, Color.HSVToRGB(hue, 1, 0.8f));
                 }
             }
