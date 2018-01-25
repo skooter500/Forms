@@ -5,6 +5,9 @@
 /[Bb]uilds/
 
 .vs
+.vs/Forms/v15/Server/sqlite3/storage.ide-shm
+.vs/Forms/v15/Server/sqlite3/storage.ide-wal
+.vs/Forms/v15/sqlite3/storage.ide
 Assets/Plugins/
 Assets/GoogleVR/
 SteamVR

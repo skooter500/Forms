@@ -23,8 +23,9 @@ namespace BGE.Forms
 
         void Yaw(float angle)
         {
-            Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
-            transform.rotation = rot * transform.rotation;
+            //Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
+            //transform.rotation = rot * transform.rotation;
+            transform.Rotate(Vector3.up, angle, Space.World);
         }
 
         void Roll(float angle)
@@ -43,9 +44,11 @@ namespace BGE.Forms
             }
 
             // A pitch is a rotation around the right vector
-            Quaternion rot = Quaternion.AngleAxis(angle, transform.right);
+            //Quaternion rot = Quaternion.AngleAxis(angle, transform.right);
 
-            transform.rotation = rot * transform.rotation;
+            //transform.rotation = rot * transform.rotation;
+
+            transform.Rotate(Vector3.right, angle);
         }
 
         void Walk(float units)
