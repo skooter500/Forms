@@ -30,15 +30,39 @@ namespace BGE.Forms
 
         public virtual void Teleport(Vector3 newHome, Vector3 trans, Boid calculationBoid)
         {
+            SchoolGenerator sg = GetComponent<SchoolGenerator>();
             foreach (Boid b in boids)
-            {
-                if (b != calculationBoid)
+            {                
+                if (sg != null)
                 {
-                    b.position += trans;
-                    b.desiredPosition += trans;
+                    Vector3 unit = UnityEngine.Random.insideUnitSphere;
+                    Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * sg.spread);
+                    WorldGenerator wg = WorldGenerator.Instance;
+                    if (wg != null)
+                    {
+                        float groundHeight = wg.SamplePos(pos.x, pos.z);
+                        if (pos.y < groundHeight)
+                        {
+                            pos.y = groundHeight + UnityEngine.Random.Range(10, radius * sg.spread);
+                        }
+                    }
+                    b.position = pos;
+                    b.desiredPosition = pos;
                     if (b.GetComponent<Constrain>() != null)
                     {
-                        b.GetComponent<Constrain>().centre += trans;
+                        b.GetComponent<Constrain>().centre = pos;
+                    }
+                }
+                else
+                {
+                    if (b != calculationBoid)
+                    {
+                        b.position += trans;
+                        b.desiredPosition += trans;
+                        if (b.GetComponent<Constrain>() != null)
+                        {
+                            b.GetComponent<Constrain>().centre += trans;
+                        }
                     }
                 }
                 b.suspended = false;

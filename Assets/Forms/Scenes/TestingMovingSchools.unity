@@ -434,6 +434,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &4329278
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -806,39 +807,6 @@ Transform:
   m_Father: {fileID: 1369984769}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &48801693
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &51348656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,6 +1062,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &62183381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2584,6 +2553,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &142989181
 GameObject:
@@ -2798,10 +2768,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144680798}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &146687091 stripped
+--- !u!4 &146687091
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400026, guid: d87b68aea786ef04fbc0fa4e77493843, type: 3}
   m_PrefabInternal: {fileID: 745845520}
+  m_GameObject: {fileID: 648105155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 745845521}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &146888080
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,10 +3213,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 25
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &169623127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,6 +3234,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2000
   maxHeight: 3000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &169623128
 MonoBehaviour:
@@ -4338,10 +4320,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 100
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &228709094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4642,6 +4626,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &233267919
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4765,6 +4750,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &238797077
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5844,6 +5830,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &270032588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6074,6 +6061,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &273471069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6203,6 +6191,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &276215435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6863,10 +6852,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 100
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &298056054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7609,6 +7600,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &344264677
 MonoBehaviour:
@@ -7869,6 +7861,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &349846123
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8288,6 +8281,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &402769001
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8432,6 +8426,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &417132869
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8557,7 +8552,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418250397}
-  m_Mesh: {fileID: 1693055340}
+  m_Mesh: {fileID: 2143734638}
 --- !u!23 &418250401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8573,7 +8568,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 48801693}
+  - {fileID: 580735705}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8745,10 +8740,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 20
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 50
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!1 &422678080
 GameObject:
   m_ObjectHideFlags: 0
@@ -8796,6 +8793,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &422678083
 MonoBehaviour:
@@ -9279,6 +9277,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &463311353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9643,6 +9642,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &475269960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9789,6 +9789,21 @@ Transform:
   m_Father: {fileID: 1904505267}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &494293527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 745845520}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 745845521}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &500202987
 GameObject:
   m_ObjectHideFlags: 0
@@ -9849,6 +9864,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &500202990
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10549,6 +10565,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &553252210
 GameObject:
@@ -10952,6 +10969,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &579152968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10974,6 +10992,39 @@ MonoBehaviour:
   flipDirection: 0
   bankThreshold: 5
   lerpedAmplitude: 0
+--- !u!21 &580735705
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &587879524
 GameObject:
   m_ObjectHideFlags: 0
@@ -11221,6 +11272,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &587879534
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11423,10 +11475,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 100
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &605557725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11442,6 +11496,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 800
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &610898395
 GameObject:
@@ -12120,6 +12175,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e42a09d66689a47af8c0ae17520b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &648105155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 745845520}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 146687091}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &651916482
 Prefab:
   m_ObjectHideFlags: 0
@@ -12248,6 +12318,20 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0215c7f04cd596488c50d8d69826c53, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &655493312
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 655493311}
+  m_GameObject: {fileID: 987805936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 700832051}
+  m_Father: {fileID: 1478788283}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &656182669
 Prefab:
   m_ObjectHideFlags: 0
@@ -13439,6 +13523,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &690350628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13561,10 +13646,19 @@ Transform:
   m_Father: {fileID: 1369984769}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &700832051 stripped
+--- !u!4 &700832051
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400022, guid: a0215c7f04cd596488c50d8d69826c53, type: 3}
   m_PrefabInternal: {fileID: 655493311}
+  m_GameObject: {fileID: 1719974928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 655493312}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &707751514
 GameObject:
   m_ObjectHideFlags: 0
@@ -14029,6 +14123,20 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d87b68aea786ef04fbc0fa4e77493843, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &745845521
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 745845520}
+  m_GameObject: {fileID: 494293527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 146687091}
+  m_Father: {fileID: 1478788283}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &748664329
 GameObject:
   m_ObjectHideFlags: 0
@@ -14099,6 +14207,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2500
   maxHeight: 3000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &766180393
 GameObject:
@@ -14146,6 +14255,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &766180396
 MonoBehaviour:
@@ -14705,6 +14815,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &795903294
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14839,6 +14950,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &796232401
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15910,10 +16022,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 50
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!1 &874450940
 GameObject:
   m_ObjectHideFlags: 0
@@ -16285,6 +16399,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 400
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &923987086
 MonoBehaviour:
@@ -16467,6 +16582,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 800
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &936940527
 GameObject:
@@ -16526,6 +16642,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &936940530
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17446,6 +17563,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &971480302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17936,6 +18054,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &980993132
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18181,6 +18300,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 135.648, y: -43.200012, z: -92.313995}
+--- !u!1 &987805936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 655493311}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 655493312}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1001253721
 GameObject:
   m_ObjectHideFlags: 0
@@ -18303,6 +18437,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1001253725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18597,6 +18732,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1018140131
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18845,10 +18981,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 250
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &1023230265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18864,6 +19002,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 2000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &1023230266
 MonoBehaviour:
@@ -19092,6 +19231,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1026808528
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19387,7 +19527,7 @@ MonoBehaviour:
   alive: []
   suspended: []
   prefabs:
-  - {fileID: 1023230261}
+  - {fileID: 2060980785}
   environmentLM:
     serializedVersion: 2
     m_Bits: 256
@@ -20097,6 +20237,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1072054590
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20511,6 +20652,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &1095588358
 MonoBehaviour:
@@ -21093,6 +21235,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1114504140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21592,6 +21735,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 100
   maxHeight: 600
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &1158661309
 GameObject:
@@ -21775,6 +21919,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1173810743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22150,10 +22295,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 5
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 100
   texture: {fileID: 0}
   colorScale: 1
+  textureMode: 1
 --- !u!114 &1196453632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22195,6 +22342,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2500
   maxHeight: 3000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &1198319233
 GameObject:
@@ -22371,6 +22519,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1208994175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22709,6 +22858,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1218639293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23105,6 +23255,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1249419337
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23354,10 +23505,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 25
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &1294032689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23394,6 +23547,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 800
   maxHeight: 1500
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &1301831680
 GameObject:
@@ -23671,6 +23825,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1320999005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23822,10 +23977,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 250
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &1325520666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24173,6 +24330,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 2000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &1347067925
 MonoBehaviour:
@@ -24185,10 +24343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 250
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!1 &1366832854
 GameObject:
   m_ObjectHideFlags: 0
@@ -25347,10 +25507,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 250
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &1444958984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25366,6 +25528,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 800
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &1451908333
 GameObject:
@@ -25441,10 +25604,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 100
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!1 &1472257732
 GameObject:
   m_ObjectHideFlags: 0
@@ -25590,8 +25755,8 @@ Transform:
   - {fileID: 792999812}
   - {fileID: 85318452}
   - {fileID: 1937542276}
-  - {fileID: 146687091}
-  - {fileID: 700832051}
+  - {fileID: 745845521}
+  - {fileID: 655493312}
   - {fileID: 1500788693}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -25759,6 +25924,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!1 &1498595717
 GameObject:
   m_ObjectHideFlags: 0
@@ -26184,6 +26350,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1501455737
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26579,10 +26746,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 50
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!1 &1527126223
 GameObject:
   m_ObjectHideFlags: 0
@@ -27115,6 +27284,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &1555320047
 MonoBehaviour:
@@ -27127,10 +27297,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 25
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &1555320048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29050,6 +29222,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1658686417
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29181,6 +29354,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 100
   maxHeight: 1000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &1670858061
 MonoBehaviour:
@@ -29278,6 +29452,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1670889057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29437,134 +29612,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1678839848}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!43 &1693055340
-Mesh:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 8
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_Skin: []
-  m_VertexData:
-    m_CurrentChannels: 13
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshOptimized: 0
 --- !u!1 &1700226149
 GameObject:
   m_ObjectHideFlags: 0
@@ -29947,6 +29994,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1711736114}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1719974928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 655493311}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 700832051}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1727898778
 GameObject:
   m_ObjectHideFlags: 0
@@ -30637,6 +30699,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1770416923
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -31193,6 +31256,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 800
   maxHeight: 2000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!1 &1819329695
 GameObject:
@@ -31311,6 +31375,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1823584287
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -31797,6 +31862,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1866507636
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32134,6 +32200,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1874633691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32276,10 +32343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 50
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &1875887125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32646,6 +32715,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1885644610
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -33214,6 +33284,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1909564952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34389,6 +34460,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1977124164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34453,6 +34525,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 500
   maxHeight: 2000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &1988060754
 MonoBehaviour:
@@ -34486,10 +34559,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 250
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!1 &1989203584
 GameObject:
   m_ObjectHideFlags: 0
@@ -34921,6 +34996,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!1 &2031551020
 GameObject:
   m_ObjectHideFlags: 0
@@ -35292,6 +35368,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &2059893404
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -35392,10 +35469,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatesPerSecond: 10
+  creatureTextureMaker: {fileID: 0}
+  material: {fileID: 0}
   colorMapScaling: 25
   texture: {fileID: 0}
   colorScale: 0.7
+  textureMode: 1
 --- !u!114 &2060980788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35432,6 +35511,7 @@ MonoBehaviour:
   end: 1000
   minHeight: 2000
   maxHeight: 3000
+  minDistanceFromSurface: 1000
   Species: 
 --- !u!114 &2060980790
 MonoBehaviour:
@@ -35839,6 +35919,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!1 &2077325299
 GameObject:
   m_ObjectHideFlags: 0
@@ -36163,6 +36244,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &2077325313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37165,3 +37247,131 @@ MonoBehaviour:
   tenticleAngle: 0
   color: {r: 0, g: 0, b: 0, a: 0}
   assignColors: 0
+--- !u!43 &2143734638
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0

@@ -35,8 +35,8 @@ namespace BGE.Forms
                 yield return new WaitForSeconds(0.2f);
                 while (alive.Count < targetCreatureCount)
                 {                    
-                    Vector3 unit = UnityEngine.Random.insideUnitSphere;
-                    Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * spread);
+                Vector3 unit = UnityEngine.Random.insideUnitSphere;
+                Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * spread);
 
                     GameObject fish = null;
                     if (suspended.Count > 0)
