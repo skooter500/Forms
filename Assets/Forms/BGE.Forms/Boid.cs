@@ -239,7 +239,14 @@ namespace BGE.Forms
 
                 if (speed > 0.01f)
                 {
-                    transform.forward = Vector3.RotateTowards(transform.forward, velocity, Mathf.Deg2Rad * maxTurnDegrees * Time.deltaTime, float.MaxValue);
+                    if (preferredTimeDelta > 0)
+                    {
+                        transform.forward = velocity;
+                    }
+                    else
+                    {
+                        transform.forward = Vector3.RotateTowards(transform.forward, velocity, Mathf.Deg2Rad * maxTurnDegrees * Time.deltaTime, float.MaxValue);
+                    }
                     if (keepUpright)
                     {
                         Vector3 uprightForward = transform.forward;

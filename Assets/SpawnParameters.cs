@@ -7,6 +7,7 @@ public class SpawnParameters : MonoBehaviour {
     public float end = 5000;
     public float minHeight = 500;
     public float maxHeight = 2000;
+    public float minDistanceFromSurface = 1000;
 
     public string Species;
 
