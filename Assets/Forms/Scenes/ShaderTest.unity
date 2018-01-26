@@ -273,10 +273,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creatureTextureMaker: {fileID: 2100000, guid: 50589a66125c8e64e85546440112ab63,
+    type: 2}
   material: {fileID: 2100000, guid: 5f832c36240cca0468d3419091990a0b, type: 2}
   colorMapScaling: 20
-  texture: {fileID: 0}
-  colorScale: 0.7
+  texture: {fileID: 8400000, guid: fe4b5a2c40a3d29429f1823761e1f39c, type: 2}
+  colorScale: 0.5
 --- !u!1 &1562719900
 GameObject:
   m_ObjectHideFlags: 0
