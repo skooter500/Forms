@@ -33,10 +33,10 @@ namespace BGE.Forms
             SchoolGenerator sg = GetComponent<SchoolGenerator>();
             foreach (Boid b in boids)
             {                
-                if (sg != null)
+                if (this is SchoolGenerator)
                 {
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
-                    Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * sg.spread);
+                    Vector3 pos = newHome + unit * UnityEngine.Random.Range(0, radius * sg.spread);
                     WorldGenerator wg = WorldGenerator.Instance;
                     if (wg != null)
                     {
