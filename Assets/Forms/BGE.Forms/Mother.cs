@@ -233,10 +233,18 @@ namespace BGE.Forms
                 {
                     foreach (GameObject follower in newcreature.GetComponent<FormationGenerator>().followers)
                     {
+                        float height = 100;
                         Boid b = Utilities.FindBoidInHierarchy(follower);
-                        b.suspended = false;
+                        b.suspended = false;                        
                         b.position += trans;
-                        b.desiredPosition += trans;
+                        b.position.y = boid.position.y;
+                        float y = WorldGenerator.Instance.SamplePos(b.position.x, b.position.z);
+                        if (b.position.y < y + height)
+                        {
+                            b.position.y = y + height;
+                        }
+                        b.transform.position = b.position;
+                        b.desiredPosition = b.position;
                     }
                 }
 

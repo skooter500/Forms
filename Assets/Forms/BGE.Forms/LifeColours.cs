@@ -24,6 +24,8 @@ namespace BGE.Forms
 
         public TextureMode textureMode = TextureMode.Shader;
 
+        public float targetAlpha = 1.0f;
+
         public void UpdateTexture()
         {
             Graphics.Blit(texture, buffer, material);
@@ -102,7 +104,7 @@ namespace BGE.Forms
         {
             float alpha = 0;
             float delta = 0.1f;
-            while (alpha <= 1.0f)
+            while (alpha <= targetAlpha)
             {
                 foreach (Renderer child in children)
                 {
@@ -127,7 +129,7 @@ namespace BGE.Forms
                 }
                 else
                 {
-                    child.material.SetFloat("_Fade", 1);
+                    child.material.SetFloat("_Fade", targetAlpha);
                 }
             }
         }
