@@ -82,25 +82,9 @@ namespace BGE.Forms
                 InitializeProgrammableTexture();
             }
 
-            AssignRenderers();
-
-        }
-
-        public void AssignRenderers()
-        {
-            children = GetComponentsInChildren<Renderer>();
-            foreach (Renderer child in children)
-            {
-                if (child.material.name.Contains("Trans"))
-                {
-                    continue;
-                }
-                child.material = transMaterial;
-                child.material.SetFloat("_PositionScale", colorMapScaling);
-                child.material.mainTexture = texture;
-            }
             FadeIn();
         }
+
 
         private Coroutine fadeInCoroutine;
 
@@ -115,6 +99,18 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
+
+            children = GetComponentsInChildren<Renderer>();
+            foreach (Renderer child in children)
+            {
+                if (child.material.name.Contains("Trans"))
+                {
+                    continue;
+                }
+                child.material = transMaterial;
+                child.material.SetFloat("_PositionScale", colorMapScaling);
+                child.material.mainTexture = texture;
+            }
             float alpha = 0;
             float delta = 0.1f;
             while (alpha <= targetAlpha)

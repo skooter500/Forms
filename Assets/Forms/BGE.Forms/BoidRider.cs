@@ -37,8 +37,9 @@ namespace BGE.Forms
             GameObject other = c.gameObject;
             if (other.tag == "Player")
             {                
-                other.transform.parent = this.transform.parent;
+                
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
+                other.transform.parent = this.transform.parent;
                 other.GetComponent<ForceController>().moveEnabled = false;
                 other.GetComponent<ForceController>().joyYControllsPitch = true;
 

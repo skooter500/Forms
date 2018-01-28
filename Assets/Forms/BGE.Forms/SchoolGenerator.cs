@@ -102,7 +102,7 @@ namespace BGE.Forms
 
                     if (lc != null)
                     {
-                        lc.AssignRenderers();
+                        lc.FadeIn();
                     }
                     // Wait for a frame
                     yield return new WaitForSeconds(0.1f);
