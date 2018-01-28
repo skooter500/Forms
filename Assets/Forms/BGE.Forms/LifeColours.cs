@@ -117,7 +117,7 @@ namespace BGE.Forms
                         child.material.SetFloat("_Fade", alpha);
                     }
                 }
-                alpha += delta;
+                alpha += delta / 5.0f;
                 yield return new WaitForSeconds(delta);
             }
             // Why I have to do this one more time??

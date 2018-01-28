@@ -149,9 +149,10 @@ namespace BGE.Forms
                                 sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                             }
                             alive.Add(newcreature);
-                            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             cube.transform.position = newPos;
                             cube.transform.localScale = Vector3.one * 5;
+                            */
                         }
                     }
                     else
@@ -217,7 +218,7 @@ namespace BGE.Forms
                 boid.desiredPosition = newPos;
                 if (boid.GetComponent<Constrain>() != null)
                 {
-                    boid.GetComponent<Constrain>().centre += trans;
+                    boid.GetComponent<Constrain>().centre = newPos;
                 }
 
                 if (newcreature.GetComponentInChildren<BigCreatureController>())

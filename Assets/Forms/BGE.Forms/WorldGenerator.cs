@@ -345,7 +345,7 @@ namespace BGE.Forms
             tile.layer = this.gameObject.layer;
             tile.transform.parent = this.transform;
             MeshRenderer renderer = tile.AddComponent<MeshRenderer>();
-            renderer.enabled = false;
+            renderer.enabled = true;
             tile.SetActive(true);
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             renderer.receiveShadows = true;
