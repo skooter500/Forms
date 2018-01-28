@@ -32,6 +32,7 @@ namespace BGE.Forms
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
             while (true)
             {
+
                 yield return new WaitForSeconds(0.2f);
                 while (alive.Count < targetCreatureCount)
                 {                    
@@ -119,6 +120,23 @@ namespace BGE.Forms
             }
         }
 
+        public void Suspend()
+        {
+            for(int i = alive.Count - 1; i >= 0; i --)
+            {
+                GameObject fish = alive[i];
+                fish.SetActive(false);
+                Boid b = fish.GetComponentInChildren<Boid>();
+                if (b != null)
+                {
+                    b.suspended = true;
+                }
+                suspended.Add(fish);
+                alive.RemoveAt(alive.Count - 1);
+                boids.Remove(b);
+            }
+        }
+    
         public void Update()
         {
             CreatureManager.Log("T: " + targetCreatureCount + " A: " + alive.Count + " S: " + suspended.Count);
