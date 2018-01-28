@@ -4,14 +4,19 @@
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_PositionScale("PositionScale", Range(0, 1000)) = 250
+		_Fade("Fade", Range(0, 1)) = 1
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags {"Queue" = "Transparent" "RenderType"="Transparent" }
 		LOD 200
+
+		ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
+        ColorMask RGB
 		
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf Standard fullforwardshadows alpha:fade
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
@@ -25,6 +30,7 @@
 
 		half _Glossiness;
 		half _Metallic;
+		half _Fade;
 
 		float _PositionScale;
 
@@ -43,12 +49,12 @@
             v = abs(IN.worldPos.z / _PositionScale);
 			//v -= (int)v;
 			fixed4 c = tex2D (_MainTex, float2(u,v));
-
 			o.Albedo = c.rgb;
+
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;
+			o.Alpha = 0.5f;
 		}
 		ENDCG
 	}

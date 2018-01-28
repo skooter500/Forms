@@ -90,6 +90,34 @@ namespace BGE.Forms
                 child.material.SetFloat("_PositionScale", colorMapScaling);
                 child.material.mainTexture = texture;
             }
+            FadeIn();
+        }
+
+        public void FadeIn()
+        {
+            StartCoroutine(FadeInCoRoutine());
+        }
+
+        System.Collections.IEnumerator FadeInCoRoutine()
+        {
+            float alpha = 0;
+            while (alpha < 1.0f)
+            {
+                foreach (Renderer child in children)
+                {
+                    if (child.material.name.Contains("Trans"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        child.material.SetFloat("_Fade", alpha);
+                    }
+                }
+                alpha += Time.deltaTime;
+                CreatureManager.Log("Alpha:" + alpha);
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 }

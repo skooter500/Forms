@@ -137,6 +137,10 @@ namespace BGE.Forms
                             suspended.Remove(newcreature);                            
                             Teleport(newcreature, newPos);
                             newcreature.SetActive(true);
+                            if (newcreature.GetComponent<LifeColours>())
+                            {
+                                newcreature.GetComponent<LifeColours>().FadeIn();
+                            }
                             // Change the school size every time we teleport a school
                             SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
                             if (sg != null)
@@ -144,9 +148,9 @@ namespace BGE.Forms
                                 sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                             }
                             alive.Add(newcreature);
-                            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                            cube.transform.position = newPos;
-                            cube.transform.localScale = Vector3.one * 5;
+                            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            //cube.transform.position = newPos;
+                            //cube.transform.localScale = Vector3.one * 5;
                         }
                     }
                     else
