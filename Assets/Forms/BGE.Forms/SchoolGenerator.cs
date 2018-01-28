@@ -30,9 +30,9 @@ namespace BGE.Forms
             int audioBoids = 0;
 
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
+            LifeColours lc = GetComponent<LifeColours>();
             while (true)
             {
-
                 yield return new WaitForSeconds(0.2f);
                 while (alive.Count < targetCreatureCount)
                 {                    
@@ -50,11 +50,11 @@ namespace BGE.Forms
                         if (tr != null)
                         {
                             tr.Clear();
-                        }
+                        }                        
                     }
                     else
                     {
-                        fish = GameObject.Instantiate<GameObject>(prefab, unit, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+                        fish = GameObject.Instantiate<GameObject>(prefab, unit, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));                       
                     }
 
                     alive.Add(fish);
@@ -98,6 +98,11 @@ namespace BGE.Forms
                         {
                             audioSource.enabled = false;
                         }
+                    }
+
+                    if (lc != null)
+                    {
+                        lc.AssignRenderers();
                     }
                     // Wait for a frame
                     yield return new WaitForSeconds(0.1f);

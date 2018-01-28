@@ -8,7 +8,8 @@ namespace BGE.Forms
     public class LifeColours : MonoBehaviour
     {
         public Material creatureTextureMaker;
-        public Material material;
+        public Material transMaterial;
+        public Material opaqueMaterial;
         Renderer[] children;
         int size = 256;
 
@@ -28,7 +29,7 @@ namespace BGE.Forms
 
         public void UpdateTexture()
         {
-            Graphics.Blit(texture, buffer, material);
+            Graphics.Blit(texture, buffer, transMaterial);
             Graphics.Blit(buffer, (RenderTexture)texture);
         }
 
@@ -71,8 +72,7 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
-            children = GetComponentsInChildren<Renderer>();
-
+            
             if (textureMode == TextureMode.Shader)
             {
                 InitializeShaderTexture();
@@ -82,22 +82,35 @@ namespace BGE.Forms
                 InitializeProgrammableTexture();
             }
 
+            AssignRenderers();
+
+        }
+
+        public void AssignRenderers()
+        {
+            children = GetComponentsInChildren<Renderer>();
             foreach (Renderer child in children)
             {
                 if (child.material.name.Contains("Trans"))
                 {
                     continue;
                 }
-                child.material = material;
+                child.material = transMaterial;
                 child.material.SetFloat("_PositionScale", colorMapScaling);
                 child.material.mainTexture = texture;
             }
             FadeIn();
         }
 
+        private Coroutine fadeInCoroutine;
+
         public void FadeIn()
         {
-            StartCoroutine(FadeInCoRoutine());
+            if (fadeInCoroutine != null)
+            {
+                StopCoroutine(fadeInCoroutine);
+            }
+            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }
 
         System.Collections.IEnumerator FadeInCoRoutine()
@@ -120,16 +133,22 @@ namespace BGE.Forms
                 alpha += delta / 5.0f;
                 yield return new WaitForSeconds(delta);
             }
-            // Why I have to do this one more time??
-            foreach (Renderer child in children)
+            if (targetAlpha == 1)
             {
-                if (child.material.name.Contains("Trans"))
+                // Why I have to do this one more time??
+                foreach (Renderer child in children)
                 {
-                    continue;
-                }
-                else
-                {
-                    child.material.SetFloat("_Fade", targetAlpha);
+                    if (child.material.name.Contains("Trans"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        child.material = opaqueMaterial;
+                        child.material.SetFloat("_PositionScale", colorMapScaling);
+                        child.material.mainTexture = texture;
+                        child.material.SetFloat("_Fade", targetAlpha);
+                    }
                 }
             }
         }
