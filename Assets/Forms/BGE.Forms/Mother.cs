@@ -186,8 +186,15 @@ namespace BGE.Forms
             {
                 return creature.transform.position;
             }
+            else if (creature.GetComponent<FormationGenerator>() != null)
+            {
+                return creature.GetComponent<FormationGenerator>().leader.transform.position;
+            }
             else
-                return Utilities.FindBoidInHierarchy(creature).transform.position;
+            {
+                return Utilities.FindBoidInHierarchy(creature).position;
+
+            }
         }
 
         private void Teleport(GameObject newcreature, Vector3 newPos)
@@ -208,15 +215,26 @@ namespace BGE.Forms
                     boid.GetComponent<Constrain>().centre += trans;
                 }
 
-                if (newcreature.GetComponent<BigCreatureController>())
+                if (newcreature.GetComponentInChildren<BigCreatureController>())
                 {
-                    newcreature.GetComponent<BigCreatureController>().Restart();
+                    newcreature.GetComponentInChildren<BigCreatureController>().Restart();
                 }
 
                 if (boid.GetComponent<TrailRenderer>() != null)
                 {
                     boid.GetComponent<TrailRenderer>().Clear();
                 }
+                if (newcreature.GetComponent<FormationGenerator>())
+                {
+                    foreach (GameObject follower in newcreature.GetComponent<FormationGenerator>().followers)
+                    {
+                        Boid b = Utilities.FindBoidInHierarchy(follower);
+                        b.suspended = false;
+                        b.position += trans;
+                        b.desiredPosition += trans;
+                    }
+                }
+
             }
             else
             {

@@ -16,6 +16,11 @@ namespace BGE.Forms
 
         private List<Vector3> positions = new List<Vector3>();
 
+        [HideInInspector]
+        public GameObject leader;
+        [HideInInspector]
+        public List<GameObject> followers = new List<GameObject>();
+
 
         void GenerateCreaturePosition(Vector3 pos, Vector3 startPos, int current, int depth)
         {
@@ -90,8 +95,6 @@ namespace BGE.Forms
         // Use this for initialization
         void Start () {
             GeneratePositions();
-            GameObject leader = null;
-
             for (int i = 0; i < positions.Count; i++)
             {
                 Boid boid;
@@ -110,6 +113,7 @@ namespace BGE.Forms
                     follower.transform.parent = transform;
                     follower.SetActive(true);
                     boid = follower.GetComponentInChildren<Boid>();
+                    followers.Add(follower);
                     Formation formation = follower.GetComponentInChildren<Formation>();
                     if (formation == null)
                     {
