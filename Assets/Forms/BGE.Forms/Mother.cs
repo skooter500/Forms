@@ -145,12 +145,13 @@ namespace BGE.Forms
                             SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
                             if (sg != null)
                             {
+                                sg.transform.position = newPos;
                                 sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                             }
                             alive.Add(newcreature);
-                            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                            //cube.transform.position = newPos;
-                            //cube.transform.localScale = Vector3.one * 5;
+                            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            cube.transform.position = newPos;
+                            cube.transform.localScale = Vector3.one * 5;
                         }
                     }
                     else

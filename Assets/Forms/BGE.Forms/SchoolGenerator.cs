@@ -76,6 +76,7 @@ namespace BGE.Forms
                         boid.school = this;
                         boid.GetComponent<Constrain>().radius = radius;
                         boid.GetComponent<Constrain>().centre = pos;
+                        boid.transform.position = pos;
                         boid.position = pos;
                         boid.desiredPosition = pos;
                         //boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
@@ -99,7 +100,7 @@ namespace BGE.Forms
                         }
                     }
                     // Wait for a frame
-                    yield return null;
+                    yield return new WaitForSeconds(0.1f);
                     // Suspend any that we dont need                    
                 }
                 while (alive.Count > targetCreatureCount)

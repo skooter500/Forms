@@ -101,7 +101,8 @@ namespace BGE.Forms
         System.Collections.IEnumerator FadeInCoRoutine()
         {
             float alpha = 0;
-            while (alpha < 1.0f)
+            float delta = 0.1f;
+            while (alpha <= 1.0f)
             {
                 foreach (Renderer child in children)
                 {
@@ -114,9 +115,20 @@ namespace BGE.Forms
                         child.material.SetFloat("_Fade", alpha);
                     }
                 }
-                alpha += Time.deltaTime;
-                CreatureManager.Log("Alpha:" + alpha);
-                yield return new WaitForSeconds(0.1f);
+                alpha += delta;
+                yield return new WaitForSeconds(delta);
+            }
+            // Why I have to do this one more time??
+            foreach (Renderer child in children)
+            {
+                if (child.material.name.Contains("Trans"))
+                {
+                    continue;
+                }
+                else
+                {
+                    child.material.SetFloat("_Fade", 1);
+                }
             }
         }
     }
