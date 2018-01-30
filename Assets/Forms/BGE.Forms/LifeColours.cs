@@ -128,7 +128,7 @@ namespace BGE.Forms
                         child.material.SetFloat("_Fade", alpha);
                     }
                 }
-                alpha += delta / 5.0f;
+                alpha += delta / 3.0f;
                 yield return new WaitForSeconds(delta);
             }
             if (targetAlpha == 1)
