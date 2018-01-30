@@ -133,7 +133,7 @@ namespace BGE.Forms
                 ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
             }
 
-            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 1000, 0);
             
             //Random.seed = 42;
         }
@@ -372,6 +372,8 @@ namespace BGE.Forms
             meshFilter.mesh = mesh;
             renderer.material.SetTexture("_MainTex", textureGenerator.texture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
+            
+
             //renderer.material.color = color; //  new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
             /*Shader shader = Shader.Find("Diffuse");
 
@@ -389,6 +391,8 @@ namespace BGE.Forms
             surface.name = "Surface";
             surface.transform.parent = tile.transform;
             surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
+            tile.isStatic = true;
+            surface.isStatic = true;
             return tile;
         }
 
@@ -449,6 +453,7 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
+            //StaticBatchingUtility.Combine(this.gameObject);
         }
     }
 }

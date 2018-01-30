@@ -102,6 +102,7 @@ namespace BGE.Forms
             {
                 texture = new Texture2D(size, size);
                 texture.filterMode = FilterMode.Point;
+                texture.wrapMode = TextureWrapMode.Mirror;
             }
         }
 
@@ -361,7 +362,6 @@ namespace BGE.Forms
                     {
                         alpha += delay / 3.0f;
                     }
-                    Debug.Log(alpha);
                     texture.Apply();
                     yield return new WaitForSeconds(delay);
                 }

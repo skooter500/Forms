@@ -128,12 +128,11 @@ namespace BGE.Forms
                         child.material.SetFloat("_Fade", alpha);
                     }
                 }
-                alpha += delta / 10.0f;
+                alpha += delta / 5.0f;
                 yield return new WaitForSeconds(delta);
             }
             if (targetAlpha == 1)
             {
-                // Why I have to do this one more time??
                 foreach (Renderer child in children)
                 {
                     if (child.material.name.Contains("Trans"))
