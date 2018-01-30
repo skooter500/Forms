@@ -359,6 +359,7 @@ namespace BGE.Forms
             Mesh mesh = GenerateMesh(position);
             meshFilter.mesh = mesh;
             renderer.material.SetTexture("_MainTex", textureGenerator.texture);
+            Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             //renderer.material.color = color; //  new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
             /*Shader shader = Shader.Find("Diffuse");
 
@@ -428,6 +429,7 @@ namespace BGE.Forms
             surface.layer = this.gameObject.layer;
 
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
+            Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             return surface;
         }

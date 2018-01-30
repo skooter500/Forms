@@ -99,7 +99,7 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
-
+            
             children = GetComponentsInChildren<Renderer>();
             foreach (Renderer child in children)
             {
@@ -110,7 +110,9 @@ namespace BGE.Forms
                 child.material = transMaterial;
                 child.material.SetFloat("_PositionScale", colorMapScaling);
                 child.material.mainTexture = texture;
+                child.material.SetFloat("_Fade", 0);
             }
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
             float alpha = 0;
             float delta = 0.1f;
             while (alpha <= targetAlpha)
@@ -126,7 +128,7 @@ namespace BGE.Forms
                         child.material.SetFloat("_Fade", alpha);
                     }
                 }
-                alpha += delta / 5.0f;
+                alpha += delta / 10.0f;
                 yield return new WaitForSeconds(delta);
             }
             if (targetAlpha == 1)

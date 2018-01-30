@@ -279,6 +279,7 @@ namespace BGE.Forms
         {
             while (true)
             {
+                float alpha = 0.5f;
                 if (texture == null)
                 {
                     break;
@@ -346,7 +347,9 @@ namespace BGE.Forms
                         {
                             Color from = (next[y, x] == Color.black) ? backGround : next[y, x];
                             Color to = (current[y, x] == Color.black) ? backGround : current[y, x];
-                            texture.SetPixel(x, y, Color.Lerp(from, to, t));
+                            Color c = Color.Lerp(from, to, t);
+                            c.a = alpha;
+                            texture.SetPixel(x, y, c);
                         }
                     }
                     t += tDelta;
