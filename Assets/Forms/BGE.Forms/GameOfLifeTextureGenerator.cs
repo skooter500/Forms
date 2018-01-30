@@ -277,9 +277,9 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator UpdateBoard()
         {
+            float alpha = 0.0f;
             while (true)
-            {
-                float alpha = 0.5f;
+            {                
                 if (texture == null)
                 {
                     break;
@@ -353,6 +353,15 @@ namespace BGE.Forms
                         }
                     }
                     t += tDelta;
+                    if (alpha > 1.0f)
+                    {
+                        alpha = 1.0f;
+                    }
+                    else
+                    {
+                        alpha += delay / 3.0f;
+                    }
+                    Debug.Log(alpha);
                     texture.Apply();
                     yield return new WaitForSeconds(delay);
                 }

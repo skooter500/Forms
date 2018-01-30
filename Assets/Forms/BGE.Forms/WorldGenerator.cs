@@ -202,6 +202,9 @@ namespace BGE.Forms
                         t.name = tilename;
                         Tile tile = new Tile(t, updateTime);
                         tiles[tilename] = tile;
+
+                        StartCoroutine(ChangeMaterialToOpaque(t, 4));
+
                         yield return WaitFor.Frames(Random.Range(1, 3));
                     }
 
@@ -227,6 +230,15 @@ namespace BGE.Forms
                 //determine how far the player has moved since last terrain update
                 xMove = (int)(player.transform.position.x - startPos.x);
                 zMove = (int)(player.transform.position.z - startPos.z);
+            }
+        }
+
+        System.Collections.IEnumerator ChangeMaterialToOpaque(GameObject root, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            foreach (Renderer r in root.GetComponentsInChildren<Renderer>())
+            {
+                Utilities.SetupMaterialWithBlendMode(r.material, BlendMode.Opaque);
             }
         }
 
