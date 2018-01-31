@@ -68,23 +68,23 @@ namespace BGE.Forms
         {
             if (showMessages)
             {
-                GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "" + message, style);
-                if (Event.current.type == EventType.Repaint)
+                GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "" + message, style);                
+            }
+            if (Event.current.type == EventType.Repaint)
+            {
+                message.Length = 0;
+            }
+
+            if (Event.current.type == EventType.KeyDown)
+            {
+                if (Event.current.keyCode == KeyCode.F4)
                 {
-                    message.Length = 0;
+                    showMessages = !showMessages;
                 }
 
-                if (Event.current.type == EventType.KeyDown)
+                if (Event.current.keyCode == KeyCode.Escape)
                 {
-                    if (Event.current.keyCode == KeyCode.F4)
-                    {
-                        showMessages = !showMessages;
-                    }
-
-                    if (Event.current.keyCode == KeyCode.Escape)
-                    {
-                        Application.Quit();
-                    }
+                    Application.Quit();
                 }
             }
         }
