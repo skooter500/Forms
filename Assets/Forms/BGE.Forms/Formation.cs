@@ -26,7 +26,7 @@ namespace BGE.Forms
             }
         }
 
-        private void RecalculateOffest()
+        public void RecalculateOffset()
         {
             offset = boid.position - leaderBoid.position;
             offset = Quaternion.Inverse(leaderBoid.rotation) * offset;
@@ -64,7 +64,7 @@ namespace BGE.Forms
 
                 if (Vector3.Distance(targetPos, boid.position) > reformationDistance)
                 {
-                    RecalculateOffest();                                        
+                    RecalculateOffset();                                        
                 }
 
                 return boid.ArriveForce(targetPos, boid.maxSpeed / 2, 15f);

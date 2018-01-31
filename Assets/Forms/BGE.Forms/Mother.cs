@@ -93,7 +93,6 @@ namespace BGE.Forms
             }
             creature.SetActive(false);
             suspended.Add(creature);
-            Debug.Log("Suspending a creature");
             alive.Remove(creature);
         }
 
@@ -130,7 +129,6 @@ namespace BGE.Forms
                     GameObject newcreature = null;
                     if (suspended.Count > 0)
                     {
-                        Debug.Log("Teleporting an old creature");
                         newcreature = suspended[suspended.Count - 1];
                         if (FindPlace(newcreature, out newPos))
                         {
@@ -157,7 +155,6 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        Debug.Log("Creating a new creature: " + alive.Count + 1);
                         newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                             , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                             );
@@ -230,23 +227,11 @@ namespace BGE.Forms
                 {
                     boid.GetComponent<TrailRenderer>().Clear();
                 }
-                if (newcreature.GetComponent<FormationGenerator>())
-                {
-                    foreach (GameObject follower in newcreature.GetComponent<FormationGenerator>().followers)
-                    {
-                        float height = 100;
-                        Boid b = Utilities.FindBoidInHierarchy(follower);
-                        b.suspended = false;                        
-                        b.position += trans;
-                        b.position.y = boid.position.y;
-                        float y = WorldGenerator.Instance.SamplePos(b.position.x, b.position.z);
-                        if (b.position.y < y + height)
-                        {
-                            b.position.y = y + height;
-                        }
-                        b.transform.position = b.position;
-                        b.desiredPosition = b.position;
-                    }
+                FormationGenerator fg = newcreature.GetComponent<FormationGenerator>();                
+                if (fg != null)
+                {                    
+                    fg.GeneratePositions();
+                    fg.MoveFollowers();                    
                 }
 
             }
@@ -274,8 +259,8 @@ namespace BGE.Forms
 		// Update is called once per frame
 		void Update()
 		{
-            CreatureManager.Log("Alive creatures: " + alive.Count);
-            CreatureManager.Log("Suspended creatures: " + suspended.Count);
+            CreatureManager.Log("Alive species: " + alive.Count);
+            CreatureManager.Log("Suspended species: " + suspended.Count);
         }
     }
 }

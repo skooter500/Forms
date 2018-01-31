@@ -21,9 +21,16 @@ namespace BGE.Forms
         [HideInInspector]
         public List<GameObject> followers = new List<GameObject>();
 
+        private int sideWidth;
 
         void GenerateCreaturePosition(Vector3 pos, Vector3 startPos, int current, int depth)
         {
+            // Make sure its above ground
+            float groundHeight = WorldGenerator.Instance.SamplePos(pos.x, pos.z);
+            if (pos.y < groundHeight)
+            {
+                pos.y = groundHeight + UnityEngine.Random.Range(10, 100);
+            }
             positions.Add(pos);
             pos.z = startPos.z;
             if (current < depth)
@@ -48,10 +55,10 @@ namespace BGE.Forms
             }
         }
 
-        void GeneratePositions()
+        public void GeneratePositions()
         {
             positions.Clear();
-            int sideWidth = Random.Range(minSideWith, maxSideWith + 1);
+            
             GenerateCreaturePosition(transform.position, transform.position, 0, sideWidth);
         }
 
@@ -91,9 +98,35 @@ namespace BGE.Forms
             return transform.GetChild(closestIndex).gameObject;
         }
 
+        public void MoveFollowers()
+        {
+            int i = 1;
+            foreach (GameObject follower in followers)
+            {
+                follower.transform.position = positions[i];
+                Boid b = Utilities.FindBoidInHierarchy(follower);
+                b.suspended = false;
+                b.position = positions[i];
+                /* float y = WorldGenerator.Instance.SamplePos(b.position.x, b.position.z);
+                if (b.position.y < y + height)
+                {
+                    b.position.y = y + height;
+                }
+                */
+                i++;
+                b.transform.position = b.position;
+                b.desiredPosition = b.position;
+                if (b.GetComponent<Formation>())
+                {
+                    b.GetComponent<Formation>().RecalculateOffset();
+                }
+            }
+        }
+
 
         // Use this for initialization
         void Start () {
+            sideWidth = Random.Range(minSideWith, maxSideWith + 1);
             GeneratePositions();
             for (int i = 0; i < positions.Count; i++)
             {
@@ -126,7 +159,7 @@ namespace BGE.Forms
                 }
                 boids.Add(boid);
             }
-
+            
             Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);
         }
 	
