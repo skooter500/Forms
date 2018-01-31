@@ -139,6 +139,6 @@ public class Palette
     public static Color Random()
     {
         float hue = UnityEngine.Random.Range(0.0f, 1.0f);
-        return Color.HSVToRGB(hue, 1, 0.8f)    
+        return Color.HSVToRGB(hue, 1, 0.8f);    
     }
 }
