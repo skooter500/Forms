@@ -21,6 +21,8 @@ namespace BGE.Forms
 
         public static Mother Instance;
 
+        public float genesisSpawnDistance = 100;
+
         bool FindPlace(GameObject creature, out Vector3 newPos)
         {
             bool found = false;
@@ -29,11 +31,13 @@ namespace BGE.Forms
             while (!found)
             {
                 SpawnParameters sp = creature.GetComponent<SpawnParameters>();
+                float start = Mathf.Min(sp.start, genesisSpawnDistance);
+              
                 Vector3 r = Random.insideUnitSphere;
-				r.z = r.z; // Mathf.Abs();
+				//r.z = r.z; // Mathf.Abs();
                 r.y = 0;
-                r *= sp.end - sp.start;
-                r += (r.normalized * sp.start);
+                r *= sp.end - start;
+                r += (r.normalized * start);
 
                 newPos = Camera.main.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
@@ -233,13 +237,18 @@ namespace BGE.Forms
                 if (fg != null)
                 {                    
                     fg.GeneratePositions();
-                    fg.MoveFollowers();                    
+                    fg.Teleport();                    
                 }
             }
             else
             {
                 newcreature.transform.position = newPos;
             }
+        }
+
+        private void AfterGenesis()
+        {
+            genesisSpawnDistance = 100000;
         }
 
         private void Awake()
@@ -249,6 +258,7 @@ namespace BGE.Forms
             {
                 //maxcreatures = 10;
             }
+            Invoke("AfterGenesis", 10);
         }
 
         // Use this for initialization

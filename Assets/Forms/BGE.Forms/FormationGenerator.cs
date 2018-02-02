@@ -98,15 +98,27 @@ namespace BGE.Forms
             return transform.GetChild(closestIndex).gameObject;
         }
 
-        public void MoveFollowers()
+        public void Teleport()
         {
+            leader.transform.position = positions[0];
+            Boid b = Utilities.FindBoidInHierarchy(leader);
+            b.suspended = false;
+            b.position = positions[0];
+            /* float y = WorldGenerator.Instance.SamplePos(b.position.x, b.position.z);
+            if (b.position.y < y + height)
+            {
+                b.position.y = y + height;
+            }
+            */
+            b.transform.position = b.position;
+            b.desiredPosition = b.position;
             int i = 1;
             foreach (GameObject follower in followers)
             {
                 follower.transform.position = positions[i];
-                Boid b = Utilities.FindBoidInHierarchy(follower);
-                b.suspended = false;
-                b.position = positions[i];
+                Boid bb = Utilities.FindBoidInHierarchy(follower);
+                bb.suspended = false;
+                bb.position = positions[i];
                 /* float y = WorldGenerator.Instance.SamplePos(b.position.x, b.position.z);
                 if (b.position.y < y + height)
                 {
@@ -114,11 +126,11 @@ namespace BGE.Forms
                 }
                 */
                 i++;
-                b.transform.position = b.position;
-                b.desiredPosition = b.position;
-                if (b.GetComponent<Formation>())
+                bb.transform.position = b.position;
+                bb.desiredPosition = b.position;
+                if (bb.GetComponent<Formation>())
                 {
-                    b.GetComponent<Formation>().RecalculateOffset();
+                    bb.GetComponent<Formation>().RecalculateOffset();
                 }
             }
         }
