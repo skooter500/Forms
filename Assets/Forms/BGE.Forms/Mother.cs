@@ -30,7 +30,7 @@ namespace BGE.Forms
             {
                 SpawnParameters sp = creature.GetComponent<SpawnParameters>();
                 Vector3 r = Random.insideUnitSphere;
-                r.z = Mathf.Abs(r.z);
+				r.z = r.z; // Mathf.Abs();
                 r.y = 0;
                 r *= sp.end - sp.start;
                 r += (r.normalized * sp.start);
