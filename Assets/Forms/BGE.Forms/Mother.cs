@@ -182,7 +182,7 @@ namespace BGE.Forms
 
         public Vector3 GetCreaturePosition(GameObject creature)
         {
-            return creature.transform.position;
+            //return creature.transform.position;
             if (creature.GetComponent<TenticleCreatureGenerator>() != null)
             {
                 return creature.GetComponent<TenticleCreatureGenerator>().head.GetComponent<Boid>().position;
