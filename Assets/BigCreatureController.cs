@@ -29,6 +29,7 @@ class BackFlip : State
     NoiseWander nw;
     Constrain constrain;
     Boid boid;
+    float oldStraightening = 1;
     public override void Enter()
     {
         boid = Utilities.FindBoidInHierarchy(owner.gameObject);
@@ -41,18 +42,21 @@ class BackFlip : State
         Vector3 backwards = boid.transform.forward;
         backwards.y = 0;
         backwards = -backwards;
-        float dist = 100;
+        float dist = 500;
         constrain.centre = boid.transform.position + (backwards * dist);
+        constrain.centre.y += 400;
         constrain.radius = dist;
-
+        oldStraightening = boid.straighteningTendancy;
+        boid.straighteningTendancy = 4f;
         Utilities.SetActive(seek, false);
         Utilities.SetActive(nw, false);
         Utilities.SetActive(constrain, true);
-        owner.ChangeStateDelayed(new IdleState(), 3);
+        owner.ChangeStateDelayed(new IdleState(), 7);
     }
 
     public override void Exit()
     {
+        boid.straighteningTendancy = oldStraightening;
         Utilities.SetActive(constrain, false);
     }
 }
@@ -181,6 +185,9 @@ public class BigCreatureController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GetComponent<StateMachine>().ChangeState(new BackFlip());
+        }
 	}
 }

@@ -62,7 +62,6 @@ public class StateMachine : MonoBehaviour {
 
     public void ChangeState(State newState)
     {
-        Debug.Log("Changing state to: " + newState.GetType().Name);
         previousState = currentState;
         if (currentState != null)
         {

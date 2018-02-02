@@ -36,9 +36,11 @@ namespace BGE.Forms
                 r += (r.normalized * sp.start);
 
                 newPos = Camera.main.transform.TransformPoint(r);
-                newPos.y = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z) + Random.Range(sp.minHeight, sp.maxHeight);
-                if (newPos.y > WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface)
-                {
+                float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
+                float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
+                float minHeight  =  sampleY + sp.minHeight;                
+                if (minHeight > worldMax)
+                {                    
                     count++;
                     if (count == 10)
                     {
@@ -47,6 +49,8 @@ namespace BGE.Forms
                     }
                     continue;
                 }
+                float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
+                newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
                 found = true;
             }
             return found;
@@ -171,9 +175,6 @@ namespace BGE.Forms
                         }
                         nextCreature = (nextCreature + 1) % prefabs.Length;
                     }
-
-                    //newcreature.GetComponent<CreatureGenerator>().CreateCreature();
-
                 }
                 yield return new WaitForSeconds(delay);
             }
@@ -181,6 +182,7 @@ namespace BGE.Forms
 
         public Vector3 GetCreaturePosition(GameObject creature)
         {
+            return creature.transform.position;
             if (creature.GetComponent<TenticleCreatureGenerator>() != null)
             {
                 return creature.GetComponent<TenticleCreatureGenerator>().head.GetComponent<Boid>().position;
@@ -209,10 +211,10 @@ namespace BGE.Forms
                 newcreature.transform.position += trans;
                 Boid boid = Utilities.FindBoidInHierarchy(newcreature);
                 // Translate it to the new position                            
+                //boid.transform.position = newPos;
+                boid.position = boid.transform.position; // The boid
+                boid.desiredPosition = boid.position;
                 boid.suspended = false;
-                boid.transform.position = newPos;
-                boid.position = newPos; // The boid
-                boid.desiredPosition = newPos;
                 if (boid.GetComponent<Constrain>() != null)
                 {
                     boid.GetComponent<Constrain>().centre = newPos;
@@ -233,7 +235,6 @@ namespace BGE.Forms
                     fg.GeneratePositions();
                     fg.MoveFollowers();                    
                 }
-
             }
             else
             {
