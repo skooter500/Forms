@@ -5,9 +5,14 @@ using BGE.Forms;
 
 class IdleState : State
 {
+    Boid boid;
+    NoiseWander nw;
     public override void Enter()
     {
-        owner.ChangeStateDelayed(new MoveCloseToPlayer()
+        boid = Utilities.FindBoidInHierarchy(owner.gameObject);
+        nw = boid.GetComponent<NoiseWander>();
+        Utilities.SetActive(nw, true);
+        owner.ChangeStateDelayed(new BackFlip()
             , Random.Range(30, 60)
             ); 
     }
@@ -51,7 +56,7 @@ class BackFlip : State
         Utilities.SetActive(seek, false);
         Utilities.SetActive(nw, false);
         Utilities.SetActive(constrain, true);
-        owner.ChangeStateDelayed(new IdleState(), 7);
+        owner.ChangeStateDelayed(new MoveCloseToPlayer(), 7);
     }
 
     public override void Exit()
@@ -161,7 +166,6 @@ class MoveCloseToPlayer : State
         if (Vector3.Distance(seek.target, boid.position) < 1000)
         {
             owner.ChangeState(new CrossPlayer());
-            //owner.ChangeState(new BackFlip());
         }
     }
 }
@@ -185,9 +189,5 @@ public class BigCreatureController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GetComponent<StateMachine>().ChangeState(new BackFlip());
-        }
 	}
 }

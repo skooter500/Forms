@@ -126,8 +126,8 @@ namespace BGE.Forms
                 }
                 */
                 i++;
-                bb.transform.position = b.position;
-                bb.desiredPosition = b.position;
+                bb.transform.position = bb.position;
+                bb.desiredPosition = bb.position;
                 if (bb.GetComponent<Formation>())
                 {
                     bb.GetComponent<Formation>().RecalculateOffset();

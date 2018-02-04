@@ -88,15 +88,16 @@ namespace BGE.Forms
 
             Vector3 localTarget = target + (Vector3.forward * distance);
             //Vector3 worldTarget = boid.TransformPoint(localTarget);
-
-            worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;        
-            rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
-
+            worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;
+            return boid.SeekForce(worldTarget);
+        }
+        public void Update()
+        {
             if (auto)
             {
-                this.theta += boid.TimeDelta * rampedSpeed * Mathf.Deg2Rad;
+                rampedSpeed = Mathf.Lerp(rampedSpeed, speed, boid.TimeDelta);
+                this.theta += Time.deltaTime * rampedSpeed * Mathf.Deg2Rad;
             }
-            return boid.SeekForce(worldTarget);
         }
     }
 }
