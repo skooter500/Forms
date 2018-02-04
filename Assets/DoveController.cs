@@ -28,7 +28,8 @@ public class DoveController : CreatureController {
             // Give a new target in the same direction!
             if (Vector3.Distance(seek.target, boid.position) < 1000)
             {
-                Vector3 newtarget = (seek.target - boid.position).normalized * 100000;
+                Vector3 newtarget = seek.target
+                    + ((seek.target - boid.position).normalized * 100000);
                 seek.target = newtarget;
             }
         }
