@@ -224,9 +224,9 @@ namespace BGE.Forms
                     boid.GetComponent<Constrain>().centre = newPos;
                 }
 
-                if (newcreature.GetComponentInChildren<BigCreatureController>())
+                if (newcreature.GetComponentInChildren<CreatureController>())
                 {
-                    newcreature.GetComponentInChildren<BigCreatureController>().Restart();
+                    newcreature.GetComponentInChildren<CreatureController>().Restart();
                 }
 
                 if (boid.GetComponent<TrailRenderer>() != null)

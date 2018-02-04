@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using BGE.Forms;
 
-public class TardigradeSchoolController : MonoBehaviour {
+public class TardigradeSchoolController : CreatureController {
+
     
     public class IdleState : State
     {
@@ -50,16 +51,20 @@ public class TardigradeSchoolController : MonoBehaviour {
         }
     }
 
+    public override void Restart()
+    {
+        GetComponent<StateMachine>().ChangeState(new IdleState());
+    }
+
     // Use this for initialization
     void Start () {
-        GetComponent<StateMachine>().ChangeState(new IdleState());
+        Restart();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.JoystickButton2))
-
-            {
+        {
                 GetComponent<StateMachine>().ChangeState(new BackFlip());
         }
     }

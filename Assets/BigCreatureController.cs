@@ -123,7 +123,6 @@ class CrossPlayer : State
 
 }
 
-
 class MoveCloseToPlayer : State
 {
     float close = 500;
@@ -170,14 +169,11 @@ class MoveCloseToPlayer : State
     }
 }
 
-public class BigCreatureController : MonoBehaviour {
-
+public class BigCreatureController : CreatureController
+{
     public bool canIdle = true;
 
-    public float minHeight = 500;
-    public float maxHeight = 2000;
-
-    public void Restart()
+    public override void Restart()
     {
         GetComponent<StateMachine>().ChangeState(new MoveCloseToPlayer());
     }
