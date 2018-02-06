@@ -13,8 +13,7 @@ namespace BGE.Forms
         public float playerRadius = 1000;
 
         public List<GameObject> alive = new List<GameObject>();
-        public List<GameObject> suspended = new List<GameObject>();
-
+        public Dictionary<GameObject, GameObject> suspended = new Dictionary<GameObject, GameObject>();
         public GameObject[] prefabs;
 
         public LayerMask environmentLM;

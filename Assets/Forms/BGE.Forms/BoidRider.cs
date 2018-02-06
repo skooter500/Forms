@@ -9,7 +9,7 @@ namespace BGE.Forms
 
         public CameraType cameraType = CameraType.forward;
 
-        bool viveControllers = false;
+        bool vrMode = false;
 
         [HideInInspector]
         PlayerSteering ps;
@@ -17,7 +17,7 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
-            viveControllers = UnityEngine.XR.XRDevice.isPresent;
+            vrMode = UnityEngine.XR.XRDevice.isPresent;
         }
 
         // Update is called once per frame
@@ -106,7 +106,7 @@ namespace BGE.Forms
                 
 
                 // Dont do this in VR
-                if (!viveControllers)
+                if (!vrMode)
                 {
                     if (cameraType == CameraType.forward)
                     {

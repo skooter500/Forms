@@ -32,6 +32,7 @@ namespace BGE.Forms
             rigidBody.freezeRotation = true;        
 
             desiredRotation = transform.rotation;
+            headCamera = Camera.main;
         }
 
         public Quaternion desiredRotation;
@@ -108,7 +109,7 @@ namespace BGE.Forms
         int test = 0;
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
 
             rotating = false;
