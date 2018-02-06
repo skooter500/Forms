@@ -11,6 +11,9 @@ public class SpawnParameters : MonoBehaviour {
 
     public string Species;
 
+    [HideInInspector]
+    public GameObject prefab;
+
     // Use this for initialization
     void Start () {
 		
