@@ -236,9 +236,12 @@ namespace BGE.Forms
         System.Collections.IEnumerator ChangeMaterialToOpaque(GameObject root, float delay)
         {
             yield return new WaitForSeconds(delay);
-            foreach (Renderer r in root.GetComponentsInChildren<Renderer>())
+            if (root != null)
             {
-                Utilities.SetupMaterialWithBlendMode(r.material, BlendMode.Opaque);
+                foreach (Renderer r in root.GetComponentsInChildren<Renderer>())
+                {
+                    Utilities.SetupMaterialWithBlendMode(r.material, BlendMode.Opaque);
+                }
             }
         }
 

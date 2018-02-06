@@ -166,6 +166,7 @@ namespace BGE.Forms
                         formation.weight = 100.0f;
                     }
                     formation.leader = leader;
+                    formation.leaderBoid = leader.GetComponentInChildren<Boid>();
                     follower.GetComponentInChildren<Boid>().school = this;
                 
                 }

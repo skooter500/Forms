@@ -18,6 +18,25 @@ public class DoveController : CreatureController {
             //SpawnParameters sp = owner.GetComponent<SpawnParameters>();
             pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(owner.GetComponent<CreatureController>().minHeight, owner.GetComponent<CreatureController>().maxHeight);
             boid = Utilities.FindBoidInHierarchy(owner.gameObject);
+
+            Vector3 toTarget = pos - boid.position;
+            toTarget.y = 0;
+            /*
+            FormationGenerator fg = owner.transform.parent.GetComponent<FormationGenerator>();
+            if (fg != null)
+            {
+                fg.transform.position = owner.transform.position;
+                fg.transform.rotation = Quaternion.LookRotation(toTarget);
+                fg.GeneratePositions();
+                fg.Teleport();
+            }
+            else
+            {
+                
+            }
+            */
+            owner.transform.rotation = Quaternion.LookRotation(toTarget);
+            
             seek = boid.GetComponent<Seek>();
             seek.SetActive(true);
             boid.GetComponent<Seek>().target = pos;

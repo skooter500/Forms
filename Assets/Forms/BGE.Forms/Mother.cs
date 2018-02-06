@@ -132,7 +132,6 @@ namespace BGE.Forms
                     // Find a spawn point
                     // Calculate the position
                     Vector3 newPos = Vector3.zero;
-
                     GameObject newcreature = null;
                     if (suspended.ContainsKey(prefabs[nextCreature]))
                     {
@@ -162,23 +161,22 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
-                            , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
-                            );
-                        newcreature.GetComponent<SpawnParameters>().prefab = prefabs[nextCreature];
-                        newcreature.transform.parent = this.transform;
-                        if (FindPlace(newcreature, out newPos))
+                        if (FindPlace(prefabs[nextCreature], out newPos))
                         {
+                            newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
+                                , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
+                            );
+                            newcreature.GetComponent<SpawnParameters>().prefab = prefabs[nextCreature];
+                            newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
                             alive.Add(newcreature);
                         }
                         else
                         {
-                            Debug.Log("Couldnt find a place for it so suspending it");
-                            Suspend(newcreature);
-                        }
-                        nextCreature = (nextCreature + 1) % prefabs.Length;
+                            Debug.Log("Couldnt find a place for the new creature");
+                        }                        
                     }
+                    nextCreature = (nextCreature + 1) % prefabs.Length;
                 }
                 yield return new WaitForSeconds(delay);
             }
@@ -197,7 +195,7 @@ namespace BGE.Forms
             }
             else if (creature.GetComponent<FormationGenerator>() != null)
             {
-                return creature.GetComponent<FormationGenerator>().leader.transform.position;
+                return creature.GetComponent<FormationGenerator>().leader.GetComponentInChildren<Boid>().position;
             }
             else
             {
