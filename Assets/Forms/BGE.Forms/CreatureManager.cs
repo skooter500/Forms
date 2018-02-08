@@ -131,6 +131,7 @@ namespace BGE.Forms
         void Update()
         {
             frameCount++;
+            //threadTimeDelta = Time.deltaTime;
             float fps = (1.0f / Time.deltaTime);
             if (fps < minFPS)
             {
@@ -195,6 +196,7 @@ namespace BGE.Forms
                     }
                 }
                 stopwatch.Stop();
+                
                 threadTimeDelta = (float) ((double) stopwatch.ElapsedTicks / System.Diagnostics.Stopwatch.Frequency);
                 threadCount++;
                 if (threadTimeDelta < 0.01f)

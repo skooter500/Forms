@@ -91,6 +91,8 @@ namespace BGE.Forms
         public void Awake()
         {
             player = Camera.main.transform;
+            CreatureManager.Instance.boids.Add(this);
+            multiThreaded = true;
         }
 
         void Start()
@@ -99,8 +101,6 @@ namespace BGE.Forms
             timeAcc = preferredTimeDelta;
             UpdateLocalFromTransform();
 
-            CreatureManager.Instance.boids.Add(this);
-            multiThreaded = true;
             behaviours = GetComponents<SteeringBehaviour>();
 
             //if (transform.parent.gameObject.GetComponent<School>() != null)

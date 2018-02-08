@@ -33,7 +33,7 @@ namespace BGE.Forms
                 float start = Mathf.Min(sp.start, genesisSpawnDistance);
               
                 Vector3 r = Random.insideUnitSphere;
-				//r.z = r.z; // Mathf.Abs();
+				r.z = Mathf.Abs(r.z);
                 r.y = 0;
                 r *= sp.end - start;
                 r += (r.normalized * start);
