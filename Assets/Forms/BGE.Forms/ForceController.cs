@@ -17,7 +17,7 @@ namespace BGE.Forms
         public bool rotating = false;
 
         [HideInInspector]
-        public bool joyYControllsPitch = false;
+        public bool attachedToCreature = false;
 
         public ForceController()
         {
@@ -40,7 +40,10 @@ namespace BGE.Forms
         void Yaw(float angle)
         {
             //rigidBody.AddTorque(Vector3.up * angle * 150);
-            Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
+            Quaternion rot = (attachedToCreature) ?
+                Quaternion.AngleAxis(angle, transform.parent.up)
+                : Quaternion.AngleAxis(angle, Vector3.up)
+                ;
             desiredRotation = rot * desiredRotation;
             rotating = true;
             //transform.rotation = rot * transform.rotation;
@@ -143,7 +146,7 @@ namespace BGE.Forms
 
             if (Mathf.Abs(joyY) > 0.1f)
             {
-                if (joyYControllsPitch)
+                if (attachedToCreature)
                 {
                     Pitch(-joyY * angularSpeed * Time.deltaTime);
                 }

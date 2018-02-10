@@ -22,7 +22,7 @@ public class DetatchFromBoid : MonoBehaviour {
             if (boid != null)
             {
                 GetComponent<ForceController>().moveEnabled = true;
-                GetComponent<ForceController>().joyYControllsPitch = false;
+                GetComponent<ForceController>().attachedToCreature = false;
                 boid.GetComponent<Harmonic>().SetActive(true);
                 boid.GetComponent<Harmonic>().auto = true;
                 if (boid.GetComponent<NoiseWander>() != null)

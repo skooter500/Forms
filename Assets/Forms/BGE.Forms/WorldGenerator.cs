@@ -456,6 +456,12 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
+            string ss = "";
+            foreach (Sampler s in samplers)
+            {
+                ss += ((PerlinNoiseSampler)s).origin + ", ";
+            }
+            CreatureManager.Log("World: " + ss);
             //StaticBatchingUtility.Combine(this.gameObject);
         }
     }
