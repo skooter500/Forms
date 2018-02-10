@@ -9,10 +9,8 @@ public class SpawnParameters : MonoBehaviour {
     public float maxHeight = 2000;
     public float minDistanceFromSurface = 1000;
 
-    public string Species;
-
     [HideInInspector]
-    public GameObject prefab;
+    public GameObject Species;
 
     // Use this for initialization
     void Start () {

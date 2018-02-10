@@ -15,7 +15,6 @@ public class Coalesse : MonoBehaviour {
     {
         while (true)
         {
-            Debug.Log("Schooling");
             foreach (Boid boid in flock.boids)
             {
                 boid.GetComponent<Seperation>().SetActive(true);
@@ -27,7 +26,6 @@ public class Coalesse : MonoBehaviour {
                 boid.GetComponent<Flee>().SetActive(true);
             }
             yield return new WaitForSeconds(Random.Range(20.0f, 30.0f));
-            Debug.Log("Coalessing");
             foreach (Boid boid in flock.boids)
             {
                 // Only affect boids in front of the player
@@ -44,10 +42,6 @@ public class Coalesse : MonoBehaviour {
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
                     boid.GetComponent<Seek>().targetGameObject = player;
                     boid.GetComponent<Seek>().target.y += 10;
-                }
-                else
-                {
-                    Debug.Log("Too far");
                 }
             }
             yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));

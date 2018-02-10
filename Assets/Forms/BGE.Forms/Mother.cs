@@ -13,7 +13,7 @@ namespace BGE.Forms
         public float playerRadius = 1000;
 
         public List<GameObject> alive = new List<GameObject>();
-        public Dictionary<GameObject, GameObject> suspended = new Dictionary<GameObject, GameObject>();
+        public MultiDictionary<GameObject, GameObject> suspended = new MultiDictionary<GameObject, GameObject>();
         public GameObject[] prefabs;
 
         public LayerMask environmentLM;
@@ -99,8 +99,6 @@ namespace BGE.Forms
                 sg.Suspend();
             }
             creature.SetActive(false);
-            suspended[creature.GetComponent<SpawnParameters>().prefab] = creature;
-            alive.Remove(creature);
         }
 
         System.Collections.IEnumerator Spawn()
@@ -117,13 +115,15 @@ namespace BGE.Forms
                 {
                     GameObject creature = alive[i];
                     Vector3 boidPos = GetCreaturePosition(creature);
-
-
+                    
                     float dist = Vector3.Distance(boidPos, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
                     {
+                        Debug.Log("Suspending a creature: " + creature);
                         Suspend(creature);
+                        suspended.Add(creature.GetComponent<SpawnParameters>().Species, creature);
+                        alive.Remove(creature);
                     }
                 }
 
@@ -135,10 +135,10 @@ namespace BGE.Forms
                     GameObject newcreature = null;
                     if (suspended.ContainsKey(prefabs[nextCreature]))
                     {
-                        newcreature = suspended[prefabs[nextCreature]];
+                        newcreature = suspended.Get(prefabs[nextCreature]);
                         if (FindPlace(newcreature, out newPos))
                         {
-                            suspended.Remove(prefabs[nextCreature]);                            
+                            suspended.Remove(prefabs[nextCreature], newcreature);                            
                             Teleport(newcreature, newPos);
                             newcreature.SetActive(true);
                             if (newcreature.GetComponent<LifeColours>())
@@ -166,7 +166,8 @@ namespace BGE.Forms
                             newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                             );
-                            newcreature.GetComponent<SpawnParameters>().prefab = prefabs[nextCreature];
+                            Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
+                            newcreature.GetComponent<SpawnParameters>().Species = prefabs[nextCreature];
                             newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
                             alive.Add(newcreature);
