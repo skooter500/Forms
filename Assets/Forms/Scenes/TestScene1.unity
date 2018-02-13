@@ -151,6 +151,36 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114308257729766604, guid: e705880bf90a8504692f49253cbfc51f,
+        type: 2}
+      propertyPath: speed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306790085528488, guid: e705880bf90a8504692f49253cbfc51f,
+        type: 2}
+      propertyPath: maxForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306790085528488, guid: e705880bf90a8504692f49253cbfc51f,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114493402217794962, guid: e705880bf90a8504692f49253cbfc51f,
+        type: 2}
+      propertyPath: speedVariation
+      value: 0.152
+      objectReference: {fileID: 0}
+    - target: {fileID: 114493402217794962, guid: e705880bf90a8504692f49253cbfc51f,
+        type: 2}
+      propertyPath: amplitudeVariation
+      value: 0.137
+      objectReference: {fileID: 0}
+    - target: {fileID: 114493402217794962, guid: e705880bf90a8504692f49253cbfc51f,
+        type: 2}
+      propertyPath: glide
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e705880bf90a8504692f49253cbfc51f, type: 2}
   m_IsPrefabParent: 0
@@ -352,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -373,6 +404,134 @@ MonoBehaviour:
   finRotationOffset: 20
   finList: 
   lengthVariation: 0
+--- !u!43 &326819784
+Mesh:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 8
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_Skin: []
+  m_VertexData:
+    m_CurrentChannels: 13
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshOptimized: 0
 --- !u!1 &439098988
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -558,6 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bd9e6fcef51504a8084fcf58b4969d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boneParentForAutoAssiging: {fileID: 0}
   alignmentStrategy: 0
   autoAssignBones: 1
   bones: []
@@ -567,6 +728,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &445340108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,11 +794,11 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
+  inFrontOfPlayer: 0
+  distanceToPlayer: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!23 &445340110
 MeshRenderer:
@@ -932,134 +1094,6 @@ MonoBehaviour:
   flipDirection: 0
   bankThreshold: 5
   lerpedAmplitude: 0
---- !u!43 &777552657
-Mesh:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 8
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_Skin: []
-  m_VertexData:
-    m_CurrentChannels: 13
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshOptimized: 0
 --- !u!1 &787052778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,6 +1183,39 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 787052778}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!21 &825431718
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &844136379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -1533,6 +1601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -1740,6 +1809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bd9e6fcef51504a8084fcf58b4969d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boneParentForAutoAssiging: {fileID: 0}
   alignmentStrategy: 0
   autoAssignBones: 1
   bones: []
@@ -1749,6 +1819,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &1105844632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,11 +1885,11 @@ MonoBehaviour:
   gravity: {x: 0, y: -9, z: 0}
   multiThreaded: 0
   behaviours: []
-  testField: 
+  inFrontOfPlayer: 0
+  distanceToPlayer: 0
   desiredPosition: {x: 0, y: 0, z: 0}
   gravityAcceleration: 0
-  suspendIfNotVisible: 0
-  suspendedByMe: 0
+  autoSuspendWhenInvisible: 0
   suspended: 0
 --- !u!23 &1105844634
 MeshRenderer:
@@ -1919,6 +1990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -1976,12 +2048,15 @@ MonoBehaviour:
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minSideWith: 10
   maxSideWith: 10
   gap: 50
   variance: 0.1
   leaderPrefab: {fileID: 1134626578}
   followerPrefab: {fileID: 1575640726}
+  leader: {fileID: 0}
+  followers: []
 --- !u!4 &1144902479
 Transform:
   m_ObjectHideFlags: 0
@@ -2051,6 +2126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -2285,11 +2361,11 @@ Prefab:
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1410630716}
+      objectReference: {fileID: 825431718}
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 777552657}
+      objectReference: {fileID: 326819784}
     - target: {fileID: 2082592, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_ClearFlags
       value: 2
@@ -2469,11 +2545,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headCamera: {fileID: 1708803262}
   speed: 50
-  vrMode: 1
   lookEnabled: 1
   moveEnabled: 1
   rotating: 0
-  joyYControllsPitch: 0
+  attachedToCreature: 0
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1233637502
 MonoBehaviour:
@@ -2584,6 +2659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -2635,16 +2711,19 @@ MonoBehaviour:
   centerOfMassUpdatePerSecond: 1
   centerOfMass: {x: 0, y: 0, z: 0}
   neighbourDistance: 0
-  radius: 200
+  radius: 300
   boids: []
   timeMultiplier: 1
   drawGizmos: 0
+  targetCreatureCount: 100
   minBoidCount: 10
   maxBoidCount: 10
   prefab: {fileID: 1048063019}
   spawnInTopHemisphere: 0
   spread: 1
   speedVariation: 0.1
+  alive: []
+  suspended: []
 --- !u!4 &1282602354
 Transform:
   m_ObjectHideFlags: 0
@@ -2869,39 +2948,6 @@ Transform:
   m_Father: {fileID: 1560566035}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1410630716
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1458539063
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,6 +3108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3128,6 +3175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3190,6 +3238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3252,6 +3301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3344,6 +3394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3418,6 +3469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3480,6 +3532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3585,6 +3638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bd9e6fcef51504a8084fcf58b4969d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boneParentForAutoAssiging: {fileID: 0}
   alignmentStrategy: 0
   autoAssignBones: 1
   bones: []
@@ -3594,6 +3648,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1780317859
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3749,6 +3804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bd9e6fcef51504a8084fcf58b4969d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boneParentForAutoAssiging: {fileID: 0}
   alignmentStrategy: 0
   autoAssignBones: 1
   bones: []
@@ -3758,6 +3814,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!23 &1950019619
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3847,6 +3904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9572e4ad23fecac41a94f3276b816e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentSegmentsTo: {fileID: 0}
   makeRotator: 0
   scaleFins: 1
   finRotatorOffset: 0
@@ -3929,6 +3987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18bd9e6fcef51504a8084fcf58b4969d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boneParentForAutoAssiging: {fileID: 0}
   alignmentStrategy: 0
   autoAssignBones: 1
   bones: []
@@ -3938,6 +3997,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   averageRotation: {x: 0, y: 0, z: 0, w: 0}
   suspended: 0
+  jointType: 0
 --- !u!114 &2002723626
 MonoBehaviour:
   m_ObjectHideFlags: 0
