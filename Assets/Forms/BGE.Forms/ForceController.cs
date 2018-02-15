@@ -22,7 +22,7 @@ namespace BGE.Forms
 
         public CameraType cameraType = CameraType.forward;
 
-        float angularSpeed = 60.0f;
+        public float angularSpeed = 30.0f;
 
         // Use this for initialization
         void Start()
@@ -64,7 +64,7 @@ namespace BGE.Forms
             float threshold = 0.95f;
             if ((angle > 0 && invcosTheta1 < (-threshold)) || (angle < 0 && invcosTheta1 > (threshold)))
             {
-                return;
+                //return;
             }
 
             // A pitch is a rotation around the right vector
@@ -118,12 +118,14 @@ namespace BGE.Forms
             rotating = false;
             float mouseX, mouseY;
             float contSpeed = this.speed;
+            float contAngularSpeed = this.angularSpeed;
 
             float runAxis = Input.GetAxis("Fire1");
             
             if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
             {
                 contSpeed *= 10f;
+                contAngularSpeed *= 2.0f;
             }
 
             mouseX = Input.GetAxis("Mouse X");
@@ -131,11 +133,11 @@ namespace BGE.Forms
 
             if (mouseX != 0)
             {
-                Yaw(mouseX * Time.deltaTime * angularSpeed);
+                Yaw(mouseX * Time.deltaTime * contAngularSpeed);
             }
             else if (mouseY != 0 && !UnityEngine.XR.XRDevice.isPresent)
             {
-                Pitch(-mouseY * Time.deltaTime * angularSpeed);
+                Pitch(-mouseY * Time.deltaTime * contAngularSpeed);
             }
 
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime);
@@ -147,7 +149,7 @@ namespace BGE.Forms
             {
                 if (cameraType == CameraType.free && !UnityEngine.XR.XRDevice.isPresent)
                 {
-                    Pitch(-joyY * angularSpeed * Time.deltaTime);
+                    Pitch(-joyY * contAngularSpeed * Time.deltaTime);
                 }
                 else
                 {
@@ -156,7 +158,7 @@ namespace BGE.Forms
             }
             if (Mathf.Abs(joyX) > 0.3f)
             {
-                Yaw(joyX * angularSpeed * Time.deltaTime);
+                Yaw(joyX * contAngularSpeed * Time.deltaTime);
             }
 			if (Input.GetKey(KeyCode.E))
 			{
