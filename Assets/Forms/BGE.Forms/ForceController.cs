@@ -18,10 +18,11 @@ namespace BGE.Forms
         [HideInInspector]
         public bool attachedToCreature = false;
 
-        public ForceController()
-        {
-            
-        }
+        public enum CameraType { free, forward };
+
+        public CameraType cameraType = CameraType.forward;
+
+        float angularSpeed = 60.0f;
 
         // Use this for initialization
         void Start()
@@ -32,6 +33,7 @@ namespace BGE.Forms
 
             desiredRotation = transform.rotation;
             headCamera = Camera.main;
+            cameraType = CameraType.forward;
         }
 
         public Quaternion desiredRotation;
@@ -55,6 +57,7 @@ namespace BGE.Forms
 
         }
 
+
         void Pitch(float angle)
         {
             float invcosTheta1 = Vector3.Dot(transform.forward, Vector3.up);
@@ -63,10 +66,11 @@ namespace BGE.Forms
             {
                 return;
             }
-        
+
             // A pitch is a rotation around the right vector
-        
-            Quaternion rot = Quaternion.AngleAxis(angle, transform.right);
+
+            Vector3 right = desiredRotation* Vector3.right;
+            Quaternion rot = Quaternion.AngleAxis(angle, right);
             desiredRotation = rot * desiredRotation;
             rotating = true;
         
@@ -116,8 +120,7 @@ namespace BGE.Forms
             float contSpeed = this.speed;
 
             float runAxis = Input.GetAxis("Fire1");
-            float angularSpeed = 60.0f;
-
+            
             if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
             {
                 contSpeed *= 10f;
@@ -142,7 +145,7 @@ namespace BGE.Forms
 
             if (Mathf.Abs(joyY) > 0.1f)
             {
-                if (attachedToCreature && !UnityEngine.XR.XRDevice.isPresent)
+                if (cameraType == CameraType.free && !UnityEngine.XR.XRDevice.isPresent)
                 {
                     Pitch(-joyY * angularSpeed * Time.deltaTime);
                 }
@@ -164,15 +167,6 @@ namespace BGE.Forms
 				Fly(-Time.deltaTime * speed);
 			}
 
-            if (Input.GetKey(KeyCode.Joystick1Button1))
-            {
-                Fly(-contSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.Joystick1Button2))
-            {
-                Fly(contSpeed * Time.deltaTime);
-            }
-
             //Yaw(joyX * angularSpeed * Time.deltaTime);
             //Fly(-joyY * contSpeed * Time.deltaTime);
 
@@ -185,7 +179,17 @@ namespace BGE.Forms
             if (Mathf.Abs(contStrafe) > 0.1f && moveEnabled)
             {
                 Strafe(contStrafe * contSpeed * Time.deltaTime);
-            }      
+            }
+        }
+        
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.JoystickButton2))
+            {
+                int ct = ((int)(cameraType + 1) % System.Enum.GetNames(typeof(CameraType)).Length);
+                cameraType = (CameraType)ct;
+            }
+            //Pitch(angularSpeed * Time.deltaTime);
         }
     }
 }

@@ -4,11 +4,7 @@ using System.Collections;
 namespace BGE.Forms
 {
     public class BoidRider : MonoBehaviour
-    {
-        public enum CameraType { free, forward };
-
-        public CameraType cameraType = CameraType.forward;
-
+    {        
         bool vrMode = false;
 
         [HideInInspector]
@@ -20,15 +16,6 @@ namespace BGE.Forms
             vrMode = UnityEngine.XR.XRDevice.isPresent;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.JoystickButton2))
-            {
-                int ct = ((int)(cameraType + 1) % System.Enum.GetNames(typeof(CameraType)).Length);
-                cameraType = (CameraType)ct;
-            }
-        }
 
         Quaternion targetQuaternion = Quaternion.identity;
 
@@ -101,18 +88,14 @@ namespace BGE.Forms
             // iF its a player and still attached
             if (other.tag == "Player" && other.transform.parent == this.transform.parent)
             {
-                other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);
-
-                
-
+                other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);                
                 // Dont do this in VR
                 if (!vrMode)
                 {
-                    if (cameraType == CameraType.forward)
+                    ForceController fc = other.GetComponent<ForceController>();
+                    if (fc.cameraType == ForceController.CameraType.forward)
                     {
-                        Transform parent = transform.parent;
-                        ForceController fc = other.GetComponent<ForceController>();
-
+                        Transform parent = transform.parent;                         
                         if (!fc.rotating)
                         {
                             fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.rotation, Time.deltaTime * 1.5f);
