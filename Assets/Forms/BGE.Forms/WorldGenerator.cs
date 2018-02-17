@@ -55,7 +55,7 @@ namespace BGE.Forms
 
         public static WorldGenerator Instance;
         
-            public GameObject player;
+        public GameObject player;
 
         public int cellsPerTile = 10;
         public int halfTile = 5;
@@ -133,7 +133,7 @@ namespace BGE.Forms
                 ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
             }
 
-            player.transform.position = new Vector3(0, SamplePos(0,0) + 1500, 0);
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
             
             //Random.seed = 42;
         }
