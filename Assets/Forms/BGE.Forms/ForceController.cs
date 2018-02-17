@@ -124,7 +124,7 @@ namespace BGE.Forms
             
             if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
             {
-                contSpeed *= 10f;
+                contSpeed *= 3f;
                 contAngularSpeed *= 2.0f;
             }
 
