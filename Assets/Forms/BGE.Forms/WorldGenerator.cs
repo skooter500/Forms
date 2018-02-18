@@ -138,7 +138,7 @@ namespace BGE.Forms
             ((PerlinNoiseSampler)samplers[0]).origin = 750;
             ((PerlinNoiseSampler)samplers[1]).origin = -747;
             ((PerlinNoiseSampler)samplers[2]).origin = 113;
-            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 1000, 0);
             
             //Random.seed = 42;
         }

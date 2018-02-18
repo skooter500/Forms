@@ -94,7 +94,7 @@ namespace BGE.Forms
 
         void Fly(float units)
         {
-            rigidBody.AddForce(Vector3.up * units);
+            rigidBody.AddForce(Vector3.up * units);     
         }
 
         void Strafe(float units)
@@ -149,7 +149,7 @@ namespace BGE.Forms
             {
                 if (cameraType == CameraType.free && !UnityEngine.XR.XRDevice.isPresent)
                 {
-                    Pitch(-joyY * contAngularSpeed * Time.deltaTime);
+                    
                 }
                 else
                 {
