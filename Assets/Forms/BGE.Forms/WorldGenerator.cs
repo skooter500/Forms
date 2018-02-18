@@ -128,11 +128,16 @@ namespace BGE.Forms
             }
 
             Random.seed = (int)System.DateTime.Now.Ticks;
+            /*
             foreach (Sampler s in samplers)
             {
                 ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
             }
+            */
 
+            ((PerlinNoiseSampler)samplers[0]).origin = 750;
+            ((PerlinNoiseSampler)samplers[1]).origin = -747;
+            ((PerlinNoiseSampler)samplers[2]).origin = 113;
             player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
             
             //Random.seed = 42;
