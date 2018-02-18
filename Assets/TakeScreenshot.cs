@@ -49,7 +49,7 @@ public class TakeScreenshot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.JoystickButton4))
+        if (Input.GetKeyDown(KeyCode.JoystickButton7))
         {
             string filename = GenerateFileName();
             Debug.Log("Capturing screenshot to: " + filename);

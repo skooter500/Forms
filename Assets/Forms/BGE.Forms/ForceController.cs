@@ -147,14 +147,10 @@ namespace BGE.Forms
 
             if (Mathf.Abs(joyY) > 0.1f)
             {
-                if (cameraType == CameraType.free && !UnityEngine.XR.XRDevice.isPresent)
+                if (!UnityEngine.XR.XRDevice.isPresent)
                 {
-                    
-                }
-                else
-                {
-                    Fly(-joyY * contSpeed * Time.deltaTime);
-                }
+                    Pitch(-joyY * contAngularSpeed * Time.deltaTime);
+                }                
             }
             if (Mathf.Abs(joyX) > 0.3f)
             {
@@ -182,6 +178,17 @@ namespace BGE.Forms
             {
                 Strafe(contStrafe * contSpeed * Time.deltaTime);
             }
+
+            if (Input.GetKey(KeyCode.Joystick1Button5))
+            {
+                Fly(contSpeed * Time.deltaTime);                
+            }
+
+            if (Input.GetKey(KeyCode.Joystick1Button4))
+            {
+                Fly(- contSpeed * Time.deltaTime);
+            }
+
         }
         
         void Update()
