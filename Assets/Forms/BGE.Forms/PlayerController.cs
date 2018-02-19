@@ -19,10 +19,12 @@ namespace BGE.Forms
         GameObject player;
         ViveController viveController;
 
+        bool waiting = false;
+
         // Use this for initialization
         void Start() {
-            player = Camera.main.gameObject;
-            viveController = GetComponent<ViveController>();
+            player = GameObject.FindGameObjectWithTag("Player");
+            viveController = player.GetComponent<ViveController>();
             StartCoroutine(CheckForNewTarget());
         }
 
@@ -47,14 +49,7 @@ namespace BGE.Forms
             GameObject candidate = Mother.Instance.alive[
                 Random.Range(0, Mother.Instance.alive.Count)
                 ].gameObject;
-            if (gameObject.GetComponent<SchoolGenerator>() == null)
-            {
-                return Utilities.FindBoidInHierarchy(candidate).gameObject;
-            }
-            else
-            {
-                return candidate;
-            }
+            return Mother.Instance.GetCreature(candidate);
             /*
             // Project onto the XZ plane
             Vector3 target = player.transform.forward;
@@ -80,14 +75,20 @@ namespace BGE.Forms
         {
             while (true)
             {
-                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < 1000)
+                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < 700)
                 {
                     Utilities.SetActive(seek, false);
                     boid.damping = 0.5f;
+                    waiting = true;
                     Debug.Log("Waiting...");
-                    yield return new WaitForSeconds(Random.Range(30, 50));
+                    boid.enabled = false;
+                    yield return new WaitForSeconds(Random.Range(10, 20));
+                    boid.enabled = true;
+                    Debug.Log("Finding new target...");
+                    waiting = false;
                     boid.damping = 0.01f;
                     seek.targetGameObject = PickNewTarget();
+                    boid.UpdateLocalFromTransform();
                     Utilities.SetActive(seek, true);
                 }
                 yield return new WaitForSeconds(1);
@@ -96,20 +97,26 @@ namespace BGE.Forms
 
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
+            
             if (Input.GetKeyDown(KeyCode.JoystickButton3))
             {
                 switch (controlType)
                 {
                     case ControlType.Player:
-                        Debug.Log("Automatic");
+                        Debug.Log("Automatic");                        
                         controlType = ControlType.Automatic;
+                        transform.position = player.transform.position;
+                        transform.rotation = player.transform.rotation;
                         AssignBehaviours();
+                        boid.UpdateLocalFromTransform();
                         viveController.enabled = false;
-                        GetComponent<ForceController>().enabled = false;
+                        player.GetComponent<ForceController>().enabled = false;
                         boid.enabled = true;
+                        boid.desiredPosition = transform.position;
                         seek.targetGameObject = PickNewTarget();
+                        //seek.target = Vector3.zero;
                         seek.SetActive(true);
                         sceneAvoidance.SetActive(true);
                         if (boid.GetComponent<Harmonic>() != null)
@@ -127,7 +134,7 @@ namespace BGE.Forms
                         controlType = ControlType.Player;
                         AssignBehaviours();
                         viveController.enabled = true;
-                        GetComponent<ForceController>().enabled = true;
+                        player.GetComponent<ForceController>().enabled = true;
 
                         if (viveController.boid == null)
                         {
@@ -147,6 +154,27 @@ namespace BGE.Forms
                             boid.GetComponent<Harmonic>().auto = false;
                         }
                         break;
+                }
+            }
+            if (controlType == ControlType.Automatic)
+            {
+                player.transform.position = this.transform.position;
+
+                if (waiting)
+                {
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
+                        , Quaternion.LookRotation(seek.targetGameObject.transform.position - transform.position)
+                        , Time.deltaTime
+                        );
+                }
+                else
+                {
+                    player.transform.rotation = transform.rotation;
+                    /*Quaternion.Slerp(player.transform.rotation
+                        , transform.rotation
+                        , Time.deltaTime
+                        );                    
+                        */
                 }
             }
         }

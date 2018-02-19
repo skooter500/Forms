@@ -120,7 +120,7 @@ namespace BGE.Forms
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
                     {
-                        Debug.Log("Suspending a creature: " + creature);
+                        //Debug.Log("Suspending a creature: " + creature);
                         Suspend(creature);
                         suspended.Add(creature.GetComponent<SpawnParameters>().Species, creature);
                         alive.Remove(creature);
@@ -166,7 +166,7 @@ namespace BGE.Forms
                             newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                             );
-                            Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
+                            //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
                             newcreature.GetComponent<SpawnParameters>().Species = prefabs[nextCreature];
                             newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
@@ -174,12 +174,34 @@ namespace BGE.Forms
                         }
                         else
                         {
-                            Debug.Log("Couldnt find a place for the new creature");
+                            //Debug.Log("Couldnt find a place for the new creature");
                         }                        
                     }
                     nextCreature = (nextCreature + 1) % prefabs.Length;
                 }
                 yield return new WaitForSeconds(delay);
+            }
+        }
+
+        public GameObject GetCreature(GameObject species)
+        {
+            SchoolGenerator sg = species.GetComponent<SchoolGenerator>();
+            if (species.GetComponent<TenticleCreatureGenerator>() != null)
+            {
+                return species.GetComponent<TenticleCreatureGenerator>().head.gameObject;
+            }
+            else if (sg != null)
+            {
+                return sg.alive[Random.Range(0, sg.alive.Count - 1)].GetComponentInChildren<Boid>().gameObject;
+            }
+            else if (species.GetComponent<FormationGenerator>() != null)
+            {
+                return species.GetComponent<FormationGenerator>().leader;
+            }
+            else
+            {
+                return Utilities.FindBoidInHierarchy(species).gameObject;
+
             }
         }
 

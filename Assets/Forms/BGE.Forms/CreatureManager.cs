@@ -17,7 +17,7 @@ namespace BGE.Forms
         Thread thread;
 
         [HideInInspector]
-        public List<Boid> boids;
+        public List<Boid> boids = new List<Boid>();
 
         StringBuilder message = new StringBuilder();
 
