@@ -51,14 +51,8 @@ namespace BGE.Forms
             GameObject candidate = Mother.Instance.alive[
                 Random.Range(0, Mother.Instance.alive.Count)
                 ].gameObject;
-            if (candidate.GetComponent<TenticleCreatureGenerator>() != null)
-            {
-                distance = 800;
-            }
-            else
-            {
-                distance = 500;
-            }
+
+            distance = candidate.GetComponent<SpawnParameters>().viewingDistance;
             return Mother.Instance.GetCreature(candidate);
             /*
             // Project onto the XZ plane
