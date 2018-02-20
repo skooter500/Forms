@@ -22,6 +22,8 @@ namespace BGE.Forms
 
         public float genesisSpawnDistance = 100;
 
+        
+
         bool FindPlace(GameObject creature, out Vector3 newPos)
         {
             bool found = false;
@@ -196,7 +198,7 @@ namespace BGE.Forms
             }
             else if (species.GetComponent<FormationGenerator>() != null)
             {
-                return species.GetComponent<FormationGenerator>().leader;
+                return species.GetComponent<FormationGenerator>().leader.GetComponentInChildren<Boid>().gameObject;
             }
             else
             {

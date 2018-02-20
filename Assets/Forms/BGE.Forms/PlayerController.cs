@@ -21,6 +21,8 @@ namespace BGE.Forms
 
         bool waiting = false;
 
+        float distance = 500;
+
         // Use this for initialization
         void Start() {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -49,6 +51,14 @@ namespace BGE.Forms
             GameObject candidate = Mother.Instance.alive[
                 Random.Range(0, Mother.Instance.alive.Count)
                 ].gameObject;
+            if (candidate.GetComponent<TenticleCreatureGenerator>() != null)
+            {
+                distance = 800;
+            }
+            else
+            {
+                distance = 500;
+            }
             return Mother.Instance.GetCreature(candidate);
             /*
             // Project onto the XZ plane
@@ -75,7 +85,7 @@ namespace BGE.Forms
         {
             while (true)
             {
-                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < 700)
+                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < distance)
                 {
                     Utilities.SetActive(seek, false);
                     boid.damping = 0.5f;
@@ -97,7 +107,7 @@ namespace BGE.Forms
 
 
         // Update is called once per frame
-        void FixedUpdate()
+        void Update()
         {
             
             if (Input.GetKeyDown(KeyCode.JoystickButton3))
@@ -111,6 +121,7 @@ namespace BGE.Forms
                         transform.rotation = player.transform.rotation;
                         AssignBehaviours();
                         boid.UpdateLocalFromTransform();
+                        player.GetComponent<Rigidbody>().isKinematic = true;
                         viveController.enabled = false;
                         player.GetComponent<ForceController>().enabled = false;
                         boid.enabled = true;
@@ -133,6 +144,7 @@ namespace BGE.Forms
                         Debug.Log("Player");
                         controlType = ControlType.Player;
                         AssignBehaviours();
+                        player.GetComponent<Rigidbody>().isKinematic = false;
                         viveController.enabled = true;
                         player.GetComponent<ForceController>().enabled = true;
 
@@ -158,7 +170,11 @@ namespace BGE.Forms
             }
             if (controlType == ControlType.Automatic)
             {
-                player.transform.position = this.transform.position;
+                player.transform.position = Vector3.Lerp(
+                    player.transform.position
+                    , this.transform.position
+                    , Time.deltaTime
+                    );
 
                 if (waiting)
                 {
@@ -169,12 +185,11 @@ namespace BGE.Forms
                 }
                 else
                 {
-                    player.transform.rotation = transform.rotation;
-                    /*Quaternion.Slerp(player.transform.rotation
+                    //player.transform.rotation = transform.rotation;
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
                         , transform.rotation
                         , Time.deltaTime
                         );                    
-                        */
                 }
             }
         }
