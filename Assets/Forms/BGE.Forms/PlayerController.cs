@@ -87,7 +87,7 @@ namespace BGE.Forms
                     boid.damping = 0.5f;
                     waiting = true;
                     Debug.Log("Waiting...");
-                    boid.enabled = false;
+                    //boid.enabled = false;
                     yield return new WaitForSeconds(Random.Range(20, 30));
                     boid.enabled = true;
                     Debug.Log("Finding new target...");
@@ -103,17 +103,14 @@ namespace BGE.Forms
             }
         }
 
-
-        // Update is called once per frame
-        void FixedUpdate()
+        private void Update()
         {
-            
             if (Input.GetKeyDown(KeyCode.JoystickButton3))
             {
                 switch (controlType)
                 {
                     case ControlType.Player:
-                        Debug.Log("Automatic");                        
+                        Debug.Log("Automatic");
                         controlType = ControlType.Automatic;
                         transform.position = player.transform.position;
                         transform.rotation = player.transform.rotation;
@@ -138,7 +135,7 @@ namespace BGE.Forms
                             boid.GetComponent<PlayerSteering>().controlSpeed = false;
                         }
                         targetingCoroutine = StartCoroutine(CheckForNewTarget());
-                        break;                        
+                        break;
                     case ControlType.Automatic:
                         Debug.Log("Player");
                         StopCoroutine(targetingCoroutine);
@@ -168,6 +165,11 @@ namespace BGE.Forms
                         break;
                 }
             }
+        }
+
+        void FixedUpdate()
+        {
+                        
             if (controlType == ControlType.Automatic)
             {
                 player.transform.position = this.transform.position;
