@@ -86,7 +86,7 @@ namespace BGE.Forms
                     waiting = true;
                     Debug.Log("Waiting...");
                     boid.enabled = false;
-                    yield return new WaitForSeconds(Random.Range(10, 20));
+                    yield return new WaitForSeconds(Random.Range(20, 30));
                     boid.enabled = true;
                     Debug.Log("Finding new target...");
                     waiting = false;
