@@ -23,11 +23,13 @@ namespace BGE.Forms
 
         float distance = 500;
 
+        Coroutine targetingCoroutine;
+
         // Use this for initialization
         void Start() {
             player = GameObject.FindGameObjectWithTag("Player");
             viveController = player.GetComponent<ViveController>();
-            StartCoroutine(CheckForNewTarget());
+            
         }
 
         void AssignBehaviours()
@@ -92,6 +94,8 @@ namespace BGE.Forms
                     waiting = false;
                     boid.damping = 0.01f;
                     seek.targetGameObject = PickNewTarget();
+                    transform.position = player.transform.position;
+                    transform.rotation = player.transform.rotation;
                     boid.UpdateLocalFromTransform();
                     Utilities.SetActive(seek, true);
                 }
@@ -101,7 +105,7 @@ namespace BGE.Forms
 
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             
             if (Input.GetKeyDown(KeyCode.JoystickButton3))
@@ -133,9 +137,11 @@ namespace BGE.Forms
                         {
                             boid.GetComponent<PlayerSteering>().controlSpeed = false;
                         }
-                        break;
+                        targetingCoroutine = StartCoroutine(CheckForNewTarget());
+                        break;                        
                     case ControlType.Automatic:
                         Debug.Log("Player");
+                        StopCoroutine(targetingCoroutine);
                         controlType = ControlType.Player;
                         AssignBehaviours();
                         player.GetComponent<Rigidbody>().isKinematic = false;
@@ -164,12 +170,14 @@ namespace BGE.Forms
             }
             if (controlType == ControlType.Automatic)
             {
+                player.transform.position = this.transform.position;
+                /*
                 player.transform.position = Vector3.Lerp(
                     player.transform.position
                     , this.transform.position
                     , Time.deltaTime
                     );
-
+                    */
                 if (waiting)
                 {
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation

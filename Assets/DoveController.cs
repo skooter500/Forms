@@ -16,7 +16,8 @@ public class DoveController : CreatureController {
             Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 5000);
             WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
             //SpawnParameters sp = owner.GetComponent<SpawnParameters>();
-            pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(owner.GetComponent<CreatureController>().minHeight, owner.GetComponent<CreatureController>().maxHeight);
+            //pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(owner.GetComponent<CreatureController>().minHeight, owner.GetComponent<CreatureController>().maxHeight);
+            pos.y = owner.transform.position.y;
             boid = Utilities.FindBoidInHierarchy(owner.gameObject);
 
             Vector3 toTarget = pos - boid.position;
