@@ -23,7 +23,14 @@ namespace BGE.Forms
 
         float distance = 500;
 
+        public static PlayerController Instance;
+
         Coroutine targetingCoroutine;
+
+        public void Awake()
+        {
+            PlayerController.Instance = this;
+        }
 
         // Use this for initialization
         void Start() {
