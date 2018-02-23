@@ -144,6 +144,8 @@ namespace BGE.Forms
                         player.GetComponent<Rigidbody>().isKinematic = false;
                         viveController.enabled = true;
                         player.GetComponent<ForceController>().enabled = true;
+                        player.GetComponent<ForceController>().desiredRotation =
+                            Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
                         if (viveController.boid == null)
                         {
