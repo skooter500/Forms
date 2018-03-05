@@ -107,7 +107,7 @@ public class PlayerSteering : SteeringBehaviour
                 + (boid.up * upForce * power);
             if (viveControllers)
             {
-                //force += average * Vector3.forward * power;
+                force += average * Vector3.forward * power;
             }
         }
         else if (controlType == ControlType.JellyTenticle)

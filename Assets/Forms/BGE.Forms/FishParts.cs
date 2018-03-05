@@ -129,17 +129,19 @@ namespace BGE.Forms
 
         private void LayoutSegments()
         {
-            bodySize = body.GetComponent<Renderer>().bounds.size;
             headSize = head.GetComponent<Renderer>().bounds.size;
             tailSize = tail.GetComponent<Renderer>().bounds.size;
 
             body.transform.position = transform.position;
             body.transform.rotation = transform.rotation;
             float headOffset = (bodySize.z / 2.0f) + gap + (headSize.z / 2.0f);
-            head.transform.position = transform.position + new Vector3(0, 0, headOffset);
+            head.transform.position = transform.TransformPoint(new Vector3(0, 0, headOffset));
+            head.transform.rotation = transform.rotation;
+
 
             float tailOffset = (bodySize.z / 2.0f) + gap + (tailSize.z / 2.0f);
-            tail.transform.position = transform.position + new Vector3(0, 0, -tailOffset);
+            tail.transform.position = transform.TransformPoint(new Vector3(0, 0, -tailOffset));
+            tail.transform.rotation = transform.rotation;
 
             head.transform.parent = transform;
             tail.transform.parent = transform;
@@ -155,6 +157,36 @@ namespace BGE.Forms
             head.transform.rotation = transform.rotation;
             body.transform.rotation = transform.rotation;
             tail.transform.rotation = transform.rotation;
+            /* bodySize = body.GetComponent<Renderer>().bounds.size;
+             headSize = head.GetComponent<Renderer>().bounds.size;
+             tailSize = tail.GetComponent<Renderer>().bounds.size;
+
+             body.transform.position = transform.position;
+             body.transform.rotation = transform.rotation;
+             float headOffset = (bodySize.z / 2.0f) + gap + (headSize.z / 2.0f);
+             head.transform.position = transform.position + new Vector3(0, 0, headOffset);
+             head.transform.rotation = transform.rotation;
+
+
+             float tailOffset = (bodySize.z / 2.0f) + gap + (tailSize.z / 2.0f);
+             tail.transform.position = transform.position + new Vector3(0, 0, -tailOffset);
+             tail.transform.rotation = transform.rotation;
+
+             head.transform.parent = transform;
+             tail.transform.parent = transform;
+             body.transform.parent = transform;
+
+             headRotPoint = head.transform.localPosition;
+             headRotPoint.z -= headSize.z / 2;
+
+             tailRotPoint = tail.transform.localPosition;
+             tailRotPoint.z += tailSize.z / 2;
+
+
+             head.transform.rotation = transform.rotation;
+             body.transform.rotation = transform.rotation;
+             tail.transform.rotation = transform.rotation;
+             */
         }
 
         float oldHeadRot = 0;
