@@ -87,7 +87,7 @@ namespace BGE.Forms
             }
         }
         
-        void FixedUpdate ()
+        void Update ()
         {
             if (suspended || jointType == JointType.Physics)
             {
@@ -133,15 +133,16 @@ namespace BGE.Forms
 
 
             Vector3 wantedPosition = target.transform.TransformPointUnscaled(bondOffset);
-            follower.transform.position = Vector3.Lerp(follower.transform.position, wantedPosition, Time.deltaTime * bondDamping);
+            Vector3 newPos = Vector3.Lerp(follower.transform.position, wantedPosition, Time.deltaTime * bondDamping);
 
             Quaternion wantedRotation;
+            Quaternion newRotation = Quaternion.identity;
             switch (alignmentStrategy)
             {
 
                 case AlignmentStrategy.LookAt:
-                    wantedRotation = Quaternion.LookRotation(target.position - follower.transform.position, target.up);
-                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, Time.deltaTime * angularBondDamping);
+                    wantedRotation = Quaternion.LookRotation(target.position - newPos, target.up);
+                    newRotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, Time.deltaTime * angularBondDamping);
                     break;
                 case AlignmentStrategy.AlignToHead:
                     wantedRotation = target.transform.rotation;
@@ -152,6 +153,7 @@ namespace BGE.Forms
                     follower.transform.localRotation = Quaternion.Slerp(follower.transform.localRotation, wantedRotation, Time.deltaTime * angularBondDamping);
                     break;
             }
+            follower.SetPositionAndRotation(newPos, newRotation);
         }
     }
 
