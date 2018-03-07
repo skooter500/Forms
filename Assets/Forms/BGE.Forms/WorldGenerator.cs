@@ -210,7 +210,7 @@ namespace BGE.Forms
                         tiles[tilename] = tile;
 
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
-
+                        StaticBatchingUtility.Combine(this.gameObject);
                         yield return WaitFor.Frames(Random.Range(1, 3));
                     }
 
@@ -230,7 +230,7 @@ namespace BGE.Forms
                     }
                     //copy new hashtable contents to the working hashtable
                     tiles = newTerrain;
-                    startPos = player.transform.position;
+                    startPos = player.transform.position;                  
                 }
                 yield return null;
                 //determine how far the player has moved since last terrain update
@@ -467,8 +467,7 @@ namespace BGE.Forms
             {
                 ss += ((PerlinNoiseSampler)s).origin + ", ";
             }
-            CreatureManager.Log("World: " + ss);
-            //StaticBatchingUtility.Combine(this.gameObject);
+            CreatureManager.Log("World: " + ss);            
         }
     }
 }

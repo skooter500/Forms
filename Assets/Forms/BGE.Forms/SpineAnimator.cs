@@ -131,8 +131,8 @@ namespace BGE.Forms
                 angularBondDamping = this.angularBondDamping;
             }
 
-        
-            Vector3 wantedPosition = Utilities.TransformPointNoScale(bondOffset, target.transform);
+
+            Vector3 wantedPosition = target.transform.TransformPointUnscaled(bondOffset);
             follower.transform.position = Vector3.Lerp(follower.transform.position, wantedPosition, Time.deltaTime * bondDamping);
 
             Quaternion wantedRotation;

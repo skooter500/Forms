@@ -90,7 +90,7 @@ namespace BGE.Forms
 
         public void Awake()
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = Camera.main.transform;
             CreatureManager.Instance.boids.Add(this);
             multiThreaded = true;
         }
