@@ -146,7 +146,6 @@ class MoveCloseToPlayer : State
             nw.SetActive(false);
         }
         boid.GetComponent<Constrain>().SetActive(false);
-        boid.GetComponent<Seek>().target = pos;
     }
 
     public override void Exit()
