@@ -1,0 +1,76 @@
+Camera Transitions 1.11
+--------------------------
+- New transition 'Cross Zoom'.
+- Add events at start, progress and end a transition.
+- New 'Center' parameter in 'Smooth Circle'.
+- Fixed a bug with reflexions in some mobile devices (thanks again Dimitry Skornyakov!).
+- Fixed a bug when launch a transition when another is still running (thanks to Martin Maurer!).
+- Small improvements and fixes.
+
+Camera Transitions 1.10
+--------------------------
+- New transition 'Warp Wave'.
+- Option to invert the Y axis of the RenderTexture.
+- New options for Flip and Fold transitions.
+- Small improvements and fixes.
+
+Camera Transitions 1.9
+--------------------------
+- New transition 'Flip'.
+- Transition fallback, used when the current transition fails (thanks Dimitry Skornyakov!).
+- 'CameraTransition.CheckTransition()' method to detect if a transition effect is supported on the current hardware.
+- Improved error handling.
+- Small improvements and fixes.
+
+Camera Transitions 1.8
+--------------------------
+- New transition 'Gate'.
+- New update mode in 'Advanced settings'.
+- Small improvements and fixes.
+
+Camera Transitions 1.7
+--------------------------
+- New transition 'Swap'.
+
+Camera Transitions 1.6
+--------------------------
+- New transition 'Mosaic'.
+- New transition 'Page Curl Advanced'. A more configurable version of 'Page Curl'.
+- 'Page Curl' option to disable shadows.
+- 'Page Curl' angle from 0º to 180º.
+- Better support for mobile devices.
+- Fixed a bug with 'Page Curl' in mobile devices (thanks Dimitry Skornyakov!).
+- Fixed a bug in 'CameraTransitionsAssistant'.
+- API BREAK CHANGE: 'Cube.Elevantion' changed to 'Cube.Elevation'.
+
+Camera Transitions 1.5
+--------------------------
+- New transition 'Doom'.
+- Easing in/out equations.
+- Manual control progress.
+
+Camera Transitions 1.4
+--------------------------
+- New transition 'Cube'.
+
+Camera Transitions 1.3
+--------------------------
+- New transition 'Valentine'.
+
+Camera Transitions 1.2
+--------------------------
+- New transition 'Glitch'.
+- Added 'Advanced settings' to 'Camera Transition'.
+- Added a button to launch transitions in the assistant (Editor only).
+- Small improvements and fixes.
+
+Camera Transitions 1.1
+--------------------------
+- New transition 'Page Curl'.
+- New assistant to make easy transitions.
+- New demo.
+- Small improvements and fixes.
+
+Camera Transitions 1.0
+--------------------------
+- Initial release.
