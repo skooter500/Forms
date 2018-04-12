@@ -112,7 +112,7 @@ namespace BGE.Forms
                         lc.FadeIn();
                     }
                     // Wait for a frame
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     // Suspend any that we dont need                    
                 }
                 while (alive.Count > targetCreatureCount)
@@ -175,11 +175,12 @@ namespace BGE.Forms
                 return;
             }
             targetCreatureCount = Random.Range(minBoidCount, maxBoidCount);
+            StartCoroutine(ManageSchool());
         }
 
         void OnEnable()
         {
-            StartCoroutine(ManageSchool());
+            
         }
     }
 }

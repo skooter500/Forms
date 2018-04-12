@@ -19,6 +19,8 @@ namespace BGE.Forms
         GameObject player;
         ViveController viveController;
 
+        CameraTransitionController ctc;
+
         bool waiting = false;
 
         float distance = 500;
@@ -36,6 +38,7 @@ namespace BGE.Forms
         void Start() {
             player = GameObject.FindGameObjectWithTag("Player");
             viveController = player.GetComponent<ViveController>();
+            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
             
         }
 
@@ -95,6 +98,7 @@ namespace BGE.Forms
                     waiting = true;
                     Debug.Log("Waiting...");
                     //boid.enabled = false;
+                    //ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(20, 30));
                     boid.enabled = true;
                     Debug.Log("Finding new target...");
@@ -105,6 +109,7 @@ namespace BGE.Forms
                     transform.rotation = player.transform.rotation;
                     boid.UpdateLocalFromTransform();
                     Utilities.SetActive(seek, true);
+                    //ctc.ShowLeftEffect();
                 }
                 yield return new WaitForSeconds(1);
             }

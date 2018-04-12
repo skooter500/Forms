@@ -28,6 +28,9 @@ namespace BGE.Forms
 
         public int targetCreatureCount = 100;
 
+        [Range(0, 1)]
+        public float preferredTimeDelta = 0;
+
         public virtual void Teleport(Vector3 newHome, Vector3 trans, Boid calculationBoid)
         {
             SchoolGenerator sg = GetComponent<SchoolGenerator>();
