@@ -75,6 +75,8 @@ namespace BGE.Forms
 
         public float surfaceHeight = 6000;
 
+        public GameObject cannibisPrefab;
+
         public Sampler[] GetSamplers()
         {
             return samplers ?? (samplers = GetComponents<Sampler>());
@@ -402,6 +404,13 @@ namespace BGE.Forms
             surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             tile.isStatic = true;
             surface.isStatic = true;
+
+            /*GameObject can = GameObject.Instantiate<GameObject>(cannibisPrefab);
+            float y = SamplePos(tile.transform.position.x, tile.transform.position.z);
+            can.transform.position = new Vector3(tile.transform.position.x, y, tile.transform.position.z);
+            can.transform.parent = this.transform;
+            can.SetActive(true);
+            */
             return tile;
         }
 
