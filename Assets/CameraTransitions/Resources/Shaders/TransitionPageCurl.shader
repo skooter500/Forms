@@ -1,28 +1,19 @@
 ﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Camera Transitions.
-//
 // Copyright (c) Ibuprogames <hello@ibuprogames.com>. All rights reserved.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+// IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// http://unity3d.com/support/documentation/Components/SL-Shader.html
 Shader "Hidden/Camera Transitions/Page Curl"
 {
-	// http://unity3d.com/support/documentation/Components/SL-Properties.html
 	Properties
 	{
 		_MainTex("Base (RGB)", 2D) = "white" {}
-
     _SecondTex("Second (RGB)", 2D) = "white" {}
 
-    // Transition.
     _T("Amount", Range(0.0, 1.0)) = 1.0
 	}
 
@@ -30,26 +21,22 @@ Shader "Hidden/Camera Transitions/Page Curl"
   #include "UnityCG.cginc"
   #include "CameraTransitionsCG.cginc"
 
-  sampler2D _MainTex;
-  sampler2D _SecondTex;
-
-	half _T;
-	half _Radius;
-	half2 _Angle;
+	float _Radius;
+	float2 _Angle;
   int _Obtuse;
 
-	half2 PageCurl(half t, half maxt, half cyl)
+	float2 PageCurl(float t, float maxt, float cyl)
 	{
-		half2 ret = half2(t, 1.0);
+		float2 ret = float2(t, 1.0);
 
     if (t < cyl - _Radius)
         return ret;
 
 		if (t > cyl + _Radius)
-      return half2(-1.0, -1.0);
+      return float2(-1.0, -1.0);
 
-		half a = asin((t - cyl) / _Radius);
-		half ca = -a + _PI;
+		float a = asin((t - cyl) / _Radius);
+		float ca = -a + _PI;
 
 		ret.x = cyl + ca * _Radius;
 		ret.y = cos(ca);
@@ -58,46 +45,52 @@ Shader "Hidden/Camera Transitions/Page Curl"
 			return ret;
 
 		if (t < cyl)
-			return half2(t, 1.0);
+			return float2(t, 1.0);
 
 		ret.x = cyl + a * _Radius;
 		ret.y = cos(a);
 
-    return (ret.x < maxt) ? ret : half2(-1.0, -1.0);
+    return (ret.x < maxt) ? ret : float2(-1.0, -1.0);
   }
 
-	half4 frag(v2f_img i) : COLOR
+	float4 frag(v2f_img i) : COLOR
 	{
-    half2 uv = (_Obtuse == 0) ? i.uv : half2(1.0 - i.uv.x, i.uv.y);
+    float2 uv = (_Obtuse == 0) ? i.uv : float2(1.0 - i.uv.x, i.uv.y);
 
-		half2 angle = _Angle * _T;
-		half d = length(angle * (1.0 + 4.0 * _Radius)) - 2.0 * _Radius;
-		half3 cyl = half3(normalize(angle), d);
+		float2 angle = _Angle * _T;
+		float d = length(angle * (1.0 + 4.0 * _Radius)) - 2.0 * _Radius;
+		float3 cyl = float3(normalize(angle), d);
 
 		d = dot(uv, cyl.xy);
-    half2 end = abs((1.0 - uv) / cyl.xy);
-		half maxt = d + min(end.x, end.y);
-		half2 cf = PageCurl(d, maxt, cyl.z);
-    half2 tuv = i.uv + cyl.xy * (cf.x - d);
+    float2 end = abs((1.0 - uv) / cyl.xy);
+		float maxt = d + min(end.x, end.y);
+		float2 cf = PageCurl(d, maxt, cyl.z);
+    float2 tuv = i.uv + cyl.xy * (cf.x - d);
 
-		half shadow = 1.0 - smoothstep(0.0, _Radius * 2.0, -(d - cyl.z));
+		float shadow = 1.0 - smoothstep(0.0, _Radius * 2.0, -(d - cyl.z));
 		shadow *= (smoothstep(-_Radius, _Radius, (maxt - (cf.x + 1.5 * _PI * _Radius + _Radius))));
 
-		half3 from = tex2D(_SecondTex, FixUV(tuv)).rgb;
+#if MODE_REVERSE
+		float3 from = tex2D(_MainTex, RenderTextureUV(tuv)).rgb;
+#else
+		float3 from = tex2D(_SecondTex, RenderTextureUV(tuv)).rgb;
+#endif
 		from = cf.y > 0.0 ? from * cf.y * (1.0 - shadow) : (from * 0.25 + 0.75) * (-cf.y);
 
 		shadow = smoothstep(0.0, _Radius * 2.0, (d - cyl.z));
 
-		half3 to = tex2D(_MainTex, i.uv).rgb * shadow;
+#if MODE_REVERSE
+		float3 to = tex2D(_SecondTex, i.uv).rgb * shadow;
+#else
+		float3 to = tex2D(_MainTex, i.uv).rgb * shadow;
+#endif
 
-		return half4(cf.x > 0.0 ? from : to, 1.0);
+		return float4(cf.x > 0.0 ? from : to, 1.0);
 	}
   ENDCG
 
-  // Techniques (http://unity3d.com/support/documentation/Components/SL-SubShader.html).
   SubShader
 	{
-		// Tags (http://docs.unity3d.com/Manual/SL-CullAndDepth.html).
 		ZTest Always
 		Cull Off
 		ZWrite Off
@@ -108,6 +101,7 @@ Shader "Hidden/Camera Transitions/Page Curl"
 			CGPROGRAM
       #pragma fragmentoption ARB_precision_hint_fastest
       #pragma target 3.0
+      #pragma multi_compile ___ MODE_REVERSE
       #pragma multi_compile ___ INVERT_RENDERTEXTURE
       #pragma vertex vert_img
       #pragma fragment frag

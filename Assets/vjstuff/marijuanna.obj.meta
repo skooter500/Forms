@@ -14,6 +14,7 @@ ModelImporter:
     2300000: Cannabis
     3300000: Cannabis
     4300000: Cannabis
+    11100000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -88,7 +89,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

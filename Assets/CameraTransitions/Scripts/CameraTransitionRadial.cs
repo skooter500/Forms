@@ -1,57 +1,66 @@
 ﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Camera Transitions.
-//
 // Copyright (c) Ibuprogames <hello@ibuprogames.com>. All rights reserved.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+// IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using UnityEngine;
 
-namespace CameraTransitions
+namespace Ibuprogames
 {
-  /// <summary>
-  /// Radial transition.
-  /// </summary>
-  public sealed class CameraTransitionRadial : CameraTransitionBase
+  namespace CameraTransitionsAsset
   {
     /// <summary>
-    /// Clockwise?
+    /// Radial transition.
     /// </summary>
-    public bool Clockwise
+    public sealed class CameraTransitionRadial : CameraTransitionBase
     {
-      get { return clockwise; }
-      set { clockwise = value; }
-    }
+      /// <summary>
+      /// Clockwise? Default true.
+      /// </summary>
+      public bool Clockwise
+      {
+        get { return clockwise; }
+        set { clockwise = value; }
+      }
 
-    [SerializeField, HideInInspector]
-    private bool clockwise = true;
+      [SerializeField]
+      private bool clockwise = true;
 
-    private const string variableClockwise = @"_Clockwise";
+      private const string variableClockwise = @"_Clockwise";
 
-    /// <summary>
-    /// Set the default values of the shader.
-    /// </summary>
-    public override void ResetDefaultValues()
-    {
-      base.ResetDefaultValues();
+      /// <summary>
+      /// Set the default values of the shader.
+      /// </summary>
+      public override void ResetDefaultValues()
+      {
+        base.ResetDefaultValues();
 
-      clockwise = true;
-    }
+        clockwise = true;
+      }
 
-    /// <summary>
-    /// Set the values to shader.
-    /// </summary>
-    protected override void SendValuesToShader()
-    {
-      base.SendValuesToShader();
+      /// <summary>
+      /// Set parameters.
+      /// </summary>
+      public override void SetParameters(object[] parameters)
+      {
+        if (parameters.Length == 1 && parameters[0].GetType() == typeof(bool))
+          Clockwise = (bool)parameters[0];
+        else
+          Debug.LogWarning(@"[Ibuprogames.CameraTransitions] Effect 'Radial' required parameters: clockwise (bool).");
+      }
 
-      material.SetFloat(variableClockwise, clockwise == true ? 1.0f : -1.0f);
+      /// <summary>
+      /// Set the values to shader.
+      /// </summary>
+      protected override void SendValuesToShader()
+      {
+        base.SendValuesToShader();
+
+        material.SetFloat(variableClockwise, clockwise == true ? 1.0f : -1.0f);
+      }
     }
   }
 }

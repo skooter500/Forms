@@ -23,7 +23,7 @@ namespace BGE.Forms
 
         public enum TextureMode { Shader, CSharp }
 
-        public TextureMode textureMode = TextureMode.Shader;
+        public TextureMode textureMode = TextureMode.CSharp;
 
         public float targetAlpha = 1.0f;
 

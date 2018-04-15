@@ -1,53 +1,39 @@
 ﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Camera Transitions.
-//
 // Copyright (c) Ibuprogames <hello@ibuprogames.com>. All rights reserved.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+// IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// http://unity3d.com/support/documentation/Components/SL-Shader.html
 Shader "Hidden/Camera Transitions/Doom"
 {
-  // http://unity3d.com/support/documentation/Components/SL-Properties.html
   Properties
   {
     _MainTex("Base (RGB)", 2D) = "white" {}
-
     _SecondTex("Second (RGB)", 2D) = "white" {}
 
-	  // Transition.
     _T("Amount", Range(0.0, 1.0)) = 1.0
   }
 
   CGINCLUDE
   #include "UnityCG.cginc"
-
   #include "CameraTransitionsCG.cginc"
 
-  sampler2D _MainTex;
-  sampler2D _SecondTex;
+  int _BarWidth;
+  float _Amplitude;
+  float _Noise;
+  float _Frequency;
 
-  half _T;
-  half _BarWidth;
-  half _Amplitude;
-  half _Noise;
-  half _Frequency;
-  
-  inline half Wave(int num)
+  inline float Wave(int num)
   {
-    half fn = half(num) * _Frequency * 0.1 * _BarWidth;
+    float fn = float(num) * _Frequency * 0.1 * float(_BarWidth);
     
     return cos(fn * 0.5) * cos(fn * 0.13) * sin((fn + 10.0) * 0.3) / 2.0 + 0.5;
   }
 
-  inline half BarPosition(int num)
+  inline float BarPosition(int num)
   {
     if (_Noise == 0.0)
       return Wave(num);
@@ -55,36 +41,39 @@ Shader "Hidden/Camera Transitions/Doom"
     return lerp(Wave(num), Rand01(num), _Noise);
   }
 
-  half4 frag(v2f_img i) : COLOR
+  float4 frag(v2f_img i) : COLOR
   {
-    i.uv = FixUV(i.uv);
+    float2 uv = i.uv * _ScreenParams.xy;
 
-    half2 uv = i.uv * _ScreenParams.xy;
+    int bar = uv.x / (float)_BarWidth;
+    float scale = 1.0 + BarPosition(bar) * _Amplitude;
+    float phase = _T * scale;
 
-    int bar = uv.x / _BarWidth;
-    half scale = 1.0 + BarPosition(bar) * _Amplitude;
-    half phase = _T * scale;
-
-    half2 p;
-    half3 pixel;
+    float2 p;
+    float3 pixel;
     
     if (phase + i.uv.y < 1.0)
     {
-      p = half2(uv.x, uv.y + lerp(0.0, _ScreenParams.y, phase)) / _ScreenParams.xy;
-      pixel = tex2D(_MainTex, FixUV(p)).rgb;
+      p = float2(uv.x, uv.y + lerp(0.0, _ScreenParams.y, phase)) / _ScreenParams.xy;
+#if MODE_REVERSE
+      pixel = tex2D(_SecondTex, p).rgb;
+#else
+      pixel = tex2D(_MainTex, p).rgb;
+#endif
     }
     else
-      pixel = tex2D(_SecondTex, i.uv).rgb;
+#if MODE_REVERSE
+      pixel = tex2D(_MainTex, RenderTextureUV(i.uv)).rgb;
+#else
+      pixel = tex2D(_SecondTex, RenderTextureUV(i.uv)).rgb;
+#endif
 
-    return half4(pixel, 1.0);
+    return float4(pixel, 1.0);
   }
-
   ENDCG
 
-  // Techniques (http://unity3d.com/support/documentation/Components/SL-SubShader.html).
   SubShader
   {
-    // Tags (http://docs.unity3d.com/Manual/SL-CullAndDepth.html).
     ZTest Always
     Cull Off
     ZWrite Off
@@ -95,6 +84,7 @@ Shader "Hidden/Camera Transitions/Doom"
       CGPROGRAM
       #pragma fragmentoption ARB_precision_hint_fastest
       #pragma target 3.0
+      #pragma multi_compile ___ MODE_REVERSE
       #pragma multi_compile ___ INVERT_RENDERTEXTURE
       #pragma vertex vert_img
       #pragma fragment frag

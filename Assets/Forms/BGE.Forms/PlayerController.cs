@@ -157,8 +157,7 @@ namespace BGE.Forms
                         viveController.enabled = true;
                         player.GetComponent<ForceController>().enabled = true;
                         player.GetComponent<ForceController>().desiredRotation =
-                            Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-
+                            Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
                         if (viveController.boid == null)
                         {
                             boid.enabled = false;

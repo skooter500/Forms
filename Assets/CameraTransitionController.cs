@@ -1,24 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CameraTransitions;
+using Ibuprogames.CameraTransitionsAsset;
+using BGE.Forms;
 
 public class CameraTransitionController : MonoBehaviour {
 
     public GameObject audioThing;
+
     CameraTransition cameraTransition;
     public List<GameObject> leftEffects = new List<GameObject>();
     public List<GameObject> rightEffects = new List<GameObject>();
     public int nextLeft = 0;
     public int nextRight = 0;
+
+    public enum State {FadeIn, FadeOut, Normal };
+
+    public State state = State.Normal;
     // Use this for initialization
     void Start () {
         cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
         cameraTransition.ProgressMode = CameraTransition.ProgressModes.Manual;
         if (cameraTransition == null)
             Debug.LogWarning(@"CameraTransition not found.");
-        cameraTransition.DoTransition(CameraTransitionEffects.FadeToColor, cameraA, cameraB, 2.0f, new object[] { 0.0f, Color.clear});
-
+        cameraTransition.DoTransition(CameraTransitionEffects.Simple, cameraA, cameraB, 2.0f, false, null);
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -33,12 +38,17 @@ public class CameraTransitionController : MonoBehaviour {
 
     [Range (0, 0.99f)]
     public float progress = 0;
+    
+    public float overlayOpacity = 0.4f;
+    public float fadeTime = 1.0f;
 
-    float targetProgress = 0;
+    float t = 0;
+
+    //public enum State {S
 
     public void ShowLeftEffect()
     {
-        targetProgress = 0.55f;
+        state = State.FadeIn;
         leftEffects[nextLeft].SetActive(true);
         audioThing.SetActive(true);
         if (hideCr != null ) StopCoroutine(hideCr);
@@ -46,7 +56,7 @@ public class CameraTransitionController : MonoBehaviour {
 
     public void ShowRightEffect()
     {
-        targetProgress = 0.55f;
+        state = State.FadeIn;
         rightEffects[nextRight].SetActive(true);
         audioThing.SetActive(true);
         if (hideCr != null) StopCoroutine(hideCr);
@@ -56,10 +66,10 @@ public class CameraTransitionController : MonoBehaviour {
     public void HideEffect()
     {
         Debug.Log("Hiding effect");
-        targetProgress = 0;
-        StartCoroutine(DisableEffectAfter(leftEffects[nextLeft], 3));
-        StartCoroutine(DisableEffectAfter(rightEffects[nextRight], 3));
-        hideCr = StartCoroutine(DisableEffectAfter(audioThing, 3));
+        state = State.FadeOut;
+        StartCoroutine(DisableEffectAfter(leftEffects[nextLeft], fadeTime));
+        StartCoroutine(DisableEffectAfter(rightEffects[nextRight], fadeTime));
+        hideCr = StartCoroutine(DisableEffectAfter(audioThing, fadeTime));
         nextLeft = (nextLeft + 1) % leftEffects.Count;
         nextRight = (nextRight + 1) % rightEffects.Count;
     }
@@ -67,10 +77,9 @@ public class CameraTransitionController : MonoBehaviour {
     Coroutine hideCr = null;
 
     void Update () {
-        cameraTransition.Progress = progress;
         if (Input.GetKeyDown(KeyCode.Joystick1Button8))
         {
-            if (progress < 0.4)
+            if (cameraTransition.Progress  < overlayOpacity - 0.05f)
             {
                 ShowLeftEffect();
             }
@@ -81,7 +90,7 @@ public class CameraTransitionController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Joystick1Button9))
         {
-            if (progress < 0.4)
+            if (cameraTransition.Progress  < overlayOpacity - 0.05f)
             {
                 ShowRightEffect();
             }
@@ -90,7 +99,26 @@ public class CameraTransitionController : MonoBehaviour {
                 HideEffect();
             }
         }
-        progress = Mathf.Lerp(progress, targetProgress, Time.deltaTime * .5f);
+        switch (state)
+        {
+            case State.FadeIn:
+                t += (Time.deltaTime * (1.0f / fadeTime));
+                if (t >= 1.0f)
+                {
+                    t = 1.0f;
+                    state = State.Normal;
+                }
+                break;
+            case State.FadeOut:
+                t -= (Time.deltaTime * (1.0f / fadeTime));
+                if (t <= 0.0f)
+                {
+                    t = 0;
+                    state = State.Normal;
+                }
+                break;
+        }
+        cameraTransition.Progress = Utilities.Map(t, 0, 1, 0.0f, overlayOpacity);
 
     }
 
