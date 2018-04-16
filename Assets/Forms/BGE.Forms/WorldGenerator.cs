@@ -405,14 +405,13 @@ namespace BGE.Forms
             tile.isStatic = true;
             surface.isStatic = true;
 
-            /*
+            
             GameObject can = GameObject.Instantiate<GameObject>(cannibisPrefab);
             float y = SamplePos(tile.transform.position.x, tile.transform.position.z);
             can.transform.position = new Vector3(tile.transform.position.x, y, tile.transform.position.z);
             can.transform.parent = this.transform;
             can.SetActive(true);
-            */        
-
+            
             return tile;
         }
 
