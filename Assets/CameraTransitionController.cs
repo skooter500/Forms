@@ -48,6 +48,7 @@ public class CameraTransitionController : MonoBehaviour {
 
     public void ShowLeftEffect()
     {
+        Debug.Log("Showing Left Effect");
         state = State.FadeIn;
         leftEffects[nextLeft].SetActive(true);
         audioThing.SetActive(true);
@@ -56,6 +57,7 @@ public class CameraTransitionController : MonoBehaviour {
 
     public void ShowRightEffect()
     {
+        Debug.Log("Showing RightEffect");
         state = State.FadeIn;
         rightEffects[nextRight].SetActive(true);
         audioThing.SetActive(true);
