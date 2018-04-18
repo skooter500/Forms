@@ -229,14 +229,15 @@ namespace BGE.Forms
             }
         }
 
-        private void Teleport(GameObject newcreature, Vector3 newPos)
+        private void Teleport(GameObject creature, Vector3 newPos)
         {
-            Vector3 boidPos = GetCreaturePosition(newcreature);
-            if (newcreature.GetComponent<SchoolGenerator>() == null)
+            Vector3 boidPos = GetCreaturePosition(creature);
+            if (creature.GetComponent<SchoolGenerator>() == null)
             {
+
                 Vector3 trans = newPos - boidPos;
-                newcreature.transform.position += trans;
-                Boid boid = Utilities.FindBoidInHierarchy(newcreature);
+                creature.transform.position += trans;
+                Boid boid = Utilities.FindBoidInHierarchy(creature);
                 // Translate it to the new position                            
                 //boid.transform.position = newPos;
                 boid.position = boid.transform.position; // The boid
@@ -247,16 +248,16 @@ namespace BGE.Forms
                     boid.GetComponent<Constrain>().centre = newPos;
                 }
 
-                if (newcreature.GetComponentInChildren<CreatureController>())
+                if (creature.GetComponentInChildren<CreatureController>())
                 {
-                    newcreature.GetComponentInChildren<CreatureController>().Restart();
+                    creature.GetComponentInChildren<CreatureController>().Restart();
                 }
 
                 if (boid.GetComponent<TrailRenderer>() != null)
                 {
                     boid.GetComponent<TrailRenderer>().Clear();
                 }
-                FormationGenerator fg = newcreature.GetComponent<FormationGenerator>();                
+                FormationGenerator fg = creature.GetComponent<FormationGenerator>();                
                 if (fg != null)
                 {                    
                     fg.GeneratePositions();
@@ -265,7 +266,7 @@ namespace BGE.Forms
             }
             else
             {
-                newcreature.transform.position = newPos;
+                creature.transform.position = newPos;
             }
         }
 

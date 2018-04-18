@@ -1,21 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class TestVideoPlayer : MonoBehaviour {
 
     public RenderTexture texture;
     public Camera camera;
 
+    public string path = "../vjvids/";
+
+    [HideInInspector]
+    public List<string> videos = new List<string>();
+
+    void LoadVideoFileNames()
+    {
+        DirectoryInfo info = new DirectoryInfo(path);
+        if (!info.Exists)
+        {
+            Directory.CreateDirectory(path);
+        }
+        FileInfo[] fileInfo = info.GetFiles();
+        int last = 0;
+        foreach (FileInfo file in fileInfo)
+        {
+            videos.Add(file.Name);
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+	    vp =  GetComponent<UnityEngine.Video.VideoPlayer>();
+        LoadVideoFileNames();
+    }
 
-    private void OnEnable()
+    public void PlayVideo(int index)
     {
-        UnityEngine.Video.VideoPlayer vp = GetComponent<UnityEngine.Video.VideoPlayer>();
-        vp.url = "../vjvids/gf1.mp4";
+        Debug.Log("Playing video: " + index + " path: " + vp.url);
+        vp.url = path + videos[index];
         vp.frame = 0;
         vp.isLooping = true;
         //vp.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
@@ -23,8 +46,16 @@ public class TestVideoPlayer : MonoBehaviour {
         vp.Play();
     }
 
+    public void OnDisable()
+    {
+        vp.Stop();
+    }
+
+    UnityEngine.Video.VideoPlayer vp;
+    
+
     // Update is called once per frame
     void Update () {
-		
+        BGE.Forms.CreatureManager.Log("Videos: " + videos);
 	}
 }

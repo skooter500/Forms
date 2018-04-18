@@ -94,6 +94,16 @@ namespace BGE.Forms
                 Fly(-Time.deltaTime * speed);
             }
 
+            if (Input.GetKey(KeyCode.Joystick1Button5))
+            {
+                Fly(speed * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.Joystick1Button4))
+            {
+                Fly(-speed * Time.deltaTime);
+            }
+
 
 
             mouseX = Input.GetAxis("Mouse X");
