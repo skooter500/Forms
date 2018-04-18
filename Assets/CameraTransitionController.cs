@@ -157,6 +157,7 @@ public class CameraTransitionController : MonoBehaviour
             }
         }
 
+
         switch (state)
         {
             case State.Waiting:
