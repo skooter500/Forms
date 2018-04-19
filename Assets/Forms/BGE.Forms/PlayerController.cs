@@ -99,7 +99,7 @@ namespace BGE.Forms
                     Debug.Log("Waiting...");
                     //boid.enabled = false;
                     //ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(20, 30));
+                    yield return new WaitForSeconds(Random.Range(40, 60));
                     boid.enabled = true;
                     Debug.Log("Finding new target...");
                     waiting = false;
