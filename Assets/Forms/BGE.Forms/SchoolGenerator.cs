@@ -175,12 +175,11 @@ namespace BGE.Forms
                 return;
             }
             targetCreatureCount = Random.Range(minBoidCount, maxBoidCount);
-            StartCoroutine(ManageSchool());
         }
 
         void OnEnable()
         {
-            
+            StartCoroutine(ManageSchool());
         }
     }
 }

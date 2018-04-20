@@ -32,6 +32,14 @@ namespace BGE.Forms
             while (!found)
             {
                 SpawnParameters sp = creature.GetComponent<SpawnParameters>();
+
+                if (sp == null)
+                {
+                    Debug.Log("Creature : " + creature + " doesnt have spawn parameters!!!");
+                    found = false;
+                    break;
+                }
+
                 float start = Mathf.Min(sp.start, genesisSpawnDistance);
               
                 Vector3 r = Random.insideUnitSphere;
@@ -194,6 +202,10 @@ namespace BGE.Forms
             }
             else if (sg != null)
             {
+                if (sg.alive.Count == 0)
+                {
+                    Debug.Log("school 0");
+                }
                 return sg.alive[Random.Range(0, sg.alive.Count - 1)].GetComponentInChildren<Boid>().gameObject;
             }
             else if (species.GetComponent<FormationGenerator>() != null)

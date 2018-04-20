@@ -15,6 +15,7 @@ namespace BGE.Forms
         Seek seek;
         Boid boid;
         SceneAvoidance sceneAvoidance;
+        OffsetPursue op;
         public float seekDistange = 5000;
         GameObject player;
         ViveController viveController;
@@ -55,6 +56,7 @@ namespace BGE.Forms
                 boid = GetComponent<Boid>();
                 seek = GetComponent<Seek>();
                 sceneAvoidance = GetComponent<SceneAvoidance>();
+                op = GetComponent<OffsetPursue>();
             }
         }
 
@@ -97,6 +99,9 @@ namespace BGE.Forms
                     boid.damping = 0.5f;
                     waiting = true;
                     Debug.Log("Waiting...");
+                    op.leader = seek.targetGameObject;
+                    op.Start();
+                    Utilities.SetActive(op, true);
                     //boid.enabled = false;
                     //ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(40, 60));
@@ -109,6 +114,7 @@ namespace BGE.Forms
                     transform.rotation = player.transform.rotation;
                     boid.UpdateLocalFromTransform();
                     Utilities.SetActive(seek, true);
+                    Utilities.SetActive(op, false);
                     //ctc.ShowLeftEffect();
                 }
                 yield return new WaitForSeconds(1);
