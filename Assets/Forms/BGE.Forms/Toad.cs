@@ -6,14 +6,17 @@ namespace BGE.Forms
 {
     public class Toad : MonoBehaviour
     {
-        Camera camera;
+        public Camera camera;
 
         float startFOV;
 
         // Use this for initialization
         void Start()
         {
-            camera = Camera.main;
+            if (camera == null)
+            {
+                camera = Camera.main;
+            }
         }
 
         // Update is called once per frame
