@@ -117,6 +117,27 @@ namespace BGE.Forms
             }
         }
 
+        void GenerateFlora(GameObject tile)
+        {
+            if (Random.Range(0.0f, 1.0f) < 0.2)
+            {
+                GameObject can = GameObject.Instantiate<GameObject>(cannibisPrefab);
+                float y = SamplePos(tile.transform.position.x, tile.transform.position.z);
+                can.transform.position = new Vector3(tile.transform.position.x, y, tile.transform.position.z);
+                can.transform.parent = tile.transform;
+                float r = 30;
+                can.transform.rotation = Quaternion.Euler(
+                    Random.Range(-r, r)
+                    , Random.Range(0, 360)
+                    , Random.Range(-r, r)
+                    );
+                float scale = Random.Range(1.5f, 4.0f);
+                can.transform.localScale = new Vector3(scale, scale, scale);
+                can.SetActive(true);
+                can.isStatic = true;
+            }
+        }
+
         void Awake()
         {
             Instance = this;
@@ -210,6 +231,8 @@ namespace BGE.Forms
                         t.name = tilename;
                         Tile tile = new Tile(t, updateTime);
                         tiles[tilename] = tile;
+                        yield return null;
+                        GenerateFlora(t);
 
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
                         StaticBatchingUtility.Combine(this.gameObject);
@@ -403,17 +426,7 @@ namespace BGE.Forms
             surface.transform.parent = tile.transform;
             surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             tile.isStatic = true;
-            surface.isStatic = true;
-
-            
-            /*
-            GameObject can = GameObject.Instantiate<GameObject>(cannibisPrefab);
-            float y = SamplePos(tile.transform.position.x, tile.transform.position.z);
-            can.transform.position = new Vector3(tile.transform.position.x, y, tile.transform.position.z);
-            can.transform.parent = this.transform;
-            can.SetActive(true);
-              */      
-
+            surface.isStatic = true;                              
             return tile;
         }
 
