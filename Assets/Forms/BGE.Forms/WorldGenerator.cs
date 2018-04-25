@@ -119,20 +119,20 @@ namespace BGE.Forms
 
         void GenerateFlora(GameObject tile)
         {
-            if (Random.Range(0.0f, 1.0f) < 0.2)
+            if (Random.Range(0.0f, 1.0f) < 0.1)
             {
                 GameObject can = GameObject.Instantiate<GameObject>(cannibisPrefab);
                 float y = SamplePos(tile.transform.position.x, tile.transform.position.z);
-                can.transform.position = new Vector3(tile.transform.position.x, y, tile.transform.position.z);
+                can.transform.position = new Vector3(tile.transform.position.x, y + 250, tile.transform.position.z);
                 can.transform.parent = tile.transform;
-                float r = 30;
+                float r = 5;
                 can.transform.rotation = Quaternion.Euler(
                     Random.Range(-r, r)
                     , Random.Range(0, 360)
                     , Random.Range(-r, r)
                     );
-                float scale = Random.Range(1.5f, 4.0f);
-                can.transform.localScale = new Vector3(scale, scale, scale);
+                //float scale = Random.Range(1.5f, 4.0f);
+                //can.transform.localScale = new Vector3(scale, scale, scale);
                 can.SetActive(true);
                 can.isStatic = true;
             }
@@ -233,9 +233,9 @@ namespace BGE.Forms
                         tiles[tilename] = tile;
                         yield return null;
                         GenerateFlora(t);
-
+                        yield return null;
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
-                        StaticBatchingUtility.Combine(this.gameObject);
+                        //StaticBatchingUtility.Combine(this.gameObject);
                         yield return WaitFor.Frames(Random.Range(1, 3));
                     }
 
