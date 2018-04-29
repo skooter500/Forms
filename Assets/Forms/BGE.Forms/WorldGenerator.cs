@@ -232,7 +232,7 @@ namespace BGE.Forms
                         Tile tile = new Tile(t, updateTime);
                         tiles[tilename] = tile;
                         yield return null;
-                        GenerateFlora(t);
+                        //GenerateFlora(t);
                         yield return null;
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
                         //StaticBatchingUtility.Combine(this.gameObject);

@@ -91,6 +91,7 @@ namespace BGE.Forms
                         else
                         {
                             newJelly = GameObject.Instantiate<GameObject>(jellyPrefab);
+                            newJelly.SetActive(true);
 							newJelly.transform.parent = this.transform.parent;
                         }
                         newJelly.transform.position = newPos;

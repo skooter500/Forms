@@ -123,7 +123,7 @@ namespace BGE.Forms
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.JoystickButton3))
+            if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
                 switch (controlType)
                 {
