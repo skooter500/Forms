@@ -36,16 +36,16 @@ public class TreeGen : MonoBehaviour {
             {
                 if (stocastic && Random.Range(0.0f, 1.0f) < 0.5f)
                 {
-                    continue;
+                    //continue;
                 }
                 float theta = thetaInc * i;
 
                 Quaternion q = branch.transform.rotation * Quaternion.Euler(
-                    stocastic  ? Random.Range(angle - 30, angle + 30) : angle
+                    stocastic  ? Random.Range(angle - 40, angle + 40) : angle
                     , theta, 0);
 
-                float branchsize = size * branchRatio * (stocastic ? Random.Range(0.6f, 1.4f) : 1.0f);
-                Vector3 p = top + (q * Vector3.up * branchsize * 0.5f);
+                float branchsize = size * branchRatio;
+                Vector3 p = top + (q * Vector3.up * branchsize * 0.7f);
                 GameObject b = CreateBranch(branch.transform, p, q, branchsize, depth + 1);
                 b.transform.parent = this.transform;
             }

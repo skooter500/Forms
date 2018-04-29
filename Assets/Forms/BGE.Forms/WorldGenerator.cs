@@ -231,9 +231,6 @@ namespace BGE.Forms
                         t.name = tilename;
                         Tile tile = new Tile(t, updateTime);
                         tiles[tilename] = tile;
-                        yield return null;
-                        //GenerateFlora(t);
-                        yield return null;
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
                         //StaticBatchingUtility.Combine(this.gameObject);
                         yield return WaitFor.Frames(Random.Range(1, 3));

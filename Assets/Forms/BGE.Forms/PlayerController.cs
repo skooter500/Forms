@@ -91,6 +91,7 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator CheckForNewTarget()
         {
+            float journeyingMult = 10;
             while (true)
             {
                 if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < distance)
@@ -102,6 +103,7 @@ namespace BGE.Forms
                     op.leader = seek.targetGameObject;
                     op.Start();
                     Utilities.SetActive(op, true);
+                    //boid.maxSpeed = 180;
                     //boid.enabled = false;
                     //ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(40, 60));
@@ -109,6 +111,7 @@ namespace BGE.Forms
                     Debug.Log("Finding new target...");
                     waiting = false;
                     boid.damping = 0.01f;
+                    //boid.maxSpeed = 300;
                     seek.targetGameObject = PickNewTarget();
                     transform.position = player.transform.position;
                     transform.rotation = player.transform.rotation;
@@ -140,6 +143,7 @@ namespace BGE.Forms
                         boid.enabled = true;
                         boid.desiredPosition = transform.position;
                         seek.targetGameObject = PickNewTarget();
+                        //boid.maxSpeed = 300;
                         //seek.target = Vector3.zero;
                         seek.SetActive(true);
                         sceneAvoidance.SetActive(true);
