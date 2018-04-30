@@ -58,6 +58,8 @@ namespace BGE.Forms
                             , 0
                             , r.y * playerRadius);
                         newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(50, 1000);
+                        found = true;
+                        /*
                         float dist = Vector3.Distance(Camera.main.transform.position, newPos);
                         RaycastHit rch;
                         bool hit = Physics.Raycast(Camera.main.transform.position
@@ -78,6 +80,7 @@ namespace BGE.Forms
                             found = false;
                             break;
                         }
+                        */
                     }
                     if (found)
                     {

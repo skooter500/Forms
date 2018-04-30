@@ -13,7 +13,8 @@ public class TreeGen : MonoBehaviour {
 
     GameObject CreateBranch(Transform parent, Vector3 position, Quaternion rotation, float size, int depth)
     {
-        GameObject branch = GameObject.CreatePrimitive(PrimitiveType.Cylinder);        
+        GameObject branch = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        branch.layer = this.gameObject.layer;
         branch.transform.position = position;
         branch.transform.rotation = rotation;
         branch.isStatic = true;
@@ -25,6 +26,7 @@ public class TreeGen : MonoBehaviour {
         sphere.transform.position = top;
         sphere.isStatic = true;
         sphere.transform.parent = this.transform;
+        sphere.layer = this.gameObject.layer;
         sphere.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         sphere.GetComponent<Renderer>().receiveShadows = false;
 

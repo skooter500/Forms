@@ -18,6 +18,7 @@ namespace BGE.Forms
         OffsetPursue op;
         public float seekDistange = 5000;
         GameObject player;
+        GameObject creature;
         ViveController viveController;
 
         CameraTransitionController ctc;
@@ -62,12 +63,12 @@ namespace BGE.Forms
 
         GameObject PickNewTarget()
         {
-            GameObject candidate = Mother.Instance.alive[
+            creature = Mother.Instance.alive[
                 Random.Range(0, Mother.Instance.alive.Count)
                 ].gameObject;
 
-            distance = candidate.GetComponent<SpawnParameters>().viewingDistance;
-            return Mother.Instance.GetCreature(candidate);
+            distance = creature.GetComponent<SpawnParameters>().viewingDistance;
+            return Mother.Instance.GetCreature(creature);
             /*
             // Project onto the XZ plane
             Vector3 target = player.transform.forward;
@@ -97,14 +98,20 @@ namespace BGE.Forms
                 if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < distance)
                 {
                     Utilities.SetActive(seek, false);
+                    Utilities.SetActive(op, true);
                     boid.damping = 0.5f;
                     waiting = true;
                     Debug.Log("Waiting...");
                     op.leader = seek.targetGameObject;
-                    op.Start();
-                    Utilities.SetActive(op, true);
-                    //boid.maxSpeed = 180;
-                    //boid.enabled = false;
+                    //op.Start();
+                    // Choose the offset
+                    float distance = creature.GetComponent<SpawnParameters>().viewingDistance;
+                    Vector3 offset = Random.insideUnitSphere * distance;
+                    offset.z = Mathf.Abs(offset.z);
+                    op.offset = offset;
+                    //
+
+                    
                     //ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(40, 60));
                     boid.enabled = true;
@@ -145,7 +152,8 @@ namespace BGE.Forms
                         seek.targetGameObject = PickNewTarget();
                         //boid.maxSpeed = 300;
                         //seek.target = Vector3.zero;
-                        seek.SetActive(true);
+                        Utilities.SetActive(seek, true);
+                        Utilities.SetActive(op, false);
                         sceneAvoidance.SetActive(true);
                         if (boid.GetComponent<Harmonic>() != null)
                         {

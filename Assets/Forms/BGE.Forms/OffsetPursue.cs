@@ -9,7 +9,7 @@ namespace BGE.Forms
         [HideInInspector]
         public Boid leaderBoid;
         public GameObject leader;
-        public Vector3 offset;
+        public Vector3 offset = Vector3.zero;
         private Vector3 targetPos;
 
         public float pitchForceScale = 1;
@@ -23,6 +23,7 @@ namespace BGE.Forms
                 offset = Quaternion.Inverse(leader.transform.rotation) * offset;
                 targetPos = transform.position;
             }
+            Debug.Log("OP start called");
         }
 
         public void OnDrawGizmos()
