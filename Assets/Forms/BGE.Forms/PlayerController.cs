@@ -109,14 +109,16 @@ namespace BGE.Forms
                     float distance = creature.GetComponent<SpawnParameters>().viewingDistance;
                     Vector3 offset = Random.insideUnitSphere * distance;
                     offset.z = Mathf.Abs(offset.z);
+                    offset.y = Mathf.Abs(offset.y);
                     op.offset = offset;
-                    yield return new WaitForSeconds(Random.Range(10, 20));
+                    yield return new WaitForSeconds(Random.Range(40, 60));
                     Debug.Log("New camera");
                     offset = Random.insideUnitSphere * distance;
                     offset.z = Mathf.Abs(offset.z);
+                    offset.y = Mathf.Abs(offset.y);
                     op.offset = offset;
                     //ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(10, 20));
+                    yield return new WaitForSeconds(Random.Range(40, 60));
                     boid.enabled = true;
                     Debug.Log("Finding new target...");
                     waiting = false;
