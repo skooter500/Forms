@@ -101,19 +101,22 @@ namespace BGE.Forms
                     Utilities.SetActive(op, true);
                     boid.damping = 0.5f;
                     waiting = true;
-                    Debug.Log("Waiting...");
+                    Debug.Log("Following..");
                     op.leader = seek.targetGameObject;
+                    op.leaderBoid = seek.targetGameObject.GetComponentInChildren<Boid>();
                     //op.Start();
                     // Choose the offset
                     float distance = creature.GetComponent<SpawnParameters>().viewingDistance;
                     Vector3 offset = Random.insideUnitSphere * distance;
                     offset.z = Mathf.Abs(offset.z);
                     op.offset = offset;
-                    //
-
-                    
+                    yield return new WaitForSeconds(Random.Range(10, 20));
+                    Debug.Log("New camera");
+                    offset = Random.insideUnitSphere * distance;
+                    offset.z = Mathf.Abs(offset.z);
+                    op.offset = offset;
                     //ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(40, 60));
+                    yield return new WaitForSeconds(Random.Range(10, 20));
                     boid.enabled = true;
                     Debug.Log("Finding new target...");
                     waiting = false;

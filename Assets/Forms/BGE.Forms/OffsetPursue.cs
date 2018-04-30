@@ -14,9 +14,11 @@ namespace BGE.Forms
 
         public float pitchForceScale = 1;
 
+        public bool autoAssignOffset = true;
+
         public void Start()
         {
-            if (leader  != null)
+            if (autoAssignOffset && leader  != null)
             {
                 leaderBoid = leader.GetComponentInChildren<Boid>();
                 offset = transform.position - leader.transform.position;

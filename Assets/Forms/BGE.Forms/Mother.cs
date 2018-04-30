@@ -215,7 +215,6 @@ namespace BGE.Forms
             else
             {
                 return Utilities.FindBoidInHierarchy(species).gameObject;
-
             }
         }
 
