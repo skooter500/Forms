@@ -143,6 +143,14 @@ namespace BGE.Forms
                     // Calculate the position
                     Vector3 newPos = Vector3.zero;
                     GameObject newcreature = null;
+
+                    SpawnParameters sp = prefabs[nextCreature].GetComponent<SpawnParameters>();
+                    if (sp.singleton && alive.Contains(prefabs[nextCreature]))
+                    {
+                        nextCreature = (nextCreature + 1) % prefabs.Length;
+                        continue;
+                    }
+
                     if (suspended.ContainsKey(prefabs[nextCreature]))
                     {
                         newcreature = suspended.Get(prefabs[nextCreature]);
@@ -170,7 +178,7 @@ namespace BGE.Forms
                         }
                     }
                     else
-                    {
+                    {                                                
                         if (FindPlace(prefabs[nextCreature], out newPos))
                         {
                             newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos

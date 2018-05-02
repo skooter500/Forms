@@ -164,6 +164,8 @@ namespace BGE.Forms
 
         public bool suspended = false;
 
+        float skippedFrames = 0;
+        float time = 0;
         void FixedUpdate()
         {
             playerPosition = player.position;
@@ -178,6 +180,24 @@ namespace BGE.Forms
             {
                 return;
             }
+
+            if (!inFrontOfPlayer && distanceToPlayer > 1000 && skippedFrames < 10)
+            {
+                skippedFrames++;
+                //CreatureManager.Log("Skipping a frame");
+                return;
+            }
+            if (skippedFrames == 10)
+            {
+
+                skippedFrames = 0;
+                time = Time.deltaTime * 10.0f;
+            }
+            else
+            {
+                time = Time.deltaTime;
+            }
+
             float smoothRate;
 
             if (school != null)
@@ -191,7 +211,7 @@ namespace BGE.Forms
                 force = CalculateForce();
             }
 
-            timeAcc += Time.deltaTime;
+            timeAcc += time;
 
             if (timeAcc > preferredTimeDelta)
             {

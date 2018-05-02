@@ -14,6 +14,8 @@ public class SpawnParameters : MonoBehaviour {
     [HideInInspector]
     public GameObject Species;
 
+    public bool singleton = false;
+
     // Use this for initialization
     void Start () {
 		
