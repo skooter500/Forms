@@ -11,6 +11,7 @@ public class Cruise : MonoBehaviour
     public float hoverForce = 1000;
     public float forwardForce = 1000;
     public LayerMask environment;
+    private CameraTransitionController ctc;
 
     public bool enabled = false;
     // Use this for initialization
@@ -19,6 +20,18 @@ public class Cruise : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Vector3 pos = transform.position;
         preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
+        ctc = FindObjectOfType<CameraTransitionController>();
+    }
+
+    public float wait = 30;
+
+    IEnumerator ControlTransitions()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(wait);
+            //int 
+        }
     }
 
     // Update is called once per frame
