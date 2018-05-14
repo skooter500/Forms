@@ -66,13 +66,12 @@ namespace BGE.Forms
             programmableTexture.Apply();
             texture.wrapMode = TextureWrapMode.Mirror;
 
-        }
+        } 
 
 
         // Use this for initialization
         void Start()
-        {
-            
+        {            
             if (textureMode == TextureMode.Shader)
             {
                 InitializeShaderTexture();
@@ -99,10 +98,12 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
-            
+
+            yield return null;
             children = GetComponentsInChildren<Renderer>();
             foreach (Renderer child in children)
             {
+                child.enabled = true;
                 if (child.material.name.Contains("Trans"))
                 {
                     continue;

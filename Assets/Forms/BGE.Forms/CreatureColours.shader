@@ -7,6 +7,7 @@ Shader "Custom/CreatureColours" {
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_PositionScale("PositionScale", Range(0, 1000)) = 250
 		_Fade("Fade", Range(0, 1)) = 1
+		_Offset("Offset", Float) = 0
 	}
 	SubShader {
 		Tags {"Queue" = "Transparent" "RenderType"="Transparent" }
@@ -29,6 +30,7 @@ Shader "Custom/CreatureColours" {
 		half _Glossiness;
 		half _Metallic;
 		half _Fade;
+		half _Offset;
 
 		float _PositionScale;
 
@@ -42,9 +44,9 @@ Shader "Custom/CreatureColours" {
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			float u,v;			
-			u = abs(IN.worldPos.x / _PositionScale);
+			u = abs((IN.worldPos.x + _Offset) / _PositionScale);
 			//u -= (int)u;
-            v = abs(IN.worldPos.z / _PositionScale);
+            v = abs((IN.worldPos.z + _Offset) / _PositionScale);
 			//v -= (int)v;
 			fixed4 c = tex2D (_MainTex, float2(u,v));
 			o.Albedo = c.rgb;

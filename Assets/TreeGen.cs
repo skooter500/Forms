@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TreeGen : MonoBehaviour {
-
+    public GameObject branchPrefab;
+    public GameObject nodePrefab;
+    
     public float size = 100;
     public float angle = 30;
     public float branchRatio = 0.4f;
@@ -11,26 +13,23 @@ public class TreeGen : MonoBehaviour {
     public int children = 3;
     public bool stocastic = false;
 
-    GameObject CreateBranch(Transform parent, Vector3 position, Quaternion rotation, float size, int depth)
+    GameObject CreateBranch(Vector3 position, Quaternion rotation, float size, int depth)
     {
-        GameObject branch = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        branch.layer = this.gameObject.layer;
+        GameObject branch = GameObject.Instantiate(branchPrefab);
         branch.transform.position = position;
         branch.transform.rotation = rotation;
-        branch.isStatic = true;
-        branch.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        branch.GetComponent<Renderer>().receiveShadows = false;
-        branch.transform.localScale = new Vector3(size * 0.2f, size * 0.5f, size * 0.2f);
+        branch.transform.parent = this.transform;
+        branch.SetActive(true);
+        branch.GetComponentInChildren<Renderer>().enabled = false;
+        branch.transform.localScale = new Vector3(size * 0.2f, size * 0.6f, size * 0.2f);
         Vector3 top = position + (branch.transform.up * size * 0.5f);
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        GameObject sphere = GameObject.Instantiate(nodePrefab);
         sphere.transform.position = top;
         sphere.isStatic = true;
         sphere.transform.parent = this.transform;
-        sphere.layer = this.gameObject.layer;
-        sphere.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        sphere.GetComponent<Renderer>().receiveShadows = false;
-
+        sphere.SetActive(true);
         sphere.transform.localScale = new Vector3(size * 0.3f, size * 0.3f, size * 0.3f);
+        sphere.GetComponentInChildren<Renderer>().enabled = false;
         if (depth < this.depth)
         {
             float thetaInc = 360.0f / (float)children;
@@ -43,13 +42,13 @@ public class TreeGen : MonoBehaviour {
                 float theta = thetaInc * i;
 
                 Quaternion q = branch.transform.rotation * Quaternion.Euler(
-                    stocastic  ? Random.Range(angle - 40, angle + 40) : angle
+                    stocastic  ? Random.Range(angle - 20, angle + 20) : angle
                     , theta, 0);
 
                 float branchsize = size * branchRatio;
                 Vector3 p = top + (q * Vector3.up * branchsize * 0.7f);
-                GameObject b = CreateBranch(branch.transform, p, q, branchsize, depth + 1);
-                b.transform.parent = this.transform;
+                GameObject b = CreateBranch(p, q, branchsize, depth + 1);
+                
             }
         }
         return branch;
@@ -57,8 +56,42 @@ public class TreeGen : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        CreateBranch(this.transform, transform.position, transform.rotation, size, 1).transform.parent = this.transform;
-	}
+        Vector3 pos = Vector3.zero;
+        pos.y += (size / 2);
+        CreateBranch(pos, Quaternion.identity, size, 1).transform.parent = this.transform;
+        CombineMeshes();
+    }
+
+    private void Start()
+    {
+        
+    }
+
+    public void CombineMeshes()
+    {
+        MeshFilter[] mfs = GetComponentsInChildren<MeshFilter>();
+
+        CombineInstance[] cms = new CombineInstance[mfs.Length];
+        for(int i = mfs.Length - 1; i >= 0 ; i --)
+        {
+            cms[i].subMeshIndex = 0;
+            cms[i].mesh = mfs[i].sharedMesh;
+            cms[i].transform = mfs[i].transform.localToWorldMatrix;
+            GameObject.Destroy(mfs[i].gameObject);
+        }
+
+        Mesh mesh = new Mesh();
+        MeshFilter mf = gameObject.AddComponent<MeshFilter>();
+        MeshRenderer mr = gameObject.AddComponent<MeshRenderer>();
+        mesh.CombineMeshes(cms);
+        mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        mr.receiveShadows = false;
+        mf.sharedMesh = mesh;
+        mr.enabled = false;
+        Debug.Log("Vertex count: " + mesh.vertexCount);
+        MeshCollider mc = gameObject.AddComponent<MeshCollider>();
+        mc.sharedMesh = mesh;
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -104,9 +104,9 @@ namespace BGE.Forms
                             , Random.Range(-r, r)
                             );
 
-                        float size = Random.Range(0.5f, 1.3f);
+                        float size = Random.Range(0.7f, 1.0f);
                         newPlant.transform.localScale = new Vector3(size, size, size);
-                        newPos.y += size * 200;
+                        //newPos.y += size * 200;
                         newPlant.transform.position = newPos;
 
                         alive.Add(newPlant);
