@@ -13,15 +13,130 @@ namespace BGE.Forms
         public float playerRadius = 1000;
         public float closeness = 1000;
 
-        public static List<GameObject> alive = new List<GameObject>();
+        public float radius = 5; // width of the square around the player
+        public float gap = 200; // gap between nodes
+
+        public static Dictionary<Vector3, GameObject> alive = new Dictionary<Vector3, GameObject>();
         public static List<GameObject> dead = new List<GameObject>();
 
         public GameObject[] prefabs;
         int nextPlant = 0;
+        public float threshold = 0.6f;
         public GameObject plantPrefab;
 
         public LayerMask environmentLM;
 
+        public GameObject player;
+
+        public void OnDrawGizmos()
+        {
+            Vector3 center = player.transform.position / gap;
+            Sampler s = GetComponent<Sampler>();
+            WorldGenerator wg = FindObjectOfType<WorldGenerator>();
+            center.x = (Mathf.Round(center.x) * gap);
+            center.y = (Mathf.Round(center.y) * gap);
+            center.z = (Mathf.Round(center.z) * gap);
+            Vector3 bottomLeft = center - new Vector3(gap, 0, gap) * radius;
+            for (int row = 0; row <= radius * 2; row++)
+            {
+                for (int col = 0; col <= radius * 2; col++)
+                {
+                    Vector3 pos = bottomLeft + (new Vector3(col, 0, row) * gap);
+                    float sample = s.Sample(pos.x, pos.z);
+                    Debug.Log(pos + " " + sample);
+                    if (sample > threshold)
+                    {
+                        float height = wg.SamplePos(pos.x, pos.z);
+                        pos.y = height;
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawLine(pos, pos + Vector3.up * 200);
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawLine(pos, pos + Vector3.up * 200);
+                    }
+                }
+            }
+        }
+
+        System.Collections.IEnumerator SpawnPlantsNoise()
+        {
+            float delay = 1.0f / (float)spawnRate;
+            WorldGenerator wg = FindObjectOfType<WorldGenerator>();
+            float maxDist = (radius + 1) * gap;
+            while (true)
+            {
+                Vector3 center = player.transform.position / gap;
+                Sampler s = GetComponent<Sampler>();
+                center.x = (Mathf.Round(center.x) * gap);
+                center.y = (Mathf.Round(center.y) * gap);
+                center.z = (Mathf.Round(center.z) * gap);
+                Vector3 bottomLeft = center - new Vector3(gap, 0, gap) * radius;
+
+                foreach (Vector3 treePos in alive.Keys)
+                {
+                    if (Vector3.Distance(treePos, center) > maxDist)
+                    {
+                        dead.Add(alive[treePos]);
+                        alive[treePos].SetActive(false);
+                        alive.Remove(treePos);
+                    }                    
+                }
+                
+                for (int row = 0; row <= radius * 2; row++)
+                {
+                    for (int col = 0; col <= radius * 2; col++)
+                    {
+                        Vector3 pos = bottomLeft + (new Vector3(col, 0, row) * gap);
+                        float sample = s.Sample(pos.x, pos.z);
+                        if (sample > threshold)
+                        {
+                            float height = wg.SamplePos(pos.x, pos.z);
+                            pos.y = height;
+
+                            if (!alive.ContainsKey(pos))
+                            {
+                                GameObject newPlant = null;
+
+                                if (dead.Count > 0)
+                                {
+                                    newPlant = dead[0];
+                                    dead.RemoveAt(0);
+                                }
+                                else
+                                {
+                                    newPlant = GameObject.Instantiate<GameObject>(prefabs[nextPlant]);
+                                    nextPlant = (nextPlant + 1) % prefabs.Length;
+                                }
+                                newPlant.SetActive(true);
+                                newPlant.transform.parent = this.transform.parent;
+                                float r = 20;
+                                newPlant.transform.rotation = Quaternion.Euler(
+                                    Random.Range(-r, r)
+                                    , Random.Range(0, 360)
+                                    , Random.Range(-r, r)
+                                    );
+
+                                float size = Random.Range(0.7f, 1.0f);
+                                newPlant.transform.localScale = new Vector3(size, size, size);
+                                //newPos.y += size * 200;
+                                newPlant.transform.position = pos;
+                                alive.Add(pos, newPlant);
+                                if (newPlant.GetComponent<LifeColours>())
+                                {
+                                    newPlant.GetComponent<LifeColours>().FadeIn();
+                                }
+                                yield return new WaitForSeconds(delay);
+                            }
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(2.0f);
+            }
+        }
+
+        /*
         System.Collections.IEnumerator SpawnPlants()
         {
             float delay = 1.0f / (float)spawnRate;
@@ -124,11 +239,12 @@ namespace BGE.Forms
                 yield return new WaitForSeconds(delay);
             }            
         }
+        */
 
         // Use this for initialization
         void Start()
         {
-            StartCoroutine(SpawnPlants());
+            StartCoroutine(SpawnPlantsNoise());
         }
 
         // Update is called once per frame
