@@ -20,7 +20,6 @@ public class TreeGen : MonoBehaviour {
         branch.transform.rotation = rotation;
         branch.transform.parent = this.transform;
         branch.SetActive(true);
-        branch.GetComponentInChildren<Renderer>().enabled = false;
         branch.transform.localScale = new Vector3(size * 0.2f, size * 0.6f, size * 0.2f);
         Vector3 top = position + (branch.transform.up * size * 0.5f);
         GameObject sphere = GameObject.Instantiate(nodePrefab);
@@ -29,7 +28,6 @@ public class TreeGen : MonoBehaviour {
         sphere.transform.parent = this.transform;
         sphere.SetActive(true);
         sphere.transform.localScale = new Vector3(size * 0.3f, size * 0.3f, size * 0.3f);
-        sphere.GetComponentInChildren<Renderer>().enabled = false;
         if (depth < this.depth)
         {
             float thetaInc = 360.0f / (float)children;

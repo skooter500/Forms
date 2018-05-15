@@ -98,8 +98,6 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
-
-            yield return null;
             children = GetComponentsInChildren<Renderer>();
             foreach (Renderer child in children)
             {
@@ -142,7 +140,9 @@ namespace BGE.Forms
                     }
                     else
                     {
+                        float offs = child.material.GetFloat("_Offset");
                         child.material = opaqueMaterial;
+                        child.material.SetFloat("_Offset", offs);
                         child.material.SetFloat("_PositionScale", colorMapScaling);
                         child.material.mainTexture = texture;
                         child.material.SetFloat("_Fade", targetAlpha);

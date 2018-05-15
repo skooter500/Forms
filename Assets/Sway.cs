@@ -19,8 +19,18 @@ public class Sway : MonoBehaviour {
         axis = Random.insideUnitSphere;
         axis.y = 0;
         axis.Normalize();
-        
-	}
+        if (Random.Range(0.0f, 1.0f) < 0.5f)
+        {
+            colorSpeed = -colorSpeed;
+        }
+        if (Random.Range(0.0f, 1.0f) < 0.5f)
+        {
+            speed = -speed;
+        }
+
+
+
+    }
 
     System.Collections.IEnumerator ColorChange()
     {
@@ -31,7 +41,7 @@ public class Sway : MonoBehaviour {
         {
             foreach (Renderer r in rs)
             {
-                //r.material.SetFloat("_Offset", off * 150);
+                r.material.SetFloat("_Offset", off * 150);
             }
             off += colorSpeed * 0.05f;
             yield return new WaitForSeconds(0.05f);
