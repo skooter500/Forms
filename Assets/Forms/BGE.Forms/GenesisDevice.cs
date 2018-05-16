@@ -16,7 +16,7 @@ namespace BGE.Forms
         public float radius = 5; // width of the square around the player
         public float gap = 200; // gap between nodes
 
-        public static Dictionary<Vector3, GameObject> alive = new Dictionary<Vector3, GameObject>();
+        public static Dictionary<string, GameObject> alive = new Dictionary<string, GameObject>();
         public static List<GameObject> dead = new List<GameObject>();
 
         public GameObject[] prefabs;
@@ -43,7 +43,6 @@ namespace BGE.Forms
                 {
                     Vector3 pos = bottomLeft + (new Vector3(col, 0, row) * gap);
                     float sample = s.Sample(pos.x, pos.z);
-                    Debug.Log(pos + " " + sample);
                     if (sample > threshold)
                     {
                         float height = wg.SamplePos(pos.x, pos.z);
@@ -73,14 +72,22 @@ namespace BGE.Forms
                 center.y = (Mathf.Round(center.y) * gap);
                 center.z = (Mathf.Round(center.z) * gap);
                 Vector3 bottomLeft = center - new Vector3(gap, 0, gap) * radius;
+                Vector3 topRight = center + new Vector3(gap, 0, gap) * radius;
 
-                foreach (Vector3 treePos in alive.Keys)
+                List<string> keys = new List<string>();
+                foreach (string key in alive.Keys)
                 {
-                    if (Vector3.Distance(treePos, center) > maxDist)
+                    keys.Add(key);
+                }
+                foreach(string key in keys)
+                {
+                    GameObject tree = alive[key];
+                    Vector3 tp = tree.transform.position;
+                    if (tp.x < bottomLeft.x || tp.x > topRight.x || tp.z < bottomLeft.z || tp.z > topRight.z)
                     {
-                        dead.Add(alive[treePos]);
-                        alive[treePos].SetActive(false);
-                        alive.Remove(treePos);
+                        dead.Add(tree);
+                        tree.SetActive(false);
+                        alive.Remove(key);
                     }                    
                 }
                 
@@ -95,7 +102,7 @@ namespace BGE.Forms
                             float height = wg.SamplePos(pos.x, pos.z);
                             pos.y = height;
 
-                            if (!alive.ContainsKey(pos))
+                            if (!alive.ContainsKey("" + pos))
                             {
                                 GameObject newPlant = null;
 
@@ -107,6 +114,7 @@ namespace BGE.Forms
                                 else
                                 {
                                     newPlant = GameObject.Instantiate<GameObject>(prefabs[nextPlant]);
+                                    newPlant.transform.parent = this.transform;
                                     nextPlant = (nextPlant + 1) % prefabs.Length;
                                 }
                                 newPlant.SetActive(true);
@@ -122,7 +130,7 @@ namespace BGE.Forms
                                 newPlant.transform.localScale = new Vector3(size, size, size);
                                 //newPos.y += size * 200;
                                 newPlant.transform.position = pos;
-                                alive.Add(pos, newPlant);
+                                alive["" + pos] = newPlant;
                                 if (newPlant.GetComponent<LifeColours>())
                                 {
                                     newPlant.GetComponent<LifeColours>().FadeIn();
@@ -132,7 +140,7 @@ namespace BGE.Forms
                         }
                     }
                 }
-                yield return new WaitForSeconds(2.0f);
+                yield return new WaitForSeconds(0.5f);
             }
         }
 

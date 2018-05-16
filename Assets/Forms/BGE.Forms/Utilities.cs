@@ -239,6 +239,11 @@ namespace BGE.Forms
             return p;
         }
 
+        static public float Manhatten(Vector3 a, Vector3 b)
+        {
+            return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.z - b.z);
+        }
+
 
         static public bool checkNaN(ref Vector3 v, Vector3 def)
         {

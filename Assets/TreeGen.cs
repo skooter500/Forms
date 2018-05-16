@@ -33,14 +33,14 @@ public class TreeGen : MonoBehaviour {
             float thetaInc = 360.0f / (float)children;
             for (int i = 0; i < children; i++)
             {
-                if (stocastic && Random.Range(0.0f, 1.0f) < 0.5f)
+                if (stocastic && Random.Range(0.0f, 1.0f) < 0.1f)
                 {
                     //continue;
                 }
                 float theta = thetaInc * i;
 
                 Quaternion q = branch.transform.rotation * Quaternion.Euler(
-                    stocastic  ? Random.Range(angle - 20, angle + 20) : angle
+                    stocastic  ? Random.Range(angle - 30, angle + 30) : angle
                     , theta, 0);
 
                 float branchsize = size * branchRatio;
