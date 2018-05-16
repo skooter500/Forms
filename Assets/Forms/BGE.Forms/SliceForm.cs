@@ -9,8 +9,6 @@ namespace BGE.Forms
         public Vector2 sliceCount; // The number of slices on each axis
         public Vector2 noiseStart;
         public Vector2 noiseDelta;
-        public Color horizontalColour;
-        public Color verticalColour;
         public bool closed;
         [Range(0, 1)]
         public float noiseToBase;
@@ -58,10 +56,6 @@ namespace BGE.Forms
             sliceCount = new Vector3(10, 10);
             noiseStart = new Vector2(0, 0);
             noiseDelta = new Vector2(0.1f, 0.1f);
-
-            horizontalColour = HexToColor("0x2A59AD");
-            verticalColour = HexToColor("0xFFB429");
-
             closed = true;
             noiseToBase = 0.2f;
         }
@@ -69,38 +63,6 @@ namespace BGE.Forms
         public void OnDrawGizmos()
         {
             Gizmos.DrawWireCube(transform.position, size);
-        }
-
-        public Texture2D CreateTexture()
-        {
-            /*
-        Texture2D texture = new Texture2D(2, 1, TextureFormat.RGBAFloat, false);
-        texture.filterMode = FilterMode.Point;
-
-        texture.SetPixel(0, 0, Color.red);
-        texture.SetPixel(1, 0, Color.green);
-        */
-        
-            int width = 1;
-            int height = 1;
-
-            Texture2D texture = new Texture2D(width, height, TextureFormat.RGBAFloat, false);
-            texture.filterMode = FilterMode.Point;
-
-            Color c = horizontalColour;
-            horizontalColour.a = 0.5f;
-
-            for (int y = 0 ; y < height ; y ++)
-            {
-                for (int x = 0 ; x < width ; x ++)
-                {
-                    texture.SetPixel(x, y, c);
-                    //texture.SetPixel(x, y, (x < width / 2) ? horizontalColour : verticalColour);
-                }
-            }
-        
-            texture.Apply();
-            return texture;
         }
 
         void MaxY(float y)
@@ -123,8 +85,8 @@ namespace BGE.Forms
             baseHeight = size.y - noiseHeight;
 
             MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-            renderer.receiveShadows = true;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
             if (renderer == null)
             {
                 Debug.Log("Renderer is null 1");
@@ -277,11 +239,8 @@ namespace BGE.Forms
             mesh.uv = meshUv;
             mesh.normals = initialNormals;
             mesh.triangles = meshTriangles;
-            mesh.colors = colours;
 
             //mesh.RecalculateNormals();
-
-            renderer.material.color = horizontalColour;
 
             //Shader shader = Shader.Find("Diffuse");
             //Material material = new Material(shader);
@@ -295,11 +254,13 @@ namespace BGE.Forms
             //{
             //    renderer.material = material;
             //}
+            MeshCollider mc = gameObject.AddComponent<MeshCollider>();
+            mc.sharedMesh = mesh;
 
             generated = true;
         }
 	
-        void Start () {
+        void Awake () {
 
             Generate();
 	    

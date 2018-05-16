@@ -31,6 +31,11 @@ public class TreeGen : MonoBehaviour {
         if (depth < this.depth)
         {
             float thetaInc = 360.0f / (float)children;
+
+            float branchsize = size * branchRatio;
+            Vector3 p = top + (branch.transform.rotation * Vector3.up * branchsize * 0.7f);
+            GameObject b = CreateBranch(p, branch.transform.rotation, branchsize, depth + 1);
+
             for (int i = 0; i < children; i++)
             {
                 if (stocastic && Random.Range(0.0f, 1.0f) < 0.1f)
@@ -43,10 +48,8 @@ public class TreeGen : MonoBehaviour {
                     stocastic  ? Random.Range(angle - 30, angle + 30) : angle
                     , theta, 0);
 
-                float branchsize = size * branchRatio;
-                Vector3 p = top + (q * Vector3.up * branchsize * 0.7f);
-                GameObject b = CreateBranch(p, q, branchsize, depth + 1);
-                
+                p = top + (q * Vector3.up * branchsize * 0.7f);
+                b = CreateBranch(p, q, branchsize, depth + 1);                
             }
         }
         return branch;
