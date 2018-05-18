@@ -28,6 +28,10 @@ namespace BGE.Forms
 
         public GameObject player;
 
+        public enum Positioning { Ground, Air }
+
+        public Positioning positioning = Positioning.Ground;
+
         public void OnDrawGizmos()
         {
             Vector3 center = player.transform.position / gap;
@@ -100,7 +104,15 @@ namespace BGE.Forms
                         if (sample > threshold)
                         {
                             float height = wg.SamplePos(pos.x, pos.z);
-                            pos.y = height;
+                            if (positioning == Positioning.Ground)
+                            {
+                                pos.y = height;
+                            }
+                            else
+                            {
+                                float air = ((wg.surfaceHeight + wg.transform.position.y) - height);
+                                pos.y =  height + (air / 2);
+                            }                            
 
                             if (!alive.ContainsKey("" + pos))
                             {

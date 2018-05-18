@@ -61,6 +61,7 @@ public class TreeGen : MonoBehaviour {
         pos.y += (size / 2);
         CreateBranch(pos, Quaternion.identity, size, 1).transform.parent = this.transform;
         CombineMeshes();
+
     }
 
     private void Start()
@@ -90,8 +91,8 @@ public class TreeGen : MonoBehaviour {
         mf.sharedMesh = mesh;
         mr.enabled = false;
         Debug.Log("Vertex count: " + mesh.vertexCount);
-        MeshCollider mc = gameObject.AddComponent<MeshCollider>();
-        mc.sharedMesh = mesh;
+        //MeshCollider mc = gameObject.AddComponent<MeshCollider>();
+        //mc.sharedMesh = mesh;
     }
 	
 	// Update is called once per frame
