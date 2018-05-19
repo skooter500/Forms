@@ -16,8 +16,8 @@ namespace BGE.Forms
         public float radius = 5; // width of the square around the player
         public float gap = 200; // gap between nodes
 
-        public static Dictionary<string, GameObject> alive = new Dictionary<string, GameObject>();
-        public static List<GameObject> dead = new List<GameObject>();
+        public Dictionary<string, GameObject> alive = new Dictionary<string, GameObject>();
+        public List<GameObject> dead = new List<GameObject>();
 
         public GameObject[] prefabs;
         int nextPlant = 0;
