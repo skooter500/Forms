@@ -24,6 +24,7 @@ public class Cruise : MonoBehaviour
     }
 
     public float wait = 30;
+    public float forwardDistance = 1000;
 
     IEnumerator ControlTransitions()
     {
@@ -61,6 +62,14 @@ public class Cruise : MonoBehaviour
         if (rch.distance > preferredHeight + 50)
         {
             rb.AddForce(Vector3.down * hoverForce * Time.deltaTime);
+        }
+
+        // Check for obstacles in front
+        Vector3 f = transform.forward;
+        f.y = 0;
+        if (Physics.Raycast(transform.position, f, forwardDistance, environment))
+        {
+            rb.AddForce(Vector3.up * hoverForce * Time.deltaTime * 3.0f);
         }
 
         Vector3 forwardDir = transform.forward;
