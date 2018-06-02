@@ -13,6 +13,7 @@ namespace BGE.Forms
         public float playerRadius = 1000;
 
         public List<GameObject> alive = new List<GameObject>();
+        private Dictionary<GameObject, GameObject> aliveMap = new Dictionary<GameObject, GameObject>();
         public MultiDictionary<GameObject, GameObject> suspended = new MultiDictionary<GameObject, GameObject>();
         public GameObject[] prefabs;
 
@@ -132,8 +133,10 @@ namespace BGE.Forms
                     {
                         //Debug.Log("Suspending a creature: " + creature);
                         Suspend(creature);
-                        suspended.Add(creature.GetComponent<SpawnParameters>().Species, creature);
+                        GameObject species = creature.GetComponent<SpawnParameters>().Species;
+                        suspended.Add(species, creature);
                         alive.Remove(creature);
+                        aliveMap.Remove(species);
                     }
                 }
 
@@ -145,7 +148,7 @@ namespace BGE.Forms
                     GameObject newcreature = null;
 
                     SpawnParameters sp = prefabs[nextCreature].GetComponent<SpawnParameters>();
-                    if (sp.singleton && alive.Contains(prefabs[nextCreature]))
+                    if (sp.singleton && aliveMap.ContainsKey(prefabs[nextCreature]))
                     {
                         nextCreature = (nextCreature + 1) % prefabs.Length;
                         continue;
@@ -171,6 +174,7 @@ namespace BGE.Forms
                                 sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                             }
                             alive.Add(newcreature);
+                            aliveMap[prefabs[nextCreature]] = newcreature;
                             /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             cube.transform.position = newPos;
                             cube.transform.localScale = Vector3.one * 5;

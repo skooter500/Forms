@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Ibuprogames.CameraTransitionsAsset;
 
 namespace BGE.Forms
 {
@@ -84,6 +85,8 @@ namespace BGE.Forms
 
                 pc.op.leader = pc.creature;
                 pc.op.Start();
+                Utilities.SetActive(pc.sceneAvoidance, true);
+                Utilities.SetActive(pc.op, true);
                 pc.player.transform.position = p;
                 pc.player.transform.rotation =
                     Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
@@ -91,6 +94,14 @@ namespace BGE.Forms
                 Utilities.SetActive(pc.op, true);
                 Utilities.SetActive(pc.seek, false);
                 Utilities.SetActive(pc.sceneAvoidance, true);
+
+                pc.playerCruise.GetComponent<Camera>().enabled = true;
+                pc.cameraTransition.ProgressMode = CameraTransition.ProgressModes.Automatic;
+                pc.cameraTransition.DoTransition(
+                    CameraTransitionEffects.FadeToColor
+                    , pc.playerCruise.GetComponent<Camera>()
+                    , pc.player.GetComponentInChildren<Camera>()
+                    , 1.0f, false, new object[] { 0.5f, Color.black});
             }
 
             public override void Exit()
@@ -99,6 +110,8 @@ namespace BGE.Forms
                 Vector3 euler = q.eulerAngles;
                 q = Quaternion.Euler(euler.x, euler.y, 0);
                 pc.fc.desiredRotation = q;
+                Utilities.SetActive(pc.sceneAvoidance, false);
+                Utilities.SetActive(pc.op, false);
                 //pc.playerBoid.enabled = false;
             }
         }
@@ -124,6 +137,8 @@ namespace BGE.Forms
         ViveController viveController;
         ForceController fc;
         Cruise cruise;
+        CameraTransition cameraTransition;
+
 
         CameraTransitionController ctc;
 
@@ -171,7 +186,12 @@ namespace BGE.Forms
             op = playerBoid.GetComponent<OffsetPursue>();
             
             sm = GetComponent<StateMachine>();
-            sm.ChangeState(new PlayerState());            
+            sm.ChangeState(new PlayerState());
+
+            cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
+            if (cameraTransition == null)
+                Debug.LogWarning(@"CameraTransition not found.");
+
         }
 
         /*void AssignBehaviours()
@@ -192,7 +212,7 @@ namespace BGE.Forms
         }
         */
 
-        
+
         /*
         System.Collections.IEnumerator Journeying()
         {
