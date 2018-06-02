@@ -15,7 +15,8 @@ namespace BGE.Forms
                 pc.controlType = ControlType.Player;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.viveController.enabled = true;
-                pc.player.GetComponent<ForceController>().enabled = true;
+                pc.fc.enabled = true;
+
                 pc.cruise.enabled = false;
             }
             public override void Exit() { }
@@ -26,6 +27,7 @@ namespace BGE.Forms
         {
             PlayerController pc;
             Cruise c;
+            private static bool assigned = false;
             public override void Enter()
             {
                 Debug.Log("Journeying state");
@@ -33,8 +35,21 @@ namespace BGE.Forms
                 pc.controlType = ControlType.Journeying;
                 Vector3 pos = owner.transform.position;
                 c = pc.cruise;
-                c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
+                //c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
                 c.enabled = true;
+
+                if (!assigned)
+                {
+                    assigned = true;
+                    pc.playerCruise.transform.position = pc.player.transform.position;
+                    pc.playerCruise.transform.rotation = pc.player.transform.rotation;
+                }
+                else
+                {
+                    pc.player.transform.position = pc.cruise.transform.position;
+                    pc.player.transform.rotation = pc.cruise.transform.rotation;
+                    pc.fc.desiredRotation = pc.player.transform.rotation;
+                }
             }
 
             public override void Exit()
@@ -53,12 +68,12 @@ namespace BGE.Forms
                 pc.controlType = ControlType.Following;
                 pc.player.GetComponent<Rigidbody>().isKinematic = true;
                 pc.viveController.enabled = false;
-                pc.player.GetComponent<ForceController>().enabled = false;
-                pc.PickNewTarget();                
+                pc.fc.enabled = false;
+                pc.PickNewTarget();
                 // Calculate the position to move to
-                Vector3 lp = Random.insideUnitSphere * pc.distance;
-                lp.z = Mathf.Abs(lp.z);
-                lp.y = 0;
+                float angle = Random.Range(-90, 90);
+                Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
+                lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
                 //
                 pc.playerBoid.enabled = true;
@@ -74,6 +89,7 @@ namespace BGE.Forms
                     Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
 
                 Utilities.SetActive(pc.op, true);
+                Utilities.SetActive(pc.seek, false);
                 Utilities.SetActive(pc.sceneAvoidance, true);
             }
 
@@ -82,7 +98,7 @@ namespace BGE.Forms
                 Quaternion q = Quaternion.LookRotation(pc.op.leaderBoid.transform.position - pc.player.transform.position);
                 Vector3 euler = q.eulerAngles;
                 q = Quaternion.Euler(euler.x, euler.y, 0);
-                pc.player.GetComponent<ForceController>().desiredRotation = q;
+                pc.fc.desiredRotation = q;
                 //pc.playerBoid.enabled = false;
             }
         }
@@ -104,7 +120,9 @@ namespace BGE.Forms
         GameObject player;
         GameObject species;
         GameObject creature;
+        GameObject playerCruise;
         ViveController viveController;
+        ForceController fc;
         Cruise cruise;
 
         CameraTransitionController ctc;
@@ -136,9 +154,14 @@ namespace BGE.Forms
         // Use this for initialization
         void Start() {
             player = GameObject.FindGameObjectWithTag("Player");
+            playerCruise = GameObject.FindGameObjectWithTag("PlayerCruise");
+
+
+            fc = player.GetComponent<ForceController>();
+
             sm = GetComponent<StateMachine>();
             viveController = player.GetComponent<ViveController>();
-            cruise = GetComponent<Cruise>();
+            cruise = playerCruise.GetComponent<Cruise>();
             ctc = GameObject.FindObjectOfType<CameraTransitionController>();
 
 
@@ -241,37 +264,20 @@ namespace BGE.Forms
 
         void FixedUpdate()
         {
-            if (controlType == ControlType.Following)
+            switch (controlType)
             {
-                player.transform.position = playerBoid.transform.position;
-                player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                    , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
-                    , Time.deltaTime
-                );
-            }
-            /*
-                //player.transform.position = Vector3.Lerp(
-                //    player.transform.position
-                //    , this.transform.position
-                //    , Time.deltaTime
-                //    );
-                if (waiting)
-                {
+                case ControlType.Journeying:
+                    player.transform.position = cruise.transform.position;
+                    player.transform.rotation = cruise.transform.rotation;
+                    break;
+                case ControlType.Following:
+                    player.transform.position = playerBoid.transform.position;
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                        , Quaternion.LookRotation(seek.targetGameObject.transform.position - transform.position)
+                        , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
                         , Time.deltaTime
-                        );
-                }
-                else
-                {
-                    //player.transform.rotation = transform.rotation;
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                        , transform.rotation
-                        , Time.deltaTime
-                        );                    
-                }
+                    );
+                    break;
             }
-            */
         }
     }
 }

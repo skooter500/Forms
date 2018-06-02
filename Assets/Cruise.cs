@@ -13,9 +13,15 @@ public class Cruise : MonoBehaviour
     public LayerMask environment;
     private CameraTransitionController ctc;
 
+    private GameObject player;
+
+    
+
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        
         rb = GetComponent<Rigidbody>();
         Vector3 pos = transform.position;
         preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
