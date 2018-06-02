@@ -7,30 +7,34 @@ namespace BGE.Forms
 
         class PlayerState : State
         {
+            PlayerController pc;
+
             public override void Enter()
             {
-
+                pc = owner.GetComponent<PlayerController>();
+                pc.controlType = ControlType.Player;
+                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                pc.viveController.enabled = true;
+                pc.player.GetComponent<ForceController>().enabled = true;
+                pc.cruise.enabled = false;
             }
-            public virtual void Exit() { }
+            public override void Exit() { }
+
         }
 
         class JourneyingState : State
         {
+            PlayerController pc;
             Cruise c;
             public override void Enter()
             {
+                Debug.Log("Journeying state");
+                pc = owner.GetComponent<PlayerController>();
+                pc.controlType = ControlType.Journeying;
                 Vector3 pos = owner.transform.position;
-                c = owner.GetComponent<Cruise>();
+                c = pc.cruise;
                 c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
                 c.enabled = true;
-            }
-
-            public override void Think()
-            {
-                if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
-                {
-                    owner.GetComponent<StateMachine>().ChangeState(new FollowState());
-                }
             }
 
             public override void Exit()
@@ -41,50 +45,64 @@ namespace BGE.Forms
 
         class FollowState : State
         {
+            PlayerController pc;
+            
             public override void Enter()
             {
-                boid.transform.position = player.transform.position;
-                boid.transform.rotation = player.transform.rotation;
-                AssignBehaviours();
-                boid.UpdateLocalFromTransform();
-                player.GetComponent<Rigidbody>().isKinematic = true;
-                viveController.enabled = false;
-                player.GetComponent<ForceController>().enabled = false;
-                boid.enabled = true;
-                boid.desiredPosition = transform.position;
-                seek.targetGameObject = PickNewTarget();
-                //boid.maxSpeed = 300;
-                //seek.target = Vector3.zero;
-                Utilities.SetActive(seek, true);
-                Utilities.SetActive(op, false);
-                sceneAvoidance.SetActive(true);
-                if (boid.GetComponent<Harmonic>() != null)
-                {
-                    boid.GetComponent<Harmonic>().auto = true;
-                }
+                pc = owner.GetComponent<PlayerController>();
+                pc.controlType = ControlType.Following;
+                pc.player.GetComponent<Rigidbody>().isKinematic = true;
+                pc.viveController.enabled = false;
+                pc.player.GetComponent<ForceController>().enabled = false;
+                pc.PickNewTarget();                
+                // Calculate the position to move to
+                Vector3 lp = Random.insideUnitSphere * pc.distance;
+                lp.z = Mathf.Abs(lp.z);
+                lp.y = 0;
+                Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
+                //
+                pc.playerBoid.enabled = true;
+                pc.playerBoid.maxSpeed = 300;
+                pc.playerBoid.desiredPosition = p;
+                pc.playerBoid.transform.position = p;
+                pc.playerBoid.UpdateLocalFromTransform();
 
-                if (boid.GetComponent<PlayerSteering>() != null)
-                {
-                    boid.GetComponent<PlayerSteering>().controlSpeed = false;
-                }
-                if (controlType == ControlType.Automatic && Vector3.Distance(player.transform.position, seek.target) < distance)
-                {
-                    StartCo
-                }
+                pc.op.leader = pc.creature;
+                pc.op.Start();
+                pc.player.transform.position = p;
+                pc.player.transform.rotation =
+                    Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
+
+                Utilities.SetActive(pc.op, true);
+                Utilities.SetActive(pc.sceneAvoidance, true);
             }
 
+            public override void Exit()
+            {
+                Quaternion q = Quaternion.LookRotation(pc.op.leaderBoid.transform.position - pc.player.transform.position);
+                Vector3 euler = q.eulerAngles;
+                q = Quaternion.Euler(euler.x, euler.y, 0);
+                pc.player.GetComponent<ForceController>().desiredRotation = q;
+                //pc.playerBoid.enabled = false;
+            }
+        }
+
         StateMachine sm;
+
+        public enum ControlType { Player, Journeying, Following };
+        public ControlType controlType = ControlType.Player;
 
         public float minHeight = 10;
         public float maxHeight = 1000;
         public float fov;
 
         Seek seek;
-        Boid boid;
+        Boid playerBoid;
         SceneAvoidance sceneAvoidance;
         OffsetPursue op;
         public float seekDistange = 5000;
         GameObject player;
+        GameObject species;
         GameObject creature;
         ViveController viveController;
         Cruise cruise;
@@ -104,19 +122,36 @@ namespace BGE.Forms
             PlayerController.Instance = this;
         }
 
+        GameObject PickNewTarget()
+        {
+            species = Mother.Instance.alive[
+                Random.Range(0, Mother.Instance.alive.Count)
+                ].gameObject;
+            creature = Mother.Instance.GetCreature(species);
+            distance = species.GetComponent<SpawnParameters>().viewingDistance;
+            return creature;
+        }
+
+
         // Use this for initialization
         void Start() {
             player = GameObject.FindGameObjectWithTag("Player");
+            sm = GetComponent<StateMachine>();
             viveController = player.GetComponent<ViveController>();
             cruise = GetComponent<Cruise>();
             ctc = GameObject.FindObjectOfType<CameraTransitionController>();
 
-            sm = GetComponent<StateMachine>();
-            sm.ChangeState(new PlayerState());
+
+            playerBoid = GameObject.FindGameObjectWithTag("PlayerBoid").GetComponent<Boid>();
+            seek = playerBoid.GetComponent<Seek>();
+            sceneAvoidance = playerBoid.GetComponent<SceneAvoidance>();
+            op = playerBoid.GetComponent<OffsetPursue>();
             
+            sm = GetComponent<StateMachine>();
+            sm.ChangeState(new PlayerState());            
         }
 
-        void AssignBehaviours()
+        /*void AssignBehaviours()
         {
             if (viveController.boid != null)
             {
@@ -132,38 +167,13 @@ namespace BGE.Forms
                 op = GetComponent<OffsetPursue>();
             }
         }
+        */
 
-        GameObject PickNewTarget()
-        {
-            creature = Mother.Instance.alive[
-                Random.Range(0, Mother.Instance.alive.Count)
-                ].gameObject;
-
-            distance = creature.GetComponent<SpawnParameters>().viewingDistance;
-            return Mother.Instance.GetCreature(creature);
-            /*
-            // Project onto the XZ plane
-            Vector3 target = player.transform.forward;
-            target.y = 0;
-            target.Normalize();
-            // Rotate by a random angle
-            target = Quaternion.AngleAxis(
-                Random.Range(-fov, fov)
-                , Vector3.up
-                ) * target;
-            target *= Random.Range(seekDistange / 2, seekDistange);
-
-            ;
-            target.y = WorldGenerator.Instance.SamplePos(target.x, target.z)
-                + Random.Range(minHeight, maxHeight)
-                ;
-
-            return target;
-            */
-        }
-
+        
+        /*
         System.Collections.IEnumerator Journeying()
         {
+
             float journeyingMult = 10;
             while (true)
             {
@@ -171,25 +181,31 @@ namespace BGE.Forms
                 Debug.Log("Journeying");
 
                 break;
-                /*
                 
                 }
-                */
                 yield return new WaitForSeconds(1);
             }
         }
+        */
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
+
                 switch (controlType)
                 {
-                    case State.Player:                        
-                        targetingCoroutine = StartCoroutine(Journeying());
+                    case ControlType.Player:
+                        sm.ChangeState(new JourneyingState());
                         break;
-                    case State.Journeying:
-                        Debug.Log("Player");
+                    case ControlType.Journeying:
+                        sm.ChangeState(new FollowState());
+                        break;
+                    case ControlType.Following:
+                        sm.ChangeState(new PlayerState());
+                        break;
+                }
+                /*
                         StopCoroutine(targetingCoroutine);
                         controlType = State.Player;
                         cruise.enabled = false;
@@ -218,22 +234,27 @@ namespace BGE.Forms
                         }
                         break;
                 }
+                */
             }
         }
 
+
         void FixedUpdate()
         {
-                        
-            if (controlType == State.Journeying)
+            if (controlType == ControlType.Following)
             {
-                player.transform.position = this.transform.position;
-                /*
-                player.transform.position = Vector3.Lerp(
-                    player.transform.position
-                    , this.transform.position
+                player.transform.position = playerBoid.transform.position;
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation
+                    , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
                     , Time.deltaTime
-                    );
-                    */
+                );
+            }
+            /*
+                //player.transform.position = Vector3.Lerp(
+                //    player.transform.position
+                //    , this.transform.position
+                //    , Time.deltaTime
+                //    );
                 if (waiting)
                 {
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation
@@ -250,6 +271,7 @@ namespace BGE.Forms
                         );                    
                 }
             }
+            */
         }
     }
 }

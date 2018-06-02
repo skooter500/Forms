@@ -90,7 +90,7 @@ public class TreeGen : MonoBehaviour {
         mr.receiveShadows = false;
         mf.sharedMesh = mesh;
         mr.enabled = false;
-        Debug.Log("Vertex count: " + mesh.vertexCount);
+        //Debug.Log("Vertex count: " + mesh.vertexCount);
         //MeshCollider mc = gameObject.AddComponent<MeshCollider>();
         //mc.sharedMesh = mesh;
     }

@@ -13,7 +13,6 @@ public class Cruise : MonoBehaviour
     public LayerMask environment;
     private CameraTransitionController ctc;
 
-    public bool enabled = false;
     // Use this for initialization
     void Start()
     {
@@ -38,6 +37,7 @@ public class Cruise : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
         {
             enabled = !enabled;
@@ -48,6 +48,7 @@ public class Cruise : MonoBehaviour
         {
             return;
         }
+        */
             // Keep height
         RaycastHit rch;
         Ray ray = new Ray(transform.position, Vector3.down);

@@ -22,7 +22,7 @@ namespace BGE.Forms
         void OnTriggerEnter(Collider c)
         {
             GameObject other = c.gameObject;
-            if (other.tag == "Player" && PlayerController.Instance.controlType == PlayerController.State.Player)
+            if (other.tag == "Player" && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
             {                
                 
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
@@ -86,7 +86,7 @@ namespace BGE.Forms
         {
             GameObject other = c.gameObject;
             // iF its a player and still attached
-            if (other.tag == "Player" && other.transform.parent == this.transform.parent && PlayerController.Instance.controlType == PlayerController.State.Player)
+            if (other.tag == "Player" && other.transform.parent == this.transform.parent && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);                
                 // Dont do this in VR
