@@ -95,6 +95,7 @@ namespace BGE.Forms
                 Utilities.SetActive(pc.seek, false);
                 Utilities.SetActive(pc.sceneAvoidance, true);
 
+                /*
                 pc.playerCruise.GetComponent<Camera>().enabled = true;
                 pc.cameraTransition.ProgressMode = CameraTransition.ProgressModes.Automatic;
                 pc.cameraTransition.DoTransition(
@@ -102,6 +103,7 @@ namespace BGE.Forms
                     , pc.playerCruise.GetComponent<Camera>()
                     , pc.player.GetComponentInChildren<Camera>()
                     , 1.0f, false, new object[] { 0.5f, Color.black});
+                    */
             }
 
             public override void Exit()

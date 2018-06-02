@@ -120,7 +120,6 @@ public class CameraTransitionController : MonoBehaviour
 
     void Update()
     {
-        /*
         if (Input.GetKeyDown(KeyCode.Joystick1Button6))
         {
             if (state == State.Hidden)
@@ -204,7 +203,6 @@ public class CameraTransitionController : MonoBehaviour
                 ShowVideo();
             }
         }
-        */
     }
     System.Collections.IEnumerator DisableEffectAfter(GameObject effect, float time)
     {
