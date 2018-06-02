@@ -233,53 +233,33 @@ namespace BGE.Forms
         }
         */
 
+        public float ellapsed = 0;
+        public float toPass = 0.3f;
+        public int clickCount = 0;
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
-
-                switch (controlType)
+                clickCount = (clickCount + 1) % 4;
+                ellapsed = 0;                
+            }
+            ellapsed += Time.deltaTime;
+            if (ellapsed > toPass && clickCount > 0)
+            {
+                switch (clickCount)
                 {
-                    case ControlType.Player:
+                    case 1:
                         sm.ChangeState(new JourneyingState());
                         break;
-                    case ControlType.Journeying:
+                    case 2:
                         sm.ChangeState(new FollowState());
                         break;
-                    case ControlType.Following:
+                    case 3:
                         sm.ChangeState(new PlayerState());
                         break;
                 }
-                /*
-                        StopCoroutine(targetingCoroutine);
-                        controlType = State.Player;
-                        cruise.enabled = false;
-                        AssignBehaviours();
-                        player.GetComponent<Rigidbody>().isKinematic = false;
-                        viveController.enabled = true;
-                        player.GetComponent<ForceController>().enabled = true;
-                        player.GetComponent<ForceController>().desiredRotation =
-                            Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
-                        if (viveController.boid == null)
-                        {
-                            boid.enabled = false;
-                            sceneAvoidance.SetActive(false);
-                        }
-                        seek.SetActive(false);
-
-                        if (boid.GetComponent<PlayerSteering>() != null)
-                        {
-                            boid.GetComponent<PlayerSteering>().SetActive(true);
-                            boid.GetComponent<PlayerSteering>().controlSpeed = true;
-                        }
-
-                        if (boid.GetComponent<Harmonic>() != null)
-                        {
-                            boid.GetComponent<Harmonic>().auto = false;
-                        }
-                        break;
-                }
-                */
+                clickCount = 0;
             }
         }
 
