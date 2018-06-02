@@ -50,6 +50,7 @@ Shader "Custom/Logo Colour" {
 			//u -= (int)u;
             v = abs((IN.worldPos.z + _Offset) / _PositionScale);
 			//v -= (int)v;
+			v *= 0.5f;
 			fixed4 c = tex2D (_ColorTex, float2(u,v));
 			o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb * c;
 

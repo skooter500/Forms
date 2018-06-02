@@ -95,6 +95,8 @@ namespace BGE.Forms
                 Utilities.SetActive(pc.seek, false);
                 Utilities.SetActive(pc.sceneAvoidance, true);
 
+                //pc.sm.ChangeStateDelayed(new FollowState(), Random.Range(20, 30));
+
                 /*
                 pc.playerCruise.GetComponent<Camera>().enabled = true;
                 pc.cameraTransition.ProgressMode = CameraTransition.ProgressModes.Automatic;
@@ -114,6 +116,7 @@ namespace BGE.Forms
                 pc.fc.desiredRotation = q;
                 Utilities.SetActive(pc.sceneAvoidance, false);
                 Utilities.SetActive(pc.op, false);
+                //pc.sm.CancelDelayedStateChange();
                 //pc.playerBoid.enabled = false;
             }
         }
@@ -196,42 +199,6 @@ namespace BGE.Forms
 
         }
 
-        /*void AssignBehaviours()
-        {
-            if (viveController.boid != null)
-            {
-                boid = viveController.boid;
-                seek = boid.GetComponent<Seek>();
-                sceneAvoidance = boid.GetComponent<SceneAvoidance>();
-            }
-            else
-            {
-                boid = GetComponent<Boid>();
-                seek = GetComponent<Seek>();
-                sceneAvoidance = GetComponent<SceneAvoidance>();
-                op = GetComponent<OffsetPursue>();
-            }
-        }
-        */
-
-
-        /*
-        System.Collections.IEnumerator Journeying()
-        {
-
-            float journeyingMult = 10;
-            while (true)
-            {
-
-                Debug.Log("Journeying");
-
-                break;
-                
-                }
-                yield return new WaitForSeconds(1);
-            }
-        }
-        */
 
         public float ellapsed = 0;
         public float toPass = 0.3f;
@@ -261,11 +228,7 @@ namespace BGE.Forms
                 }
                 clickCount = 0;
             }
-        }
 
-
-        void FixedUpdate()
-        {
             switch (controlType)
             {
                 case ControlType.Journeying:
@@ -281,5 +244,11 @@ namespace BGE.Forms
                     break;
             }
         }
+
+
+        //void FixedUpdate()
+        //{
+            
+        //}
     }
 }
