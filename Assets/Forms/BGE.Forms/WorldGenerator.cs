@@ -68,7 +68,7 @@ namespace BGE.Forms
 
         public bool drawGizmos = true;
 
-        [Range(0.1f, 10.0f)]
+        [Range(0.001f, 10.0f)]
         public float textureScaling = 1.0f;
 
         public Color color = Color.blue;
@@ -475,7 +475,7 @@ namespace BGE.Forms
 
             surface.layer = this.gameObject.layer;
 
-            surface.AddComponent<MeshCollider>().sharedMesh = mesh;
+            //surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             return surface;

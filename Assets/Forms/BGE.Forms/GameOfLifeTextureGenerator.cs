@@ -51,7 +51,7 @@ namespace BGE.Forms
         private void GridStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 20;
+            generationMax = 100;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
@@ -68,7 +68,7 @@ namespace BGE.Forms
         private void BoxStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 20;
+            generationMax = 100;
             ClearBoard(board);
             int x1 = (int)(size * 0.2);
             int x2 = (int)(size * 0.8);
@@ -84,7 +84,7 @@ namespace BGE.Forms
         private void CrossStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 20;
+            generationMax = 100;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
