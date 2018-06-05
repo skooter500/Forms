@@ -39,6 +39,7 @@ namespace BGE.Forms
                 //c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
                 c.enabled = true;
 
+                /*
                 if (!assigned)
                 {
                     assigned = true;
@@ -51,6 +52,7 @@ namespace BGE.Forms
                     pc.player.transform.rotation = pc.cruise.transform.rotation;
                     pc.fc.desiredRotation = pc.player.transform.rotation;
                 }
+                */
             }
 
             public override void Exit()
