@@ -12,14 +12,14 @@ namespace BGE.Forms
 
             public override void Enter()
             {
+                Debug.Log("Player control state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.viveController.enabled = true;
                 pc.fc.enabled = true;
-
-                pc.cruise.enabled = false;
             }
+
             public override void Exit() { }
 
         }
@@ -34,30 +34,28 @@ namespace BGE.Forms
                 Debug.Log("Journeying state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Journeying;
-                Vector3 pos = owner.transform.position;
                 c = pc.cruise;
                 //c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
-                c.enabled = true;
-
-                /*
                 if (!assigned)
                 {
                     assigned = true;
                     pc.playerCruise.transform.position = pc.player.transform.position;
-                    pc.playerCruise.transform.rotation = pc.player.transform.rotation;
                 }
-                else
-                {
-                    pc.player.transform.position = pc.cruise.transform.position;
-                    pc.player.transform.rotation = pc.cruise.transform.rotation;
-                    pc.fc.desiredRotation = pc.player.transform.rotation;
-                }
-                */
+                
+                pc.player.GetComponent<Rigidbody>().isKinematic = true;
+                pc.player.transform.parent = pc.playerCruise.transform;
+                pc.player.transform.localPosition = Vector3.zero;
+                pc.player.transform.rotation = pc.cruise.transform.rotation;
+                pc.fc.desiredRotation = pc.cruise.transform.rotation;
+                c.gameObject.SetActive(true);
+                c.enabled = true;
             }
 
             public override void Exit()
             {
-                c.enabled = false;
+                pc.player.transform.parent = null;
+                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                c.gameObject.SetActive(false);
             }
         }
 
@@ -118,6 +116,12 @@ namespace BGE.Forms
                 pc.fc.desiredRotation = q;
                 Utilities.SetActive(pc.sceneAvoidance, false);
                 Utilities.SetActive(pc.op, false);
+
+                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                pc.viveController.enabled = true;
+                pc.fc.enabled = true;
+
+
                 //pc.sm.CancelDelayedStateChange();
                 //pc.playerBoid.enabled = false;
             }
@@ -233,10 +237,6 @@ namespace BGE.Forms
 
             switch (controlType)
             {
-                case ControlType.Journeying:
-                    player.transform.position = cruise.transform.position;
-                    player.transform.rotation = cruise.transform.rotation;
-                    break;
                 case ControlType.Following:
                     player.transform.position = playerBoid.transform.position;
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation

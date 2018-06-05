@@ -43,19 +43,7 @@ public class Cruise : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
-        {
-            enabled = !enabled;
-            Vector3 pos = transform.position;
-            preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
-        }
-        if (!enabled)
-        {
-            return;
-        }
-        */
-            // Keep height
+ 
         RaycastHit rch;
         Ray ray = new Ray(transform.position, Vector3.down);
 

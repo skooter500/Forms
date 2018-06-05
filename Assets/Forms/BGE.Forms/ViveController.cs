@@ -170,7 +170,7 @@ namespace BGE.Forms
                 }
             }
 
-            rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
+            //rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
 
             float max = 3500;
             /*
