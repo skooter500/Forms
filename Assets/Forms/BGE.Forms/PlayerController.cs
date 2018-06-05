@@ -72,7 +72,7 @@ namespace BGE.Forms
                 pc.fc.enabled = false;
                 pc.PickNewTarget();
                 // Calculate the position to move to
-                float angle = Random.Range(-90, 90);
+                float angle = Random.Range(-30, 30);
                 Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);

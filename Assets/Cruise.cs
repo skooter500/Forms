@@ -24,7 +24,7 @@ public class Cruise : MonoBehaviour
         
         rb = GetComponent<Rigidbody>();
         Vector3 pos = transform.position;
-        preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
+        //preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
         ctc = FindObjectOfType<CameraTransitionController>();
     }
 
