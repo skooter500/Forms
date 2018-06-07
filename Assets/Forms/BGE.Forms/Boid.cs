@@ -45,6 +45,8 @@ namespace BGE.Forms
 
         public float speed;
 
+        public float limitUpAndDown = 1.0f;
+
         [HideInInspector]
         public List<Boid> tagged = new List<Boid>();
 
@@ -208,7 +210,7 @@ namespace BGE.Forms
             if (!multiThreaded)
             {
                 UpdateLocalFromTransform();
-                force = CalculateForce();
+                force = CalculateForce();                
             }
 
             timeAcc += time;
@@ -360,7 +362,6 @@ namespace BGE.Forms
                 }
             }
 
-
             // Calculate how much banking there is so that the fins can animate 
             Vector3 projectRight = right;
             projectRight.y = 0;
@@ -369,6 +370,8 @@ namespace BGE.Forms
             bank = (right.y > 0) ? bank : -bank;
 
             // Calculate distance to the player
+
+            totalForce.y *= limitUpAndDown;
 
             return totalForce;
         }

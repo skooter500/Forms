@@ -23,7 +23,9 @@ namespace BGE.Forms
 
         public float genesisSpawnDistance = 100;
 
-        
+        School school;
+
+        public bool spawnInFront = true;
 
         bool FindPlace(GameObject creature, out Vector3 newPos)
         {
@@ -44,7 +46,7 @@ namespace BGE.Forms
                 float start = Mathf.Min(sp.start, genesisSpawnDistance);
               
                 Vector3 r = Random.insideUnitSphere;
-				r.z = Mathf.Abs(r.z);
+				r.z = spawnInFront ? Mathf.Abs(r.z) : r.z;
                 r.y = 0;
                 r *= sp.end - start;
                 r += (r.normalized * start);
@@ -190,6 +192,12 @@ namespace BGE.Forms
                             );
                             //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
                             newcreature.GetComponent<SpawnParameters>().Species = prefabs[nextCreature];
+                            if (school != null)
+                            {
+                                Boid b = newcreature.GetComponent<Boid>();
+                                b.school = school;
+                                school.boids.Add(b);
+                            }
                             newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
                             alive.Add(newcreature);
@@ -311,7 +319,9 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
 		{
-			StartCoroutine(Spawn());
+            school = GetComponent<School>();
+
+            StartCoroutine(Spawn());
 		}
 
 		// Update is called once per frame

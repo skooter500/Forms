@@ -150,6 +150,7 @@ namespace BGE.Forms
         Cruise cruise;
         CameraTransition cameraTransition;
 
+        public Mother mother;
 
         CameraTransitionController ctc;
 
@@ -168,8 +169,8 @@ namespace BGE.Forms
 
         GameObject PickNewTarget()
         {
-            species = Mother.Instance.alive[
-                Random.Range(0, Mother.Instance.alive.Count)
+            species = mother.alive[
+                Random.Range(0, mother.alive.Count)
                 ].gameObject;
             creature = Mother.Instance.GetCreature(species);
             distance = species.GetComponent<SpawnParameters>().viewingDistance;
