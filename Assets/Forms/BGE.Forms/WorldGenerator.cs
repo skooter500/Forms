@@ -475,7 +475,7 @@ namespace BGE.Forms
 
             surface.layer = this.gameObject.layer;
 
-            //surface.AddComponent<MeshCollider>().sharedMesh = mesh;
+            surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             return surface;

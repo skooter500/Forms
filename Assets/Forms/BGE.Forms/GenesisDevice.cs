@@ -68,6 +68,7 @@ namespace BGE.Forms
             float delay = 1.0f / (float)spawnRate;
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
             float maxDist = (radius + 1) * gap;
+            yield return new WaitForSeconds(1.0f);
             while (true)
             {
                 Vector3 center = player.transform.position / gap;
@@ -100,18 +101,22 @@ namespace BGE.Forms
                     for (int col = 0; col <= radius * 2; col++)
                     {
                         Vector3 pos = bottomLeft + (new Vector3(col, 0, row) * gap);
+                        pos.y = 0;
                         float sample = s.Sample(pos.x, pos.z);
                         if (sample > threshold)
                         {
+                            RaycastHit rch;
                             float height = wg.SamplePos(pos.x, pos.z);
+
+                            pos.y = height;
                             if (positioning == Positioning.Ground)
                             {
                                 pos.y = height;
                             }
                             else
                             {
-                                float air = ((wg.surfaceHeight + wg.transform.position.y) - height);
-                                pos.y =  height + (air / 2);
+                                //float air = ((wg.surfaceHeight + wg.transform.position.y) - height);
+                                pos.y =  height + 500;
                             }                            
 
                             if (!alive.ContainsKey("" + pos))

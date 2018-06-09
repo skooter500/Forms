@@ -81,7 +81,11 @@ public class StateMachine : MonoBehaviour {
             {
                 globalState.Think();
             }
-            currentState.Think();
+            if (currentState != null)
+            {
+                currentState.Think();
+            }
+            
             yield return new WaitForSeconds(1.0f / (float)updatesPerSecond);
         }
     }    

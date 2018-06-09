@@ -123,17 +123,19 @@ namespace BGE.Forms
 
             while (true)
             {
+                
                 // Remove too far creatures
                 for (int i = alive.Count - 1; i >= 0; i--)
                 {
                     GameObject creature = alive[i];
                     Vector3 boidPos = GetCreaturePosition(creature);
                     
+
                     float dist = Vector3.Distance(boidPos, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > playerRadius)
                     {
-                        //Debug.Log("Suspending a creature: " + creature);
+                        Debug.Log("Suspending a creature: " + creature);
                         Suspend(creature);
                         GameObject species = creature.GetComponent<SpawnParameters>().Species;
                         suspended.Add(species, creature);
@@ -141,6 +143,7 @@ namespace BGE.Forms
                         aliveMap.Remove(species);
                     }
                 }
+
 
                 if (alive.Count < maxcreatures)
                 {
@@ -155,7 +158,6 @@ namespace BGE.Forms
                         nextCreature = (nextCreature + 1) % prefabs.Length;
                         continue;
                     }
-
                     if (suspended.ContainsKey(prefabs[nextCreature]))
                     {
                         newcreature = suspended.Get(prefabs[nextCreature]);
@@ -184,13 +186,14 @@ namespace BGE.Forms
                         }
                     }
                     else
-                    {                                                
+                    {
+                        Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
                         if (FindPlace(prefabs[nextCreature], out newPos))
                         {
                             newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
                                 , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                             );
-                            //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
+                            
                             newcreature.GetComponent<SpawnParameters>().Species = prefabs[nextCreature];
                             if (school != null)
                             {
@@ -204,7 +207,7 @@ namespace BGE.Forms
                         }
                         else
                         {
-                            //Debug.Log("Couldnt find a place for the new creature");
+                            Debug.Log("Couldnt find a place for the new creature");
                         }                        
                     }
                     nextCreature = (nextCreature + 1) % prefabs.Length;
@@ -255,7 +258,7 @@ namespace BGE.Forms
             }
             else
             {
-                return Utilities.FindBoidInHierarchy(creature).position;
+                return creature.GetComponentInChildren<Boid>().position;
 
             }
         }
