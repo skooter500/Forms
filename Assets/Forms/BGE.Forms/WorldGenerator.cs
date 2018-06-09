@@ -77,6 +77,9 @@ namespace BGE.Forms
 
         public GameObject cannibisPrefab;
 
+
+        public Material groundMaterial;
+
         public Sampler[] GetSamplers()
         {
             return samplers ?? (samplers = GetComponents<Sampler>());
@@ -401,7 +404,9 @@ namespace BGE.Forms
             MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
             Mesh mesh = GenerateMesh(position);
             meshFilter.mesh = mesh;
+            renderer.material = groundMaterial;
             renderer.material.SetTexture("_MainTex", textureGenerator.texture);
+            renderer.material.SetTexture("_EmissionMap", textureGenerator.texture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             
 
