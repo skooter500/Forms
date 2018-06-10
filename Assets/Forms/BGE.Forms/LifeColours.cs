@@ -78,7 +78,7 @@ namespace BGE.Forms
             }
             else
             {
-                InitializeProgrammableTexture();
+                //InitializeProgrammableTexture();
             }
 
             FadeIn();
@@ -109,6 +109,7 @@ namespace BGE.Forms
                 child.material = transMaterial;
                 child.material.SetFloat("_PositionScale", colorMapScaling);
                 child.material.mainTexture = texture;
+                child.material.SetTexture("_EmissionMap", texture);
                 child.material.SetFloat("_Fade", 0);
             }
             yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
@@ -144,6 +145,7 @@ namespace BGE.Forms
                         child.material = opaqueMaterial;
                         child.material.SetFloat("_Offset", offs);
                         child.material.SetFloat("_PositionScale", colorMapScaling);
+                        child.material.SetTexture("_EmissionMap", texture);
                         child.material.mainTexture = texture;
                         child.material.SetFloat("_Fade", targetAlpha);
                     }

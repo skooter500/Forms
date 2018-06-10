@@ -186,7 +186,7 @@ namespace BGE.Forms
             if (!inFrontOfPlayer && distanceToPlayer > 1000 && skippedFrames < 10)
             {
                 skippedFrames++;
-                //CreatureManager.Log("Skipping a frame");
+                CreatureManager.Log("Skipping a frame");
                 return;
             }
             if (skippedFrames == 10)

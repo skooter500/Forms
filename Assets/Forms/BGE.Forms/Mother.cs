@@ -128,16 +128,17 @@ namespace BGE.Forms
                 for (int i = alive.Count - 1; i >= 0; i--)
                 {
                     GameObject creature = alive[i];
+                    SpawnParameters sp = creature.GetComponent<SpawnParameters>();
+                    GameObject species = sp.Species;
                     Vector3 boidPos = GetCreaturePosition(creature);
                     
 
                     float dist = Vector3.Distance(boidPos, Camera.main.transform.position);
                     //Debug.Log(i + "\t" + dist);
-                    if (dist > playerRadius)
+                    if (dist > sp.end)
                     {
                         Debug.Log("Suspending a creature: " + creature);
                         Suspend(creature);
-                        GameObject species = creature.GetComponent<SpawnParameters>().Species;
                         suspended.Add(species, creature);
                         alive.Remove(creature);
                         aliveMap.Remove(species);
