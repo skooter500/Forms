@@ -60,7 +60,7 @@ namespace BGE.Forms
                 {
                     float hue = Utilities.Map(row + col, 0, (size * 2) - 2, 0, colorScale);
                     // ((row / (float)size) * colorScale) + ((col / (float)size) * colorScale) / 2.0f;
-                    programmableTexture.SetPixel(row, col, Color.HSVToRGB(hue, 0.8f, 0.7f));
+                    programmableTexture.SetPixel(row, col, Color.HSVToRGB(hue, 0.9f, 0.8f));
                 }
             }
             programmableTexture.Apply();
@@ -78,7 +78,7 @@ namespace BGE.Forms
             }
             else
             {
-                //InitializeProgrammableTexture();
+                InitializeProgrammableTexture();
             }
 
             FadeIn();
