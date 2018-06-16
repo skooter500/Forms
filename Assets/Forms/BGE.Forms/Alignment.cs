@@ -18,7 +18,7 @@ namespace BGE.Forms
             int taggedCount = 0;
             foreach (Boid other in boid.tagged)
             {
-                if (other != this)
+                if (other != this && other.isActiveAndEnabled)
                 {
                     steeringForce += other.forward;
                     taggedCount++;

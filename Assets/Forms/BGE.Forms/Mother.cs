@@ -204,6 +204,7 @@ namespace BGE.Forms
                             }
                             newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
+                            newcreature.SetActive(true);
                             alive.Add(newcreature);
                         }
                         else

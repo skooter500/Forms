@@ -19,7 +19,7 @@ namespace BGE.Forms
             Vector3 steeringForce = Vector3.zero;
             foreach (Boid other in boid.tagged)
             {
-                if (other != this.boid)
+                if (other != this.boid && other.isActiveAndEnabled)
                 {
                     Vector3 toEntity = boid.position - other.position;
                     steeringForce += (Vector3.Normalize(toEntity) / toEntity.magnitude);
