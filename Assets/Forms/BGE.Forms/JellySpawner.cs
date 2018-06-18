@@ -57,7 +57,7 @@ namespace BGE.Forms
                             (r.x * playerRadius
                             , 0
                             , Mathf.Abs(r.y) * playerRadius);
-                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(50, 1000);
+                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(10, 50);
                         found = true;
                         /*
                         float dist = Vector3.Distance(Camera.main.transform.position, newPos);
