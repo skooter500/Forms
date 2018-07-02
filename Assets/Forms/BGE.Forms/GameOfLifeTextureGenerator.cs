@@ -51,7 +51,7 @@ namespace BGE.Forms
         private void GridStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 50;
+            generationMax = 60;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
@@ -68,7 +68,7 @@ namespace BGE.Forms
         private void BoxStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 40;
+            generationMax = 60;
             ClearBoard(board);
             int x1 = (int)(size * 0.2);
             int x2 = (int)(size * 0.8);
@@ -84,7 +84,7 @@ namespace BGE.Forms
         private void CrossStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 40;
+            generationMax = 60;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
@@ -246,7 +246,7 @@ namespace BGE.Forms
         public void Randomise(Color[,] board)
         {
             generation = 0;
-            generationMax = 40;
+            generationMax = 200;
             for (int row = 0; row < size; row++)
             {
                 for (int col = 0; col < size; col++)
@@ -368,6 +368,19 @@ namespace BGE.Forms
                 generation++;
                 if (generation >= generationMax)
                 {
+                    int dice = Random.Range(0, 3);
+                    switch (dice)
+                    {
+                        case 0:
+                            startingPattern = new StartingPattern(GridStartingPattern);
+                            break;
+                        case 1:
+                            startingPattern = new StartingPattern(BoxStartingPattern);
+                            break;
+                        case 2:
+                            startingPattern = new StartingPattern(CrossStartingPattern);
+                            break;
+                    }
                     startingPattern(current);
                 }
             }
