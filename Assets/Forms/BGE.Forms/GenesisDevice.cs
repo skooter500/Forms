@@ -68,7 +68,7 @@ namespace BGE.Forms
             float delay = 1.0f / (float)spawnRate;
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
             float maxDist = (radius + 1) * gap;
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(2.0f);
             while (true)
             {
                 Vector3 center = player.transform.position / gap;
@@ -107,8 +107,10 @@ namespace BGE.Forms
                         {
                             RaycastHit rch;
                             float height = wg.SamplePos(pos.x, pos.z);
-
-                            pos.y = height;
+                            if (Physics.Raycast(new Vector3(pos.x, height + 1000, pos.z), Vector3.down, out rch, 10000, environmentLM))
+                            {
+                                height = rch.point.y;
+                            }
                             if (positioning == Positioning.Ground)
                             {
                                 pos.y = height;
@@ -135,14 +137,19 @@ namespace BGE.Forms
                                     nextPlant = (nextPlant + 1) % prefabs.Length;
                                 }
                                 newPlant.SetActive(true);
-                                newPlant.transform.parent = this.transform.parent;
+                                newPlant.transform.parent = this.transform;
                                 float r = 20;
-                                newPlant.transform.rotation = Quaternion.Euler(
+                                float angle = Vector3.Angle(Vector3.up, rch.normal);
+                                Vector3 axis = Vector3.Cross(Vector3.up, rch.normal);
+                                Quaternion q = Quaternion.AngleAxis(angle, axis);
+
+                                newPlant.transform.rotation = q;
+                                /*Quaternion.Euler(
                                     Random.Range(-r, r)
                                     , Random.Range(0, 360)
                                     , Random.Range(-r, r)
                                     );
-
+                                    */
                                 float size = Random.Range(0.7f, 1.0f);
                                 newPlant.transform.localScale = new Vector3(size, size, size);
                                 //newPos.y += size * 200;

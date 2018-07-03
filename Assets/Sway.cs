@@ -55,6 +55,7 @@ public class Sway : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        /*
         //axis = Quaternion.Euler(0, t * 0.02f, 0) * axis;        
         transform.rotation = Quaternion.AngleAxis(
             //BGE.Forms.Utilities.Map(Mathf.PerlinNoise(t, 0), 0, 1, -angle, angle)
@@ -62,5 +63,6 @@ public class Sway : MonoBehaviour {
             , axis
             );
         t += speed * Time.deltaTime;
+        */
 	}
 }
