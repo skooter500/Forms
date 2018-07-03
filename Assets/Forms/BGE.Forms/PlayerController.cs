@@ -84,6 +84,7 @@ namespace BGE.Forms
                 pc.playerBoid.UpdateLocalFromTransform();
 
                 pc.op.leader = pc.creature;
+                pc.playerBoid.velocity = pc.creature.GetComponent<Boid>().velocity;
                 pc.op.Start();
                 Utilities.SetActive(pc.sceneAvoidance, true);
                 Utilities.SetActive(pc.op, true);
