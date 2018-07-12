@@ -170,10 +170,9 @@ namespace BGE.Forms
 
         public System.Collections.IEnumerator Show()
         {
-            float delayMin = 4.0f;
-            float delayMax = 4.0f;
-            int creatureReps = 2;
-            int effectsReps = 2;
+            float delayMin = 20.0f;
+            float delayMax = 30.0f;
+            int creatureReps = 4;
             StateMachine sm = GetComponent<StateMachine>();
             while (true)
             {
@@ -185,7 +184,7 @@ namespace BGE.Forms
                 ctc.ShowLeftEffect();                    
                 yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                 ctc.HideEffect();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(2);
                 for (int i = 0; i < creatureReps; i++)
                 {
                     sm.ChangeState(new FollowState());
@@ -198,7 +197,7 @@ namespace BGE.Forms
                 ctc.ShowRightEffect();
                 yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                 ctc.HideEffect();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(2);
                 for (int i = 0; i < creatureReps; i++)
                 {
                     sm.ChangeState(new FollowState());
@@ -211,7 +210,12 @@ namespace BGE.Forms
                 ctc.ShowVideo();
                 yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                 ctc.HideEffect();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(2);
+                for (int i = 0; i < creatureReps; i++)
+                {
+                    sm.ChangeState(new FollowState());
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
             }
         }
 
