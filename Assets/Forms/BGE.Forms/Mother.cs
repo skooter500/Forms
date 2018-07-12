@@ -137,7 +137,6 @@ namespace BGE.Forms
                     //Debug.Log(i + "\t" + dist);
                     if (dist > sp.end)
                     {
-                        Debug.Log("Suspending a creature: " + creature);
                         Suspend(creature);
                         suspended.Add(species, creature);
                         alive.Remove(creature);
@@ -188,7 +187,7 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
+                        //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
                         if (FindPlace(prefabs[nextCreature], out newPos))
                         {
                             newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos

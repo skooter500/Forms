@@ -57,6 +57,12 @@ public class CameraTransitionController : MonoBehaviour
 
     float t = 0;
 
+    public void RandomiseEffects()
+    {
+        left = Random.Range(0, leftEffects.Count);
+        right = Random.Range(0, rightEffects.Count);
+        video = Random.Range(0, videoPlayer.videos.Count);
+    }
 
     public void ShowLeftEffect()
     {

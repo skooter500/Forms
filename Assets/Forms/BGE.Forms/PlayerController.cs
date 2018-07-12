@@ -55,7 +55,7 @@ namespace BGE.Forms
             {
                 pc.player.transform.parent = null;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
-                c.gameObject.SetActive(false);
+                c.enabled = false;
             }
         }
 
@@ -170,20 +170,48 @@ namespace BGE.Forms
 
         public System.Collections.IEnumerator Show()
         {
-            float delayMin = 5.0f;
-            float delayMax = 5.0f;
+            float delayMin = 4.0f;
+            float delayMax = 4.0f;
             int creatureReps = 2;
+            int effectsReps = 2;
             StateMachine sm = GetComponent<StateMachine>();
             while (true)
             {
-
+                Debug.Log("Starting a Show");                
                 sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
                 yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.RandomiseEffects();
+                ctc.ShowLeftEffect();                    
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.HideEffect();
+                yield return new WaitForSeconds(1);
                 for (int i = 0; i < creatureReps; i++)
                 {
                     sm.ChangeState(new FollowState());
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                 }
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.RandomiseEffects();
+                ctc.ShowRightEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.HideEffect();
+                yield return new WaitForSeconds(1);
+                for (int i = 0; i < creatureReps; i++)
+                {
+                    sm.ChangeState(new FollowState());
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.RandomiseEffects();
+                ctc.ShowVideo();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.HideEffect();
+                yield return new WaitForSeconds(1);
             }
         }
 
@@ -228,7 +256,7 @@ namespace BGE.Forms
 
 
         public float ellapsed = 0;
-        public float toPass = 0.3f;
+        public float toPass = 0.5f;
         public int clickCount = 0;
 
         private void Update()
@@ -265,6 +293,9 @@ namespace BGE.Forms
 
             switch (controlType)
             {
+                case ControlType.Journeying:
+                    player.transform.localPosition = Vector3.zero;
+                    break;
                 case ControlType.Following:
                     player.transform.position = playerBoid.transform.position;
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation

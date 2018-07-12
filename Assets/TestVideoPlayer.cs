@@ -40,6 +40,7 @@ public class TestVideoPlayer : MonoBehaviour {
         Debug.Log("Playing video: " + index + " path: " + vp.url);
         vp.url = path + videos[index];
         vp.frame = 0;
+        vp.Prepare();
         vp.isLooping = true;
         //vp.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
         //vp.targetCamera = camera;
