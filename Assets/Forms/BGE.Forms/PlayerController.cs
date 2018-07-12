@@ -161,11 +161,30 @@ namespace BGE.Forms
 
         public static PlayerController Instance;
 
-        Coroutine targetingCoroutine;
+        public Coroutine showCoroutine;
 
         public void Awake()
         {
             PlayerController.Instance = this;
+        }
+
+        public System.Collections.IEnumerator Show()
+        {
+            float delayMin = 5.0f;
+            float delayMax = 5.0f;
+            int creatureReps = 2;
+            StateMachine sm = GetComponent<StateMachine>();
+            while (true)
+            {
+
+                sm.ChangeState(new JourneyingState());
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                for (int i = 0; i < creatureReps; i++)
+                {
+                    sm.ChangeState(new FollowState());
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
+            }
         }
 
         GameObject PickNewTarget()
@@ -216,7 +235,7 @@ namespace BGE.Forms
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
-                clickCount = (clickCount + 1) % 4;
+                clickCount = (clickCount + 1) % 5;
                 ellapsed = 0;                
             }
             ellapsed += Time.deltaTime;
@@ -225,13 +244,20 @@ namespace BGE.Forms
                 switch (clickCount)
                 {
                     case 1:
+                        StopAllCoroutines();
                         sm.ChangeState(new JourneyingState());
                         break;
                     case 2:
+                        StopAllCoroutines();
                         sm.ChangeState(new FollowState());
                         break;
                     case 3:
+                        StopAllCoroutines();
                         sm.ChangeState(new PlayerState());
+                        break;
+                    case 4:
+                        StopAllCoroutines();
+                        showCoroutine = StartCoroutine(Show());
                         break;
                 }
                 clickCount = 0;
