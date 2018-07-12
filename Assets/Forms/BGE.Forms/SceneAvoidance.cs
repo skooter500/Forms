@@ -11,12 +11,20 @@ namespace BGE.Forms
         public float scale = 4.0f;
         public float forwardFeelerDepth = 30;
         public float sideFeelerDepth = 15;
-        FeelerInfo[] feelers = new FeelerInfo[5];
+        FeelerInfo[] feelers = new FeelerInfo[6];
 
         public float frontFeelerUpdatesPerSecond = 10.0f;
         public float sideFeelerUpdatesPerSecond = 5.0f;
 
         public float feelerRadius = 2.0f;
+
+        public enum FeelerType
+        {
+            Forward
+            , Surround
+        }
+
+        public FeelerType ft = FeelerType.Forward;
 
         public enum ForceType
         {
@@ -40,8 +48,10 @@ namespace BGE.Forms
         {
             if (isActiveAndEnabled)
             {
-                foreach (FeelerInfo feeler in feelers)
+                int nf = ft == FeelerType.Forward ? 5 : 6;
+                for(int i = 0; i < nf; i ++)
                 {
+                    FeelerInfo feeler = feelers[i];
                     Gizmos.color = Color.gray;
                     if (Application.isPlaying)
                     {
@@ -62,7 +72,9 @@ namespace BGE.Forms
         {
             Vector3 force = Vector3.zero;
 
-            for (int i = 0; i < feelers.Length; i++)
+            int nf = ft == FeelerType.Forward ? 5 : 6;
+
+            for (int i = 0; i < nf; i++)
             {
                 FeelerInfo info = feelers[i];
                 if (info.collided)
@@ -91,6 +103,10 @@ namespace BGE.Forms
             while (true)
             {
                 UpdateFeeler(0, Quaternion.identity, this.forwardFeelerDepth, FeelerInfo.FeeelerType.front);
+                if (ft == FeelerType.Surround)
+                {
+                    UpdateFeeler(5, Quaternion.AngleAxis(180, Vector3.up), this.forwardFeelerDepth, FeelerInfo.FeeelerType.front);
+                }
                 yield return new WaitForSeconds(1.0f/frontFeelerUpdatesPerSecond);
             }
         }
@@ -98,7 +114,7 @@ namespace BGE.Forms
         System.Collections.IEnumerator UpdateSideFeelers()
         {
             yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
-            float angle = 45;
+            float angle = (ft == FeelerType.Forward) ? 45 : 90;
             while (true)
             {
                 // Left feeler
