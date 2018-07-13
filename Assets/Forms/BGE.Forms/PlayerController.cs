@@ -78,7 +78,7 @@ namespace BGE.Forms
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
                 //
                 pc.playerBoid.enabled = true;
-                pc.playerBoid.maxSpeed = 300;
+                //pc.playerBoid.maxSpeed = 300;
                 pc.playerBoid.desiredPosition = p;
                 pc.playerBoid.transform.position = p;
                 pc.playerBoid.UpdateLocalFromTransform();
