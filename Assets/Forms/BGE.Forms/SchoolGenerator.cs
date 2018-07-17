@@ -24,6 +24,8 @@ namespace BGE.Forms
         public List<GameObject> alive = new List<GameObject>();
         public List<GameObject> suspended = new List<GameObject>();
 
+        public bool spawmInWorld = true;
+
         System.Collections.IEnumerator ManageSchool()
         {
             int maxAudioBoids = 5;
@@ -55,7 +57,7 @@ namespace BGE.Forms
 
                     alive.Add(fish);
 
-                    if (wg != null)
+                    if (wg != null && spawmInWorld)
                     {
                         float groundHeight = wg.SamplePos(pos.x, pos.z);
                         if (pos.y < groundHeight)
@@ -63,6 +65,8 @@ namespace BGE.Forms
                             pos.y = groundHeight + UnityEngine.Random.Range(10, radius * spread);
                         }
                     }
+
+                    fish.SetActive(true);
 
                     tr = fish.GetComponentInChildren<TrailRenderer>();
                     if (tr != null)

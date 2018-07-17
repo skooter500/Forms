@@ -18,6 +18,8 @@ namespace BGE.Forms
 
         public float feelerRadius = 2.0f;
 
+        public float angle = 45;
+
         public enum FeelerType
         {
             Forward
@@ -114,7 +116,6 @@ namespace BGE.Forms
         System.Collections.IEnumerator UpdateSideFeelers()
         {
             yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
-            float angle = (ft == FeelerType.Forward) ? 45 : 90;
             while (true)
             {
                 // Left feeler
