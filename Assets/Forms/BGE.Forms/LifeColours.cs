@@ -23,7 +23,7 @@ namespace BGE.Forms
 
         public enum TextureMode { Shader, CSharp }
 
-        public TextureMode textureMode = TextureMode.Shader;
+        public TextureMode textureMode = TextureMode.CSharp;
 
         public float targetAlpha = 1.0f;
 
@@ -60,19 +60,18 @@ namespace BGE.Forms
                 {
                     float hue = Utilities.Map(row + col, 0, (size * 2) - 2, 0, colorScale);
                     // ((row / (float)size) * colorScale) + ((col / (float)size) * colorScale) / 2.0f;
-                    programmableTexture.SetPixel(row, col, Color.HSVToRGB(hue, 0.8f, 0.7f));
+                    programmableTexture.SetPixel(row, col, Color.HSVToRGB(hue, 0.9f, 0.8f));
                 }
             }
             programmableTexture.Apply();
             texture.wrapMode = TextureWrapMode.Mirror;
 
-        }
+        } 
 
 
         // Use this for initialization
         void Start()
-        {
-            
+        {            
             if (textureMode == TextureMode.Shader)
             {
                 InitializeShaderTexture();
@@ -99,10 +98,10 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
-            
             children = GetComponentsInChildren<Renderer>();
             foreach (Renderer child in children)
             {
+                child.enabled = true;
                 if (child.material.name.Contains("Trans"))
                 {
                     continue;
@@ -110,6 +109,7 @@ namespace BGE.Forms
                 child.material = transMaterial;
                 child.material.SetFloat("_PositionScale", colorMapScaling);
                 child.material.mainTexture = texture;
+                child.material.SetTexture("_EmissionMap", texture);
                 child.material.SetFloat("_Fade", 0);
             }
             yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
@@ -141,8 +141,11 @@ namespace BGE.Forms
                     }
                     else
                     {
+                        float offs = child.material.GetFloat("_Offset");
                         child.material = opaqueMaterial;
+                        child.material.SetFloat("_Offset", offs);
                         child.material.SetFloat("_PositionScale", colorMapScaling);
+                        //child.material.SetTexture("_EmissionMap", texture);
                         child.material.mainTexture = texture;
                         child.material.SetFloat("_Fade", targetAlpha);
                     }

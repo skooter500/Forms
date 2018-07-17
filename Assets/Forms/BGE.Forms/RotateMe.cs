@@ -9,7 +9,7 @@ namespace BGE.Forms
         float lerpedSpeed = 0;
         // Use this for initialization
         void Start () {
-            axis = Random.insideUnitSphere;
+            axis = Vector3.up;
         }   
 	
         // Update is called once per frame

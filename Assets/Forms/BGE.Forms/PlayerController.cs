@@ -1,11 +1,136 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Ibuprogames.CameraTransitionsAsset;
 
 namespace BGE.Forms
 {
     public class PlayerController : MonoBehaviour {
 
-        public enum ControlType { Player, Automatic };
+        class PlayerState : State
+        {
+            PlayerController pc;
+
+            public override void Enter()
+            {
+                Debug.Log("Player control state");
+                pc = owner.GetComponent<PlayerController>();
+                pc.controlType = ControlType.Player;
+                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                pc.viveController.enabled = true;
+                pc.fc.enabled = true;
+            }
+
+            public override void Exit() { }
+
+        }
+
+        class JourneyingState : State
+        {
+            PlayerController pc;
+            Cruise c;
+            private static bool assigned = false;
+            public override void Enter()
+            {
+                Debug.Log("Journeying state");
+                pc = owner.GetComponent<PlayerController>();
+                pc.controlType = ControlType.Journeying;
+                c = pc.cruise;
+                //c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
+                if (!assigned)
+                {
+                    assigned = true;
+                    pc.playerCruise.transform.position = pc.player.transform.position;
+                }
+                
+                pc.player.GetComponent<Rigidbody>().isKinematic = true;
+                pc.player.transform.parent = pc.playerCruise.transform;
+                pc.player.transform.localPosition = Vector3.zero;
+                pc.player.transform.rotation = pc.cruise.transform.rotation;
+                pc.fc.desiredRotation = pc.cruise.transform.rotation;
+                c.gameObject.SetActive(true);
+                c.enabled = true;
+            }
+
+            public override void Exit()
+            {
+                pc.player.transform.parent = null;
+                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                c.gameObject.SetActive(false);
+            }
+        }
+
+        class FollowState : State
+        {
+            PlayerController pc;
+            
+            public override void Enter()
+            {
+                pc = owner.GetComponent<PlayerController>();
+                pc.controlType = ControlType.Following;
+                pc.player.GetComponent<Rigidbody>().isKinematic = true;
+                pc.viveController.enabled = false;
+                pc.fc.enabled = false;
+                pc.PickNewTarget();
+                // Calculate the position to move to
+                float angle = Random.Range(-30, 30);
+                Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
+                lp *= pc.distance;
+                Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
+                //
+                pc.playerBoid.enabled = true;
+                pc.playerBoid.maxSpeed = 300;
+                pc.playerBoid.desiredPosition = p;
+                pc.playerBoid.transform.position = p;
+                pc.playerBoid.UpdateLocalFromTransform();
+
+                pc.op.leader = pc.creature;
+                pc.playerBoid.velocity = pc.creature.GetComponent<Boid>().velocity;
+                pc.op.Start();
+                Utilities.SetActive(pc.sceneAvoidance, true);
+                Utilities.SetActive(pc.op, true);
+                pc.player.transform.position = p;
+                pc.player.transform.rotation =
+                    Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
+
+                Utilities.SetActive(pc.op, true);
+                Utilities.SetActive(pc.seek, false);
+                Utilities.SetActive(pc.sceneAvoidance, true);
+
+                //pc.sm.ChangeStateDelayed(new FollowState(), Random.Range(20, 30));
+
+                /*
+                pc.playerCruise.GetComponent<Camera>().enabled = true;
+                pc.cameraTransition.ProgressMode = CameraTransition.ProgressModes.Automatic;
+                pc.cameraTransition.DoTransition(
+                    CameraTransitionEffects.FadeToColor
+                    , pc.playerCruise.GetComponent<Camera>()
+                    , pc.player.GetComponentInChildren<Camera>()
+                    , 1.0f, false, new object[] { 0.5f, Color.black});
+                    */
+            }
+
+            public override void Exit()
+            {
+                Quaternion q = Quaternion.LookRotation(pc.op.leaderBoid.transform.position - pc.player.transform.position);
+                Vector3 euler = q.eulerAngles;
+                q = Quaternion.Euler(euler.x, euler.y, 0);
+                pc.fc.desiredRotation = q;
+                Utilities.SetActive(pc.sceneAvoidance, false);
+                Utilities.SetActive(pc.op, false);
+
+                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                pc.viveController.enabled = true;
+                pc.fc.enabled = true;
+
+
+                //pc.sm.CancelDelayedStateChange();
+                //pc.playerBoid.enabled = false;
+            }
+        }
+
+        StateMachine sm;
+
+        public enum ControlType { Player, Journeying, Following };
         public ControlType controlType = ControlType.Player;
 
         public float minHeight = 10;
@@ -13,11 +138,22 @@ namespace BGE.Forms
         public float fov;
 
         Seek seek;
-        Boid boid;
+        Boid playerBoid;
         SceneAvoidance sceneAvoidance;
+        OffsetPursue op;
         public float seekDistange = 5000;
         GameObject player;
+        GameObject species;
+        GameObject creature;
+        GameObject playerCruise;
         ViveController viveController;
+        ForceController fc;
+        Cruise cruise;
+        CameraTransition cameraTransition;
+
+        public Mother mother;
+
+        CameraTransitionController ctc;
 
         bool waiting = false;
 
@@ -32,179 +168,91 @@ namespace BGE.Forms
             PlayerController.Instance = this;
         }
 
+        GameObject PickNewTarget()
+        {
+            species = mother.alive[
+                Random.Range(0, mother.alive.Count)
+                ].gameObject;
+            creature = Mother.Instance.GetCreature(species);
+            distance = species.GetComponent<SpawnParameters>().viewingDistance;
+            return creature;
+        }
+
+
         // Use this for initialization
         void Start() {
             player = GameObject.FindGameObjectWithTag("Player");
+            playerCruise = GameObject.FindGameObjectWithTag("PlayerCruise");
+
+
+            fc = player.GetComponent<ForceController>();
+
+            sm = GetComponent<StateMachine>();
             viveController = player.GetComponent<ViveController>();
+            cruise = playerCruise.GetComponent<Cruise>();
+            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
+
+
+            playerBoid = GameObject.FindGameObjectWithTag("PlayerBoid").GetComponent<Boid>();
+            seek = playerBoid.GetComponent<Seek>();
+            sceneAvoidance = playerBoid.GetComponent<SceneAvoidance>();
+            op = playerBoid.GetComponent<OffsetPursue>();
             
+            sm = GetComponent<StateMachine>();
+            sm.ChangeState(new PlayerState());
+
+            cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
+            if (cameraTransition == null)
+                Debug.LogWarning(@"CameraTransition not found.");
+
         }
 
-        void AssignBehaviours()
-        {
-            if (viveController.boid != null)
-            {
-                boid = viveController.boid;
-                seek = boid.GetComponent<Seek>();
-                sceneAvoidance = boid.GetComponent<SceneAvoidance>();
-            }
-            else
-            {
-                boid = GetComponent<Boid>();
-                seek = GetComponent<Seek>();
-                sceneAvoidance = GetComponent<SceneAvoidance>();
-            }
-        }
 
-        GameObject PickNewTarget()
-        {
-            GameObject candidate = Mother.Instance.alive[
-                Random.Range(0, Mother.Instance.alive.Count)
-                ].gameObject;
-
-            distance = candidate.GetComponent<SpawnParameters>().viewingDistance;
-            return Mother.Instance.GetCreature(candidate);
-            /*
-            // Project onto the XZ plane
-            Vector3 target = player.transform.forward;
-            target.y = 0;
-            target.Normalize();
-            // Rotate by a random angle
-            target = Quaternion.AngleAxis(
-                Random.Range(-fov, fov)
-                , Vector3.up
-                ) * target;
-            target *= Random.Range(seekDistange / 2, seekDistange);
-
-            ;
-            target.y = WorldGenerator.Instance.SamplePos(target.x, target.z)
-                + Random.Range(minHeight, maxHeight)
-                ;
-
-            return target;
-            */
-        }
-
-        System.Collections.IEnumerator CheckForNewTarget()
-        {
-            while (true)
-            {
-                if (controlType == ControlType.Automatic &&  Vector3.Distance(player.transform.position, seek.target) < distance)
-                {
-                    Utilities.SetActive(seek, false);
-                    boid.damping = 0.5f;
-                    waiting = true;
-                    Debug.Log("Waiting...");
-                    //boid.enabled = false;
-                    yield return new WaitForSeconds(Random.Range(20, 30));
-                    boid.enabled = true;
-                    Debug.Log("Finding new target...");
-                    waiting = false;
-                    boid.damping = 0.01f;
-                    seek.targetGameObject = PickNewTarget();
-                    transform.position = player.transform.position;
-                    transform.rotation = player.transform.rotation;
-                    boid.UpdateLocalFromTransform();
-                    Utilities.SetActive(seek, true);
-                }
-                yield return new WaitForSeconds(1);
-            }
-        }
+        public float ellapsed = 0;
+        public float toPass = 0.3f;
+        public int clickCount = 0;
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.JoystickButton3))
+            if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
-                switch (controlType)
+                clickCount = (clickCount + 1) % 4;
+                ellapsed = 0;                
+            }
+            ellapsed += Time.deltaTime;
+            if (ellapsed > toPass && clickCount > 0)
+            {
+                switch (clickCount)
                 {
-                    case ControlType.Player:
-                        Debug.Log("Automatic");
-                        controlType = ControlType.Automatic;
-                        transform.position = player.transform.position;
-                        transform.rotation = player.transform.rotation;
-                        AssignBehaviours();
-                        boid.UpdateLocalFromTransform();
-                        player.GetComponent<Rigidbody>().isKinematic = true;
-                        viveController.enabled = false;
-                        player.GetComponent<ForceController>().enabled = false;
-                        boid.enabled = true;
-                        boid.desiredPosition = transform.position;
-                        seek.targetGameObject = PickNewTarget();
-                        //seek.target = Vector3.zero;
-                        seek.SetActive(true);
-                        sceneAvoidance.SetActive(true);
-                        if (boid.GetComponent<Harmonic>() != null)
-                        {
-                            boid.GetComponent<Harmonic>().auto = true;
-                        }
-
-                        if (boid.GetComponent<PlayerSteering>() != null)
-                        {
-                            boid.GetComponent<PlayerSteering>().controlSpeed = false;
-                        }
-                        targetingCoroutine = StartCoroutine(CheckForNewTarget());
+                    case 1:
+                        sm.ChangeState(new JourneyingState());
                         break;
-                    case ControlType.Automatic:
-                        Debug.Log("Player");
-                        StopCoroutine(targetingCoroutine);
-                        controlType = ControlType.Player;
-                        AssignBehaviours();
-                        player.GetComponent<Rigidbody>().isKinematic = false;
-                        viveController.enabled = true;
-                        player.GetComponent<ForceController>().enabled = true;
-                        player.GetComponent<ForceController>().desiredRotation =
-                            Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-
-                        if (viveController.boid == null)
-                        {
-                            boid.enabled = false;
-                            sceneAvoidance.SetActive(false);
-                        }
-                        seek.SetActive(false);
-
-                        if (boid.GetComponent<PlayerSteering>() != null)
-                        {
-                            boid.GetComponent<PlayerSteering>().SetActive(true);
-                            boid.GetComponent<PlayerSteering>().controlSpeed = true;
-                        }
-
-                        if (boid.GetComponent<Harmonic>() != null)
-                        {
-                            boid.GetComponent<Harmonic>().auto = false;
-                        }
+                    case 2:
+                        sm.ChangeState(new FollowState());
+                        break;
+                    case 3:
+                        sm.ChangeState(new PlayerState());
                         break;
                 }
+                clickCount = 0;
             }
-        }
 
-        void FixedUpdate()
-        {
-                        
-            if (controlType == ControlType.Automatic)
+            switch (controlType)
             {
-                player.transform.position = this.transform.position;
-                /*
-                player.transform.position = Vector3.Lerp(
-                    player.transform.position
-                    , this.transform.position
-                    , Time.deltaTime
+                case ControlType.Following:
+                    player.transform.position = playerBoid.transform.position;
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
+                        , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
+                        , Time.deltaTime
                     );
-                    */
-                if (waiting)
-                {
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                        , Quaternion.LookRotation(seek.targetGameObject.transform.position - transform.position)
-                        , Time.deltaTime
-                        );
-                }
-                else
-                {
-                    //player.transform.rotation = transform.rotation;
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                        , transform.rotation
-                        , Time.deltaTime
-                        );                    
-                }
+                    break;
             }
         }
+
+
+        //void FixedUpdate()
+        //{
+            
+        //}
     }
 }

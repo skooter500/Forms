@@ -8,10 +8,12 @@ namespace BGE.Forms
 {
     public class SceneAvoidance : SteeringBehaviour
     {
+        public enum FeelerConfiguration { Forward, AllAround };
+        public FeelerConfiguration fc = FeelerConfiguration.Forward;
         public float scale = 4.0f;
         public float forwardFeelerDepth = 30;
         public float sideFeelerDepth = 15;
-        FeelerInfo[] feelers = new FeelerInfo[5];
+        FeelerInfo[] feelers = new FeelerInfo[6];
 
         public float frontFeelerUpdatesPerSecond = 10.0f;
         public float sideFeelerUpdatesPerSecond = 5.0f;
@@ -61,7 +63,7 @@ namespace BGE.Forms
         public override Vector3 Calculate()
         {
             Vector3 force = Vector3.zero;
-
+            int l = fc == FeelerConfiguration.Forward ? 5 : 6;
             for (int i = 0; i < feelers.Length; i++)
             {
                 FeelerInfo info = feelers[i];
@@ -101,6 +103,7 @@ namespace BGE.Forms
             float angle = 45;
             while (true)
             {
+                angle = fc == FeelerConfiguration.Forward ? 45 : 90;
                 // Left feeler
                 UpdateFeeler(1, Quaternion.AngleAxis(angle, Vector3.up), sideFeelerDepth, FeelerInfo.FeeelerType.side);
                 // Right feeler
@@ -109,7 +112,11 @@ namespace BGE.Forms
                 UpdateFeeler(3, Quaternion.AngleAxis(angle, Vector3.right), sideFeelerDepth, FeelerInfo.FeeelerType.side);
                 // Down feeler
                 UpdateFeeler(4, Quaternion.AngleAxis(-angle, Vector3.right), sideFeelerDepth, FeelerInfo.FeeelerType.side);
-
+                if (fc == FeelerConfiguration.AllAround)
+                {
+                    UpdateFeeler(5, Quaternion.AngleAxis(180, Vector3.up), sideFeelerDepth, FeelerInfo.FeeelerType.side);
+                }
+                
                 yield return new WaitForSeconds(1.0f/sideFeelerUpdatesPerSecond);
             }
         }

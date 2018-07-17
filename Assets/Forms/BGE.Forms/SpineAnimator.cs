@@ -30,6 +30,9 @@ namespace BGE.Forms
         public enum JointType { Lerping, Physics };
         public JointType jointType = JointType.Lerping;
 
+        private Boid boid;
+        private float time = 0;
+
         void Start()
         {
             Transform prevFollower;
@@ -85,13 +88,69 @@ namespace BGE.Forms
 
                 }
             }
+
+            boid = Utilities.FindBoidInHierarchy(this.gameObject);
         }
+
+        public void OnEnable()
+        {
+            //StartCoroutine(Animate());
+        }
+
+        System.Collections.IEnumerator Animate()
+        {
+            yield return new WaitForSeconds(0.1f);
+            while (true)
+            {
+                //Integrate();
+                /*
+                float toWait = Utilities.Map(boid.distanceToPlayer, 0, 10000, 0.02f, 0.05f);
+                time = toWait;
+                yield return new WaitForSeconds(toWait);
+                */
+
+                time = Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+
+                /*
+                if ((boid.inFrontOfPlayer && boid.distanceToPlayer < 10000)
+                    || (!boid.inFrontOfPlayer && boid.distanceToPlayer < 2000))
+                {
+                    time = Time.fixedDeltaTime;
+                    yield return new WaitForFixedUpdate();
+                }
+                else
+                {
+                    time = 0.1f;
+                    yield return new WaitForSeconds(0.1f);
+                }
+                */
+            }
+        }
+
+        int skippedFrames = 0;
         
-        void FixedUpdate ()
+        public void FixedUpdate()
         {
             if (suspended || jointType == JointType.Physics)
             {
                 return;
+            }
+            if (! boid.inFrontOfPlayer && boid.distanceToPlayer > 1000 && skippedFrames < 10)
+            {
+                skippedFrames++;
+                //CreatureManager.Log("Skipping a frame");
+                return;
+            }
+            if (skippedFrames == 10)
+            {
+                
+                skippedFrames = 0;
+                time = Time.deltaTime * 10.0f;
+            }
+            else
+            {
+                time = Time.deltaTime;
             }
             centerOfMass = Vector3.zero ; 
             Transform prevFollower;
@@ -118,6 +177,7 @@ namespace BGE.Forms
         {
             float bondDamping;
             float angularBondDamping;
+            
 
             if (jointParams.Count > i)
             {
@@ -131,27 +191,29 @@ namespace BGE.Forms
                 angularBondDamping = this.angularBondDamping;
             }
 
-        
-            Vector3 wantedPosition = Utilities.TransformPointNoScale(bondOffset, target.transform);
-            follower.transform.position = Vector3.Lerp(follower.transform.position, wantedPosition, Time.deltaTime * bondDamping);
 
+            Vector3 wantedPosition = target.transform.TransformPointUnscaled(bondOffset);
+            Vector3 newPos = Vector3.Lerp(follower.transform.position, wantedPosition, time * bondDamping);
+            follower.transform.position = newPos;
             Quaternion wantedRotation;
+            Quaternion newRotation = Quaternion.identity;
             switch (alignmentStrategy)
             {
 
                 case AlignmentStrategy.LookAt:
-                    wantedRotation = Quaternion.LookRotation(target.position - follower.transform.position, target.up);
-                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, Time.deltaTime * angularBondDamping);
+                    wantedRotation = Quaternion.LookRotation(target.position - newPos, target.up);
+                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, time * angularBondDamping);
                     break;
                 case AlignmentStrategy.AlignToHead:
                     wantedRotation = target.transform.rotation;
-                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, Time.deltaTime * angularBondDamping);
+                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, time * angularBondDamping);
                     break;
                 case AlignmentStrategy.LocalAlignToHead:
                     wantedRotation = target.transform.localRotation;
-                    follower.transform.localRotation = Quaternion.Slerp(follower.transform.localRotation, wantedRotation, Time.deltaTime * angularBondDamping);
+                    follower.transform.localRotation = Quaternion.Slerp(follower.transform.localRotation, wantedRotation, time * angularBondDamping);
                     break;
             }
+            //follower.SetPositionAndRotation(newPos, newRotation);
         }
     }
 

@@ -36,21 +36,17 @@ namespace BGE.Forms
                 yield return new WaitForSeconds(0.2f);
                 while (alive.Count < targetCreatureCount)
                 {                    
-                Vector3 unit = UnityEngine.Random.insideUnitSphere;
-                Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * spread);
+                    Vector3 unit = UnityEngine.Random.insideUnitSphere;
+                    Vector3 pos = transform.position + unit * UnityEngine.Random.Range(0, radius * spread);
 
                     GameObject fish = null;
+                    TrailRenderer tr;
                     if (suspended.Count > 0)
                     {
                         fish = suspended[suspended.Count - 1];
                         suspended.RemoveAt(suspended.Count - 1);
                         fish.SetActive(true);
-                        fish.GetComponentInChildren<Boid>().suspended = false;
-                        TrailRenderer tr = fish.GetComponentInChildren<TrailRenderer>();
-                        if (tr != null)
-                        {
-                            tr.Clear();
-                        }                        
+                        fish.GetComponentInChildren<Boid>().suspended = false;                                                
                     }
                     else
                     {
@@ -68,7 +64,18 @@ namespace BGE.Forms
                         }
                     }
 
+                    tr = fish.GetComponentInChildren<TrailRenderer>();
+                    if (tr != null)
+                    {
+                        tr.enabled = false;
+                        tr.Clear();
+                    }
                     fish.transform.position = pos;
+                    if (tr != null)
+                    {
+                        tr.enabled = true;
+                        tr.Clear();
+                    }
                     fish.transform.parent = transform;
                     Boid boid = fish.GetComponentInChildren<Boid>();
                     if (boid != null)
@@ -105,7 +112,7 @@ namespace BGE.Forms
                         lc.FadeIn();
                     }
                     // Wait for a frame
-                    yield return new WaitForSeconds(0.1f);
+                    yield return null;
                     // Suspend any that we dont need                    
                 }
                 while (alive.Count > targetCreatureCount)

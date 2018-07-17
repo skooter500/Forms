@@ -113,12 +113,20 @@ namespace BGE.Forms
 
         Quaternion desiredYaw;
 
+        public bool haptics = false;
+
         // Update is called once per frame
         void Update()
         {
             CreatureManager.Log("Grip: " + GetGrip());
             float leftTrig = 0.0f;
             float rightTrig = 0.0f;
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                haptics = !haptics;
+            }
+            CreatureManager.Log("Haptics: " + haptics);
 
             if (leftTrackedObject != null && leftTrackedObject.isActiveAndEnabled)
             {
@@ -135,8 +143,11 @@ namespace BGE.Forms
                     else
                     {
                         boid.speed = boid.maxSpeed * leftTrig;
-                        boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
-
+                        HarmonicController hc  = boid.GetComponent<HarmonicController>();
+                        if (hc != null)
+                        {
+                            boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
+                        }
 
                     }
                 }
@@ -170,32 +181,34 @@ namespace BGE.Forms
                 }
             }
 
-            rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
+            //rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
 
             float max = 3500;
-            /*
-            try
+
+            if (haptics && boid == null)
             {
-
-                SteamVR_Controller.Device l = SteamVR_Controller.Input(
-                    SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost));
-                if (l != null)
+                try
                 {
-                    l.TriggerHapticPulse((ushort) (leftTrig*max));
+
+                    SteamVR_Controller.Device l = SteamVR_Controller.Input(
+                        SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost));
+                    if (l != null)
+                    {
+                        l.TriggerHapticPulse((ushort)(leftTrig * max));
+                    }
+
+                    SteamVR_Controller.Device r = SteamVR_Controller.Input(
+                        SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost));
+                    if (r != null)
+                    {
+                        r.TriggerHapticPulse((ushort)(rightTrig * max));
+                    }
                 }
-
-                SteamVR_Controller.Device r = SteamVR_Controller.Input(
-                    SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost));
-                if (r != null)
+                catch (IndexOutOfRangeException e)
                 {
-                    r.TriggerHapticPulse((ushort) (rightTrig*max));
+
                 }
             }
-            catch (IndexOutOfRangeException e)
-            {
-                
-            }
-            */
 
             /*
             if (leftTrig > 0.2f && rightTrig > 0.2f)

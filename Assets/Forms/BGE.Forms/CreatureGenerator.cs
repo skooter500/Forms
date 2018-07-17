@@ -160,6 +160,7 @@ namespace BGE.Forms
             return fin;
         }
 
+        public int seatPosition = 5;
 
 
         List<CreaturePart> CreateCreatureParams()
@@ -190,7 +191,7 @@ namespace BGE.Forms
                     pos.y -= (partSize / 2);
                 }
                 lastGap = partSize;
-                if (i == half && seatPrefab != null)
+                if (i == seatPosition && seatPrefab != null)
                 {
                     cps.Add(new CreaturePart(pos
                         , partSize

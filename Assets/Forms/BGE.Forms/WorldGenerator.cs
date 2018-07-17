@@ -68,12 +68,17 @@ namespace BGE.Forms
 
         public bool drawGizmos = true;
 
-        [Range(0.1f, 10.0f)]
+        [Range(0.001f, 10.0f)]
         public float textureScaling = 1.0f;
 
         public Color color = Color.blue;
 
         public float surfaceHeight = 6000;
+
+        public GameObject cannibisPrefab;
+
+
+        public Material groundMaterial;
 
         public Sampler[] GetSamplers()
         {
@@ -115,6 +120,27 @@ namespace BGE.Forms
             }
         }
 
+        void GenerateFlora(GameObject tile)
+        {
+            if (Random.Range(0.0f, 1.0f) < 0.1)
+            {
+                GameObject can = GameObject.Instantiate<GameObject>(cannibisPrefab);
+                float y = SamplePos(tile.transform.position.x, tile.transform.position.z);
+                can.transform.position = new Vector3(tile.transform.position.x, y + 250, tile.transform.position.z);
+                can.transform.parent = tile.transform;
+                float r = 5;
+                can.transform.rotation = Quaternion.Euler(
+                    Random.Range(-r, r)
+                    , Random.Range(0, 360)
+                    , Random.Range(-r, r)
+                    );
+                //float scale = Random.Range(1.5f, 4.0f);
+                //can.transform.localScale = new Vector3(scale, scale, scale);
+                can.SetActive(true);
+                can.isStatic = true;
+            }
+        }
+
         void Awake()
         {
             Instance = this;
@@ -139,7 +165,7 @@ namespace BGE.Forms
             ((PerlinNoiseSampler)samplers[1]).origin = -747;
             ((PerlinNoiseSampler)samplers[2]).origin = 113;
             */
-            player.transform.position = new Vector3(0, SamplePos(0,0) + 1000, 0);
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
             
             //Random.seed = 42;
         }
@@ -208,9 +234,8 @@ namespace BGE.Forms
                         t.name = tilename;
                         Tile tile = new Tile(t, updateTime);
                         tiles[tilename] = tile;
-
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
-
+                        //StaticBatchingUtility.Combine(this.gameObject);
                         yield return WaitFor.Frames(Random.Range(1, 3));
                     }
 
@@ -230,7 +255,7 @@ namespace BGE.Forms
                     }
                     //copy new hashtable contents to the working hashtable
                     tiles = newTerrain;
-                    startPos = player.transform.position;
+                    startPos = player.transform.position;                  
                 }
                 yield return null;
                 //determine how far the player has moved since last terrain update
@@ -379,7 +404,9 @@ namespace BGE.Forms
             MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
             Mesh mesh = GenerateMesh(position);
             meshFilter.mesh = mesh;
+            renderer.material = groundMaterial;
             renderer.material.SetTexture("_MainTex", textureGenerator.texture);
+            renderer.material.SetTexture("_EmissionMap", textureGenerator.texture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             
 
@@ -402,6 +429,7 @@ namespace BGE.Forms
             surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             tile.isStatic = true;
             surface.isStatic = true;
+            //surface.SetActive(false);
             return tile;
         }
 
@@ -467,8 +495,7 @@ namespace BGE.Forms
             {
                 ss += ((PerlinNoiseSampler)s).origin + ", ";
             }
-            CreatureManager.Log("World: " + ss);
-            //StaticBatchingUtility.Combine(this.gameObject);
+            CreatureManager.Log("World: " + ss);            
         }
     }
 }

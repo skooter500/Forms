@@ -45,6 +45,8 @@ namespace BGE.Forms
 
         public float speed;
 
+        public float limitUpAndDown = 1.0f;
+
         [HideInInspector]
         public List<Boid> tagged = new List<Boid>();
 
@@ -90,7 +92,7 @@ namespace BGE.Forms
 
         public void Awake()
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("MainCamera").transform;
             CreatureManager.Instance.boids.Add(this);
             multiThreaded = true;
         }
@@ -164,6 +166,8 @@ namespace BGE.Forms
 
         public bool suspended = false;
 
+        float skippedFrames = 0;
+        float time = 0;
         void FixedUpdate()
         {
             playerPosition = player.position;
@@ -178,15 +182,37 @@ namespace BGE.Forms
             {
                 return;
             }
+
+            if (!inFrontOfPlayer && distanceToPlayer > 1000 && skippedFrames < 10)
+            {
+                skippedFrames++;
+                return;
+            }
+            if (skippedFrames == 10)
+            {
+
+                skippedFrames = 0;
+                time = Time.deltaTime * 10.0f;
+            }
+            else
+            {
+                time = Time.deltaTime;
+            }
+
             float smoothRate;
+
+            if (school != null)
+            {
+                preferredTimeDelta = school.preferredTimeDelta;
+            }
 
             if (!multiThreaded)
             {
                 UpdateLocalFromTransform();
-                force = CalculateForce();
+                force = CalculateForce();                
             }
 
-            timeAcc += Time.deltaTime;
+            timeAcc += time;
 
             if (timeAcc > preferredTimeDelta)
             {
@@ -270,11 +296,14 @@ namespace BGE.Forms
 
             if (preferredTimeDelta != 0.0f && integrateForces)
             {
+                /*
                 float timeDelta = Time.deltaTime * timeMultiplier;
                 timeDelta *= (school == null) ? 1 : school.timeMultiplier;
                 float dist = Vector3.Distance(transform.position, desiredPosition);
                 float distThisFrame = dist * (timeDelta / preferredTimeDelta);
-                transform.position = Vector3.MoveTowards(transform.position, desiredPosition, 50 * Time.deltaTime);
+                */
+                //transform.position = Vector3.MoveTowards(transform.position, desiredPosition, 50 * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 3);
             }
             else
             {
@@ -332,7 +361,6 @@ namespace BGE.Forms
                 }
             }
 
-
             // Calculate how much banking there is so that the fins can animate 
             Vector3 projectRight = right;
             projectRight.y = 0;
@@ -341,6 +369,8 @@ namespace BGE.Forms
             bank = (right.y > 0) ? bank : -bank;
 
             // Calculate distance to the player
+
+            totalForce.y *= limitUpAndDown;
 
             return totalForce;
         }

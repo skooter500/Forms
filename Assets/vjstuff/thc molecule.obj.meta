@@ -1,0 +1,191 @@
+fileFormatVersion: 2
+guid: 5d7bbbc25c2e4184790cf95c19d16693
+timeCreated: 1524212960
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: THC_Molecule_1_white_Form25
+    100004: THC_Molecule_1_white_Shape0
+    100006: THC_Molecule_1red_1white_Group4_Form11
+    100008: THC_Molecule_1red_1white_Group4_Group3_Form1
+    100010: THC_Molecule_1red_1white_Group6_Form1
+    100012: THC_Molecule_1red_1white_Group6_Shape26
+    100014: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Form25
+    100016: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Shape0
+    100018: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_sngl_gray_ball2
+    100020: THC_Molecule_2_white_1_gray_and_post__gray_post
+    100022: THC_Molecule_3_white_1_gray_1_gray_3_white_Form22
+    100024: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Form1
+    100026: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Shape26
+    100028: THC_Molecule_3_white_1_gray_Shape0
+    100030: THC_Molecule_Group44_Form74
+    100032: THC_Molecule_Group44_sngl_gray_ball
+    100034: THC_Molecule_Group44_sngl_red_ball
+    400000: //RootNode
+    400002: THC_Molecule_1_white_Form25
+    400004: THC_Molecule_1_white_Shape0
+    400006: THC_Molecule_1red_1white_Group4_Form11
+    400008: THC_Molecule_1red_1white_Group4_Group3_Form1
+    400010: THC_Molecule_1red_1white_Group6_Form1
+    400012: THC_Molecule_1red_1white_Group6_Shape26
+    400014: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Form25
+    400016: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Shape0
+    400018: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_sngl_gray_ball2
+    400020: THC_Molecule_2_white_1_gray_and_post__gray_post
+    400022: THC_Molecule_3_white_1_gray_1_gray_3_white_Form22
+    400024: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Form1
+    400026: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Shape26
+    400028: THC_Molecule_3_white_1_gray_Shape0
+    400030: THC_Molecule_Group44_Form74
+    400032: THC_Molecule_Group44_sngl_gray_ball
+    400034: THC_Molecule_Group44_sngl_red_ball
+    2100000: THC_Molecule_1_white_Form25Mat
+    2100002: THC_Molecule_1_white_Shape0Mat
+    2100004: THC_Molecule_1red_1white_Group4_Form11Mat
+    2100006: THC_Molecule_1red_1white_Group4_Group3_Form1Mat
+    2100008: THC_Molecule_1red_1white_Group6_Form1Mat
+    2100010: THC_Molecule_1red_1white_Group6_Shape26Mat
+    2100012: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Form25Mat
+    2100014: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Shape0Mat
+    2100016: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_sngl_gray_ball2Mat
+    2100018: THC_Molecule_2_white_1_gray_and_post__gray_postMat
+    2100020: THC_Molecule_3_white_1_gray_1_gray_3_white_Form22Mat
+    2100022: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Form1Mat
+    2100024: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Shape26Mat
+    2100026: THC_Molecule_3_white_1_gray_Shape0Mat
+    2100028: THC_Molecule_Group44_Form74Mat
+    2100030: THC_Molecule_Group44_sngl_gray_ballMat
+    2100032: THC_Molecule_Group44_sngl_red_ballMat
+    2300000: THC_Molecule_1_white_Form25
+    2300002: THC_Molecule_1_white_Shape0
+    2300004: THC_Molecule_1red_1white_Group4_Form11
+    2300006: THC_Molecule_1red_1white_Group4_Group3_Form1
+    2300008: THC_Molecule_1red_1white_Group6_Form1
+    2300010: THC_Molecule_1red_1white_Group6_Shape26
+    2300012: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Form25
+    2300014: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Shape0
+    2300016: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_sngl_gray_ball2
+    2300018: THC_Molecule_2_white_1_gray_and_post__gray_post
+    2300020: THC_Molecule_3_white_1_gray_1_gray_3_white_Form22
+    2300022: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Form1
+    2300024: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Shape26
+    2300026: THC_Molecule_3_white_1_gray_Shape0
+    2300028: THC_Molecule_Group44_Form74
+    2300030: THC_Molecule_Group44_sngl_gray_ball
+    2300032: THC_Molecule_Group44_sngl_red_ball
+    3300000: THC_Molecule_1_white_Form25
+    3300002: THC_Molecule_1_white_Shape0
+    3300004: THC_Molecule_1red_1white_Group4_Form11
+    3300006: THC_Molecule_1red_1white_Group4_Group3_Form1
+    3300008: THC_Molecule_1red_1white_Group6_Form1
+    3300010: THC_Molecule_1red_1white_Group6_Shape26
+    3300012: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Form25
+    3300014: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Shape0
+    3300016: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_sngl_gray_ball2
+    3300018: THC_Molecule_2_white_1_gray_and_post__gray_post
+    3300020: THC_Molecule_3_white_1_gray_1_gray_3_white_Form22
+    3300022: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Form1
+    3300024: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Shape26
+    3300026: THC_Molecule_3_white_1_gray_Shape0
+    3300028: THC_Molecule_Group44_Form74
+    3300030: THC_Molecule_Group44_sngl_gray_ball
+    3300032: THC_Molecule_Group44_sngl_red_ball
+    4300000: THC_Molecule_1_white_Form25
+    4300002: THC_Molecule_1_white_Shape0
+    4300004: THC_Molecule_1red_1white_Group4_Form11
+    4300006: THC_Molecule_1red_1white_Group4_Group3_Form1
+    4300008: THC_Molecule_1red_1white_Group6_Form1
+    4300010: THC_Molecule_1red_1white_Group6_Shape26
+    4300012: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Form25
+    4300014: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_1_white_Shape0
+    4300016: THC_Molecule_2_white_1_gray_and_post__1_gray_2_white_sngl_gray_ball2
+    4300018: THC_Molecule_2_white_1_gray_and_post__gray_post
+    4300020: THC_Molecule_3_white_1_gray_1_gray_3_white_Form22
+    4300022: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Form1
+    4300024: THC_Molecule_3_white_1_gray_1_gray_3_white_Group6_Shape26
+    4300026: THC_Molecule_3_white_1_gray_Shape0
+    4300028: THC_Molecule_Group44_Form74
+    4300030: THC_Molecule_Group44_sngl_gray_ball
+    4300032: THC_Molecule_Group44_sngl_red_ball
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

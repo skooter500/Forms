@@ -13,7 +13,7 @@ public class DoveController : CreatureController {
 
         public override void Enter()
         {
-            Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 5000);
+            Vector3 pos = Camera.main.transform.position + (Random.insideUnitSphere * 500);
             WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
             //SpawnParameters sp = owner.GetComponent<SpawnParameters>();
             //pos.y = wg.SamplePos(pos.x, pos.z) + Random.Range(owner.GetComponent<CreatureController>().minHeight, owner.GetComponent<CreatureController>().maxHeight);
@@ -48,8 +48,9 @@ public class DoveController : CreatureController {
             // Give a new target in the same direction!
             if (Vector3.Distance(seek.target, boid.position) < 1000)
             {
-                Vector3 newtarget = seek.target
-                    + ((seek.target - boid.position).normalized * 100000);
+                Debug.Log("Finding new dove target");
+                Vector3 newtarget = boid.position
+                    + (boid.forward * 100000);
                 seek.target = newtarget;
             }
         }

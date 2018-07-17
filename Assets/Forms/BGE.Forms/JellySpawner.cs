@@ -56,8 +56,10 @@ namespace BGE.Forms
                             + new Vector3
                             (r.x * playerRadius
                             , 0
-                            , r.y * playerRadius);
-                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(50, 1000);
+                            , Mathf.Abs(r.y) * playerRadius);
+                        newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(10, 50);
+                        found = true;
+                        /*
                         float dist = Vector3.Distance(Camera.main.transform.position, newPos);
                         RaycastHit rch;
                         bool hit = Physics.Raycast(Camera.main.transform.position
@@ -78,6 +80,7 @@ namespace BGE.Forms
                             found = false;
                             break;
                         }
+                        */
                     }
                     if (found)
                     {
@@ -91,6 +94,7 @@ namespace BGE.Forms
                         else
                         {
                             newJelly = GameObject.Instantiate<GameObject>(jellyPrefab);
+                            newJelly.SetActive(true);
 							newJelly.transform.parent = this.transform.parent;
                         }
                         newJelly.transform.position = newPos;

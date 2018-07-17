@@ -47,7 +47,7 @@ Shader "Custom/CreatureTextureMaker"
 			float4 frag(v2f_img i) : COLOR
 			{
 				float h = ((i.uv.x + i.uv.y) / 2.0f) * _ColourScale;
-				float3 c = hsvToRgb(float3(h, 1, 0.8f));
+				float3 c = hsvToRgb(float3(h, 1.0f, 0.9f));
 				return float4(c, 1);
 			}
 			ENDCG
