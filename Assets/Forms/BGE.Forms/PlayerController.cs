@@ -55,7 +55,7 @@ namespace BGE.Forms
             {
                 pc.player.transform.parent = null;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
-                c.gameObject.SetActive(false);
+                c.enabled = false;
             }
         }
 
@@ -78,7 +78,7 @@ namespace BGE.Forms
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
                 //
                 pc.playerBoid.enabled = true;
-                pc.playerBoid.maxSpeed = 300;
+                //pc.playerBoid.maxSpeed = 300;
                 pc.playerBoid.desiredPosition = p;
                 pc.playerBoid.transform.position = p;
                 pc.playerBoid.UpdateLocalFromTransform();
@@ -161,11 +161,62 @@ namespace BGE.Forms
 
         public static PlayerController Instance;
 
-        Coroutine targetingCoroutine;
+        public Coroutine showCoroutine;
 
         public void Awake()
         {
             PlayerController.Instance = this;
+        }
+
+        public System.Collections.IEnumerator Show()
+        {
+            float delayMin = 20.0f;
+            float delayMax = 30.0f;
+            int creatureReps = 4;
+            StateMachine sm = GetComponent<StateMachine>();
+            while (true)
+            {
+                Debug.Log("Starting a Show");                
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.RandomiseEffects();
+                ctc.ShowLeftEffect();                    
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.HideEffect();
+                yield return new WaitForSeconds(2);
+                for (int i = 0; i < creatureReps; i++)
+                {
+                    sm.ChangeState(new FollowState());
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.RandomiseEffects();
+                ctc.ShowRightEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.HideEffect();
+                yield return new WaitForSeconds(2);
+                for (int i = 0; i < creatureReps; i++)
+                {
+                    sm.ChangeState(new FollowState());
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.RandomiseEffects();
+                ctc.ShowVideo();
+                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                ctc.HideEffect();
+                yield return new WaitForSeconds(2);
+                for (int i = 0; i < creatureReps; i++)
+                {
+                    sm.ChangeState(new FollowState());
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
+            }
         }
 
         GameObject PickNewTarget()
@@ -209,14 +260,14 @@ namespace BGE.Forms
 
 
         public float ellapsed = 0;
-        public float toPass = 0.3f;
+        public float toPass = 0.5f;
         public int clickCount = 0;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
-                clickCount = (clickCount + 1) % 4;
+                clickCount = (clickCount + 1) % 5;
                 ellapsed = 0;                
             }
             ellapsed += Time.deltaTime;
@@ -225,13 +276,20 @@ namespace BGE.Forms
                 switch (clickCount)
                 {
                     case 1:
+                        StopAllCoroutines();
                         sm.ChangeState(new JourneyingState());
                         break;
                     case 2:
+                        StopAllCoroutines();
                         sm.ChangeState(new FollowState());
                         break;
                     case 3:
+                        StopAllCoroutines();
                         sm.ChangeState(new PlayerState());
+                        break;
+                    case 4:
+                        StopAllCoroutines();
+                        showCoroutine = StartCoroutine(Show());
                         break;
                 }
                 clickCount = 0;
@@ -239,6 +297,9 @@ namespace BGE.Forms
 
             switch (controlType)
             {
+                case ControlType.Journeying:
+                    player.transform.localPosition = Vector3.zero;
+                    break;
                 case ControlType.Following:
                     player.transform.position = playerBoid.transform.position;
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation

@@ -84,7 +84,7 @@ namespace BGE.Forms
         private void CrossStartingPattern(Color[,] board)
         {
             generation = 0;
-            generationMax = 80;
+            generationMax = 35;
             ClearBoard(board);
 
             for (int col = 0; col < size; col++)
