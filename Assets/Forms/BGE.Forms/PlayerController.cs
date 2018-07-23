@@ -304,7 +304,7 @@ namespace BGE.Forms
                     player.transform.position = playerBoid.transform.position;
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation
                         , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
-                        , Time.deltaTime
+                        , Time.deltaTime / 2
                     );
                     break;
             }
