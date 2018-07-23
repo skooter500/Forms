@@ -168,54 +168,74 @@ namespace BGE.Forms
             PlayerController.Instance = this;
         }
 
+        int logoIndex = 0;
+        int reactiveIndex = 0;
+        int videoIndex = 0;
+
         public System.Collections.IEnumerator Show()
         {
             float delayMin = 20.0f;
             float delayMax = 30.0f;
-            int creatureReps = 4;
+            int creatureReps = 2;
             StateMachine sm = GetComponent<StateMachine>();
             while (true)
             {
-                Debug.Log("Starting a Show");                
-                sm.ChangeState(new JourneyingState());
-                ctc.HideEffect();
-                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                ctc.RandomiseEffects();
-                ctc.ShowLeftEffect();                    
-                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                ctc.HideEffect();
-                yield return new WaitForSeconds(2);
-                for (int i = 0; i < creatureReps; i++)
+                while (logoIndex < ctc.leftEffects.Count)
                 {
-                    sm.ChangeState(new FollowState());
+                    Debug.Log("Starting a Show");
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.left = logoIndex;
+                    ctc.ShowLeftEffect();
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    for (int i = 0; i < creatureReps; i++)
+                    {
+                        sm.ChangeState(new FollowState());
+                        yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    }
+                    logoIndex++;
                 }
-                sm.ChangeState(new JourneyingState());
-                ctc.HideEffect();
-                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                ctc.RandomiseEffects();
-                ctc.ShowRightEffect();
-                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                ctc.HideEffect();
-                yield return new WaitForSeconds(2);
-                for (int i = 0; i < creatureReps; i++)
+                while (reactiveIndex < ctc.rightEffects.Count)
                 {
-                    sm.ChangeState(new FollowState());
+                    Debug.Log("Starting a Show");
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.right = reactiveIndex;
+                    ctc.ShowRightEffect();
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    for (int i = 0; i < creatureReps; i++)
+                    {
+                        sm.ChangeState(new FollowState());
+                        yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    }
+                    reactiveIndex++;
                 }
-                sm.ChangeState(new JourneyingState());
-                ctc.HideEffect();
-                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                ctc.RandomiseEffects();
-                ctc.ShowVideo();
-                yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                ctc.HideEffect();
-                yield return new WaitForSeconds(2);
-                for (int i = 0; i < creatureReps; i++)
+                while (videoIndex < ctc.videoPlayer.videos.Count)
                 {
-                    sm.ChangeState(new FollowState());
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.video = videoIndex;
+                    ctc.ShowVideo();
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    for (int i = 0; i < creatureReps; i++)
+                    {
+                        sm.ChangeState(new FollowState());
+                        yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    }
+                    videoIndex++;
                 }
+                logoIndex = 0;
+                reactiveIndex = 0;
+                videoIndex = 0;
             }
         }
 
