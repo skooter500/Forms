@@ -478,11 +478,16 @@ namespace BGE.Forms
             mesh.RecalculateNormals();
             
             mf.mesh = mesh;
+            mr.material = groundMaterial;
+            mr.material.SetTexture("_MainTex", textureGenerator.texture);
+            mr.material.SetTexture("_EmissionMap", textureGenerator.texture);
+            Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
+
 
             surface.layer = this.gameObject.layer;
 
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
-            Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
+            //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             return surface;
         }

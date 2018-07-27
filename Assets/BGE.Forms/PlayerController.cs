@@ -72,13 +72,14 @@ namespace BGE.Forms
                 pc.fc.enabled = false;
                 pc.PickNewTarget();
                 // Calculate the position to move to
-                float angle = Random.Range(-30, 30);
+                float a = pc.species.GetComponent<SpawnParameters>().followCameraHalfFOV;
+                float angle = Random.Range(-a, a);
                 Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
                 //
                 pc.playerBoid.enabled = true;
-                //pc.playerBoid.maxSpeed = 300;
+                pc.playerBoid.maxSpeed = pc.species.GetComponent<SpawnParameters>().followCameraSpeed;
                 pc.playerBoid.desiredPosition = p;
                 pc.playerBoid.transform.position = p;
                 pc.playerBoid.UpdateLocalFromTransform();
@@ -133,15 +134,10 @@ namespace BGE.Forms
         public enum ControlType { Player, Journeying, Following };
         public ControlType controlType = ControlType.Player;
 
-        public float minHeight = 10;
-        public float maxHeight = 1000;
-        public float fov;
-
         Seek seek;
         Boid playerBoid;
         SceneAvoidance sceneAvoidance;
         OffsetPursue op;
-        public float seekDistange = 5000;
         GameObject player;
         GameObject species;
         GameObject creature;
@@ -172,11 +168,13 @@ namespace BGE.Forms
         int reactiveIndex = 0;
         int videoIndex = 0;
 
+        public float delayMin = 20.0f;
+        public float delayMax = 30.0f;
+        public int creatureReps = 1;
+
+
         public System.Collections.IEnumerator Show()
         {
-            float delayMin = 20.0f;
-            float delayMax = 30.0f;
-            int creatureReps = 2;
             StateMachine sm = GetComponent<StateMachine>();
             while (true)
             {
@@ -185,7 +183,7 @@ namespace BGE.Forms
                     Debug.Log("Starting a Show");
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    yield return new WaitForSeconds(Random.Range(delayMin / 4, delayMax / 4));
                     ctc.left = logoIndex;
                     ctc.ShowLeftEffect();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
