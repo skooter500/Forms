@@ -168,6 +168,7 @@ namespace BGE.Forms
         int reactiveIndex = 0;
         int videoIndex = 0;
 
+        public float journeying = 2.0f;
         public float delayMin = 20.0f;
         public float delayMax = 30.0f;
         public int creatureReps = 1;
@@ -183,7 +184,7 @@ namespace BGE.Forms
                     Debug.Log("Starting a Show");
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(delayMin / 4, delayMax / 4));
+                    yield return new WaitForSeconds(journeying);
                     ctc.left = logoIndex;
                     ctc.ShowLeftEffect();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
