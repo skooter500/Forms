@@ -168,9 +168,9 @@ namespace BGE.Forms
         int reactiveIndex = 0;
         int videoIndex = 0;
 
-        public float journeying = 2.0f;
-        public float delayMin = 20.0f;
-        public float delayMax = 30.0f;
+        public float journeying = 10.0f;
+        public float delayMin = 30.0f;
+        public float delayMax = 40.0f;
         public int creatureReps = 1;
 
 
@@ -202,7 +202,7 @@ namespace BGE.Forms
                     Debug.Log("Starting a Show");
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    yield return new WaitForSeconds(journeying);
                     ctc.right = reactiveIndex;
                     ctc.ShowRightEffect();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
@@ -219,7 +219,7 @@ namespace BGE.Forms
                 {
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    yield return new WaitForSeconds(journeying);
                     ctc.video = videoIndex;
                     ctc.ShowVideo();
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
@@ -251,6 +251,7 @@ namespace BGE.Forms
 
         // Use this for initialization
         void Start() {
+            //AudioListener.pause = true;
             player = GameObject.FindGameObjectWithTag("Player");
             playerCruise = GameObject.FindGameObjectWithTag("PlayerCruise");
 
