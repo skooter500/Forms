@@ -64,7 +64,7 @@ namespace BGE.Forms
 
         Dictionary<string,Tile> tiles = new Dictionary<string, Tile>();
         Sampler[] samplers;
-        TextureGenerator textureGenerator;
+        GameOfLifeTextureGenerator textureGenerator;
 
         public bool drawGizmos = true;
 
@@ -79,6 +79,7 @@ namespace BGE.Forms
 
 
         public Material groundMaterial;
+        public Material ceilingMaterial;
 
         public Sampler[] GetSamplers()
         {
@@ -90,7 +91,7 @@ namespace BGE.Forms
             if (drawGizmos )
             {
                 samplers = GetSamplers();
-                textureGenerator = GetComponent<TextureGenerator>();
+                textureGenerator = GetComponent<GameOfLifeTextureGenerator>();
                 if (samplers == null)
                 {
                     Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
@@ -152,7 +153,7 @@ namespace BGE.Forms
             {
                 Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
             }
-
+        
             Random.seed = (int)System.DateTime.Now.Ticks;
             foreach (Sampler s in samplers)
             {
@@ -177,7 +178,7 @@ namespace BGE.Forms
             //this.gameObject.transform.position = Vector3.zero;
             startPos = Vector3.zero;
 
-            textureGenerator = GetComponent<TextureGenerator>();
+            textureGenerator = GetComponent<GameOfLifeTextureGenerator>();
         
             StartCoroutine(GenerateWorldAroundPlayer());
         }
@@ -478,10 +479,13 @@ namespace BGE.Forms
             mesh.RecalculateNormals();
             
             mf.mesh = mesh;
-            mr.material = groundMaterial;
+
+            mr.castShadows = false;
+            mr.receiveShadows = false;
+            mr.material = ceilingMaterial;
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             mr.material.SetTexture("_EmissionMap", textureGenerator.texture);
-            Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
+            //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
 
 
             surface.layer = this.gameObject.layer;

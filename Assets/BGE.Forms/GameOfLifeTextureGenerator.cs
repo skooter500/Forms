@@ -350,6 +350,10 @@ namespace BGE.Forms
                             Color to = (current[y, x] == Color.black) ? backGround : current[y, x];
                             Color c = Color.Lerp(from, to, t);
                             c.a = alpha;
+                            if (t == 1.0f && to == backGround)
+                            {
+                                c.a = 0;
+                            }
                             texture.SetPixel(x, y, c);
                         }
                     }
