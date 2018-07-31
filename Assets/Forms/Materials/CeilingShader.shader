@@ -43,8 +43,17 @@
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;						
-		}
+			float eps = 0.0001;
+			if (abs(c.r - _BackgroundColor.r) + abs(c.g - _BackgroundColor.g) + abs(c.b - _BackgroundColor.b) < eps)
+			{
+				o.Alpha = 0;
+			}
+			else
+			{
+				o.Alpha = c.a;
+			}
+
+					}
 		ENDCG
 	}
 	FallBack "Diffuse"

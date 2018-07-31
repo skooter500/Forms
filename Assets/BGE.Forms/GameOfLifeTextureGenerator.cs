@@ -340,7 +340,7 @@ namespace BGE.Forms
                 // Now lerp to the new board            
                 float delay = 1.0f / updatesPerSecond;
                 float tDelta = 1.0f / (updatesPerSecond / speed);
-                while (t <= 1.0f)
+                while (t <= 1f)
                 {
                     for (int y = 0; y < size; y++)
                     {
@@ -349,11 +349,6 @@ namespace BGE.Forms
                             Color from = (next[y, x] == Color.black) ? backGround : next[y, x];
                             Color to = (current[y, x] == Color.black) ? backGround : current[y, x];
                             Color c = Color.Lerp(from, to, t);
-                            c.a = alpha;
-                            if (t == 1.0f && to == backGround)
-                            {
-                                c.a = 0;
-                            }
                             texture.SetPixel(x, y, c);
                         }
                     }
