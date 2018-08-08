@@ -364,6 +364,7 @@ namespace BGE.Forms
                     texture.Apply();
                     yield return new WaitForSeconds(delay);
                 }
+
                 generation++;
                 if (generation >= generationMax)
                 {

@@ -16,6 +16,7 @@ namespace BGE.Forms
         public float colorMapScaling = 50;
 
         public Texture texture;
+        public Texture2D particleTexture;
         public float colorScale = 0.7f;
 
         //public RenderTexture texture;
@@ -109,6 +110,10 @@ namespace BGE.Forms
                 child.material = transMaterial;
                 child.material.SetFloat("_PositionScale", colorMapScaling);
                 child.material.mainTexture = texture;
+                if (particleTexture != null)
+                {
+                    child.material.SetTexture("_ParticleTexture", particleTexture);
+                }
                 child.material.SetTexture("_EmissionMap", texture);
                 child.material.SetFloat("_Fade", 0);
             }

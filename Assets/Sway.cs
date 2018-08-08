@@ -37,6 +37,7 @@ public class Sway : MonoBehaviour {
         yield return new WaitForSeconds(5);
         rs = GetComponentsInChildren<Renderer>();
         float off = 0;
+
         while (true)
         {
             foreach (Renderer r in rs)
