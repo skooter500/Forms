@@ -1,221 +1,87 @@
-﻿Shader "Custom/AudioReactive"
-{
-	Properties
-	{
-		_MainTex("Texture", 2D) = "white" {}
-		_ParticleTexture("Particle Texture(RGB)", 2D) = "white" {}
-		_PositionScale("PositionScale", Range(0, 1000)) = 250
-		_Offset("Offset", Float) = 0
-		_Color("Color", Color) = (1.0, 1.0, 1.0, 1.0)
+﻿Shader "Custom/AudioReactive" {
+	Properties{
+		_TintColor("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+		_MainTex("Particle Texture", 2D) = "white" {}
+	_InvFade("Soft Particles Factor", Range(0.01,3.0)) = 1.0
 	}
-		SubShader
-		{
-			Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" }
 
-			CGPROGRAM
-			#pragma Lambert vertex:vert fragment:frag
-			#pragma target 3.0
-			#pragma glsl
+		Category{
+		Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "PreviewType" = "Plane" }
+		Blend SrcAlpha One
+		ColorMask RGB
+		Cull Off Lighting Off ZWrite Off
+
+		SubShader{
+		Pass{
+
+		CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
+#pragma target 2.0
+#pragma multi_compile_particles
+#pragma multi_compile_fog
 
 #include "UnityCG.cginc"
 
-			struct appdata
-			{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-				float4 color : COLOR;
-			};
-			struct v2f
-			{
-				float2 uv : TEXCOORD0;
-				float2 uv1 : TEXCOORD0;
-				UNITY_FOG_COORDS(1)
-				float4 vertex : SV_POSITION;
-				float4 color : COLOR;
-			};
-			sampler2D _ParticleTexture;
-			float4 _ParticleTexture_ST;
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			half _Offset;
+		sampler2D _MainTex;
+	fixed4 _TintColor;
 
-			float _PositionScale;
+	struct appdata_t {
+		float4 vertex : POSITION;
+		fixed4 color : COLOR;
+		float2 texcoord : TEXCOORD0;
+		UNITY_VERTEX_INPUT_INSTANCE_ID
+	};
 
-			fixed4 _Color;
+	struct v2f {
+		float4 vertex : SV_POSITION;
+		fixed4 color : COLOR;
+		float2 texcoord : TEXCOORD0;
+		UNITY_FOG_COORDS(1)
+#ifdef SOFTPARTICLES_ON
+			float4 projPos : TEXCOORD2;
+#endif
+		UNITY_VERTEX_OUTPUT_STEREO
+	};
 
+	float4 _MainTex_ST;
 
-			v2f vert(appdata v)
-			{
-				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
-				float uu, vv;
-				uu = abs((v.vertex.x + _Offset) / _PositionScale);
-				vv = abs((v.vertex.z + _Offset) / _PositionScale);
-				o.uv1 = v.uv;
-				o.uv = float2(uu, vv);
-				//UNITY_TRANSFER_FOG(o,o.vertex);
-				o.color = tex2dlod(_MainTex, float4(o.uv, 0, 0));
-				return o;
-			}
+	v2f vert(appdata_t v)
+	{
+		v2f o;
+		UNITY_SETUP_INSTANCE_ID(v);
+		UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+		o.vertex = UnityObjectToClipPos(v.vertex);
+#ifdef SOFTPARTICLES_ON
+		o.projPos = ComputeScreenPos(o.vertex);
+		COMPUTE_EYEDEPTH(o.projPos.z);
+#endif
+		o.color = v.color;
+		o.texcoord = TRANSFORM_TEX(v.texcoord,_MainTex);
+		UNITY_TRANSFER_FOG(o,o.vertex);
+		return o;
+	}
 
-			fixed4 frag(v2f i) : SV_Target
-			{
-				// sample the texture
-				fixed4 col = tex2D(_ParticleTexture, i.uv1) * i.color; // tex2D(_ParticleTexture, i.uv1); // _Color.rgb
-				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
-				return col;
-			}
-			ENDCG
-		}
-}
+	UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
+	float _InvFade;
 
-				/*
-					Properties
-					{
-						_MainTex("Texture", 2D) = "white" {}
-						_ParticleTexture("Particle Texture(RGB)", 2D) = "white" {}
-						_PositionScale("PositionScale", Range(0, 1000)) = 250
-						_Offset("Offset", Float) = 0
-						_Color("Color", Color) = (1.0, 1.0, 1.0, 1.0)
-					}
-						SubShader
-					{
-						Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" }
-						LOD 100
-						Blend One One
-						Zwrite Off
-						Cull Back
-						Pass
-					{
-						CGPROGRAM
-				#pragma target 3.0
-				#pragma vertex vert
+	fixed4 frag(v2f i) : SV_Target
+	{
+#ifdef SOFTPARTICLES_ON
+		float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.projPos)));
+	float partZ = i.projPos.z;
+	float fade = saturate(_InvFade * (sceneZ - partZ));
+	i.color.a *= fade;
+#endif
 
-				#pragma fragment frag
-						// make fog work
-				#pragma multi_compile_fog
-				#pragma glsl
+	fixed4 col = 2.0f * i.color * _TintColor * tex2D(_MainTex, i.texcoord);
+	col.a = saturate(col.a); // alpha should not have double-brightness applied to it, but we can't fix that legacy behaior without breaking everyone's effects, so instead clamp the output to get sensible HDR behavior (case 967476)
 
-				#include "UnityCG.cginc"
-						struct appdata
-					{
-						float4 vertex : POSITION;
-						float2 uv : TEXCOORD0;
-						float4 color : COLOR;
-					};
-					struct v2f
-					{
-						float2 uv : TEXCOORD0;
-						float2 uv1 : TEXCOORD0;
-						UNITY_FOG_COORDS(1)
-							float4 vertex : SV_POSITION;
-						float4 color : COLOR;
-					};
-					sampler2D _ParticleTexture;
-					float4 _ParticleTexture_ST;
-					sampler2D _MainTex;
-					float4 _MainTex_ST;
-					half _Offset;
-
-					float _PositionScale;
-
-					fixed4 _Color;
-
-
-					v2f vert(appdata v)
-					{
-						v2f o;
-						o.vertex = UnityObjectToClipPos(v.vertex);
-						float uu, vv;
-						uu = abs((v.vertex.x + _Offset) / _PositionScale);
-						vv = abs((v.vertex.z + _Offset) / _PositionScale);
-						o.uv1 = v.uv;
-						o.uv = float2(uu, vv);
-						//UNITY_TRANSFER_FOG(o,o.vertex);
-						o.color = tex2dlod(_MainTex, float4(o.uv, 0, 0));
-						return o;
-					}
-
-					fixed4 frag(v2f i) : SV_Target
-					{
-						// sample the texture
-						fixed4 col = tex2D(_ParticleTexture, i.uv1) * i.color; // tex2D(_ParticleTexture, i.uv1); // _Color.rgb
-					// apply fog
-					UNITY_APPLY_FOG(i.fogCoord, col);
-					return col;
-					}
-						ENDCG
-					}
-					}
-				}
-				*/
-
-				/*
-
-				Shader "Custom/AudioReactive" {
-					Properties{
-						_ParticleTexture("Particle Texture(RGB)", 2D) = "white" {}
-						_MainTex("Main Texture(RGB)", 2D) = "white" {}
-					_Glossiness("Smoothness", Range(0,1)) = 0.5
-						_Metallic("Metallic", Range(0,1)) = 0.0
-						_PositionScale("PositionScale", Range(0, 1000)) = 250
-						_Fade("Fade", Range(0, 1)) = 1
-						_Offset("Offset", Float) = 0
-					}
-						SubShader{
-						Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
-						LOD 200
-
-						CGPROGRAM
-						// Physically based Standard lighting model, and enable shadows on all light types
-				#pragma surface surf Standard alpha:fade
-
-						// Use shader model 3.0 target, to get nicer looking lighting
-				#pragma target 3.0
-
-						sampler2D _MainTex;
-						sampler2D __ParticleTexture;
-
-					struct Input {
-						float3 worldPos;
-						float2 uv_MainTex;
-					};
-
-					half _Glossiness;
-					half _Metallic;
-					half _Fade;
-					half _Offset;
-
-					float _PositionScale;
-
-					// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-					// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-					// #pragma instancing_options assumeuniformscaling
-					UNITY_INSTANCING_BUFFER_START(Props)
-						// put more per-instance properties here
-						UNITY_INSTANCING_BUFFER_END(Props)
-
-						void surf(Input IN, inout SurfaceOutputStandard o) {
-						// Albedo comes from a texture tinted by color
-						float u,v;
-						u = abs((IN.worldPos.x + _Offset) / _PositionScale);
-						//u -= (int)u;
-						v = abs((IN.worldPos.z + _Offset) / _PositionScale);
-						//v -= (int)v;
-
-						fixed4 c = tex2D(__ParticleTexture, float2(u, v)); // tex2D(_MainTex, float2(u, v));
-						o.Albedo = c.rgb;
-						o.Alpha = c.a;
-						// Metallic and smoothness come from slider variables
-						o.Metallic = _Metallic;
-						o.Smoothness = _Glossiness;
-					}
-					ENDCG
-					}
-						FallBack "Diffuse"
-				}
-
-				*/
-		}
+	UNITY_APPLY_FOG_COLOR(i.fogCoord, col, fixed4(0,0,0,0)); // fog towards black due to our blend mode
+	return col;
+	}
+		ENDCG
+	}
+	}
+	}
 }
