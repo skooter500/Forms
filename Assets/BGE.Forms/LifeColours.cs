@@ -109,12 +109,15 @@ namespace BGE.Forms
                 }
                 child.material = transMaterial;
                 child.material.SetFloat("_PositionScale", colorMapScaling);
-                child.material.mainTexture = texture;
-                child.material.SetTexture("_ParticleTexture", particleTexture);
-                /*if (particleTexture != null)
+                if (child.material.HasProperty("_ColorTex"))
                 {
-                    child.material.SetTexture("_ParticleTexture", particleTexture);
-                }*/
+                    child.material.mainTexture = particleTexture;
+                    child.material.SetTexture("_ColorTex", texture);
+                }
+                else
+                {
+                    child.material.mainTexture = texture;
+                }
                 child.material.SetTexture("_EmissionMap", texture);
                 child.material.SetFloat("_Fade", 0);
             }

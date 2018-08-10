@@ -2,7 +2,11 @@
 	Properties{
 		_TintColor("Tint Color", Color) = (0.5,0.5,0.5,0.5)
 		_MainTex("Particle Texture", 2D) = "white" {}
-	_InvFade("Soft Particles Factor", Range(0.01,3.0)) = 1.0
+		_ColorTex("Color Texture", 2D) = "white" {}
+		_InvFade("Soft Particles Factor", Range(0.01,3.0)) = 1.0
+		_PositionScale("PositionScale", Range(0, 1000)) = 250
+		_Offset("Offset", Float) = 0
+
 	}
 
 		Category{
@@ -24,7 +28,8 @@
 #include "UnityCG.cginc"
 
 		sampler2D _MainTex;
-	fixed4 _TintColor;
+		sampler2D _ColorTex;
+		fixed4 _TintColor;
 
 	struct appdata_t {
 		float4 vertex : POSITION;
@@ -45,6 +50,9 @@
 	};
 
 	float4 _MainTex_ST;
+
+	float _PositionScale;
+	half _Offset;
 
 	v2f vert(appdata_t v)
 	{
@@ -74,7 +82,15 @@
 	i.color.a *= fade;
 #endif
 
-	fixed4 col = 2.0f * i.color * _TintColor * tex2D(_MainTex, i.texcoord);
+	float uu,vv;
+	uu = abs((i.vertex.x + _Offset) / _PositionScale);
+	//u -= (int)u;
+	vv = abs((i.vertex.z + _Offset) / _PositionScale);
+	//v -= (int)v;
+	fixed4 c = tex2D(_ColorTex, float2(uu,vv));
+	
+
+	fixed4 col = 50.0f * tex2D(_MainTex, i.texcoord)* c;
 	col.a = saturate(col.a); // alpha should not have double-brightness applied to it, but we can't fix that legacy behaior without breaking everyone's effects, so instead clamp the output to get sensible HDR behavior (case 967476)
 
 	UNITY_APPLY_FOG_COLOR(i.fogCoord, col, fixed4(0,0,0,0)); // fog towards black due to our blend mode
