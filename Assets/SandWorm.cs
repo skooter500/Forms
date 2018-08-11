@@ -5,6 +5,10 @@ using UnityEngine;
 public class SandWorm : MonoBehaviour {
     public int bodySegments = 10;
     public float radius = 50;
+    public bool gravity = false;
+
+    public float spring = 100;
+    public float damper = 50;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +28,7 @@ public class SandWorm : MonoBehaviour {
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            rb.useGravity = true;
+            rb.useGravity = gravity;
             Vector3 pos = start + (Vector3.forward * depth * 4 * i);
             bodyPart.transform.position = transform.TransformPoint(pos);
             Quaternion rot = Quaternion.AngleAxis(0, Vector3.right);
@@ -47,8 +51,8 @@ public class SandWorm : MonoBehaviour {
                 j.connectedAnchor = new Vector3(0, 0, 2f);
                 j.useSpring = true;
                 JointSpring js = j.spring;
-                js.spring = 100;
-                js.damper = 20;
+                js.spring = spring;
+                js.damper = damper;
                 j.spring = js;
                 //j.useSpring = false;
 
@@ -74,15 +78,15 @@ public class SandWorm : MonoBehaviour {
     System.Collections.IEnumerator Move()
     {
         yield return new WaitForSeconds(1.0f);
-        float thetaInc = transform.childCount;
         while (true)
         {
+            float thetaInc = (Mathf.PI * 2 * frequency) / (transform.childCount);
+
             for (int i = 0; i < transform.childCount; i++)
             {
+                float theta = thetaInc * i ;
                 Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
-                rb.AddTorque(rb.transform.right * force);
-                rb = transform.GetChild(i + 1).GetComponent<Rigidbody>();
-                rb.AddTorque(- rb.transform.right * force);
+                rb.AddTorque(rb.transform.right * force * Mathf.Sin(theta));
             }
             yield return new WaitForSeconds(1.0f / pulsesPerSecond);
             ////for (int i = 0; i < transform.childCount; i += m)

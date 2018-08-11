@@ -651,11 +651,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcb3591dc8121e40bf6e6be2bc5840b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodySegments: 10
+  bodySegments: 20
   radius: 5
-  force: 500
-  m: 2
-  pulsesPerSecond: 1
+  gravity: 1
+  spring: 100
+  damper: 100
+  force: 6000
+  frequency: 4
+  pulsesPerSecond: 0.5
 --- !u!4 &2092372139
 Transform:
   m_ObjectHideFlags: 0
