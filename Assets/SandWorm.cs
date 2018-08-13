@@ -13,9 +13,10 @@ public class SandWorm : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Vector3 p = Camera.main.transform.position + Camera.main.transform.forward * radius * 10;
-        p.y = 5;
+        //p.y = 5;
         transform.position = p;
         Create();
+        //Animate();
         //StartCoroutine(Move());
 
     }
@@ -34,14 +35,14 @@ public class SandWorm : MonoBehaviour {
             if (i < headtail)
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
-                r = radius * Mathf.Pow(0.2f, (headtail - i));
-                g = false;
+                r = radius * Mathf.Pow(0.7f, (headtail - i));
+                //g = false;
             }
             if (i > bodySegments - headtail - 1)
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
-                r = radius * Mathf.Pow(0.9f, i - (bodySegments - headtail - 1));
-                g = false;
+                r = radius * Mathf.Pow(0.7f, i - (bodySegments - headtail - 1));
+               // g = false;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
@@ -123,17 +124,37 @@ public class SandWorm : MonoBehaviour {
     public float speed = 1f;
     public int headtail = 2;
 
+    float current = 0;
+    int start = 2;
     public void Update()
     {
+        Animate();
+    }
+
+    public void Animate()
+    {
+
+        Rigidbody rb = transform.GetChild((int) current).GetComponent<Rigidbody>();
+        rb.AddTorque(- rb.transform.right * force);
+        current += speed * Time.deltaTime;
+        if (current >= transform.childCount - start)
+        {
+            current = start;
+        }
+
+        /*
         int count = transform.childCount;
         float tm = Mathf.PI / (float)count;
-        float thetaInc = (Mathf.PI * 2 * frequency) / (transform.childCount);
+        float thetaInc = (Mathf.PI * frequency) / (transform.childCount);
+        int t = 0;
         for (int i = 0; i < count; i++)
         {
-            float theta = (thetaInc * i) + offset;
+            float theta = ((thetaInc * t) + offset) % Mathf.PI;
             Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
-            rb.AddTorque(-rb.transform.right * force * Mathf.Sin(theta) * Mathf.Sin(tm * i));
+            rb.AddTorque(rb.transform.right * force * Mathf.Sin(theta));
+            t++;
         }
         offset -= speed * Time.deltaTime;
+        */
     }
 }

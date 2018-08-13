@@ -656,11 +656,11 @@ MonoBehaviour:
   gravity: 1
   spring: 100
   damper: 100
-  force: 130
+  force: 600
   frequency: 1
   pulsesPerSecond: 0.5
-  speed: 1
-  headtail: 3
+  speed: 6
+  headtail: 4
 --- !u!4 &2092372139
 Transform:
   m_ObjectHideFlags: 0
