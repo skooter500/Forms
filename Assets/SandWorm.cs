@@ -10,11 +10,10 @@ public class SandWorm : MonoBehaviour {
     public float spring = 100;
     public float damper = 50;
 
+    public bool animate = false;
+
 	// Use this for initialization
 	void Start () {
-        Vector3 p = Camera.main.transform.position + Camera.main.transform.forward * radius * 10;
-        //p.y = 5;
-        transform.position = p;
         Create();
         //Animate();
         //StartCoroutine(Move());
@@ -35,13 +34,13 @@ public class SandWorm : MonoBehaviour {
             if (i < headtail)
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
-                r = radius * Mathf.Pow(0.7f, (headtail - i));
+                r = radius * Mathf.Pow(0.6f, (headtail - i));
                 //g = false;
             }
             if (i > bodySegments - headtail - 1)
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
-                r = radius * Mathf.Pow(0.7f, i - (bodySegments - headtail - 1));
+                r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
                // g = false;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -88,7 +87,27 @@ public class SandWorm : MonoBehaviour {
             previous = bodyPart;
         }
         // Add head and tail balls
-
+        Transform neck = transform.GetChild(transform.childCount - 1);
+        GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        Rigidbody rb1 = head.AddComponent<Rigidbody>();
+        rb1.useGravity = gravity;
+        Vector3 hp = transform.forward * (radius * 2 + depth * 3);
+        hp = neck.transform.TransformPoint(hp);
+        head.transform.position = hp;
+        head.transform.localScale = new Vector3(radius * 1.5f, radius * 1.5f, radius * 1.5f);
+        
+        HingeJoint j1 = head.AddComponent<HingeJoint>();
+        j1.connectedBody = neck.GetComponent<Rigidbody>();
+        j1.autoConfigureConnectedAnchor = false;
+        j1.axis = Vector3.right;
+        j1.anchor = new Vector3(0, 0, -0.6f);
+        j1.connectedAnchor = new Vector3(0, 0, 2f);
+        j1.useSpring = true;
+        JointSpring js1 = j1.spring;
+        js1.spring = spring;
+        js1.damper = damper;
+        j1.spring = js1;
+        
 
 
     }
@@ -125,10 +144,17 @@ public class SandWorm : MonoBehaviour {
     public int headtail = 2;
 
     float current = 0;
-    int start = 2;
+    int start = 0;
     public void Update()
     {
-        Animate();
+        if (animate)
+        {
+            Animate();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            animate = !animate;
+        }
     }
 
     public void Animate()
