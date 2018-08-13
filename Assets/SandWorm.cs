@@ -41,7 +41,7 @@ public class SandWorm : MonoBehaviour {
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
                 r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
-               // g = false;
+               //g = false;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
@@ -86,11 +86,12 @@ public class SandWorm : MonoBehaviour {
             }            
             previous = bodyPart;
         }
+        /*
         // Add head and tail balls
         Transform neck = transform.GetChild(transform.childCount - 1);
         GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Rigidbody rb1 = head.AddComponent<Rigidbody>();
-        rb1.useGravity = gravity;
+        rb1.useGravity = false;
         Vector3 hp = transform.forward * (radius * 2 + depth * 3);
         hp = neck.transform.TransformPoint(hp);
         head.transform.position = hp;
@@ -107,44 +108,19 @@ public class SandWorm : MonoBehaviour {
         js1.spring = spring;
         js1.damper = damper;
         j1.spring = js1;
-        
-
-
+        */
     }
 
     public float force = 100;
     public float frequency = 2;
     public float pulsesPerSecond = 2;
     
-    System.Collections.IEnumerator Move()
-    {
-        yield return new WaitForSeconds(1.0f);
-        while (true)
-        {
-            float thetaInc = (Mathf.PI * 2 * frequency) / (transform.childCount);
-
-            for (int i = 1; i < transform.childCount - 1; i++)
-            {
-                float theta = thetaInc * i ;
-                Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
-                rb.AddTorque(rb.transform.right * force * Mathf.Cos(theta));
-            }
-            yield return new WaitForSeconds(1.0f / pulsesPerSecond);
-            ////for (int i = 0; i < transform.childCount; i += m)
-            ////{
-            ////    Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
-            ////    rb.AddTorque(-rb.transform.right * force);
-            ////}
-            //yield return new WaitForSeconds(1.0f / pulsesPerSecond);
-        }
-    }
-
     private float offset = 0;
     public float speed = 1f;
     public int headtail = 2;
 
     float current = 0;
-    int start = 0;
+    int start = 3;
     public void Update()
     {
         if (animate)
