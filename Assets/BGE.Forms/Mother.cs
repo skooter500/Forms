@@ -257,17 +257,20 @@ namespace BGE.Forms
             {
                 return creature.GetComponent<FormationGenerator>().leader.GetComponentInChildren<Boid>().position;
             }
+            else if (creature.GetComponent<SandWorm>() != null)
+            {
+                return creature.transform.GetChild(0).transform.position;
+            }
             else
             {
                 return creature.GetComponentInChildren<Boid>().position;
-
             }
         }
 
         private void Teleport(GameObject creature, Vector3 newPos)
         {
             Vector3 boidPos = GetCreaturePosition(creature);
-            if (creature.GetComponent<SchoolGenerator>() == null)
+            if (creature.GetComponent<SchoolGenerator>() == null && creature.GetComponent<SandWorm>() == null)
             {
 
                 Vector3 trans = newPos - boidPos;

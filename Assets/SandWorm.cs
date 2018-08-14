@@ -13,7 +13,7 @@ public class SandWorm : MonoBehaviour {
     public bool animate = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         Create();
         //Animate();
         //StartCoroutine(Move());
@@ -46,6 +46,7 @@ public class SandWorm : MonoBehaviour {
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
+            bodyPart.GetComponent<Renderer>().material.color = Color.black;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rb.useGravity = g;
             Vector3 pos = start + (Vector3.forward * depth * 4 * i);

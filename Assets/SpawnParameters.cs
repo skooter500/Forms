@@ -19,6 +19,8 @@ public class SpawnParameters : MonoBehaviour {
 
     public bool singleton = false;
 
+    BGE.Forms.Boid masterBoid;
+
     // Use this for initialization
     void Start () {
 		
