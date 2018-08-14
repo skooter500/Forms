@@ -41,7 +41,8 @@ public class SandWorm : MonoBehaviour {
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
                 r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
-               // g = false;
+               //g = false;
+                //d = 200;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
@@ -86,6 +87,7 @@ public class SandWorm : MonoBehaviour {
             }            
             previous = bodyPart;
         }
+        /*
         // Add head and tail balls
         Transform neck = transform.GetChild(transform.childCount - 1);
         GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -94,7 +96,7 @@ public class SandWorm : MonoBehaviour {
         Vector3 hp = transform.forward * (radius * 2 + depth * 3);
         hp = neck.transform.TransformPoint(hp);
         head.transform.position = hp;
-        head.transform.localScale = new Vector3(radius * 1.5f, radius * 1.5f, radius * 1.5f);
+        head.transform.localScale = new Vector3(radius * 1f, radius * 1f, radius * 1f);
         
         HingeJoint j1 = head.AddComponent<HingeJoint>();
         j1.connectedBody = neck.GetComponent<Rigidbody>();
@@ -107,8 +109,7 @@ public class SandWorm : MonoBehaviour {
         js1.spring = spring;
         js1.damper = damper;
         j1.spring = js1;
-        
-
+        */
 
     }
 
@@ -144,7 +145,7 @@ public class SandWorm : MonoBehaviour {
     public int headtail = 2;
 
     float current = 0;
-    int start = 0;
+    int start = 2;
     public void Update()
     {
         if (animate)
@@ -165,7 +166,7 @@ public class SandWorm : MonoBehaviour {
         current += speed * Time.deltaTime;
         if (current >= transform.childCount - start)
         {
-            current = start;
+            current = 0;
         }
 
         /*
