@@ -19,7 +19,7 @@ namespace BGE.Forms
 
         Quaternion targetQuaternion = Quaternion.identity;
 
-        void OnTriggerEnter(Collider c)
+        public void OnTriggerEnter(Collider c)
         {
             GameObject other = c.gameObject;
             if (other.tag == "Player" && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
