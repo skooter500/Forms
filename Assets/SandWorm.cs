@@ -128,7 +128,8 @@ public class SandWorm : MonoBehaviour {
         Transform neck = transform.GetChild(transform.childCount - 1);
         GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Rigidbody rb1 = head.AddComponent<Rigidbody>();
-        rb1.useGravity = gravity;
+        rb1.mass = 0.1f;
+        rb1.useGravity = true;
         Vector3 hp = transform.forward * (radius * 2 + depth * 3);
         hp = neck.transform.TransformPoint(hp);
         head.transform.position = hp;
@@ -146,7 +147,6 @@ public class SandWorm : MonoBehaviour {
         js1.damper = damper;
         j1.spring = js1;
         */
-
     }
 
     public float force = 100;

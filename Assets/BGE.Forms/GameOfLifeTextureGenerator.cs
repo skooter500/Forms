@@ -28,9 +28,11 @@ namespace BGE.Forms
         public float sat = 1.0f;
         public float brightness = 1.0f;
 
+        public bool monochrome = true;
+
         public Color RandomColor()
         {
-            return Color.HSVToRGB(Random.Range(0.0f, 1.0f), sat, brightness);
+            return monochrome ? Color.white : Color.HSVToRGB(Random.Range(0.0f, 1.0f), sat, brightness);
         }
 
         public void ClearBoard(Color[,] board)
@@ -312,7 +314,7 @@ namespace BGE.Forms
                         {
                             if (count == 3)
                             {
-                                next[row, col] = AverageColorAround(current, row, col);
+                                next[row, col] = NewCellColor(current, row, col);
                             }
                         }
                         // next[row, col] = current[row, col];
@@ -386,8 +388,12 @@ namespace BGE.Forms
             }
         }
         
-        private Color AverageColorAround(Color[,] board, int row, int col)
+        private Color NewCellColor(Color[,] board, int row, int col)
         {
+            if (monochrome)
+            {
+                return Color.white;
+            }
             Color average = Color.black;
             float count = 0;
             for (int r = row - 1; r <= row + 1; r++)
