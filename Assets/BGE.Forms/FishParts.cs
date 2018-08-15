@@ -66,6 +66,9 @@ namespace BGE.Forms
             GameObject segment = null;
             segment = GameObject.CreatePrimitive(PrimitiveType.Cube);
             segment.GetComponent<Renderer>().receiveShadows = false;
+            segment.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            segment.GetComponent<Renderer>().material.color = Color.black;
+
             segment.layer = this.gameObject.layer;
             Vector3 scale = new Vector3(segmentExtents *0.5f, segmentExtents, segmentExtents);
             segment.transform.localScale = scale;

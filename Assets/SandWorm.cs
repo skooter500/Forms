@@ -10,11 +10,13 @@ public class SandWorm : MonoBehaviour {
     public float spring = 100;
     public float damper = 50;
 
-    public bool animate = false;
-
-	// Use this for initialization
+    // Use this for initialization
 	void Awake () {
-        Create();
+        if (transform.childCount == 0)
+        {
+            Create();
+        }
+        Invoke("StartMoving", 10);
         //Animate();
         //StartCoroutine(Move());
 
@@ -42,7 +44,6 @@ public class SandWorm : MonoBehaviour {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
                 r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
                //g = false;
-                //d = 200;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
@@ -118,54 +119,46 @@ public class SandWorm : MonoBehaviour {
     public float frequency = 2;
     public float pulsesPerSecond = 2;
     
-    System.Collections.IEnumerator Move()
-    {
-        yield return new WaitForSeconds(1.0f);
-        while (true)
-        {
-            float thetaInc = (Mathf.PI * 2 * frequency) / (transform.childCount);
-
-            for (int i = 1; i < transform.childCount - 1; i++)
-            {
-                float theta = thetaInc * i ;
-                Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
-                rb.AddTorque(rb.transform.right * force * Mathf.Cos(theta));
-            }
-            yield return new WaitForSeconds(1.0f / pulsesPerSecond);
-            ////for (int i = 0; i < transform.childCount; i += m)
-            ////{
-            ////    Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
-            ////    rb.AddTorque(-rb.transform.right * force);
-            ////}
-            //yield return new WaitForSeconds(1.0f / pulsesPerSecond);
-        }
-    }
-
+   
     private float offset = 0;
     public float speed = 1f;
     public int headtail = 2;
 
     float current = 0;
-    int start = 2;
-    public void Update()
+    int start = 3;
+
+    bool moving = false;
+
+    public void StartMoving()
     {
-        if (animate)
+        moving = true;
+    }
+
+    public void FixedUpdate()
+    {
+        if (moving)
         {
             Animate();
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            animate = !animate;
+            moving = !moving;
         }
     }
 
     public void Animate()
     {
-
+        float f = force;
         Rigidbody rb = transform.GetChild((int) current).GetComponent<Rigidbody>();
-        rb.AddTorque(- rb.transform.right * force);
-        current += speed * Time.deltaTime;
         if (current >= transform.childCount - start)
+        {
+            f *= .3f;
+        }
+        rb.AddTorque(- rb.transform.right * f);
+        current += speed * Time.deltaTime;
+
+
+        if (current >= transform.childCount)
         {
             current = 0;
         }
