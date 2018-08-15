@@ -285,12 +285,7 @@ namespace BGE.Forms
                 {
                     boid.GetComponent<Constrain>().centre = newPos;
                 }
-
-                if (creature.GetComponentInChildren<CreatureController>())
-                {
-                    creature.GetComponentInChildren<CreatureController>().Restart();
-                }
-
+                
                 if (boid.GetComponent<TrailRenderer>() != null)
                 {
                     boid.GetComponent<TrailRenderer>().Clear();
@@ -305,6 +300,11 @@ namespace BGE.Forms
             else
             {
                 creature.transform.position = newPos;
+            }
+
+            if (creature.GetComponentInChildren<CreatureController>())
+            {
+                creature.GetComponentInChildren<CreatureController>().Restart();
             }
         }
 

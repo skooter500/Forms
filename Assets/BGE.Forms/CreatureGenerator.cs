@@ -61,7 +61,10 @@ namespace BGE.Forms
             else
             {
                 GameObject part = GameObject.Instantiate<GameObject>(prefab);
-                part.GetComponentInChildren<Renderer>().material.color = Color.black;
+                //if (!part.GetComponent<Renderer>().material.name.Contains("Trans"))
+                //{
+                //    part.GetComponent<Renderer>().material.color = Color.black;
+                //}
                 bodyParts[key] = part;
                 return part;
             }

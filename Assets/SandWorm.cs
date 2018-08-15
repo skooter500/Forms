@@ -16,40 +16,75 @@ public class SandWorm : MonoBehaviour {
         {
             Create();
         }
-        Invoke("StartMoving", 10);
+        
         //Animate();
         //StartCoroutine(Move());
 
     }
 
+    public void Restart()
+    {
+        float depth = radius * 0.1f;
+        Vector3 start = -Vector3.forward * bodySegments * depth * 2;
+        Transform previous = null;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            float r = radius;
+            
+            if (i < headtail)
+            {
+                r = radius * Mathf.Pow(0.6f, (headtail - i));
+            }
+            if (i > bodySegments - headtail - 1)
+            {
+                r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
+            }
+            Transform bodyPart = transform.GetChild(i);
+            Vector3 pos = start + (Vector3.forward * depth * 4 * i);
+            bodyPart.position = transform.TransformPoint(pos);
+            Quaternion rot = Quaternion.AngleAxis(0, Vector3.right);
+            bodyPart.rotation = transform.rotation * rot;
+            previous = bodyPart;
+        }
+    }
+
+
     void Create()
     { 
         float depth = radius * 0.1f;
         Vector3 start = - Vector3.forward * bodySegments * depth * 2;
-
+        float ad = 0.05f;
         GameObject previous = null;
         for (int i = 0; i < bodySegments; i++)
         {
             float r = radius;
             float d = damper;
             bool g = gravity;
+            float mass = 1.0f;
             if (i < headtail)
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
                 r = radius * Mathf.Pow(0.6f, (headtail - i));
                 //g = false;
+                mass = Mathf.Pow(0.6f, (headtail - i));
+                ad = 2;
             }
             if (i > bodySegments - headtail - 1)
             {
                 //r = radius * Mathf.Pow(2, - (headtail - i));
                 r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
                //g = false;
+               mass = Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
+                d *= 2;
+                ad = 2;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
+            rb.angularDrag = ad;
             bodyPart.GetComponent<Renderer>().material.color = Color.black;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rb.useGravity = g;
+            rb.mass = mass;
             Vector3 pos = start + (Vector3.forward * depth * 4 * i);
             bodyPart.transform.position = transform.TransformPoint(pos);
             Quaternion rot = Quaternion.AngleAxis(0, Vector3.right);
@@ -67,7 +102,6 @@ public class SandWorm : MonoBehaviour {
                 j.connectedBody = previous.GetComponent<Rigidbody>();
                 j.autoConfigureConnectedAnchor = false;
                 j.axis = Vector3.right;
-                Debug.Log(depth);
                 j.anchor = new Vector3(0, 0, - 2f);
                 j.connectedAnchor = new Vector3(0, 0, 2f);
                 j.useSpring = true;
@@ -125,14 +159,11 @@ public class SandWorm : MonoBehaviour {
     public int headtail = 2;
 
     float current = 0;
-    int start = 3;
+    int start = 2;
 
-    bool moving = false;
+    public bool moving = false;
 
-    public void StartMoving()
-    {
-        moving = true;
-    }
+    
 
     public void FixedUpdate()
     {
@@ -152,7 +183,7 @@ public class SandWorm : MonoBehaviour {
         Rigidbody rb = transform.GetChild((int) current).GetComponent<Rigidbody>();
         if (current >= transform.childCount - start)
         {
-            f *= .3f;
+            f *= .05f;
         }
         rb.AddTorque(- rb.transform.right * f);
         current += speed * Time.deltaTime;
