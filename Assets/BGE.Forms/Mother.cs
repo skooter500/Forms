@@ -170,6 +170,10 @@ namespace BGE.Forms
                             {
                                 newcreature.GetComponent<LifeColours>().FadeIn();
                             }
+                            if (newcreature.GetComponentInChildren<CreatureController>())
+                            {
+                                newcreature.GetComponentInChildren<CreatureController>().Restart();
+                            }
                             // Change the school size every time we teleport a school
                             SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
                             if (sg != null)
@@ -300,11 +304,6 @@ namespace BGE.Forms
             else
             {
                 creature.transform.position = newPos;
-            }
-
-            if (creature.GetComponentInChildren<CreatureController>())
-            {
-                creature.GetComponentInChildren<CreatureController>().Restart();
             }
         }
 

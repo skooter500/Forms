@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SandWormController : CreatureController
 {
-    /*
     System.Collections.IEnumerator Control()
     {
         GetComponent<SandWorm>().moving = false;
@@ -14,13 +13,14 @@ public class SandWormController : CreatureController
             GetComponent<SandWorm>().moving = true;
             yield return new WaitForSeconds(Random.Range(10, 20));
             GetComponent<SandWorm>().moving = false;
-            yield return new WaitForSeconds(Random.Range(1, 3));
+            yield return new WaitForSeconds(10);
         }
     }
-    */
+
     public override void Restart()
     {
         GetComponent<SandWorm>().Restart();
+        //StartCoroutine(Control());
         Invoke("StartMoving", 10);
     }
 

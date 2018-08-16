@@ -167,13 +167,9 @@ public class SandWorm : MonoBehaviour {
 
     public void FixedUpdate()
     {
-        if (moving)
+        if (moving || current != 0)
         {
             Animate();
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            moving = !moving;
         }
     }
 
