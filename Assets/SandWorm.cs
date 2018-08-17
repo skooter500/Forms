@@ -75,7 +75,7 @@ public class SandWorm : MonoBehaviour {
                 r = radius * Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
                //g = false;
                mass = Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
-                d *= 2;
+                //d *= 2;
                 ad = 2;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);

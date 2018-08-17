@@ -21,6 +21,7 @@ public class SandWormController : CreatureController
     {
         GetComponent<SandWorm>().Restart();
         //StartCoroutine(Control());
+        GetComponent<SandWorm>().moving = false;
         Invoke("StartMoving", 10);
     }
 
