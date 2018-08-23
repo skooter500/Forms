@@ -14,14 +14,18 @@ public class SandWormController : CreatureController
         Transform sw = transform.GetChild(transform.childCount -1);
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         GetComponent<SandWorm>().moving = true;
+        GetComponent<SandWorm>().current = 0;
         while (true)
-        {            
+        {
             if (Vector3.Distance(sw.position, player.position) < distanceToPlayer)
+            {
                 GetComponent<SandWorm>().moving = false;
+            }
             else
+            {
                 GetComponent<SandWorm>().moving = true;
-
-            yield return new WaitForSeconds(2);
+            }
+             yield return new WaitForSeconds(2);
             
         }
     }

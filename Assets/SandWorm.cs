@@ -67,7 +67,7 @@ public class SandWorm : MonoBehaviour {
                 r = radius * Mathf.Pow(0.6f, (headtail - i));
                 //g = false;
                 mass = Mathf.Pow(0.6f, (headtail - i));
-                ad = 2;
+                //ad = 2;
             }
             if (i > bodySegments - headtail - 1)
             {
@@ -76,11 +76,11 @@ public class SandWorm : MonoBehaviour {
                //g = false;
                mass = Mathf.Pow(0.8f, i - (bodySegments - headtail - 1));
                 //d *= 2;
-                ad = 2;
+                //ad = 2;
             }
             GameObject bodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
-            rb.angularDrag = ad;
+            //rb.angularDrag = ad;
             bodyPart.GetComponent<Renderer>().material.color = Color.black;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rb.useGravity = g;
@@ -158,7 +158,7 @@ public class SandWorm : MonoBehaviour {
     public float speed = 1f;
     public int headtail = 2;
 
-    float current = 0;
+    public float current = 0;
     int start = 2;
 
     public bool moving = false;
