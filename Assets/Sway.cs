@@ -57,12 +57,15 @@ public class Sway : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        //axis = Quaternion.Euler(0, t * 0.02f, 0) * axis;        
-        transform.localRotation = Quaternion.AngleAxis(
-            //BGE.Forms.Utilities.Map(Mathf.PerlinNoise(t, 0), 0, 1, -angle, angle)
-            BGE.Forms.Utilities.Map(Mathf.Sin(t), -1, 1, -angle, angle)
-            , axis
-            );
+        if (angle != 0)
+        {
+            //axis = Quaternion.Euler(0, t * 0.02f, 0) * axis;        
+            transform.localRotation = Quaternion.AngleAxis(
+                //BGE.Forms.Utilities.Map(Mathf.PerlinNoise(t, 0), 0, 1, -angle, angle)
+                BGE.Forms.Utilities.Map(Mathf.Sin(t), -1, 1, -angle, angle)
+                , axis
+                );
+        }
         t += speed * Time.deltaTime;
 	}
 }

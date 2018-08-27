@@ -99,7 +99,7 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
-            yield return null;
+            //yield return null;
             children = GetComponentsInChildren<Renderer>();            
             foreach (Renderer child in children)
             {
