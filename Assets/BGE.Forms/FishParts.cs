@@ -28,9 +28,7 @@ namespace BGE.Forms
         private Vector3 headRotPoint;
         private Vector3 tailRotPoint;
 
-        private Vector3 headSize;
-        private Vector3 bodySize;
-        private Vector3 tailSize;
+        private Vector3 segmentSize;
 
         public float closeness = 500;
 
@@ -70,8 +68,7 @@ namespace BGE.Forms
             segment.GetComponent<Renderer>().material.color = Color.black;
 
             segment.layer = this.gameObject.layer;
-            Vector3 scale = new Vector3(segmentExtents *0.5f, segmentExtents, segmentExtents);
-            segment.transform.localScale = scale;
+            segment.transform.localScale = segmentSize;
 
             return segment;
         }
@@ -86,15 +83,36 @@ namespace BGE.Forms
             //Gizmos.DrawWireSphere(transform.position, radius);
         }
 
+        private void TranslateMesh(GameObject go, Vector3 trans)
+        {
+            Mesh mesh = go.GetComponent<MeshFilter>().mesh;
+
+            Vector3[] vertices = mesh.vertices;
+            for(int i = 0; i < vertices.Length; i ++)
+            {
+                vertices[i] += trans;
+            }
+            mesh.vertices = vertices;
+            go.GetComponent<MeshFilter>().mesh = mesh;
+        }
+
 
         public void Awake()
         {
 
             if (transform.childCount != 3)
             {
+                segmentSize = new Vector3(segmentExtents * 0.5f, segmentExtents, segmentExtents);
+
                 head = InstiantiateDefaultShape();
                 body = InstiantiateDefaultShape();
                 tail = InstiantiateDefaultShape();
+                TranslateMesh(head, new Vector3(0, 0, 0.5f));
+                TranslateMesh(tail, new Vector3(0, 0, -0.5f));
+
+                head.name = "head";
+                body.name = "body";
+                tail.name = "tail";
 
                 head.GetComponent<Renderer>().material.color = segmentColors[0];
                 body.GetComponent<Renderer>().material.color = segmentColors[1];
@@ -132,17 +150,14 @@ namespace BGE.Forms
 
         private void LayoutSegments()
         {
-            headSize = head.GetComponent<Renderer>().bounds.size;
-            tailSize = tail.GetComponent<Renderer>().bounds.size;
-
             body.transform.position = transform.position;
             body.transform.rotation = transform.rotation;
-            float headOffset = (bodySize.z / 2.0f) + gap + (headSize.z / 2.0f);
+            float headOffset = (segmentSize.z / 2) + gap;
             head.transform.position = transform.TransformPoint(new Vector3(0, 0, headOffset));
             head.transform.rotation = transform.rotation;
 
 
-            float tailOffset = (bodySize.z / 2.0f) + gap + (tailSize.z / 2.0f);
+            float tailOffset = (segmentSize.z / 2) + gap;
             tail.transform.position = transform.TransformPoint(new Vector3(0, 0, -tailOffset));
             tail.transform.rotation = transform.rotation;
 
@@ -150,53 +165,10 @@ namespace BGE.Forms
             tail.transform.parent = transform;
             body.transform.parent = transform;
 
-            headRotPoint = head.transform.localPosition;
-            headRotPoint.z -= headSize.z / 2;
-
-            tailRotPoint = tail.transform.localPosition;
-            tailRotPoint.z += tailSize.z / 2;
-
-
             head.transform.rotation = transform.rotation;
             body.transform.rotation = transform.rotation;
             tail.transform.rotation = transform.rotation;
-            /* bodySize = body.GetComponent<Renderer>().bounds.size;
-             headSize = head.GetComponent<Renderer>().bounds.size;
-             tailSize = tail.GetComponent<Renderer>().bounds.size;
-
-             body.transform.position = transform.position;
-             body.transform.rotation = transform.rotation;
-             float headOffset = (bodySize.z / 2.0f) + gap + (headSize.z / 2.0f);
-             head.transform.position = transform.position + new Vector3(0, 0, headOffset);
-             head.transform.rotation = transform.rotation;
-
-
-             float tailOffset = (bodySize.z / 2.0f) + gap + (tailSize.z / 2.0f);
-             tail.transform.position = transform.position + new Vector3(0, 0, -tailOffset);
-             tail.transform.rotation = transform.rotation;
-
-             head.transform.parent = transform;
-             tail.transform.parent = transform;
-             body.transform.parent = transform;
-
-             headRotPoint = head.transform.localPosition;
-             headRotPoint.z -= headSize.z / 2;
-
-             tailRotPoint = tail.transform.localPosition;
-             tailRotPoint.z += tailSize.z / 2;
-
-
-             head.transform.rotation = transform.rotation;
-             body.transform.rotation = transform.rotation;
-             tail.transform.rotation = transform.rotation;
-             */
         }
-
-        float oldHeadRot = 0;
-        float oldTailRot = 0;
-
-        private float fleeColourWait;
-        private bool fleeColourStarted;
 
         public void Update()
         {
@@ -207,15 +179,11 @@ namespace BGE.Forms
 
             // Animate the head            
             float headRot = Mathf.Sin(theta) * headField;
-            head.transform.RotateAround(transform.TransformPoint(headRotPoint), transform.up, headRot - oldHeadRot);
-
-            oldHeadRot = headRot;
+            head.transform.localRotation = Quaternion.AngleAxis(headRot, Vector3.up);
 
             // Animate the tail
             float tailRot = Mathf.Sin(theta) * tailField;
-            tail.transform.RotateAround(transform.TransformPoint(tailRotPoint), transform.up, tailRot - oldTailRot);
-            oldTailRot = tailRot;
-
+            tail.transform.localRotation = Quaternion.AngleAxis(tailRot, Vector3.up);
             float speed = boid.velocity.magnitude;
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
         }
