@@ -10,6 +10,8 @@ namespace BGE.Forms
 
         float startFOV;
 
+        public float targetFOV = 179;
+
         // Use this for initialization
         void Start()
         {

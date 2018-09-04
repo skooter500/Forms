@@ -6,6 +6,7 @@ namespace BGE.Forms
 {
     public class PlayerController : MonoBehaviour {
 
+        public Camera camera;
         class PlayerState : State
         {
             PlayerController pc;
@@ -276,8 +277,14 @@ namespace BGE.Forms
             if (cameraTransition == null)
                 Debug.LogWarning(@"CameraTransition not found.");
 
+            camera = Camera.main;
+            startFOV = camera.fieldOfView;
+            targetFOV = startFOV;
+
         }
 
+        private float startFOV;
+        public float toadFOV = 170;
 
         public float ellapsed = 0;
         public float toPass = 0.5f;
@@ -285,9 +292,10 @@ namespace BGE.Forms
 
         private void Update()
         {
+            CreatureManager.Log("Toading: " + toading);
             if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
-                clickCount = (clickCount + 1) % 5;
+                clickCount = (clickCount + 1) % 6;
                 ellapsed = 0;                
             }
             ellapsed += Time.deltaTime;
@@ -311,6 +319,9 @@ namespace BGE.Forms
                         StopAllCoroutines();
                         showCoroutine = StartCoroutine(Show());
                         break;
+                    case 5:
+                        Toad();
+                        break;
                 }
                 clickCount = 0;
             }
@@ -330,10 +341,29 @@ namespace BGE.Forms
             }
         }
 
+        private void Toad()
+        {
+            if (toading)
+            {
+                return;
+            }
+            toading = true;
+            targetFOV = (targetFOV == startFOV) ? toadFOV : startFOV;
+            StartCoroutine(ToadCoroutine());
+        }
 
-        //void FixedUpdate()
-        //{
-            
-        //}
+        bool toading = false;
+        float targetFOV;
+
+        System.Collections.IEnumerator ToadCoroutine()
+        {            
+            while (Mathf.Abs(targetFOV - camera.fieldOfView) > 0.01f)
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, targetFOV, Time.deltaTime);
+                yield return null;
+            }
+            camera.fieldOfView = targetFOV;
+            toading = false;
+        }
     }
 }

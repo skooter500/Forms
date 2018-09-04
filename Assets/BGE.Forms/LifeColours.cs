@@ -7,7 +7,6 @@ namespace BGE.Forms
 {
     public class LifeColours : MonoBehaviour
     {
-        public Material creatureTextureMaker;
         public Material transMaterial;
         public Material opaqueMaterial;
         Renderer[] children;
@@ -28,12 +27,15 @@ namespace BGE.Forms
 
         public float targetAlpha = 1.0f;
 
+        public bool waitAFrame = false;
+
         public void UpdateTexture()
         {
             Graphics.Blit(texture, buffer, transMaterial);
             Graphics.Blit(buffer, (RenderTexture)texture);
         }
 
+        /*
         private void InitializeShaderTexture()
         {
             RenderTexture renderTexture = (RenderTexture)texture;
@@ -48,6 +50,7 @@ namespace BGE.Forms
             Graphics.Blit(texture, buffer, creatureTextureMaker);
             Graphics.Blit(buffer, renderTexture);
         }
+        */
 
         private void InitializeProgrammableTexture()
         {
@@ -73,11 +76,11 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {            
-            if (textureMode == TextureMode.Shader)
-            {
-                InitializeShaderTexture();
-            }
-            else
+            //if (textureMode == TextureMode.Shader)
+            //{
+            //    InitializeShaderTexture();
+            //}
+            //else
             {
                 InitializeProgrammableTexture();
             }
@@ -99,7 +102,7 @@ namespace BGE.Forms
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {
-            //yield return null;
+            if (waitAFrame) yield return null;
             children = GetComponentsInChildren<Renderer>();            
             foreach (Renderer child in children)
             {

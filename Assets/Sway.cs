@@ -34,7 +34,7 @@ public class Sway : MonoBehaviour {
 
     System.Collections.IEnumerator ColorChange()
     {
-        yield return new WaitForSeconds(5);
+        //yield return new WaitForSeconds(5);
         rs = GetComponentsInChildren<Renderer>();
         float off = 0;
 
