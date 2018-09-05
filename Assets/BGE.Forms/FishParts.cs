@@ -120,6 +120,7 @@ namespace BGE.Forms
             segments.Add(body);
             segments.Add(tail);
 
+            /*
             if (head.GetComponent<Collider>() != null)
             {
                 head.GetComponent<Collider>().enabled = false;
@@ -132,7 +133,7 @@ namespace BGE.Forms
             {
                 tail.GetComponent<Collider>().enabled = false;
             }
-
+            */
             boid = (boidGameObject == null) ? GetComponent<Boid>() : boidGameObject.GetComponent<Boid>();
 
         }
