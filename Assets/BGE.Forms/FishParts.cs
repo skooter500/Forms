@@ -32,12 +32,6 @@ namespace BGE.Forms
 
         public float closeness = 500;
 
-        public Color[] segmentColors = {
-            Color.blue
-            , Color.cyan
-            , Color.blue
-        };
-
         public float speedMultiplier;
 
         public float headField;
@@ -65,7 +59,6 @@ namespace BGE.Forms
             segment = GameObject.CreatePrimitive(PrimitiveType.Cube);
             segment.GetComponent<Renderer>().receiveShadows = false;
             segment.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            segment.GetComponent<Renderer>().material.color = Color.black;
 
             segment.layer = this.gameObject.layer;
             segment.transform.localScale = segmentSize;
@@ -113,10 +106,6 @@ namespace BGE.Forms
                 head.name = "head";
                 body.name = "body";
                 tail.name = "tail";
-
-                head.GetComponent<Renderer>().material.color = segmentColors[0];
-                body.GetComponent<Renderer>().material.color = segmentColors[1];
-                tail.GetComponent<Renderer>().material.color = segmentColors[2];
 
                 LayoutSegments();
             }
