@@ -167,6 +167,8 @@ namespace BGE.Forms
 
         int logoIndex = 0;
         int reactiveIndex = 0;
+        int logoIndexToad = 0;
+        int reactiveIndexToad = 0;
         int videoIndex = 0;
 
         public float journeying = 10.0f;
@@ -182,7 +184,6 @@ namespace BGE.Forms
             {
                 while (logoIndex < ctc.leftEffects.Count)
                 {
-                    Debug.Log("Starting a Show");
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
                     yield return new WaitForSeconds(journeying);
@@ -200,7 +201,6 @@ namespace BGE.Forms
                 }
                 while (reactiveIndex < ctc.rightEffects.Count)
                 {
-                    Debug.Log("Starting a Show");
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
                     yield return new WaitForSeconds(journeying);
@@ -233,9 +233,37 @@ namespace BGE.Forms
                     }
                     videoIndex++;
                 }
+                newToad.Toad();
+                while (logoIndexToad < ctc.leftEffects.Count)
+                {
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);
+                    ctc.left = logoIndexToad;
+                    ctc.ShowLeftEffect();
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    logoIndex++;
+                }
+                while (reactiveIndexToad < ctc.rightEffects.Count)
+                {
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);
+                    ctc.right = reactiveIndexToad;
+                    ctc.ShowRightEffect();
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    reactiveIndex++;
+                }
+                newToad.Toad();
                 logoIndex = 0;
                 reactiveIndex = 0;
                 videoIndex = 0;
+                reactiveIndexToad = 0;
+                logoIndexToad = 0;
             }
         }
 
