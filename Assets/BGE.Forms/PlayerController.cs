@@ -75,6 +75,7 @@ namespace BGE.Forms
                 float a = pc.species.GetComponent<SpawnParameters>().followCameraHalfFOV;
                 float angle = Random.Range(-a, a);
                 Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
+                lp.Normalize();
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
                 //
@@ -244,7 +245,7 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                     ctc.HideEffect();
                     yield return new WaitForSeconds(2);
-                    logoIndex++;
+                    logoIndexToad++;
                 }
                 while (reactiveIndexToad < ctc.rightEffects.Count)
                 {
@@ -256,7 +257,7 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                     ctc.HideEffect();
                     yield return new WaitForSeconds(2);
-                    reactiveIndex++;
+                    reactiveIndexToad++;
                 }
                 newToad.Toad();
                 logoIndex = 0;
