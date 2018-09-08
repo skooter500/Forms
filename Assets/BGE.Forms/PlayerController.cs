@@ -234,13 +234,15 @@ namespace BGE.Forms
                     }
                     videoIndex++;
                 }
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(journeying);
+                newToad.Toad();
                 while (logoIndexToad < ctc.leftEffects.Count)
                 {                    
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(journeying / 2);
-                    newToad.Toad();
-                    yield return new WaitForSeconds(journeying / 2);
+                    yield return new WaitForSeconds(journeying);                    
                     ctc.left = logoIndexToad;
                     ctc.ShowLeftEffect();
                     logoIndexToad++;
