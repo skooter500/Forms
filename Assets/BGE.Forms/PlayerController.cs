@@ -172,7 +172,7 @@ namespace BGE.Forms
         int reactiveIndexToad = 0;
         int videoIndex = 0;
 
-        public float journeying = 10.0f;
+        public float journeying = 5.0f;
         public float delayMin = 30.0f;
         public float delayMax = 40.0f;
         public int creatureReps = 1;
@@ -190,6 +190,7 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(journeying);
                     ctc.left = logoIndex;
                     ctc.ShowLeftEffect();
+                    logoIndex++;
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                     ctc.HideEffect();
                     yield return new WaitForSeconds(2);
@@ -197,8 +198,7 @@ namespace BGE.Forms
                     {
                         sm.ChangeState(new FollowState());
                         yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                    }
-                    logoIndex++;
+                    }                    
                 }
                 while (reactiveIndex < ctc.rightEffects.Count)
                 {
@@ -207,6 +207,7 @@ namespace BGE.Forms
                     yield return new WaitForSeconds(journeying);
                     ctc.right = reactiveIndex;
                     ctc.ShowRightEffect();
+                    reactiveIndex++;
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                     ctc.HideEffect();
                     yield return new WaitForSeconds(2);
@@ -214,8 +215,7 @@ namespace BGE.Forms
                     {
                         sm.ChangeState(new FollowState());
                         yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                    }
-                    reactiveIndex++;
+                    }                    
                 }
                 while (videoIndex < ctc.videoPlayer.videos.Count)
                 {
@@ -234,30 +234,31 @@ namespace BGE.Forms
                     }
                     videoIndex++;
                 }
-                newToad.Toad();
                 while (logoIndexToad < ctc.leftEffects.Count)
-                {
+                {                    
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(journeying);
+                    yield return new WaitForSeconds(journeying / 2);
+                    newToad.Toad();
+                    yield return new WaitForSeconds(journeying / 2);
                     ctc.left = logoIndexToad;
                     ctc.ShowLeftEffect();
-                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                    ctc.HideEffect();
-                    yield return new WaitForSeconds(2);
                     logoIndexToad++;
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();                    
+                    yield return new WaitForSeconds(2);                    
                 }
                 while (reactiveIndexToad < ctc.rightEffects.Count)
-                {
+                {                    
                     sm.ChangeState(new JourneyingState());
                     ctc.HideEffect();
                     yield return new WaitForSeconds(journeying);
                     ctc.right = reactiveIndexToad;
                     ctc.ShowRightEffect();
+                    reactiveIndexToad++;
                     yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                     ctc.HideEffect();
-                    yield return new WaitForSeconds(2);
-                    reactiveIndexToad++;
+                    yield return new WaitForSeconds(2);                    
                 }
                 newToad.Toad();
                 logoIndex = 0;
@@ -330,18 +331,25 @@ namespace BGE.Forms
                 {
                     case 1:
                         StopAllCoroutines();
+                        showCoroutine = null;
                         sm.ChangeState(new JourneyingState());
                         break;
                     case 2:
                         StopAllCoroutines();
-                        sm.ChangeState(new FollowState());
+                        if (showCoroutine == null || ! (sm.currentState is FollowState))
+                        {                            
+                            sm.ChangeState(new FollowState());
+                        }
+                        showCoroutine = null;
                         break;
                     case 3:
                         StopAllCoroutines();
+                        showCoroutine = null;
                         sm.ChangeState(new PlayerState());
                         break;
                     case 4:
                         StopAllCoroutines();
+                        showCoroutine = null;
                         showCoroutine = StartCoroutine(Show());
                         break;
                     case 5:

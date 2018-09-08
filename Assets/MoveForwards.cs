@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveForwards : MonoBehaviour {
     public float speed = 1f;
     Vector3 startPos;
+    public float distance = 10;
 	// Use this for initialization
 
     private void OnEnable()
@@ -18,6 +19,9 @@ public class MoveForwards : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        transform.Translate(0, speed * Time.deltaTime, 0);
+        if (Vector3.Distance(startPos, transform.position) < distance)
+        {
+            transform.Translate(0, speed * Time.deltaTime, 0);
+        }
 	}
 }
