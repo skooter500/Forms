@@ -25,9 +25,6 @@ namespace BGE.Forms
         float theta;
         float angularVelocity = 5.00f;
 
-        private Vector3 headRotPoint;
-        private Vector3 tailRotPoint;
-
         private Vector3 segmentSize;
 
         public float closeness = 500;
