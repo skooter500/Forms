@@ -65,9 +65,6 @@ public class OculusController : MonoBehaviour {
 
         if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch))
         {
-            //Vector3 pos = transform.TransformPoint(OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch));
-            //Quaternion q = transform.rotation * OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
-            //leftEngine.transform.SetPositionAndRotation(pos, q);
             leftEngine.SetActive(true);
             float leftTrig =  OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
             if (leftTrig > 0.02f)
@@ -76,6 +73,10 @@ public class OculusController : MonoBehaviour {
                 {
                     rb.AddForceAtPosition(leftHand.forward * power * leftTrig, leftEngine.transform.position);
                     leftJet.fire = leftTrig;
+                    if (haptics)
+                    {
+                        OVRInput.SetControllerVibration(leftTrig * 0.5f, leftTrig * 0.5f, OVRInput.Controller.LTouch);
+                    }
                 }
                 else
                 {
@@ -91,7 +92,11 @@ public class OculusController : MonoBehaviour {
             {
                 
                 leftJet.fire = 0;
-                
+                if (haptics)
+                {
+                    OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+                }
+
             }
         }
         else
@@ -100,9 +105,6 @@ public class OculusController : MonoBehaviour {
         }
         if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch))
         {
-            //Vector3 pos = transform.TransformPoint(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch));
-            //Quaternion q = transform.rotation * OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
-            //rightEngine.transform.SetPositionAndRotation(pos, q);
             rightEngine.SetActive(true);
 
             float rightTrig = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
@@ -112,6 +114,11 @@ public class OculusController : MonoBehaviour {
                 {
                     rb.AddForceAtPosition(rightHand.forward * power * rightTrig, rightEngine.transform.position);
                     rightJet.fire = rightTrig;
+
+                    if (haptics)
+                    {
+                        OVRInput.SetControllerVibration(rightTrig * 0.5f, rightTrig * 0.5f, OVRInput.Controller.RTouch);
+                    }
                 }
                 else
                 {
@@ -126,6 +133,10 @@ public class OculusController : MonoBehaviour {
             else
             {
                 rightJet.fire = 0;
+                if (haptics)
+                {
+                    OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+                }
             }
         }
         else

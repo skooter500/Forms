@@ -40,7 +40,8 @@ public class DetatchFromBoid : MonoBehaviour {
                 GetComponent<Rigidbody>().isKinematic = false;
                 GetComponent<ForceController>().enabled = true;
 
-                FindObjectOfType<ViveController>().boid = null;
+                ViveController.Instance.boid = null;
+                OculusController.Instance.boid = null;
 
                 if (boid.GetComponent<Seek>() != null)
                 {
