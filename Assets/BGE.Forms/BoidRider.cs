@@ -33,6 +33,7 @@ namespace BGE.Forms
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 FindObjectOfType<ViveController>().boid = boid;
+                FindObjectOfType<OculusController>().boid = boid;
                 ps = boid.GetComponent<PlayerSteering>();
                 ps.SetActive(true);
                 ps.hSpeed = 1.0f;

@@ -14,7 +14,7 @@ public class DetatchFromBoid : MonoBehaviour {
     {
         CreatureManager.Log("" + Input.GetKeyDown(KeyCode.JoystickButton0));
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)
-            || ViveController.Instance.GetGrip())
+            || ViveController.Instance.GetGrip() || OculusController.Instance.GetGrip())
             
         {
             Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);

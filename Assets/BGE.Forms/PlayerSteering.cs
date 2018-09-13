@@ -11,7 +11,8 @@ public class PlayerSteering : SteeringBehaviour
     public float rightForce;
 
     private ViveController viveController;
-    bool viveControllers = false;
+    private OculusController oculusController;
+    bool vrMode = false;
     private Vector3 viveForce;
 
     private Quaternion average;
@@ -33,8 +34,9 @@ public class PlayerSteering : SteeringBehaviour
     public void Start()
     {
         viveController = FindObjectOfType<ViveController>();
+        oculusController = FindObjectOfType<OculusController>();
         harmonic = GetComponent<Harmonic>();
-        viveControllers = UnityEngine.XR.XRDevice.isPresent;
+        vrMode = UnityEngine.XR.XRDevice.isPresent;
         maxSpeed = boid.maxSpeed;
     }
     
@@ -59,19 +61,37 @@ public class PlayerSteering : SteeringBehaviour
                 if (controlType == ControlType.Tenticle)
                 {
                     Vector3 xyz = average.eulerAngles;
-                    CreatureManager.Log("T angle: " + xyz.x);
                     harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
                 }
                 if (controlType == ControlType.TenticleFlipped)
                 {
                     Vector3 xyz = average.eulerAngles;
-                    CreatureManager.Log("T angle: " + xyz.x);
                     harmonic.theta = Mathf.Deg2Rad * (xyz.x);
                 }
 
 
             }
+        }
 
+        if (oculusController != null && oculusController.isActiveAndEnabled)
+        {
+            if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) || OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch))
+            {
+
+                average = Quaternion.Slerp(oculusController.leftHand.rotation
+                    , oculusController.rightHand.rotation, 0.5f);
+
+                if (controlType == ControlType.Tenticle)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+                }
+                if (controlType == ControlType.TenticleFlipped)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+                }
+            }
         }
 
         /*
@@ -105,7 +125,7 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = (boid.right * rightForce * power)
                 + (boid.up * upForce * power);
-            if (viveControllers)
+            if (vrMode)
             {
                 force += average * Vector3.forward * power;
             }
@@ -115,7 +135,7 @@ public class PlayerSteering : SteeringBehaviour
             force = (boid.right * rightForce * power)
                             + (boid.up * upForce * power);
 
-            if (viveControllers)
+            if (vrMode)
             {
                 force += average * Vector3.forward * power;
             }

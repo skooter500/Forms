@@ -22,8 +22,6 @@ public struct FishAnimatorJob : IJobParallelForTransform
         t.localRotation = Quaternion.AngleAxis(rot, Vector3.up);
         theta[i] += speed * frequency * deltaTime * Mathf.PI * 2.0f;
     }
-
-    
 }
 
 public class FishAnimatorManager : MonoBehaviour
@@ -58,11 +56,13 @@ public class FishAnimatorManager : MonoBehaviour
 
     public void Update()
     {
+        /*
         job = new FishAnimatorJob()
         {
             deltaTime = Time.deltaTime;
             
         }
+        */
     }
 }
 

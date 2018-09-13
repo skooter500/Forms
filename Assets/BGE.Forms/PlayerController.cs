@@ -16,7 +16,7 @@ namespace BGE.Forms
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
-                pc.viveController.enabled = true;
+                pc.vrController.enabled = true;
                 pc.fc.enabled = true;
             }
 
@@ -68,7 +68,7 @@ namespace BGE.Forms
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Following;
                 pc.player.GetComponent<Rigidbody>().isKinematic = true;
-                pc.viveController.enabled = false;
+                pc.vrController.enabled = false;
                 pc.fc.enabled = false;
                 pc.PickNewTarget();
                 // Calculate the position to move to
@@ -121,7 +121,7 @@ namespace BGE.Forms
                 Utilities.SetActive(pc.op, false);
 
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
-                pc.viveController.enabled = true;
+                pc.vrController.enabled = true;
                 pc.fc.enabled = true;
 
 
@@ -132,8 +132,15 @@ namespace BGE.Forms
 
         StateMachine sm;
 
+        public enum BuildType { Vive, Oculus, PC, VJ };
+
+        public BuildType buildType = BuildType.Vive;
+
         public enum ControlType { Player, Journeying, Following };
         public ControlType controlType = ControlType.Player;
+
+        public GameObject oculusStuff;
+        public GameObject viveStuff;
 
         Seek seek;
         Boid playerBoid;
@@ -143,7 +150,7 @@ namespace BGE.Forms
         GameObject species;
         GameObject creature;
         GameObject playerCruise;
-        ViveController viveController;
+        MonoBehaviour vrController;
         ForceController fc;
         Cruise cruise;
         CameraTransition cameraTransition;
@@ -164,6 +171,8 @@ namespace BGE.Forms
         public void Awake()
         {
             PlayerController.Instance = this;
+            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
+            ConfigureBuild();
         }
 
         int logoIndex = 0;
@@ -288,13 +297,12 @@ namespace BGE.Forms
             player = GameObject.FindGameObjectWithTag("Player");
             playerCruise = GameObject.FindGameObjectWithTag("PlayerCruise");
 
-
             fc = player.GetComponent<ForceController>();
 
             sm = GetComponent<StateMachine>();
-            viveController = player.GetComponent<ViveController>();
+            vrController = player.GetComponent<ViveController>();
             cruise = playerCruise.GetComponent<Cruise>();
-            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
+            
 
 
             playerBoid = GameObject.FindGameObjectWithTag("PlayerBoid").GetComponent<Boid>();
@@ -313,7 +321,56 @@ namespace BGE.Forms
 
         }
 
-        
+        public void ConfigureBuild()
+        {
+            switch (buildType)
+            {
+                case BuildType.Oculus:
+                    oculusStuff.SetActive(true);
+                    viveStuff.SetActive(false);
+                    vrController = GetComponent<OculusController>();
+                    vrController.enabled = true;
+                    mother.maxcreatures = 10;
+                    GetComponent<ViveController>().enabled = false;
+                    ctc.enabled = false;
+                    break;
+                case BuildType.Vive:
+                    oculusStuff.SetActive(false);
+                    viveStuff.SetActive(true);
+                    vrController = GetComponent<ViveController>();
+                    vrController.enabled = true;
+                    mother.maxcreatures = 10;
+                    GetComponent<OculusController>().enabled = false;
+                    ctc.enabled = false;
+                    break;
+                case BuildType.PC:
+                    oculusStuff.SetActive(false);
+                    viveStuff.SetActive(true);
+                    vrController = GetComponent<ViveController>();
+                    vrController.enabled = false;
+                    mother.maxcreatures = 20;
+                    GetComponent<OculusController>().enabled = false;
+                    ctc.enabled = false;
+                    break;
+                case BuildType.VJ:
+                    oculusStuff.SetActive(false);
+                    viveStuff.SetActive(true);
+                    vrController = GetComponent<ViveController>();
+                    vrController.enabled = false;
+                    mother.maxcreatures = 20;
+                    GetComponent<OculusController>().enabled = false;
+                    ctc.enabled = true;
+                    break;
+            }
+        }
+
+        public void SetVRControllerEnabled(MonoBehaviour controller, bool enabled)
+        {
+            if (buildType == BuildType.Oculus || buildType == BuildType.Vive)
+            {
+                vrController.enabled = enabled;
+            }
+        }
 
         public float ellapsed = 0;
         public float toPass = 0.5f;

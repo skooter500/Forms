@@ -118,7 +118,6 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
-            CreatureManager.Log("Grip: " + GetGrip());
             float leftTrig = 0.0f;
             float rightTrig = 0.0f;
 
