@@ -85,8 +85,12 @@ namespace BGE.Forms
                     if (boid != null)
                     {
                         boid.school = this;
-                        boid.GetComponent<Constrain>().radius = radius;
-                        boid.GetComponent<Constrain>().centre = pos;
+                        Constrain c = boid.GetComponent<Constrain>();
+                        if (c != null)
+                        {
+                            c.radius = radius;
+                            c.centre = pos;
+                        }
                         boid.transform.position = pos;
                         boid.position = pos;
                         boid.desiredPosition = pos;

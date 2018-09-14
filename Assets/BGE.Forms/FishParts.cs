@@ -157,9 +157,13 @@ namespace BGE.Forms
             tail.transform.rotation = transform.rotation;
         }
 
-        /*
-        public void Update()
+        int jobIndex;
+        
+        public void LateUpdate()
         {
+            // Replace this with a Boid system at some stage
+            FishAnimatorManager.Instance.speed[jobIndex] = boid.speed;
+            /*
             if (boid.distanceToPlayer > closeness)
             {
                 return;
@@ -174,7 +178,7 @@ namespace BGE.Forms
             tail.transform.localRotation = Quaternion.AngleAxis(tailRot, Vector3.up);
             float speed = boid.velocity.magnitude;
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
+            */
         }
-        */
     }
 }
