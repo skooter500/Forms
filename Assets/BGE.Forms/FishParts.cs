@@ -87,7 +87,7 @@ namespace BGE.Forms
         }
 
 
-        public void Awake()
+        public void Start()
         {
 
             if (transform.childCount != 3)
@@ -132,6 +132,7 @@ namespace BGE.Forms
 
             boid = (boidGameObject == null) ? GetComponent<Boid>() : boidGameObject.GetComponent<Boid>();
 
+            FishAnimatorManager.Instance.AddFish(this.transform, headField, tailField);
         }
 
         private void LayoutSegments()
@@ -147,15 +148,16 @@ namespace BGE.Forms
             tail.transform.position = transform.TransformPoint(new Vector3(0, 0, -tailOffset));
             tail.transform.rotation = transform.rotation;
 
-            head.transform.parent = transform;
-            tail.transform.parent = transform;
+            head.transform.parent = transform;            
             body.transform.parent = transform;
+            tail.transform.parent = transform;
 
             head.transform.rotation = transform.rotation;
             body.transform.rotation = transform.rotation;
             tail.transform.rotation = transform.rotation;
         }
 
+        /*
         public void Update()
         {
             if (boid.distanceToPlayer > closeness)
@@ -173,5 +175,6 @@ namespace BGE.Forms
             float speed = boid.velocity.magnitude;
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
         }
+        */
     }
 }
