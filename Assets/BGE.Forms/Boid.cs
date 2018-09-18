@@ -92,13 +92,12 @@ namespace BGE.Forms
 
         public void Awake()
         {
-            
+            player = GameObject.FindGameObjectWithTag("MainCamera").transform;
+            CreatureManager.Instance.boids.Add(this);
         }
 
         void Start()
         {
-            player = GameObject.FindGameObjectWithTag("MainCamera").transform;
-            CreatureManager.Instance.boids.Add(this);
             multiThreaded = true;
             desiredPosition = transform.position;
             timeAcc = preferredTimeDelta;

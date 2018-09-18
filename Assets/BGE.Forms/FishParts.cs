@@ -132,7 +132,7 @@ namespace BGE.Forms
 
             boid = (boidGameObject == null) ? GetComponent<Boid>() : boidGameObject.GetComponent<Boid>();
 
-            FishAnimatorManager.Instance.AddFish(this.transform, headField, tailField);
+            //FishAnimatorManager.Instance.AddFish(this.transform, headField, tailField);
         }
 
         private void LayoutSegments()
@@ -162,8 +162,8 @@ namespace BGE.Forms
         public void LateUpdate()
         {
             // Replace this with a Boid system at some stage
-            FishAnimatorManager.Instance.speed[jobIndex] = boid.speed;
-            /*
+            //FishAnimatorManager.Instance.speed[jobIndex] = boid.speed;
+            
             if (boid.distanceToPlayer > closeness)
             {
                 return;
@@ -178,7 +178,6 @@ namespace BGE.Forms
             tail.transform.localRotation = Quaternion.AngleAxis(tailRot, Vector3.up);
             float speed = boid.velocity.magnitude;
             theta += speed * angularVelocity * Time.deltaTime * speedMultiplier;
-            */
         }
     }
 }
