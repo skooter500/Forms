@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - prefab
+  - PlayerCruise
+  - PlayerBoid
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - TenticleFlower
   - Sardines
   - Steves
-  - 
+  - Sandworm
   - 
   - 
   - 

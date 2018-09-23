@@ -3,6 +3,7 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+/[P]ackages/
 Klak
 
 .vs
@@ -11,7 +12,10 @@ Klak
 .vs/Forms/v15/sqlite3/storage.ide
 Assets/Plugins/
 Assets/GoogleVR/
+Assets/LeapMotion/
 SteamVR
+Oculus
+Assets/Oculus.meta
 Standard Assets
 Assets/SteamVR.meta
 PostProcessing

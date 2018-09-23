@@ -10,11 +10,16 @@ public class SpawnParameters : MonoBehaviour {
     public float minDistanceFromSurface = 1000;
 
     public float viewingDistance = 500;
+    public float followCameraSpeed = 80;
+    public float followCameraHalfFOV = 30;
+
 
     [HideInInspector]
     public GameObject Species;
 
     public bool singleton = false;
+
+    BGE.Forms.Boid masterBoid;
 
     // Use this for initialization
     void Start () {
