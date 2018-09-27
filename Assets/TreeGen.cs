@@ -20,7 +20,7 @@ public class TreeGen : MonoBehaviour {
         branch.transform.rotation = rotation;
         branch.transform.parent = this.transform;
         branch.SetActive(true);
-        branch.transform.localScale = new Vector3(size * 0.2f, size * 0.6f, size * 0.2f);
+        branch.transform.localScale = new Vector3(size * 0.2f, size * 0.5f, size * 0.2f);
         Vector3 top = position + (branch.transform.up * size * 0.5f);
         GameObject sphere = GameObject.Instantiate(nodePrefab);
         sphere.transform.position = top;
@@ -38,10 +38,6 @@ public class TreeGen : MonoBehaviour {
 
             for (int i = 0; i < children; i++)
             {
-                if (stocastic && Random.Range(0.0f, 1.0f) < 0.1f)
-                {
-                    //continue;
-                }
                 float theta = thetaInc * i;
 
                 Quaternion q = branch.transform.rotation * Quaternion.Euler(
