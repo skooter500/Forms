@@ -80,13 +80,25 @@ namespace BGE.Forms
                 {
                     Gizmos.DrawWireSphere(cp.position, cp.size * 0.5f);
                 }
+                LogParts(creatureParts);
+            }            
+        }
+
+        void LogParts(List<CreaturePart> creatureParts)
+        {
+            string cps = "";
+            foreach (CreaturePart cp in creatureParts)
+            {
+                cps += cp;
             }
+            Debug.Log(cps);
         }
 
         public void CreateCreature()
         {
             string[] fla = finList.Split(',');
             List<CreaturePart> creatureParts = CreateCreatureParams();
+            LogParts(creatureParts);
             Gizmos.color = Color.yellow;
             Boid boid = null;
 
@@ -224,7 +236,7 @@ namespace BGE.Forms
             {
                 //Debug.Log(gameObject + " called awake. I have " + transform.childCount + " children");
                 CreateCreature();
-            }
+            }            
         }
 
         void Start()
@@ -258,6 +270,11 @@ namespace BGE.Forms
             this.part = part;
             this.prefab = prefab;
             this.rotation = rotation;
+        }
+
+        public override string ToString()
+        {
+            return position + ", " + size + ", " + rotation;
         }
     }
 }

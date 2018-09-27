@@ -4,7 +4,7 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CreatureMaterial50PercentTrans
   m_Shader: {fileID: 4800000, guid: e25e230a9f13e8f43b6db3e72db02257, type: 3}
@@ -60,7 +60,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Fade: 0.5
+    - _Fade: 0.99
     - _GlossMapScale: 1
     - _Glossiness: 0.7
     - _GlossyReflections: 1

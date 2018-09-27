@@ -72,12 +72,23 @@ namespace BGE.Forms
                 pc.fc.enabled = false;
                 pc.PickNewTarget();
                 // Calculate the position to move to
-                float a = pc.species.GetComponent<SpawnParameters>().followCameraHalfFOV;
+                SpawnParameters sp = pc.species.GetComponent<SpawnParameters>();
+                float a = sp.followCameraHalfFOV;
                 float angle = Random.Range(-a, a);
+                
                 Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
                 lp.Normalize();
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
+                Debug.Log("Angle: " + angle);
+                Debug.Log("lp: " + lp);
+                Debug.Log("Desired position: " + p);
+                Debug.Log("Viewing distance: " + sp.viewingDistance);
+                Debug.Log("Boid pos: " + pc.creature.GetComponent<Boid>().position);
+                Debug.Log("Camera pos: " + p);
+                Debug.Log("leader: " + pc.creature);
+
+
                 //
                 pc.playerBoid.enabled = true;
                 pc.playerBoid.maxSpeed = pc.species.GetComponent<SpawnParameters>().followCameraSpeed;

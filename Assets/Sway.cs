@@ -5,9 +5,8 @@ using UnityEngine;
 public class Sway : MonoBehaviour {
 
     public float angle = 20.0f;
-    public float speed = 1.0f;
+    public float frequency = 1.0f;
     public float colorSpeed = 1f;
-
 
     private Vector3 axis;
 
@@ -25,7 +24,7 @@ public class Sway : MonoBehaviour {
         }
         if (Random.Range(0.0f, 1.0f) < 0.5f)
         {
-            speed = -speed;
+            frequency = -frequency;
         }
 
 
@@ -66,6 +65,6 @@ public class Sway : MonoBehaviour {
                 , axis
                 );
         }
-        t += speed * Time.deltaTime;
+        t += frequency * Time.deltaTime * Mathf.PI * 2.0f;
 	}
 }
