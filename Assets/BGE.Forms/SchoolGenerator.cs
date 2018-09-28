@@ -52,7 +52,7 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        fish = GameObject.Instantiate<GameObject>(prefab, unit, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));                       
+                        fish = GameObject.Instantiate<GameObject>(prefab, pos, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));                       
                     }
 
                     alive.Add(fish);
@@ -91,10 +91,10 @@ namespace BGE.Forms
                             c.radius = radius;
                             c.centre = pos;
                         }
-                        boid.transform.position = pos;
-                        boid.position = pos;
-                        boid.desiredPosition = pos;
-                        //boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
+                        //boid.transform.position = pos;
+                        //boid.position = pos;
+                        //boid.desiredPosition = pos;
+                        boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
 
                         boids.Add(boid);
                     }

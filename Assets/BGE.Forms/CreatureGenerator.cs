@@ -91,14 +91,12 @@ namespace BGE.Forms
             {
                 cps += cp;
             }
-            Debug.Log(cps);
         }
 
         public void CreateCreature()
         {
             string[] fla = finList.Split(',');
             List<CreaturePart> creatureParts = CreateCreatureParams();
-            LogParts(creatureParts);
             Gizmos.color = Color.yellow;
             Boid boid = null;
 
@@ -184,7 +182,7 @@ namespace BGE.Forms
             List<CreaturePart> cps = new List<CreaturePart>();
             float thetaInc = (Mathf.PI * frequency) / (numParts);
             float theta = this.theta;
-            float lastGap = 0;
+            float lastPartSize = 0;
             Vector3 pos = transform.position;
 
             int half = (numParts / 2) - 1; 
@@ -198,15 +196,15 @@ namespace BGE.Forms
                 }
                 else
                 {
-                    partSize = verticalSize  * Mathf.Abs(Mathf.Sin(theta)) + (verticalSize * lengthVariation * UnityEngine.Random.Range(0.0f, 1.0f));
+                    partSize = verticalSize * Mathf.Abs(Mathf.Sin(theta)); // Never used! + (verticalSize * lengthVariation * UnityEngine.Random.Range(0.0f, 1.0f));
                     theta += thetaInc;
                 }
-                pos -= ((((lastGap + partSize) / 2.0f) + gap) * transform.forward);
+                pos -= ((((lastPartSize + partSize) / 2.0f) + gap) * transform.forward);
                 if (flatten)
                 {
                     pos.y -= (partSize / 2);
                 }
-                lastGap = partSize;
+                lastPartSize = partSize;
                 if (i == seatPosition && seatPrefab != null)
                 {
                     cps.Add(new CreaturePart(pos
@@ -233,9 +231,7 @@ namespace BGE.Forms
         void Awake() {
             // For some reason this method is being called twice
             if (transform.childCount == 0)
-            {
-                //Debug.Log(gameObject + " called awake. I have " + transform.childCount + " children");
-                CreateCreature();
+            {   CreateCreature();
             }            
         }
 
