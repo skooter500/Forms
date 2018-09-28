@@ -23,10 +23,10 @@ namespace BGE.Forms
         {
             if (isActiveAndEnabled)
             {
-                Gizmos.color = Color.blue;
+                Gizmos.color = Color.cyan;
                 Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward*distance, transform);
                 Gizmos.DrawWireSphere(wanderCircleCenter, radius);
-                Gizmos.color = Color.gray;
+                Gizmos.color = Color.cyan;
                 Vector3 worldTarget = Utilities.TransformPointNoScale(target + Vector3.forward*distance, transform);
                 Gizmos.DrawLine(transform.position, worldTarget);
             }

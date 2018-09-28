@@ -75,6 +75,7 @@ namespace BGE.Forms
                         tr.Clear();
                     }
                     fish.transform.position = pos;
+                    fish.transform.rotation = Quaternion.AngleAxis(Random.Range(0.0f, 360.0f), Vector3.up);
                     if (tr != null)
                     {
                         tr.enabled = true;

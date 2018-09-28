@@ -92,6 +92,9 @@ public class TreeGen : MonoBehaviour {
             GameObject.Destroy(transform.GetChild(i).gameObject);
         }
 
+        BoxCollider c = gameObject.AddComponent<BoxCollider>();
+
+        //c.bounds = mesh.bound
         //Debug.Log("Vertex count: " + mesh.vertexCount);
         //MeshCollider mc = gameObject.AddComponent<MeshCollider>();
         //mc.sharedMesh = mesh;
