@@ -93,8 +93,8 @@ namespace BGE.Forms
                             c.centre = pos;
                         }
                         //boid.transform.position = pos;
-                        //boid.position = pos;
-                        //boid.desiredPosition = pos;
+                        boid.position = pos;
+                        boid.desiredPosition = pos;
                         boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
 
                         boids.Add(boid);
