@@ -91,7 +91,7 @@ namespace BGE.Forms
             worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;
             return boid.SeekForce(worldTarget);
         }
-        public void Update()
+        public override void Update()
         {
             if (auto)
             {
