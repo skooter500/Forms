@@ -27,8 +27,8 @@ public class Sway : MonoBehaviour {
             frequency = -frequency;
         }
 
-
-
+        SwayManager.Instance.Add(this.transform, axis);
+        
     }
 
     System.Collections.IEnumerator ColorChange()
@@ -56,6 +56,8 @@ public class Sway : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        /*
+        
         if (angle != 0)
         {
             //axis = Quaternion.Euler(0, t * 0.02f, 0) * axis;        
@@ -65,6 +67,8 @@ public class Sway : MonoBehaviour {
                 , axis
                 );
         }
-        t += frequency * Time.deltaTime * Mathf.PI * 2.0f;
+        t += frequency * Time.deltaTime * Mathf.PI * 2.0f;        
+
+    */
 	}
 }
