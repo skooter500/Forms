@@ -22,7 +22,7 @@ namespace BGE.Forms
         System.Collections.IEnumerator SpawnJellys()
         {
             float delay = 1.0f / (float)spawnRate;
-            WorldGenerator wg = FindObjectOfType<WorldGenerator>();
+            WorldGenerator wg = GameObject.FindObjectOfType<WorldGenerator>();
             while (true)
             {
                 // Remove too far jellys
