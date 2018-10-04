@@ -7,6 +7,9 @@ namespace BGE.Forms
 
         public bool autoAssignBones = true;
 
+        public enum AlignmentStrategy { LookAt, AlignToHead, LocalAlignToHead }
+        public AlignmentStrategy alignmentStrategy = AlignmentStrategy.LookAt;
+
         public List<GameObject> bones = new List<GameObject>();
         public List<Transform> boneTransforms = new List<Transform>();
 
@@ -120,7 +123,18 @@ namespace BGE.Forms
             Quaternion wantedRotation;
             Quaternion newRotation = Quaternion.identity;
             wantedRotation = Quaternion.LookRotation(target.position - newPos, target.up);
-            follower.rotation = Quaternion.Slerp(follower.rotation, wantedRotation, time * angularBondDamping);            
+            switch (alignmentStrategy)
+            {
+
+                case AlignmentStrategy.LookAt:
+                    wantedRotation = Quaternion.LookRotation(target.position - newPos, target.up);
+                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, time * angularBondDamping);
+                    break;
+                case AlignmentStrategy.AlignToHead:
+                    wantedRotation = target.transform.rotation;
+                    follower.transform.rotation = Quaternion.Slerp(follower.transform.rotation, wantedRotation, time * angularBondDamping);
+                    break;
+            }
         }
-    }    
+    }
 }
