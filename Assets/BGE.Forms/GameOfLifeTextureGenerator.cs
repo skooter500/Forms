@@ -67,6 +67,31 @@ namespace BGE.Forms
             }
         }
 
+        private void BoxBox(Color[,] board)
+        {
+            generation = 0;
+            generationMax = 20;
+            ClearBoard(board);
+            int x1 = (int)(size * 0.2);
+            int x2 = (int)(size * 0.8);
+            for (int col = x1; col < x2; col++)
+            {
+                board[x1, col] = RandomColor();
+                board[x2, col] = RandomColor();
+                board[col, x1] = RandomColor();
+                board[col, x2] = RandomColor();
+            }
+            x1 = (int)(size * 0.4);
+            x2 = (int)(size * 0.6);
+            for (int col = x1; col < x2; col++)
+            {
+                board[x1, col] = RandomColor();
+                board[x2, col] = RandomColor();
+                board[col, x1] = RandomColor();
+                board[col, x2] = RandomColor();
+            }
+        }
+    
         private void BoxStartingPattern(Color[,] board)
         {
             generation = 0;
@@ -381,6 +406,9 @@ namespace BGE.Forms
                             break;
                         case 2:
                             startingPattern = new StartingPattern(CrossStartingPattern);
+                            break;
+                        case 3:
+                            startingPattern = new StartingPattern(BoxBox);
                             break;
                     }
                     startingPattern(current);

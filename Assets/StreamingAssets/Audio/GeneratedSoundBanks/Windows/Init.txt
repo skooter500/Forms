@@ -1,0 +1,27 @@
+State Group	ID	Name			Wwise Object Path	Notes
+	4257911941	Music_Tracks			\Music\Music_Tracks	
+
+State	ID	Name	State Group			Notes
+	0	None	Music_Tracks			
+	3366477912	Track_01	Music_Tracks			
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	85412153	Ambience			\Default Work Unit\Master Audio Bus\World\Ambience	
+	1069431850	Player			\Default Work Unit\Master Audio Bus\World\Player	
+	1551306167	UI			\Default Work Unit\Master Audio Bus\Non_World\UI	
+	2609808943	World			\Default Work Unit\Master Audio Bus\World	
+	3567116701	Creatures			\Default Work Unit\Master Audio Bus\World\Creatures	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+	3869140995	Non_World			\Default Work Unit\Master Audio Bus\Non_World	
+	3991942870	Music			\Default Work Unit\Master Audio Bus\Non_World\Music	
+
+Auxiliary Bus	ID	Name			Wwise Object Path	Notes
+	4176276111	Creatures_Verb			\Default Work Unit\Master Audio Bus\World\Creatures\Creatures_Verb	
+
+Effect plug-ins	ID	Name	Type				Notes
+	1440974560	Creatures_Ambience_Verb	Wwise RoomVerb			
+
+Audio Devices	ID	Name	Type				Notes
+	2317455096	No_Output	No Output			
+	3859886410	System	System			
+

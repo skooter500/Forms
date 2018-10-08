@@ -33,6 +33,23 @@ namespace BGE.Forms
         
         private static System.Random Random = new System.Random(Guid.NewGuid().GetHashCode());
 
+        public static float StdDev(float[] vals)
+        {
+            float average = 0;
+            foreach (float v in vals)
+            {
+                average += v;
+            }
+            average /= (float)vals.Length;
+
+            float sumOfSquaresOfDifferences = 0;
+            foreach (float v in vals)
+            {
+                sumOfSquaresOfDifferences += ((v - average) * (v - average));
+            }
+            return Mathf.Sqrt(sumOfSquaresOfDifferences / (float) vals.Length);
+        }
+
         public static float RandomRange(System.Random r, float min, float max)
         {
             double f = 0.0f;

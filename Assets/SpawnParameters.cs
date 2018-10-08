@@ -13,6 +13,7 @@ public class SpawnParameters : MonoBehaviour {
     public float followCameraSpeed = 80;
     public float followCameraHalfFOV = 30;
 
+    public float radiusRequired = 0;
 
     [HideInInspector]
     public GameObject Species;

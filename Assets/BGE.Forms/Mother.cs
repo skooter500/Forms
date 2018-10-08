@@ -54,17 +54,46 @@ namespace BGE.Forms
                 newPos = Camera.main.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
                 float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
-                float minHeight  =  sampleY + sp.minHeight;                
+                float minHeight  =  sampleY + sp.minHeight;
+                int segments = 5;
+                if (sp.radiusRequired != 0)
+                {
+                    float[] heights = new float[segments + 1];
+                    heights[0] = sampleY;
+                    float sum = sampleY;
+                    float thetaInc = (Mathf.PI * 2.0f) / segments;
+                    for (int i = 0; i < segments; i++)
+                    {
+                        float theta = i * thetaInc;
+                        Vector3 p = new Vector3
+                            (Mathf.Sin(theta) * sp.radiusRequired
+                            , 0
+                            , Mathf.Cos(theta) * sp.radiusRequired
+                            );
+
+                        // Translate by newPos
+                        p += newPos;
+
+                        heights[i + 1] = WorldGenerator.Instance.SamplePos(p.x, p.z);
+                    }
+                    float stdDev = Utilities.StdDev(heights);
+                    if (stdDev > 2)
+                    {
+                        count++;
+                        continue;
+                    }
+                }
                 if (minHeight > worldMax)
                 {                    
-                    count++;
-                    if (count == 10)
-                    {
-                        found = false;
-                        break;
-                    }
+                    count++;                    
                     continue;
                 }
+                if (count == 10)
+                {
+                    found = false;
+                    break;
+                }
+
                 float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
                 newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
                 found = true;

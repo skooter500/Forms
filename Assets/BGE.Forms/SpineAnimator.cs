@@ -14,11 +14,9 @@ namespace BGE.Forms
         public List<Transform> boneTransforms = new List<Transform>();
 
         List<Vector3> bondOffsets = new List<Vector3>();
-        
-        
+                
         public float bondDamping = 10;
         public float angularBondDamping = 12;
-
         
         public bool suspended = false;
 
@@ -64,11 +62,6 @@ namespace BGE.Forms
             }
 
             boid = Utilities.FindBoidInHierarchy(this.gameObject);
-        }
-
-        public void OnEnable()
-        {
-            //StartCoroutine(Animate());
         }
 
         
