@@ -67,6 +67,20 @@ namespace BGE.Forms
             }
         }
 
+        private void Pi(Color[,] board)
+        {
+            ClearBoard(board);
+            float radius = (size - 20) / 2;
+            int points = 100;
+            float theta = Mathf.PI * 2.0f / points;
+            for (int i = 0; i < points; i++)
+            {
+                float x = radius + (Mathf.Sin(theta * i) * radius);
+                float y = radius + (Mathf.Cos(theta * i) * radius);
+                board[(int)x, (int)y] = RandomColor();
+            }
+        }
+
         private void BoxBox(Color[,] board)
         {
             generation = 0;
@@ -395,7 +409,7 @@ namespace BGE.Forms
                 generation++;
                 if (generation >= generationMax)
                 {
-                    int dice = Random.Range(0, 3);
+                    int dice = Random.Range(0, 4);
                     switch (dice)
                     {
                         case 0:
@@ -595,7 +609,7 @@ namespace BGE.Forms
             
             if (x == -1 && x != lastX)
             {
-                startingPattern = new StartingPattern(GridStartingPattern);
+                startingPattern = new StartingPattern(BoxStartingPattern);
                 startingPattern(current);
             }
             if (x == 1 && x != lastX)

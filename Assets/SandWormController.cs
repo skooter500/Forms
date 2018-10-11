@@ -48,9 +48,4 @@ public class SandWormController : CreatureController
     {
         Restart();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

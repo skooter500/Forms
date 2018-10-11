@@ -55,7 +55,7 @@ namespace BGE.Forms
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
                 float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
                 float minHeight  =  sampleY + sp.minHeight;
-                int segments = 5;
+                int segments = 3;
                 if (sp.radiusRequired != 0)
                 {
                     float[] heights = new float[segments + 1];
