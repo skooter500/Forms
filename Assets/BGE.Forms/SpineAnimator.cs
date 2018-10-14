@@ -62,6 +62,8 @@ namespace BGE.Forms
             }
 
             boid = Utilities.FindBoidInHierarchy(this.gameObject);
+
+            SpineAnimatorManager.Instance.AddSpine(this);
         }
 
         
@@ -70,6 +72,7 @@ namespace BGE.Forms
         
         public void FixedUpdate()
         {
+            /*
             if (suspended)
             {
                 return;
@@ -106,6 +109,7 @@ namespace BGE.Forms
 
                 DelayedMovement(previous, current, offsets[i], i);
             }
+            */
         }
     
         void DelayedMovement(Transform previous, Transform current, Vector3 bondOffset, int i)
