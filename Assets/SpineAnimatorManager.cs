@@ -3,6 +3,11 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine.Jobs;
 using BGE.Forms;
+using Unity.Jobs.LowLevel.Unsafe;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class SpineAnimatorManager : MonoBehaviour
 {
@@ -31,12 +36,12 @@ public class SpineAnimatorManager : MonoBehaviour
     public int AddSpine(SpineAnimator sa)
     {
         roots[numJobs] = numBones;
-        transforms[numBones] = sa.gameObject.transform;
-        bondDamping[numBones] = sa.bondDamping;
-        angularBondDamping[numBones] = sa.angularBondDamping;
+        transforms.Add(sa.gameObject.transform);
+        bondDamping[numJobs] = sa.bondDamping;
+        angularBondDamping[numJobs] = sa.angularBondDamping;
         for (int i = 0; i < sa.boneTransforms.Count; i++)
         {
-            transforms[numBones + i + 1] = sa.boneTransforms[i];
+            transforms.Add(sa.boneTransforms[i]);
             offsets[numBones + i + 1] = sa.offsets[i];
         }
         numJobs++;
@@ -47,6 +52,7 @@ public class SpineAnimatorManager : MonoBehaviour
     public void Awake()
     {
         roots = new NativeArray<int>(maxJobs, Allocator.Persistent);
+        boneCount = new NativeArray<int>(maxJobs, Allocator.Persistent);
         bondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
         angularBondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
         transforms = new TransformAccessArray(maxBones);
@@ -59,7 +65,9 @@ public class SpineAnimatorManager : MonoBehaviour
         transforms.Dispose();
         bondDamping.Dispose();
         angularBondDamping.Dispose();
+        boneCount.Dispose();
         offsets.Dispose();
+        roots.Dispose();
     }
 
     public void LateUpdate()
@@ -69,22 +77,26 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void Update()
     {
+        /*
         job = new SpineAnimatorJob()
         {
-            deltaTime = Time.deltaTime,
-            transforms = this.transforms
+            deltaTime = Time.deltaTime
             , offsets = this.offsets
             , bondDamping = this.bondDamping
             , angularBondDamping = this.angularBondDamping
+            , boneCount = this.boneCount
             , roots = this.roots
+            , transforms = this.transforms
         };
 
         jh = job.Schedule<SpineAnimatorJob>(numJobs, 1);
+        */
     }
 }
 
 public struct SpineAnimatorJob : IJobParallelFor
 {
+    [NativeDisableUnsafePtrRestriction]
     public TransformAccessArray transforms;
     public NativeArray<int> roots;
     public NativeArray<int> boneCount;
@@ -100,10 +112,10 @@ public struct SpineAnimatorJob : IJobParallelFor
         for (int i = 1; i < boneCount[j]; i++)
         {
             Transform previous = transforms[root + i - 1];
-            Transform current = transforms[root + i - 1];
+            Transform current = transforms[root + i];
             Vector3 bondOffset = offsets[root + i];
             Vector3 wantedPosition = previous.TransformPointUnscaled(bondOffset);
-            Vector3 newPos = Vector3.Lerp(current.position, wantedPosition, deltaTime * bondDamping[i]);
+            Vector3 newPos = Vector3.Lerp(current.position, wantedPosition, deltaTime * bondDamping[j]);
             current.transform.position = newPos;
             Quaternion wantedRotation;
             Quaternion newRotation = Quaternion.identity;
@@ -112,7 +124,7 @@ public struct SpineAnimatorJob : IJobParallelFor
             current.transform.rotation = Quaternion.Slerp(
                 current.transform.rotation
                 , wantedRotation
-                , deltaTime * angularBondDamping[i]
+                , deltaTime * angularBondDamping[j]
                 );
         }
     }
