@@ -12,8 +12,15 @@ using Unity.Collections.LowLevel.Unsafe;
 public class SpineAnimatorManager : MonoBehaviour
 {
     TransformAccessArray transforms;
-    SpineAnimatorJob job;
-    JobHandle jh;
+    SpineAnimatorJob saJob;
+    CopyFromMeJob ctmJob;
+    CopyToMeJob cfmJob;
+    JobHandle animationJH;
+    JobHandle copyToJH;
+    JobHandle copyFromJH;
+
+    NativeArray<Vector3> pos;
+    NativeArray<Quaternion> rotations;
 
     NativeArray<int> roots;
     NativeArray<int> boneCount;
@@ -57,22 +64,25 @@ public class SpineAnimatorManager : MonoBehaviour
         angularBondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
         transforms = new TransformAccessArray(maxBones);
         offsets = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
+        pos = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
+        rotations = new NativeArray<Quaternion>(maxBones, Allocator.Persistent);
     }
 
     private void OnDestroy()
     {
-        jh.Complete();
+        animationJH.Complete();
         transforms.Dispose();
         bondDamping.Dispose();
         angularBondDamping.Dispose();
         boneCount.Dispose();
         offsets.Dispose();
         roots.Dispose();
+        pos.Dispose();
     }
 
     public void LateUpdate()
     {
-        jh.Complete();
+        animationJH.Complete();
     }
 
     public void Update()
@@ -94,10 +104,34 @@ public class SpineAnimatorManager : MonoBehaviour
     }
 }
 
+public struct CopyToMeJob : IJobParallelForTransform
+{
+    public NativeArray<Vector3> pos;
+    public NativeArray<Quaternion> rotations;
+    public TransformAccessArray transforms;
+
+    public void Execute(int i, TransformAccess t)
+    {
+        pos[i] = t.position;
+        rotations[i] = t.rotation;
+    }    
+}
+
+public struct CopyFromMeJob : IJobParallelForTransform
+{
+    public NativeArray<Vector3> pos;
+    public NativeArray<Quaternion> rotations;
+    public TransformAccessArray transforms;
+
+    public void Execute(int i, TransformAccess t)
+    {
+        t.position = pos[i];
+        t.rotation = rotations[i];
+    }
+}
+
 public struct SpineAnimatorJob : IJobParallelFor
 {
-    [NativeDisableUnsafePtrRestriction]
-    public TransformAccessArray transforms;
     public NativeArray<int> roots;
     public NativeArray<int> boneCount;
     public NativeArray<Vector3> offsets;
