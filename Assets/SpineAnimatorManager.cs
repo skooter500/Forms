@@ -13,11 +13,12 @@ public class SpineAnimatorManager : MonoBehaviour
 {
     TransformAccessArray transforms;
     SpineAnimatorJob saJob;
-    CopyFromMeJob ctmJob;
-    CopyToMeJob cfmJob;
-    JobHandle animationJH;
-    JobHandle copyToJH;
-    JobHandle copyFromJH;
+    CopyToMeJob ctmJob;
+    CopyFromMeJob cfmJob;
+
+    JobHandle saJH;
+    JobHandle ctmJH;
+    JobHandle cfmJH;
 
     NativeArray<Vector3> pos;
     NativeArray<Quaternion> rotations;
@@ -53,7 +54,7 @@ public class SpineAnimatorManager : MonoBehaviour
         }
         numJobs++;
         numBones += sa.boneTransforms.Count + 1;
-        return numJobs-1;
+        return numJobs - 1;
     }
 
     public void Awake()
@@ -70,7 +71,7 @@ public class SpineAnimatorManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        animationJH.Complete();
+        saJH.Complete();
         transforms.Dispose();
         bondDamping.Dispose();
         angularBondDamping.Dispose();
@@ -82,13 +83,19 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void LateUpdate()
     {
-        animationJH.Complete();
+        saJH.Complete();
     }
 
     public void Update()
     {
-        /*
-        job = new SpineAnimatorJob()
+        ctmJob = new CopyToMeJob()
+        {
+            transforms = this.transforms
+            , pos = this.pos
+            , rotations = this.rotations
+        };
+
+        saJob = new SpineAnimatorJob()
         {
             deltaTime = Time.deltaTime
             , offsets = this.offsets
@@ -96,11 +103,20 @@ public class SpineAnimatorManager : MonoBehaviour
             , angularBondDamping = this.angularBondDamping
             , boneCount = this.boneCount
             , roots = this.roots
-            , transforms = this.transforms
+            , pos = this.pos
+            , rotations = this.rotations
         };
 
-        jh = job.Schedule<SpineAnimatorJob>(numJobs, 1);
-        */
+        cfmJob = new CopyFromMeJob()
+        {
+            transforms = this.transforms
+            ,pos = this.pos
+            , rotations = this.rotations
+        };
+
+        ctmJH = ctmJob.Schedule(transforms);
+        saJH = saJob.Schedule(numJobs, 1, ctmJH);
+        cfmJH = cfmJob.Schedule(transforms);        
     }
 }
 
@@ -114,7 +130,7 @@ public struct CopyToMeJob : IJobParallelForTransform
     {
         pos[i] = t.position;
         rotations[i] = t.rotation;
-    }    
+    }
 }
 
 public struct CopyFromMeJob : IJobParallelForTransform
@@ -137,6 +153,9 @@ public struct SpineAnimatorJob : IJobParallelFor
     public NativeArray<Vector3> offsets;
     public NativeArray<float> bondDamping;
     public NativeArray<float> angularBondDamping;
+    public NativeArray<Vector3> pos;
+    public NativeArray<Quaternion> rotations;
+
 
     public float deltaTime;
 
@@ -145,19 +164,14 @@ public struct SpineAnimatorJob : IJobParallelFor
         int root = roots[j];
         for (int i = 1; i < boneCount[j]; i++)
         {
-            Transform previous = transforms[root + i - 1];
-            Transform current = transforms[root + i];
             Vector3 bondOffset = offsets[root + i];
-            Vector3 wantedPosition = previous.TransformPointUnscaled(bondOffset);
-            Vector3 newPos = Vector3.Lerp(current.position, wantedPosition, deltaTime * bondDamping[j]);
-            current.transform.position = newPos;
-            Quaternion wantedRotation;
-            Quaternion newRotation = Quaternion.identity;
-            wantedRotation = Quaternion.LookRotation(previous.position - newPos, previous.up);
+            Vector3 wantedPosition = rotations[root + i - 1] * bondOffset + pos[root + i - 1];
+            pos[root + i] = Vector3.Lerp(pos[root + i], wantedPosition, deltaTime * bondDamping[j]);
+            //wantedRotation = Quaternion.LookRotation(pos[ - newPos, previous.up);
 
-            current.transform.rotation = Quaternion.Slerp(
-                current.transform.rotation
-                , wantedRotation
+            rotations[root + i] = Quaternion.Slerp(
+                rotations[root + i]
+                , rotations[root + i - 1]
                 , deltaTime * angularBondDamping[j]
                 );
         }
