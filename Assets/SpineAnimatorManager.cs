@@ -47,11 +47,11 @@ public class SpineAnimatorManager : MonoBehaviour
         transforms.Add(sa.gameObject.transform);
         bondDamping[numJobs] = sa.bondDamping;
         angularBondDamping[numJobs] = sa.angularBondDamping;
-        boneCount[numJobs] = sa.boneTransforms.Count;
+        boneCount[numJobs] = sa.boneTransforms.Count + 1;
         for (int i = 0; i < sa.boneTransforms.Count; i++)
         {
             transforms.Add(sa.boneTransforms[i]);
-            offsets[numBones + i + 1] = sa.offsets[i];
+            offsets[numBones + i + 1] = sa.offsets[i]; // No offset for the 0th
         }
         numJobs++;
         numBones += sa.boneTransforms.Count + 1;
@@ -64,6 +64,7 @@ public class SpineAnimatorManager : MonoBehaviour
         boneCount = new NativeArray<int>(maxJobs, Allocator.Persistent);
         bondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
         angularBondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
+
         transforms = new TransformAccessArray(maxBones);
         offsets = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
         pos = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
@@ -112,6 +113,8 @@ public class SpineAnimatorManager : MonoBehaviour
         {
             pos = this.pos
             , rotations = this.rotations
+            , roots = this.roots
+            , root = 0
         };
 
         ctmJH = ctmJob.Schedule(transforms);
@@ -135,13 +138,24 @@ public struct CopyToMeJob : IJobParallelForTransform
 
 public struct CopyFromMeJob : IJobParallelForTransform
 {
+    [NativeDisableParallelForRestriction]
+    public NativeArray<int> roots;
     public NativeArray<Vector3> pos;
     public NativeArray<Quaternion> rotations;
+
+    public int root;
     
     public void Execute(int i, TransformAccess t)
     {
-        t.position = pos[i];
-        t.rotation = rotations[i];
+        if (i == roots[root])
+        {
+            root++;
+        }
+        else
+        {
+            t.position = pos[i];
+            t.rotation = rotations[i];
+        }
     }
 }
 
@@ -150,8 +164,7 @@ public struct SpineAnimatorJob : IJobParallelFor
     public NativeArray<int> roots;
     public NativeArray<int> boneCount;
 
-    [NativeDisableParallelForRestriction]
-    public NativeArray<Vector3> offsets;
+    
     public NativeArray<float> bondDamping;
     public NativeArray<float> angularBondDamping;
 
@@ -161,23 +174,25 @@ public struct SpineAnimatorJob : IJobParallelFor
     [NativeDisableParallelForRestriction]
     public NativeArray<Quaternion> rotations;
 
+    [NativeDisableParallelForRestriction]
+    public NativeArray<Vector3> offsets;
+
     public float deltaTime;
 
     public void Execute(int j)
     {
         //
         int root = roots[j];
-        for (int i = 1; i <= boneCount[j]; i++)
+        for (int i = 1; i < boneCount[j]; i++)
         {
             
             Vector3 bondOffset = offsets[root + i];
-            Vector3 wantedPosition = rotations[root + i - 1] * bondOffset + pos[root + i - 1];
+            Vector3 wantedPosition = rotations[root + i - 1] * bondOffset + pos[root + i - 1]; // Transform no scale
             pos[root + i] = Vector3.Lerp(pos[root + i], wantedPosition, deltaTime * bondDamping[j]);
-            //wantedRotation = Quaternion.LookRotation(pos[ - newPos, previous.up);
-
+            
             rotations[root + i] = Quaternion.Slerp(
                 rotations[root + i]
-                , Quaternion.LookRotation(pos[root + i - 1] - pos[root + i])
+                , Quaternion.LookRotation(pos[root + i - 1] - pos[root + i], rotations[root + i - 1] * Vector3.up)
                 , deltaTime * angularBondDamping[j]
                 );
         }

@@ -23,6 +23,8 @@ namespace BGE.Forms
         private Boid boid;
         private float time = 0;
 
+        public bool useSpineAnimatorSystem = true;
+
         void Start()
         {
             Transform prevFollower;
@@ -63,7 +65,10 @@ namespace BGE.Forms
 
             boid = Utilities.FindBoidInHierarchy(this.gameObject);
 
-            SpineAnimatorManager.Instance.AddSpine(this);
+            if (useSpineAnimatorSystem)
+            {
+                SpineAnimatorManager.Instance.AddSpine(this);
+            }
         }
 
         
@@ -72,7 +77,11 @@ namespace BGE.Forms
         
         public void FixedUpdate()
         {
-            /*
+            if (useSpineAnimatorSystem)
+            {
+                return;
+            }
+            
             if (suspended)
             {
                 return;
@@ -80,7 +89,6 @@ namespace BGE.Forms
             if (! boid.inFrontOfPlayer && boid.distanceToPlayer > 1000 && skippedFrames < 10)
             {
                 skippedFrames++;
-                //CreatureManager.Log("Skipping a frame");
                 return;
             }
             if (skippedFrames == 10)
@@ -109,7 +117,6 @@ namespace BGE.Forms
 
                 DelayedMovement(previous, current, offsets[i], i);
             }
-            */
         }
     
         void DelayedMovement(Transform previous, Transform current, Vector3 bondOffset, int i)
