@@ -30,7 +30,7 @@ public class SpineAnimatorManager : MonoBehaviour
     NativeArray<float> angularBondDamping;
 
     int maxJobs = 5000;
-    int maxBones = 5000;
+    int maxBones = 20000;
     int numJobs = 0;
     int numBones = 0;
 
@@ -91,6 +91,12 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void FixedUpdate()
     {
+        CreatureManager.Log("Spine jobs: " + numJobs);
+        if (numJobs == 0)
+        {
+            return;
+        }
+
         ctmJob = new CopyToMeJob()
         {
             pos = this.pos
