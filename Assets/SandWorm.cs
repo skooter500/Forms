@@ -26,7 +26,6 @@ public class SandWorm : MonoBehaviour {
     {
         float depth = radius * 0.1f;
         Vector3 start = -Vector3.forward * bodySegments * depth * 2;
-        Transform previous = null;
         for (int i = 0; i < transform.childCount; i++)
         {
             float r = radius;
@@ -41,10 +40,14 @@ public class SandWorm : MonoBehaviour {
             }
             Transform bodyPart = transform.GetChild(i);
             Vector3 pos = start + (Vector3.forward * depth * 4 * i);
-            bodyPart.position = transform.TransformPoint(pos);
-            Quaternion rot = Quaternion.AngleAxis(0, Vector3.right);
-            bodyPart.rotation = transform.rotation * rot;
-            previous = bodyPart;
+            pos = transform.TransformPoint(pos);
+            bodyPart.position = pos;
+            Quaternion rot = transform.rotation * Quaternion.AngleAxis(0, Vector3.right);
+            bodyPart.rotation = rot;
+            bodyPart.GetComponent<Rigidbody>().MovePosition(pos);
+            bodyPart.GetComponent<Rigidbody>().MoveRotation(rot);
+            bodyPart.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            bodyPart.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
     }
 

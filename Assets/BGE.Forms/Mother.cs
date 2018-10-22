@@ -13,7 +13,7 @@ namespace BGE.Forms
         public float playerRadius = 1000;
 
         public List<GameObject> alive = new List<GameObject>();
-        private Dictionary<GameObject, GameObject> aliveMap = new Dictionary<GameObject, GameObject>();
+        public Dictionary<GameObject, GameObject> aliveMap = new Dictionary<GameObject, GameObject>();
         public MultiDictionary<GameObject, GameObject> suspended = new MultiDictionary<GameObject, GameObject>();
         public GameObject[] prefabs;
 
@@ -128,7 +128,7 @@ namespace BGE.Forms
             return true;
         }
 
-        private void Suspend(GameObject creature)
+        public void Suspend(GameObject creature)
         {
             Boid[] boids = creature.GetComponentsInChildren<Boid>();
             foreach (Boid b in boids)
@@ -234,6 +234,12 @@ namespace BGE.Forms
                                 b.school = school;
                                 school.boids.Add(b);
                             }
+
+                            if (newcreature.GetComponentInChildren<CreatureController>())
+                            {
+                                newcreature.GetComponentInChildren<CreatureController>().mother = this;
+                            }
+
                             newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
                             newcreature.SetActive(true);
