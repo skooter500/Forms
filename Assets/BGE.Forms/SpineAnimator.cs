@@ -24,6 +24,7 @@ namespace BGE.Forms
         private float time = 0;
 
         public bool useSpineAnimatorSystem = true;
+        public int spineAnimatorSystemToUse = 0;
 
         void Start()
         {
@@ -67,13 +68,12 @@ namespace BGE.Forms
 
             if (useSpineAnimatorSystem)
             {
-                SpineAnimatorManager.Instance.AddSpine(this);
+                SpineAnimatorManager.Instance.AddSpine(this, spineAnimatorSystemToUse);
             }
         }
 
-        
-
         int skippedFrames = 0;
+        
         
         public void FixedUpdate()
         {
@@ -81,7 +81,6 @@ namespace BGE.Forms
             {
                 return;
             }
-            
             if (suspended)
             {
                 return;
@@ -117,7 +116,9 @@ namespace BGE.Forms
 
                 DelayedMovement(previous, current, offsets[i], i);
             }
+            
         }
+        
     
         void DelayedMovement(Transform previous, Transform current, Vector3 bondOffset, int i)
         {

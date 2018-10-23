@@ -8,32 +8,12 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Unity.Collections.LowLevel.Unsafe;
+using System.Collections.Generic;
 
 public class SpineAnimatorManager : MonoBehaviour
 {
-    TransformAccessArray transforms;
-    SpineAnimatorJob saJob;
-    CopyToMeJob ctmJob;
-    CopyFromMeJob cfmJob;
-
-    JobHandle saJH;
-    JobHandle ctmJH;
-    JobHandle cfmJH;
-
-    NativeArray<Vector3> pos;
-    NativeArray<Quaternion> rotations;
-
-    NativeArray<int> roots;
-    NativeArray<int> boneCount;
-    NativeArray<Vector3> offsets;
-    NativeArray<float> bondDamping;
-    NativeArray<float> angularBondDamping;
-
-    int maxJobs = 5000;
-    int maxBones = 20000;
-    int numJobs = 0;
-    int numBones = 0;
-
+    int numSystems = 2;
+    public List<SpineAnimatorSystem> systems = new List<SpineAnimatorSystem>();
     public static SpineAnimatorManager Instance = null;
 
     public SpineAnimatorManager()
@@ -41,92 +21,33 @@ public class SpineAnimatorManager : MonoBehaviour
         Instance = this;
     }
 
-    public int AddSpine(SpineAnimator sa)
+    public void AddSpine(SpineAnimator sa, int system)
     {
-        roots[numJobs] = numBones;
-        transforms.Add(sa.gameObject.transform);
-        bondDamping[numJobs] = sa.bondDamping;
-        angularBondDamping[numJobs] = sa.angularBondDamping;
-        boneCount[numJobs] = sa.boneTransforms.Count + 1;
-        for (int i = 0; i < sa.boneTransforms.Count; i++)
-        {
-            transforms.Add(sa.boneTransforms[i]);
-            offsets[numBones + i + 1] = sa.offsets[i]; // No offset for the 0th
-        }
-        numJobs++;
-        numBones += sa.boneTransforms.Count + 1;
-        return numJobs - 1;
+        systems[system].AddSpine(sa);
     }
 
     public void Awake()
     {
-        roots = new NativeArray<int>(maxJobs, Allocator.Persistent);
-        boneCount = new NativeArray<int>(maxJobs, Allocator.Persistent);
-        bondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
-        angularBondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
-
-        transforms = new TransformAccessArray(maxBones);
-        offsets = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
-        pos = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
-        rotations = new NativeArray<Quaternion>(maxBones, Allocator.Persistent);
-    }
-
-    private void OnDestroy()
-    {
-        saJH.Complete();
-        transforms.Dispose();
-        bondDamping.Dispose();
-        angularBondDamping.Dispose();
-        boneCount.Dispose();
-        offsets.Dispose();
-        roots.Dispose();
-        pos.Dispose();
-        rotations.Dispose();
-    }
-
-    public void LateUpdate()
-    {
-        
+        for (int i = 0; i < numSystems; i++)
+        {
+            systems.Add(new SpineAnimatorSystem());
+        }
     }
 
     public void FixedUpdate()
     {
-        CreatureManager.Log("Spine jobs: " + numJobs);
-        if (numJobs == 0)
+        foreach (SpineAnimatorSystem sas in systems)
         {
-            return;
+            sas.Process();
         }
+    }
 
-        ctmJob = new CopyToMeJob()
+    public void OnDestroy()
+    {
+        foreach (SpineAnimatorSystem sas in systems)
         {
-            pos = this.pos
-            , rotations = this.rotations
-        };
-
-        saJob = new SpineAnimatorJob()
-        {
-            deltaTime = Time.deltaTime
-            , offsets = this.offsets
-            , bondDamping = this.bondDamping
-            , angularBondDamping = this.angularBondDamping
-            , boneCount = this.boneCount
-            , roots = this.roots
-            , pos = this.pos
-            , rotations = this.rotations
-        };
-
-        cfmJob = new CopyFromMeJob()
-        {
-            pos = this.pos
-            , rotations = this.rotations
-            , roots = this.roots
-            , root = 0
-        };
-
-        ctmJH = ctmJob.Schedule(transforms);
-        saJH = saJob.Schedule(numJobs, 1, ctmJH);
-        cfmJH = cfmJob.Schedule(transforms, saJH);
-        cfmJH.Complete();
+            sas.Destroy();
+        }
     }
 }
 
@@ -202,9 +123,124 @@ public struct SpineAnimatorJob : IJobParallelFor
                 , deltaTime * angularBondDamping[j]
                 );
         }
-    }
+    }    
 }
 
+public class SpineAnimatorSystem
+{
+    TransformAccessArray transforms;
+    SpineAnimatorJob saJob;
+    CopyToMeJob ctmJob;
+    CopyFromMeJob cfmJob;
 
+    public JobHandle saJH;
+    public JobHandle ctmJH;
+    public JobHandle cfmJH;
 
+    NativeArray<Vector3> pos;
+    NativeArray<Quaternion> rotations;
 
+    NativeArray<int> roots;
+    NativeArray<int> boneCount;
+    NativeArray<Vector3> offsets;
+    NativeArray<float> bondDamping;
+    NativeArray<float> angularBondDamping;
+
+    int maxJobs = 1000;
+    int maxBones = 20000;
+    int numJobs = 0;
+    int numBones = 0;
+
+    public int AddSpine(SpineAnimator sa)
+    {
+        roots[numJobs] = numBones;
+        transforms.Add(sa.gameObject.transform);
+        bondDamping[numJobs] = sa.bondDamping;
+        angularBondDamping[numJobs] = sa.angularBondDamping;
+        boneCount[numJobs] = sa.boneTransforms.Count + 1;
+        for (int i = 0; i < sa.boneTransforms.Count; i++)
+        {
+            transforms.Add(sa.boneTransforms[i]);
+            offsets[numBones + i + 1] = sa.offsets[i]; // No offset for the 0th
+        }
+        numJobs++;
+        numBones += sa.boneTransforms.Count + 1;
+        return numJobs - 1;
+    }
+
+    public SpineAnimatorSystem()
+    {
+        roots = new NativeArray<int>(maxJobs, Allocator.Persistent);
+        boneCount = new NativeArray<int>(maxJobs, Allocator.Persistent);
+        bondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
+        angularBondDamping = new NativeArray<float>(maxJobs, Allocator.Persistent);
+
+        transforms = new TransformAccessArray(maxBones);
+        offsets = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
+        pos = new NativeArray<Vector3>(maxBones, Allocator.Persistent);
+        rotations = new NativeArray<Quaternion>(maxBones, Allocator.Persistent);
+    }
+
+    public void Destroy()
+    {
+        saJH.Complete();
+        transforms.Dispose();
+        bondDamping.Dispose();
+        angularBondDamping.Dispose();
+        boneCount.Dispose();
+        offsets.Dispose();
+        roots.Dispose();
+        pos.Dispose();
+        rotations.Dispose();
+    }
+
+    public void Process()
+    {
+        if (numJobs == 0)
+        {
+            return;
+        }
+
+        ctmJob = new CopyToMeJob()
+        {
+            pos = this.pos
+            ,
+            rotations = this.rotations
+        };
+
+        saJob = new SpineAnimatorJob()
+        {
+            deltaTime = Time.deltaTime
+            ,
+            offsets = this.offsets
+            ,
+            bondDamping = this.bondDamping
+            ,
+            angularBondDamping = this.angularBondDamping
+            ,
+            boneCount = this.boneCount
+            ,
+            roots = this.roots
+            ,
+            pos = this.pos
+            ,
+            rotations = this.rotations
+        };
+
+        cfmJob = new CopyFromMeJob()
+        {
+            pos = this.pos
+            ,
+            rotations = this.rotations
+            ,
+            roots = this.roots
+            ,
+            root = 0
+        };
+
+        ctmJH = ctmJob.Schedule(transforms);
+        saJH = saJob.Schedule(numJobs, 1, ctmJH);
+        cfmJH = cfmJob.Schedule(transforms, saJH);
+        cfmJH.Complete();
+    }
+}
