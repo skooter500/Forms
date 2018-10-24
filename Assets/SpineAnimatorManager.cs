@@ -34,11 +34,19 @@ public class SpineAnimatorManager : MonoBehaviour
         }
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         foreach (SpineAnimatorSystem sas in systems)
         {
             sas.Process();
+        }
+    }
+
+    public void LateUpdate()
+    {
+        foreach (SpineAnimatorSystem sas in systems)
+        {
+            sas.Complete();
         }
     }
 
@@ -139,19 +147,20 @@ public class SpineAnimatorSystem
 
     NativeArray<Vector3> pos;
     NativeArray<Quaternion> rotations;
-
     NativeArray<int> roots;
+    NativeArray<int> skipped;
     NativeArray<int> boneCount;
     NativeArray<Vector3> offsets;
     NativeArray<float> bondDamping;
     NativeArray<float> angularBondDamping;
 
+    
     int maxJobs = 1000;
     int maxBones = 20000;
     int numJobs = 0;
     int numBones = 0;
 
-    public int AddSpine(SpineAnimator sa)
+    public void AddSpine(SpineAnimator sa)
     {
         roots[numJobs] = numBones;
         transforms.Add(sa.gameObject.transform);
@@ -165,7 +174,6 @@ public class SpineAnimatorSystem
         }
         numJobs++;
         numBones += sa.boneTransforms.Count + 1;
-        return numJobs - 1;
     }
 
     public SpineAnimatorSystem()
@@ -194,6 +202,12 @@ public class SpineAnimatorSystem
         rotations.Dispose();
     }
 
+    public void Complete()
+    {
+        cfmJH.Complete();
+    }
+
+
     public void Process()
     {
         if (numJobs == 0)
@@ -204,43 +218,32 @@ public class SpineAnimatorSystem
         ctmJob = new CopyToMeJob()
         {
             pos = this.pos
-            ,
-            rotations = this.rotations
+            ,rotations = this.rotations
         };
 
         saJob = new SpineAnimatorJob()
         {
             deltaTime = Time.deltaTime
-            ,
-            offsets = this.offsets
-            ,
-            bondDamping = this.bondDamping
-            ,
-            angularBondDamping = this.angularBondDamping
-            ,
-            boneCount = this.boneCount
-            ,
-            roots = this.roots
-            ,
-            pos = this.pos
-            ,
-            rotations = this.rotations
+            ,offsets = this.offsets
+            ,bondDamping = this.bondDamping
+            ,angularBondDamping = this.angularBondDamping
+            ,boneCount = this.boneCount
+            ,roots = this.roots
+            ,pos = this.pos
+            ,rotations = this.rotations
         };
 
         cfmJob = new CopyFromMeJob()
         {
             pos = this.pos
-            ,
-            rotations = this.rotations
-            ,
-            roots = this.roots
-            ,
-            root = 0
+            ,rotations = this.rotations
+            ,roots = this.roots
+            ,root = 0
         };
 
         ctmJH = ctmJob.Schedule(transforms);
         saJH = saJob.Schedule(numJobs, 1, ctmJH);
         cfmJH = cfmJob.Schedule(transforms, saJH);
-        cfmJH.Complete();
+        
     }
 }

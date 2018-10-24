@@ -20,7 +20,7 @@ namespace BGE.Forms
         
         public bool suspended = false;
 
-        private Boid boid;
+        public Boid boid;
         private float time = 0;
 
         public bool useSpineAnimatorSystem = true;
