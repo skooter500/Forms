@@ -78,13 +78,13 @@ public struct CopyFromMeJob : IJobParallelForTransform
     public NativeArray<Vector3> pos;
     public NativeArray<Quaternion> rotations;
 
-    public int root;
+    public int job;
     
     public void Execute(int i, TransformAccess t)
     {
-        if (i == roots[root])
+        if (i == roots[job])
         {
-            root++;
+            job++;
         }
         else
         {
@@ -116,11 +116,9 @@ public struct SpineAnimatorJob : IJobParallelFor
 
     public void Execute(int j)
     {
-        //
         int root = roots[j];
         for (int i = 1; i < boneCount[j]; i++)
-        {
-            
+        {            
             Vector3 bondOffset = offsets[root + i];
             Vector3 wantedPosition = rotations[root + i - 1] * bondOffset + pos[root + i - 1]; // Transform no scale
             pos[root + i] = Vector3.Lerp(pos[root + i], wantedPosition, deltaTime * bondDamping[j]);
@@ -154,7 +152,6 @@ public class SpineAnimatorSystem
     NativeArray<float> bondDamping;
     NativeArray<float> angularBondDamping;
 
-    
     int maxJobs = 1000;
     int maxBones = 20000;
     int numJobs = 0;
@@ -238,7 +235,7 @@ public class SpineAnimatorSystem
             pos = this.pos
             ,rotations = this.rotations
             ,roots = this.roots
-            ,root = 0
+            ,job = 0
         };
 
         ctmJH = ctmJob.Schedule(transforms);
