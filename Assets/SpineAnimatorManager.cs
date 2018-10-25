@@ -36,9 +36,20 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void Update()
     {
+        SpineAnimatorSystem psas = null;
         foreach (SpineAnimatorSystem sas in systems)
         {
-            sas.Process();
+            if (psas != null)
+            {
+                sas.dependsOnOtherJob = true;
+                sas.dependsOn = psas.cfmJH;                
+                sas.Process();
+            }
+            else
+            {
+                sas.Process();
+            }
+            psas = sas;
         }
     }
 
@@ -77,6 +88,8 @@ public struct CopyFromMeJob : IJobParallelForTransform
     public NativeArray<int> roots;
     public NativeArray<Vector3> pos;
     public NativeArray<Quaternion> rotations;
+
+
 
     public int job;
     
@@ -152,10 +165,14 @@ public class SpineAnimatorSystem
     NativeArray<float> bondDamping;
     NativeArray<float> angularBondDamping;
 
+
     int maxJobs = 1000;
     int maxBones = 20000;
     int numJobs = 0;
     int numBones = 0;
+
+    public bool dependsOnOtherJob = false;
+    public JobHandle dependsOn;
 
     public void AddSpine(SpineAnimator sa)
     {
@@ -204,13 +221,13 @@ public class SpineAnimatorSystem
         cfmJH.Complete();
     }
 
-
     public void Process()
     {
         if (numJobs == 0)
         {
             return;
         }
+
 
         ctmJob = new CopyToMeJob()
         {
@@ -238,7 +255,14 @@ public class SpineAnimatorSystem
             ,job = 0
         };
 
-        ctmJH = ctmJob.Schedule(transforms);
+        if (dependsOnOtherJob)
+        {
+            ctmJH = ctmJob.Schedule(transforms, dependsOn);
+        }
+        else
+        {
+            ctmJH = ctmJob.Schedule(transforms);
+        }
         saJH = saJob.Schedule(numJobs, 1, ctmJH);
         cfmJH = cfmJob.Schedule(transforms, saJH);
         
