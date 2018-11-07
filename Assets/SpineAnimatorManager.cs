@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class SpineAnimatorManager : MonoBehaviour
 {
-    int numSystems = 2;
+    int numSystems = 1;
     public List<SpineAnimatorSystem> systems = new List<SpineAnimatorSystem>();
     public static SpineAnimatorManager Instance = null;
 
@@ -23,7 +23,7 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void AddSpine(SpineAnimator sa, int system)
     {
-        systems[system].AddSpine(sa);
+        systems[0].AddSpine(sa);
     }
 
     public void Awake()
