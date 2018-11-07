@@ -26,8 +26,8 @@ public class Sway : MonoBehaviour {
         {
             frequency = -frequency;
         }
-
-        SwayManager.Instance.Add(this.transform, axis);
+        if (angle > 0)
+            SwayManager.Instance.Add(this.transform, axis);
         
     }
 
