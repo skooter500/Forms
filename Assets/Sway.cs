@@ -27,8 +27,9 @@ public class Sway : MonoBehaviour {
             frequency = -frequency;
         }
         if (angle > 0)
+        {
             SwayManager.Instance.Add(this.transform, axis);
-        
+        }
     }
 
     System.Collections.IEnumerator ColorChange()
