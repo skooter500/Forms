@@ -80,14 +80,14 @@ namespace BGE.Forms
                 lp.Normalize();
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
-                Debug.Log("Angle: " + angle);
+                /*Debug.Log("Angle: " + angle);
                 Debug.Log("lp: " + lp);
                 Debug.Log("Desired position: " + p);
                 Debug.Log("Viewing distance: " + sp.viewingDistance);
                 Debug.Log("Boid pos: " + pc.creature.GetComponent<Boid>().position);
                 Debug.Log("Camera pos: " + p);
                 Debug.Log("leader: " + pc.creature);
-
+                */
 
                 //
                 pc.playerBoid.enabled = true;
@@ -195,8 +195,11 @@ namespace BGE.Forms
         public float journeying = 5.0f;
         public float delayMin = 30.0f;
         public float delayMax = 40.0f;
-        public int creatureReps = 1;
 
+        public float creatureDelayMin = 30.0f;
+        public float creatureDelayMax = 40.0f;
+        public int creatureReps = 1;
+        float creaturesToLogosRatio = 1.5f;
 
         public System.Collections.IEnumerator Show()
         {
@@ -217,7 +220,7 @@ namespace BGE.Forms
                     for (int i = 0; i < creatureReps; i++)
                     {
                         sm.ChangeState(new FollowState());
-                        yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                        yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
                     }                    
                 }
                 while (reactiveIndex < ctc.rightEffects.Count)
@@ -234,7 +237,7 @@ namespace BGE.Forms
                     for (int i = 0; i < creatureReps; i++)
                     {
                         sm.ChangeState(new FollowState());
-                        yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                        yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
                     }                    
                 }
                 while (videoIndex < ctc.videoPlayer.videos.Count)
@@ -250,7 +253,7 @@ namespace BGE.Forms
                     for (int i = 0; i < creatureReps; i++)
                     {
                         sm.ChangeState(new FollowState());
-                        yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                        yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
                     }
                     videoIndex++;
                 }
