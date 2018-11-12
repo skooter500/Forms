@@ -95,15 +95,17 @@ public struct CopyFromMeJob : IJobParallelForTransform
     
     public void Execute(int i, TransformAccess t)
     {
-        if (i == roots[job])
+        /*if (i == roots[job])
         {
-            job++;
+            //job++;
         }
         else
         {
             t.position = pos[i];
             t.rotation = rotations[i];
-        }
+        }*/
+        t.position = pos[i];
+        t.rotation = rotations[i];
     }
 }
 
