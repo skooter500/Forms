@@ -57,7 +57,7 @@ namespace BGE.Forms
         
         public GameObject player;
 
-        public int cellsPerTile = 10;
+        public int quadsPerTile = 10;
         public int halfTile = 5;
         public float cellSize = 1.0f;
         Vector3 startPos;
@@ -96,8 +96,8 @@ namespace BGE.Forms
                 {
                     Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
                 }            
-                int playerX = (int)(Mathf.Floor((player.transform.position.x) / (cellsPerTile * cellSize)) * cellsPerTile);
-                int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (cellsPerTile * cellSize)) * cellsPerTile);
+                int playerX = (int)(Mathf.Floor((player.transform.position.x) / (quadsPerTile * cellSize)) * quadsPerTile);
+                int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (quadsPerTile * cellSize)) * quadsPerTile);
 
                 Gizmos.color = Color.cyan;
                 int gizmoTiles = 4; 
@@ -105,9 +105,9 @@ namespace BGE.Forms
                 {
                     for (int z = -gizmoTiles; z < gizmoTiles; z++)
                     {
-                        Vector3 pos = new Vector3((x * cellsPerTile + playerX),
+                        Vector3 pos = new Vector3((x * quadsPerTile + playerX),
                             0,
-                            (z * cellsPerTile + playerZ));
+                            (z * quadsPerTile + playerZ));
                         pos *= cellSize;
                         pos += transform.position;
                         Mesh gm = GenerateMesh(pos);
@@ -199,21 +199,21 @@ namespace BGE.Forms
                 {
                     GameObject.Destroy(oldGameObjects.Dequeue());
                 }
-                if (Mathf.Abs(xMove) >= cellsPerTile * cellSize || Mathf.Abs(zMove) >= cellsPerTile * cellSize)
+                if (Mathf.Abs(xMove) >= quadsPerTile * cellSize || Mathf.Abs(zMove) >= quadsPerTile * cellSize)
                 {
                     float updateTime = Time.realtimeSinceStartup;
 
                     //force integer position and round to nearest tilesize
-                    int playerX = (int)(Mathf.Floor((player.transform.position.x) / (cellsPerTile * cellSize)) * cellsPerTile);
-                    int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (cellsPerTile * cellSize)) * cellsPerTile);
+                    int playerX = (int)(Mathf.Floor((player.transform.position.x) / (quadsPerTile * cellSize)) * quadsPerTile);
+                    int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (quadsPerTile * cellSize)) * quadsPerTile);
                     List<Vector3> newTiles = new List<Vector3>();
                     for (int x = -halfTile; x < halfTile; x++)
                     {
                         for (int z = -halfTile; z < halfTile; z++)
                         {
-                            Vector3 pos = new Vector3((x * cellsPerTile + playerX),
+                            Vector3 pos = new Vector3((x * quadsPerTile + playerX),
                                 0,
-                                (z * cellsPerTile + playerZ));
+                                (z * quadsPerTile + playerZ));
                             pos *= cellSize;
                             string tilename = "Tile_" + ((int)(pos.x)).ToString() + "_" + ((int)(pos.z)).ToString();                        
                             if (!tiles.ContainsKey(tilename))
@@ -299,13 +299,13 @@ namespace BGE.Forms
 
             int verticesPerSegment = 6;
 
-            int vertexCount = verticesPerSegment * ((int)cellsPerTile) * ((int)cellsPerTile);
+            int vertexCount = verticesPerSegment * ((int)quadsPerTile) * ((int)quadsPerTile);
         
             int vertex = 0;
             // What cell is x and z for the bottom left of this tile in world space
             Vector3 tileBottomLeft = new Vector3();
-            tileBottomLeft.x = -(cellsPerTile * cellSize) / 2;
-            tileBottomLeft.z = -(cellsPerTile * cellSize) / 2;
+            tileBottomLeft.x = -(quadsPerTile * cellSize) / 2;
+            tileBottomLeft.z = -(quadsPerTile * cellSize) / 2;
         
             GeneratedMesh gm = new GeneratedMesh(vertexCount);
             
@@ -313,11 +313,11 @@ namespace BGE.Forms
             texOrigin.x = texOrigin.x % textureGenerator.size;
             texOrigin.y = texOrigin.y % textureGenerator.size;
 
-            float tilesPerTexture = textureGenerator.size / cellsPerTile;
+            float tilesPerTexture = textureGenerator.size / quadsPerTile;
 
-            for (int z = 0; z < cellsPerTile; z++)
+            for (int z = 0; z < quadsPerTile; z++)
             {
-                for (int x = 0; x < cellsPerTile; x++)
+                for (int x = 0; x < quadsPerTile; x++)
                 {
                     int startVertex = vertex;
 
@@ -331,7 +331,7 @@ namespace BGE.Forms
 
                     // Add all the samplers together to make the height
                     // Cell is the absolute position of the cell in world space. I.e what gets sampled
-                    Vector3 cellLeft = new Vector3(-cellsPerTile / 2, 0, -cellsPerTile / 2);
+                    Vector3 cellLeft = new Vector3(-quadsPerTile / 2, 0, -quadsPerTile / 2);
                     Vector3 cell = (position / cellSize) + cellLeft + new Vector3(x, 0, z);
                     cellBottomLeft.y = SampleCell(cell.x, cell.z);
                     cellTopLeft.y = SampleCell(cell.x, cell.z + 1);
@@ -443,12 +443,12 @@ namespace BGE.Forms
             
 
             Vector3 tileBottomLeft = new Vector3();
-            tileBottomLeft.x = -(cellsPerTile * cellSize) / 2;
-            tileBottomLeft.z = -(cellsPerTile * cellSize) / 2;
+            tileBottomLeft.x = -(quadsPerTile * cellSize) / 2;
+            tileBottomLeft.z = -(quadsPerTile * cellSize) / 2;
 
             Vector3 tileTopRight = new Vector3();
-            tileTopRight.x = (cellsPerTile * cellSize) / 2;
-            tileTopRight.z = (cellsPerTile * cellSize) / 2;
+            tileTopRight.x = (quadsPerTile * cellSize) / 2;
+            tileTopRight.z = (quadsPerTile * cellSize) / 2;
 
             GeneratedMesh gm = new GeneratedMesh(6);
             
@@ -464,11 +464,11 @@ namespace BGE.Forms
                 gm.triangles[i] = i;
             }
 
-            gm.uv[0] = MakeUV(position, cellsPerTile, cellsPerTile);
-            gm.uv[1] = MakeUV(position, 0, cellsPerTile);
+            gm.uv[0] = MakeUV(position, quadsPerTile, quadsPerTile);
+            gm.uv[1] = MakeUV(position, 0, quadsPerTile);
             gm.uv[2] = MakeUV(position, 0, 0);
-            gm.uv[3] = MakeUV(position, cellsPerTile, 0);
-            gm.uv[4] = MakeUV(position, cellsPerTile, cellsPerTile);
+            gm.uv[3] = MakeUV(position, quadsPerTile, 0);
+            gm.uv[4] = MakeUV(position, quadsPerTile, quadsPerTile);
             gm.uv[5] = MakeUV(position, 0, 0);
 
             Mesh mesh = new Mesh();
