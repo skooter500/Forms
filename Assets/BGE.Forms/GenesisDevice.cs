@@ -11,8 +11,7 @@ namespace BGE.Forms
         public int maxPlants = 20;
 
         public float playerRadius = 1000;
-        public float closeness = 1000;
-
+        
         public float radius = 5; // width of the square around the player
         public float gap = 200; // gap between nodes
 
