@@ -346,6 +346,7 @@ namespace BGE.Forms
                     vrController.enabled = true;
                     mother.maxcreatures = 10;
                     GetComponent<ViveController>().enabled = false;
+                    GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;
                     break;
                 case BuildType.Vive:
@@ -355,6 +356,7 @@ namespace BGE.Forms
                     vrController.enabled = true;
                     mother.maxcreatures = 10;
                     GetComponent<OculusController>().enabled = false;
+                    GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;
                     break;
                 case BuildType.PC:
@@ -363,6 +365,7 @@ namespace BGE.Forms
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = false;
                     mother.maxcreatures = 20;
+                    GetComponent<AudioSource>().enabled = false;
                     GetComponent<OculusController>().enabled = false;
                     ctc.enabled = false;
                     break;
@@ -373,6 +376,7 @@ namespace BGE.Forms
                     vrController.enabled = false;
                     mother.maxcreatures = 20;
                     GetComponent<OculusController>().enabled = false;
+                    GetComponent<AudioSource>().enabled = false;
                     ctc.enabled = true;
                     break;
             }
