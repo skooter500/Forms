@@ -98,7 +98,7 @@ namespace BGE.Forms
 
         void Fly(float units)
         {
-            rigidBody.AddForce(Vector3.up * units);     
+            rigidBody.AddForce(transform.up * units);     
         }
 
         void Strafe(float units)
@@ -211,6 +211,16 @@ namespace BGE.Forms
                     ;
 
                 rigidBody.AddForce(force);                
+            }
+
+            if (transform.position.y > 20000)
+            {
+                Vector3 p = transform.position;
+                p.y = 20000;
+                transform.position = p;
+                desiredRotation = Quaternion.AngleAxis(-180, Vector3.right) * desiredRotation;
+                transform.rotation = desiredRotation;
+                GetComponent<Rigidbody>().velocity = -GetComponent<Rigidbody>().velocity;
             }
         }
 

@@ -81,6 +81,9 @@ namespace BGE.Forms
         public Material groundMaterial;
         public Material ceilingMaterial;
 
+        public int ceilingLayer= 20;
+        
+
         public Sampler[] GetSamplers()
         {
             return samplers ?? (samplers = GetComponents<Sampler>());
@@ -486,13 +489,11 @@ namespace BGE.Forms
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
             mr.material.SetTexture("_EmissionMap", textureGenerator.texture);
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
-
-
-            surface.layer = this.gameObject.layer;
-
+            
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             mr.material.SetTexture("_MainTex", textureGenerator.texture);
+            surface.layer = ceilingLayer;
             return surface;
         }
 
