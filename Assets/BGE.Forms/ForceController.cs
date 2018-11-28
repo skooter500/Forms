@@ -210,15 +210,11 @@ namespace BGE.Forms
                     * flowForce
                     ;
 
-                if (addForce)
-                {
-                    rigidBody.AddForce(force);
-                }
+                rigidBody.AddForce(force);                
             }
         }
 
-        public bool addForce = false;
-
+        
         private void OnDrawGizmos()
         {
             //if (!Application.isEditor)

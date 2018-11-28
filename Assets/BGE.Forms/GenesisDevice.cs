@@ -38,7 +38,6 @@ namespace BGE.Forms
             Sampler s = GetComponent<Sampler>();
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
             center.x = (Mathf.Round(center.x) * gap);
-            center.y = (Mathf.Round(center.y) * gap);
             center.z = (Mathf.Round(center.z) * gap);
             Vector3 bottomLeft = center - new Vector3(gap, 0, gap) * radius;
             for (int row = 0; row <= radius * 2; row++)
@@ -47,17 +46,19 @@ namespace BGE.Forms
                 {
                     Vector3 pos = bottomLeft + (new Vector3(col, 0, row) * gap);
                     float sample = s.Sample(pos.x, pos.z);
-                    if (sample > threshold)
+                    if (sample >= threshold)
                     {
                         float height = wg.SamplePos(pos.x, pos.z);
                         pos.y = height;
                         Gizmos.color = Color.green;
-                        Gizmos.DrawLine(pos, pos + Vector3.up * 200);
+                        //Gizmos.DrawLine(pos, pos + Vector3.up * 200 + (Vector3.right * 30));
+                        Gizmos.DrawSphere(pos, 100);
                     }
                     else
                     {
                         Gizmos.color = Color.red;
-                        Gizmos.DrawLine(pos, pos + Vector3.up * 200);
+                        //Gizmos.DrawLine(pos, pos + Vector3.up * 200 + (Vector3.right * 30));
+                        Gizmos.DrawSphere(pos, 100);
                     }
                 }
             }
