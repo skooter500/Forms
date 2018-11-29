@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using Valve.VR;
 
 namespace BGE.Forms
 {
@@ -20,7 +21,6 @@ namespace BGE.Forms
         public static ViveController Instance;
 
         public Boid boid; // Am I controlling a boid?
-
         private SteamVR_Controller.Device leftController
         {
             get
