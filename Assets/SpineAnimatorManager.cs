@@ -34,7 +34,7 @@ public class SpineAnimatorManager : MonoBehaviour
         }
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         SpineAnimatorSystem psas = null;
         foreach (SpineAnimatorSystem sas in systems)
@@ -51,15 +51,12 @@ public class SpineAnimatorManager : MonoBehaviour
             }
             psas = sas;
         }
-    }
 
-    public void LateUpdate()
-    {
         foreach (SpineAnimatorSystem sas in systems)
         {
             sas.Complete();
         }
-    }
+    }   
 
     public void OnDestroy()
     {
