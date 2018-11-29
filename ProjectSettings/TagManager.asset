@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - prefab
+  - PlayerCruise
+  - PlayerBoid
   layers:
   - Default
   - TransparentFX
@@ -13,19 +16,19 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Environment
+  - Square Fish
+  - Big Blue
+  - Player
+  - TenticleCreature
+  - Formation
+  - FlyingCreature
+  - TenticleFlower
+  - Sardines
+  - Steves
+  - Sandworm
+  - Plants
+  - Ceiling
   - 
   - 
   - 
