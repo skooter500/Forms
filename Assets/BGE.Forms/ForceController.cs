@@ -250,7 +250,7 @@ namespace BGE.Forms
             }
         }
 
-        /*
+       
         void Update()
         {
             
@@ -261,6 +261,5 @@ namespace BGE.Forms
             }
             //Pitch(angularSpeed * Time.deltaTime);
         }
-        */
     }
 }

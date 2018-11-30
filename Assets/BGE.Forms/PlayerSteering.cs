@@ -90,6 +90,7 @@ public class PlayerSteering : SteeringBehaviour
                 {
                     Vector3 xyz = average.eulerAngles;
                     harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+                    
                 }
             }
         }
