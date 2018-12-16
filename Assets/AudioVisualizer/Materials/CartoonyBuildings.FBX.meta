@@ -1,0 +1,336 @@
+fileFormatVersion: 2
+guid: 18bffce5d086c2b498d45ce5e0984d84
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Box03
+    100002: Building04
+    100004: Building05
+    100006: Building06
+    100008: building06
+    100010: Building3
+    100012: building5
+    100014: bulding05
+    100016: bulding4
+    100018: //RootNode
+    100020: OfficeBuilding
+    100022: OfficeBuilding_MeshPart0
+    100024: OfficeBuilding_MeshPart1
+    100026: OfficeBuilding_MeshPart2
+    100028: OfficeBuilding_MeshPart3
+    100030: OfficeBuilding_MeshPart4
+    100032: OfficeBuilding_MeshPart5
+    100034: Sign
+    100036: Sign01
+    100038: Sign02
+    100040: sign1_pole
+    100042: sign1_pole01
+    100044: sign1_pole02
+    100046: SlidingDoor01
+    100048: SlidingDoor02
+    100050: Text02
+    100052: Text03
+    400000: Box03
+    400002: Building04
+    400004: Building05
+    400006: Building06
+    400008: building06
+    400010: Building3
+    400012: building5
+    400014: bulding05
+    400016: bulding4
+    400018: //RootNode
+    400020: OfficeBuilding
+    400022: OfficeBuilding_MeshPart0
+    400024: OfficeBuilding_MeshPart1
+    400026: OfficeBuilding_MeshPart2
+    400028: OfficeBuilding_MeshPart3
+    400030: OfficeBuilding_MeshPart4
+    400032: OfficeBuilding_MeshPart5
+    400034: Sign
+    400036: Sign01
+    400038: Sign02
+    400040: sign1_pole
+    400042: sign1_pole01
+    400044: sign1_pole02
+    400046: SlidingDoor01
+    400048: SlidingDoor02
+    400050: Text02
+    400052: Text03
+    2300000: Box03
+    2300002: Building04
+    2300004: Building05
+    2300006: Building06
+    2300008: building06
+    2300010: Building3
+    2300012: building5
+    2300014: bulding05
+    2300016: bulding4
+    2300018: //RootNode
+    2300020: OfficeBuilding_MeshPart0
+    2300022: OfficeBuilding_MeshPart1
+    2300024: OfficeBuilding_MeshPart2
+    2300026: OfficeBuilding_MeshPart3
+    2300028: OfficeBuilding_MeshPart4
+    2300030: OfficeBuilding_MeshPart5
+    2300032: Sign
+    2300034: Sign01
+    2300036: Sign02
+    2300038: sign1_pole
+    2300040: sign1_pole01
+    2300042: sign1_pole02
+    2300044: SlidingDoor01
+    2300046: SlidingDoor02
+    2300048: Text02
+    2300050: Text03
+    3300000: Box03
+    3300002: Building04
+    3300004: Building05
+    3300006: Building06
+    3300008: building06
+    3300010: Building3
+    3300012: building5
+    3300014: bulding05
+    3300016: bulding4
+    3300018: //RootNode
+    3300020: OfficeBuilding_MeshPart0
+    3300022: OfficeBuilding_MeshPart1
+    3300024: OfficeBuilding_MeshPart2
+    3300026: OfficeBuilding_MeshPart3
+    3300028: OfficeBuilding_MeshPart4
+    3300030: OfficeBuilding_MeshPart5
+    3300032: Sign
+    3300034: Sign01
+    3300036: Sign02
+    3300038: sign1_pole
+    3300040: sign1_pole01
+    3300042: sign1_pole02
+    3300044: SlidingDoor01
+    3300046: SlidingDoor02
+    3300048: Text02
+    3300050: Text03
+    4300000: ground
+    4300002: building06
+    4300004: SlidingDoor01
+    4300006: SlidingDoor02
+    4300008: Text02
+    4300010: Box03
+    4300012: Building3
+    4300014: bulding4
+    4300016: building5
+    4300018: Building06
+    4300020: bulding05
+    4300022: Text03
+    4300024: sign1_pole
+    4300026: Sign
+    4300028: sign1_pole01
+    4300030: Sign01
+    4300032: sign1_pole02
+    4300034: Sign02
+    4300036: Building05
+    4300038: OfficeBuilding_MeshPart0
+    4300040: OfficeBuilding_MeshPart1
+    4300042: OfficeBuilding_MeshPart2
+    4300044: OfficeBuilding_MeshPart3
+    4300046: OfficeBuilding_MeshPart4
+    4300048: OfficeBuilding_MeshPart5
+    4300050: Building04
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: cef3e238240d3484bac6e49b305f09cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03 - Default
+    second: {fileID: 2100000, guid: 2f91d075e23667f4da9fee5b3ad1b123, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '04 - Default Slot #2'
+    second: {fileID: 2100000, guid: 53818a43f070a1c49864d7099e30b02f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 09 - Default
+    second: {fileID: 2100000, guid: f7b9a90f788110c4dbf3e7da51cc5cc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Default
+    second: {fileID: 2100000, guid: 1ea7ee2f8e049b54e89ce1a5321cea50, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 11 - Default
+    second: {fileID: 2100000, guid: 4ab3ebc42fd420e42b70c64342dc0ed2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Default
+    second: {fileID: 2100000, guid: 14b55c20c2ba16b41b352fe0de3edc6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GLASS-ARCH-JCA-01
+    second: {fileID: 2100000, guid: 08e164811357043409c12f80c71f5d3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #0'
+    second: {fileID: 2100000, guid: 26cf17646cb1a0a49a7e5da0c6d4af44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #12'
+    second: {fileID: 2100000, guid: d46aa00efadb9214e9f2d03b36259298, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #13'
+    second: {fileID: 2100000, guid: 7e32d57a2862a2a4f96ec43fa74cc280, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #14'
+    second: {fileID: 2100000, guid: 66f9260e10c6a9e47ba446d531a2c83c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #207'
+    second: {fileID: 2100000, guid: 5096c0dafe6d6ef4f94ce42cbed202a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #256'
+    second: {fileID: 2100000, guid: 09d0d3c5608d0a748a5d407a9e663f92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #257'
+    second: {fileID: 2100000, guid: 2b6b3484185745843b499d53e8353068, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #258'
+    second: {fileID: 2100000, guid: ada2b91b77d8c5d44aad034217a82976, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #259'
+    second: {fileID: 2100000, guid: 76a10a832b847864eb2f27aaeee79a67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #3'
+    second: {fileID: 2100000, guid: 4028691f41b76ad42b8d828b5e3aa8e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #4'
+    second: {fileID: 2100000, guid: 07da637d2f1597d4da0246effca229e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #57'
+    second: {fileID: 2100000, guid: 6aa2be252e1ed0843becd3d7613f9381, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Office_building
+    second: {fileID: 2100000, guid: b01d76b90e8aac849b7c1d84eac5c8c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bg_buildings
+    second: {fileID: 2100000, guid: ae0c69c8812fd7445bac46f29d5f6a72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bg_buildings-windows
+    second: {fileID: 2100000, guid: c534a8b1a9c3fbf4dad9de9685168e3c, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
