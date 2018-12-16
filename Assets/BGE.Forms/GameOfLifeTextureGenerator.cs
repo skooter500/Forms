@@ -67,6 +67,45 @@ namespace BGE.Forms
             }
         }
 
+        private void Pi(Color[,] board)
+        {
+            ClearBoard(board);
+            float radius = (size - 20) / 2;
+            int points = 100;
+            float theta = Mathf.PI * 2.0f / points;
+            for (int i = 0; i < points; i++)
+            {
+                float x = radius + (Mathf.Sin(theta * i) * radius);
+                float y = radius + (Mathf.Cos(theta * i) * radius);
+                board[(int)x, (int)y] = RandomColor();
+            }
+        }
+
+        private void BoxBox(Color[,] board)
+        {
+            generation = 0;
+            generationMax = 20;
+            ClearBoard(board);
+            int x1 = (int)(size * 0.2);
+            int x2 = (int)(size * 0.8);
+            for (int col = x1; col < x2; col++)
+            {
+                board[x1, col] = RandomColor();
+                board[x2, col] = RandomColor();
+                board[col, x1] = RandomColor();
+                board[col, x2] = RandomColor();
+            }
+            x1 = (int)(size * 0.4);
+            x2 = (int)(size * 0.6);
+            for (int col = x1; col < x2; col++)
+            {
+                board[x1, col] = RandomColor();
+                board[x2, col] = RandomColor();
+                board[col, x1] = RandomColor();
+                board[col, x2] = RandomColor();
+            }
+        }
+    
         private void BoxStartingPattern(Color[,] board)
         {
             generation = 0;
@@ -370,7 +409,7 @@ namespace BGE.Forms
                 generation++;
                 if (generation >= generationMax)
                 {
-                    int dice = Random.Range(0, 3);
+                    int dice = Random.Range(0, 4);
                     switch (dice)
                     {
                         case 0:
@@ -381,6 +420,9 @@ namespace BGE.Forms
                             break;
                         case 2:
                             startingPattern = new StartingPattern(CrossStartingPattern);
+                            break;
+                        case 3:
+                            startingPattern = new StartingPattern(BoxBox);
                             break;
                     }
                     startingPattern(current);
@@ -567,7 +609,7 @@ namespace BGE.Forms
             
             if (x == -1 && x != lastX)
             {
-                startingPattern = new StartingPattern(GridStartingPattern);
+                startingPattern = new StartingPattern(BoxStartingPattern);
                 startingPattern(current);
             }
             if (x == 1 && x != lastX)

@@ -24,6 +24,10 @@ namespace BGE.Forms
 
         public float angularSpeed = 30.0f;
 
+        public bool addFlow = true;
+        public float flowForce = 1000;
+        public float flowScale = 0.01f;
+
         // Use this for initialization
         void Start()
         {
@@ -94,7 +98,7 @@ namespace BGE.Forms
 
         void Fly(float units)
         {
-            rigidBody.AddForce(Vector3.up * units);     
+            rigidBody.AddForce(transform.up * units);     
         }
 
         void Strafe(float units)
@@ -121,7 +125,7 @@ namespace BGE.Forms
             float contAngularSpeed = this.angularSpeed;
 
             float runAxis = Input.GetAxis("Fire1");
-            
+
             if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
             {
                 contSpeed *= 3f;
@@ -150,20 +154,20 @@ namespace BGE.Forms
                 if (!UnityEngine.XR.XRDevice.isPresent)
                 {
                     Pitch(-joyY * contAngularSpeed * Time.deltaTime);
-                }                
+                }
             }
             if (Mathf.Abs(joyX) > 0.3f)
             {
                 Yaw(joyX * contAngularSpeed * Time.deltaTime);
             }
-			if (Input.GetKey(KeyCode.E))
-			{
-				Fly(Time.deltaTime * speed);
-			}
-			if (Input.GetKey(KeyCode.F))
-			{
-				Fly(-Time.deltaTime * speed);
-			}
+            if (Input.GetKey(KeyCode.E))
+            {
+                Fly(Time.deltaTime * speed);
+            }
+            if (Input.GetKey(KeyCode.F))
+            {
+                Fly(-Time.deltaTime * speed);
+            }
 
             //Yaw(joyX * angularSpeed * Time.deltaTime);
             //Fly(-joyY * contSpeed * Time.deltaTime);
@@ -181,18 +185,75 @@ namespace BGE.Forms
 
             if (Input.GetKey(KeyCode.Joystick1Button5))
             {
-                Fly(contSpeed * Time.deltaTime);                
+                Fly(contSpeed * Time.deltaTime);
             }
 
             if (Input.GetKey(KeyCode.Joystick1Button4))
             {
-                Fly(- contSpeed * Time.deltaTime);
+                Fly(-contSpeed * Time.deltaTime);
             }
 
+            if (addFlow)
+            {
+                Vector3 p = transform.position;
+                float n = Mathf.PerlinNoise(p.x * flowScale, p.z * flowScale);
+                Vector3 force = Quaternion.AngleAxis(
+                    Utilities.Map(n, 0, 1, -180, 180)
+                    , Vector3.up)
+                    * Vector3.forward
+                    * flowForce
+                    ;
+                force += Quaternion.AngleAxis(
+                    Utilities.Map(n, 0, 1, -180, 180)
+                    , Vector3.right)
+                    * Vector3.forward
+                    * flowForce
+                    ;
+
+                rigidBody.AddForce(force);                
+            }
+
+            if (transform.position.y > 20000)
+            {
+                Vector3 p = transform.position;
+                p.y = 20000;
+                transform.position = p;
+                desiredRotation = Quaternion.AngleAxis(-180, Vector3.right) * desiredRotation;
+                transform.rotation = desiredRotation;
+                GetComponent<Rigidbody>().velocity = -GetComponent<Rigidbody>().velocity;
+            }
         }
+
         
+        private void OnDrawGizmos()
+        {
+            //if (!Application.isEditor)
+            {
+                Gizmos.color = Color.green;
+                Vector3 p = transform.position;
+
+                float n = Mathf.PerlinNoise(p.x * flowScale, p.z * flowScale);
+                Vector3 force = Quaternion.AngleAxis(
+                    Utilities.Map(n, 0, 1, -180, 180)
+                    , Vector3.up)
+                    * Vector3.forward
+                    * flowForce
+                    ;
+                force += Quaternion.AngleAxis(
+                    Utilities.Map(n, 0, 1, -180, 180)
+                    , Vector3.right)
+                    * Vector3.forward
+                    * flowForce
+                    ;
+
+                Gizmos.DrawLine(transform.position, transform.position + force);
+            }
+        }
+
+       
         void Update()
         {
+            
             if (Input.GetKeyDown(KeyCode.JoystickButton2))
             {
                 int ct = ((int)(cameraType + 1) % System.Enum.GetNames(typeof(CameraType)).Length);

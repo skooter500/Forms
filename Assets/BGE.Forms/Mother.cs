@@ -13,7 +13,7 @@ namespace BGE.Forms
         public float playerRadius = 1000;
 
         public List<GameObject> alive = new List<GameObject>();
-        private Dictionary<GameObject, GameObject> aliveMap = new Dictionary<GameObject, GameObject>();
+        public Dictionary<GameObject, GameObject> aliveMap = new Dictionary<GameObject, GameObject>();
         public MultiDictionary<GameObject, GameObject> suspended = new MultiDictionary<GameObject, GameObject>();
         public GameObject[] prefabs;
 
@@ -54,17 +54,46 @@ namespace BGE.Forms
                 newPos = Camera.main.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
                 float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
-                float minHeight  =  sampleY + sp.minHeight;                
+                float minHeight  =  sampleY + sp.minHeight;
+                int segments = 3;
+                if (sp.radiusRequired != 0)
+                {
+                    float[] heights = new float[segments + 1];
+                    heights[0] = sampleY;
+                    float sum = sampleY;
+                    float thetaInc = (Mathf.PI * 2.0f) / segments;
+                    for (int i = 0; i < segments; i++)
+                    {
+                        float theta = i * thetaInc;
+                        Vector3 p = new Vector3
+                            (Mathf.Sin(theta) * sp.radiusRequired
+                            , 0
+                            , Mathf.Cos(theta) * sp.radiusRequired
+                            );
+
+                        // Translate by newPos
+                        p += newPos;
+
+                        heights[i + 1] = WorldGenerator.Instance.SamplePos(p.x, p.z);
+                    }
+                    float stdDev = Utilities.StdDev(heights);
+                    if (stdDev > 2)
+                    {
+                        count++;
+                        continue;
+                    }
+                }
                 if (minHeight > worldMax)
                 {                    
-                    count++;
-                    if (count == 10)
-                    {
-                        found = false;
-                        break;
-                    }
+                    count++;                    
                     continue;
                 }
+                if (count == 10)
+                {
+                    found = false;
+                    break;
+                }
+
                 float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
                 newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
                 found = true;
@@ -99,7 +128,7 @@ namespace BGE.Forms
             return true;
         }
 
-        private void Suspend(GameObject creature)
+        public void Suspend(GameObject creature)
         {
             Boid[] boids = creature.GetComponentsInChildren<Boid>();
             foreach (Boid b in boids)
@@ -205,6 +234,12 @@ namespace BGE.Forms
                                 b.school = school;
                                 school.boids.Add(b);
                             }
+
+                            if (newcreature.GetComponentInChildren<CreatureController>())
+                            {
+                                newcreature.GetComponentInChildren<CreatureController>().mother = this;
+                            }
+
                             newcreature.transform.parent = this.transform;
                             newcreature.transform.position = newPos;
                             newcreature.SetActive(true);

@@ -9,5 +9,7 @@ public abstract class CreatureController: MonoBehaviour
     public float minHeight = 500;
     public float maxHeight = 2000;
 
+    public BGE.Forms.Mother mother;
+
     public abstract void Restart();        
 }

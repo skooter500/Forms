@@ -20,7 +20,6 @@ namespace BGE.Forms
         public static ViveController Instance;
 
         public Boid boid; // Am I controlling a boid?
-
         private SteamVR_Controller.Device leftController
         {
             get
