@@ -14,7 +14,8 @@ namespace BGE.Forms
 
         public float colorMapScaling = 50;
 
-        public Texture texture;
+        public static Texture texture;
+        public static Texture genTexture;
         public Texture2D particleTexture;
         public float colorScale = 0.7f;
 
@@ -54,22 +55,27 @@ namespace BGE.Forms
 
         private void InitializeProgrammableTexture()
         {
-            Texture2D programmableTexture = new Texture2D(size, size);
-            texture = programmableTexture;
-
-            int halfSize = size / 2;
-            for (int row = 0; row < size; row++)
+            if (texture == null)
             {
-                for (int col = 0; col < size; col++)
-                {
-                    float hue = Utilities.Map(row + col, 0, (size * 2) - 2, 0, colorScale);
-                    // ((row / (float)size) * colorScale) + ((col / (float)size) * colorScale) / 2.0f;
-                    programmableTexture.SetPixel(row, col, Color.HSVToRGB(hue, 0.9f, 0.8f));
-                }
-            }
-            programmableTexture.Apply();
-            texture.wrapMode = TextureWrapMode.Mirror;
+                
+                Texture2D programmableTexture = new Texture2D(size, size);
+                genTexture = programmableTexture;
 
+                int halfSize = size / 2;
+                for (int row = 0; row < size; row++)
+                {
+                    for (int col = 0; col < size; col++)
+                    {
+                        float hue = Utilities.Map(row + col, 0, (size * 2) - 2, 0, colorScale);
+                        // ((row / (float)size) * colorScale) + ((col / (float)size) * colorScale) / 2.0f;
+                        programmableTexture.SetPixel(row, col, Color.HSVToRGB(hue, 0.9f, 0.8f));
+                    }
+                }
+                programmableTexture.Apply();
+                genTexture.wrapMode = TextureWrapMode.Mirror;
+                
+                texture = FindObjectOfType<GameOfLifeTextureGenerator>().texture;
+            }
         } 
 
 

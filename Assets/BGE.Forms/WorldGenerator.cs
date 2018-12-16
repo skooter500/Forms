@@ -408,9 +408,10 @@ namespace BGE.Forms
             MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
             Mesh mesh = GenerateMesh(position);
             meshFilter.mesh = mesh;
+            
             renderer.material = groundMaterial;
-            renderer.material.SetTexture("_MainTex", textureGenerator.texture);
-            renderer.material.SetTexture("_EmissionMap", textureGenerator.texture);
+            renderer.material.SetTexture("_MainTex", LifeColours.genTexture);
+            renderer.material.SetTexture("_EmissionMap", LifeColours.genTexture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             
 
