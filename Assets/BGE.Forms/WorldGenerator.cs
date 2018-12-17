@@ -410,8 +410,8 @@ namespace BGE.Forms
             meshFilter.mesh = mesh;
             
             renderer.material = groundMaterial;
-            renderer.material.SetTexture("_MainTex", LifeColours.genTexture);
-            renderer.material.SetTexture("_EmissionMap", LifeColours.genTexture);
+            renderer.material.SetTexture("_MainTex", textureGenerator.texture);
+            renderer.material.SetTexture("_EmissionMap", textureGenerator.texture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             
 
@@ -501,12 +501,15 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
-            string ss = "";
+            /*string ss = "";
             foreach (Sampler s in samplers)
             {
                 ss += ((PerlinNoiseSampler)s).origin + ", ";
             }
-            CreatureManager.Log("World: " + ss);            
+            CreatureManager.Log("World: " + ss);
+            */
+            Shader.SetGlobalFloat("_HeightOffset", Time.time/ 10.0f);
+
         }
     }
 }

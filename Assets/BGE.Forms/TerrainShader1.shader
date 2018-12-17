@@ -27,6 +27,7 @@
 		half _Glossiness;
 		half _Metallic;
 		half _ColorScale;
+		half _HeightOffset=0;
 
 		fixed4 _Color;
 
@@ -59,8 +60,8 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			//fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			float hue = (IN.worldPos.y * _ColorScale) % 1.0;
-			fixed3 c = hsv_to_rgb(float3(hue, 1, 1));
+			float hue = (((IN.worldPos.y * _ColorScale) % 1.0) + _HeightOffset) % 1.0;
+			fixed3 c = hsv_to_rgb(float3(hue, 1, 1)) * tex2D(_MainTex, IN.uv_MainTex);
 
 			o.Albedo = c.rgb;
 

@@ -73,8 +73,8 @@ namespace BGE.Forms
                 }
                 programmableTexture.Apply();
                 genTexture.wrapMode = TextureWrapMode.Mirror;
-                
-                texture = FindObjectOfType<GameOfLifeTextureGenerator>().texture;
+
+                texture = genTexture; // FindObjectOfType<GameOfLifeTextureGenerator>().texture;
             }
         } 
 
