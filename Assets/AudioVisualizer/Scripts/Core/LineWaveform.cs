@@ -96,7 +96,7 @@ namespace AudioVisualizer
 			line = go.GetComponent<LineRenderer>();
 			if(lineAtt.lineMat == null)
 			{
-				line.material = new Material(Shader.Find("Particles/Additive"));
+				line.material = new Material(Shader.Find("Particles/Priority Additive"));
 			}
 			else
 			{
