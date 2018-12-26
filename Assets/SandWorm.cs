@@ -168,7 +168,7 @@ public class SandWorm : MonoBehaviour {
 
     
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (moving || current != 0)
         {
@@ -184,7 +184,7 @@ public class SandWorm : MonoBehaviour {
         {
             f *= .05f;
         }
-        rb.AddTorque(- rb.transform.right * f);
+        rb.AddTorque(- rb.transform.right * f * Time.deltaTime);
         current += speed * Time.deltaTime;
 
 
