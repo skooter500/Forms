@@ -14,7 +14,7 @@ namespace BGE.Forms
 
         public float colorMapScaling = 50;
 
-        public static Texture texture;
+        public Texture texture;
         public static Texture genTexture;
         public Texture2D particleTexture;
         public float colorScale = 0.7f;
@@ -29,6 +29,8 @@ namespace BGE.Forms
         public float targetAlpha = 1.0f;
 
         public bool waitAFrame = false;
+
+        private TextureGenerator tg;
 
         public void UpdateTexture()
         {
@@ -73,23 +75,24 @@ namespace BGE.Forms
                 }
                 programmableTexture.Apply();
                 genTexture.wrapMode = TextureWrapMode.Mirror;
-
+            }
+            if (tg == null)
+            {
                 texture = genTexture; // FindObjectOfType<GameOfLifeTextureGenerator>().texture;
             }
-        } 
+            else
+            {
+                texture = tg.texture;
+            }
+        }
 
 
         // Use this for initialization
         void Start()
-        {            
-            //if (textureMode == TextureMode.Shader)
-            //{
-            //    InitializeShaderTexture();
-            //}
-            //else
-            {
-                InitializeProgrammableTexture();
-            }
+        {
+            tg = GetComponent<TextureGenerator>();
+            InitializeProgrammableTexture();
+            
 
             FadeIn();
         }

@@ -78,7 +78,8 @@ namespace BGE.Forms
         public GameObject cannibisPrefab;
 
 
-        public Material groundMaterial;
+        public Material[] groundMaterials;
+        public int groundMaterialIndex = 0;
         public Material ceilingMaterial;
 
         public int ceilingLayer= 20;
@@ -409,7 +410,7 @@ namespace BGE.Forms
             Mesh mesh = GenerateMesh(position);
             meshFilter.mesh = mesh;
             
-            renderer.material = groundMaterial;
+            renderer.material = groundMaterials[groundMaterialIndex];
             renderer.material.SetTexture("_MainTex", textureGenerator.texture);
             renderer.material.SetTexture("_EmissionMap", textureGenerator.texture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
@@ -429,7 +430,6 @@ namespace BGE.Forms
             meshCollider.sharedMesh = mesh;
 
             GameObject surface = MakeSurface(position);
-            surface.name = "Surface";
             surface.transform.parent = tile.transform;
             surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             tile.isStatic = true;
@@ -493,23 +493,72 @@ namespace BGE.Forms
             
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
-            mr.material.SetTexture("_MainTex", textureGenerator.texture);
             surface.layer = ceilingLayer;
+            surface.name = "surface";
             return surface;
         }
 
         // Update is called once per frame
         void Update()
         {
-            /*string ss = "";
-            foreach (Sampler s in samplers)
-            {
-                ss += ((PerlinNoiseSampler)s).origin + ", ";
-            }
-            CreatureManager.Log("World: " + ss);
-            */
             Shader.SetGlobalFloat("_HeightOffset", Time.time/ 10.0f);
 
+            float y = Input.GetAxis("DPadY");
+
+            if (y == 1 && y != lastY)
+            {
+                topD = (topD + 1) % groundMaterials.Length;
+                ellapsed = 0;
+            }
+            lastY = y;
+
+            if (topD != -1 && ellapsed > toPass)
+            {
+                StartCoroutine(SetGroundMaterial(topD));                
+                topD = -1;
+            }
+            ellapsed += Time.deltaTime;
         }
+
+        System.Collections.IEnumerator SetGroundMaterial(int index)
+        {
+            groundMaterialIndex = index;
+            Debug.Log("Changing ground material to: " + groundMaterials[groundMaterialIndex]);            
+            foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            {
+                if (r.name.StartsWith("Tile"))
+                {
+                    r.material = groundMaterials[groundMaterialIndex];
+                    r.material.SetTexture("_MainTex", textureGenerator.texture);
+                    r.material.SetTexture("_EmissionMap", textureGenerator.texture);
+                    yield return null;
+                }
+            }
+            Color c = Color.black;
+            switch (index)
+            {
+                case 0:
+                    c = Color.black;
+                    break;
+                case 1:
+                    c = Color.white;
+                    break;
+                case 2:
+                    c = Color.black;
+                    break;
+                case 3:
+                    c = Color.white;
+                    break;
+            }
+            c.a = 0;
+            GetComponent<GameOfLifeTextureGenerator>().backGround = c;            
+        }
+
+        public float ellapsed = 0;
+        public float toPass = 0.3f;
+        public int topD = -1;
+        float lastY;
+
+
     }
 }

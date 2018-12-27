@@ -606,8 +606,37 @@ namespace BGE.Forms
         {
             float x = Input.GetAxis("DPadX");
             float y = Input.GetAxis("DPadY");
-            
+
             if (x == -1 && x != lastX)
+            {
+                leftD = (leftD + 1) % 5; // 5 patterns
+                ellapsed = 0;
+            }
+            if (leftD > -1 && ellapsed > toPass)
+            {
+                switch (leftD)
+                {
+                    case 0:
+                        startingPattern = new StartingPattern(GridStartingPattern);
+                        break;
+                    case 1:
+                        startingPattern = new StartingPattern(BoxStartingPattern);
+                        break;
+                    case 2:
+                        startingPattern = new StartingPattern(CrossStartingPattern);
+                        break;
+                    case 3:
+                        startingPattern = new StartingPattern(BoxBox);
+                        break;
+                    case 4:
+                        startingPattern = new StartingPattern(Randomise);
+                        break;
+                }
+                startingPattern(current);
+                leftD = -1;
+            }
+            ellapsed += Time.deltaTime;
+            /*
             {
                 startingPattern = new StartingPattern(BoxStartingPattern);
                 startingPattern(current);
@@ -627,10 +656,15 @@ namespace BGE.Forms
                 startingPattern = new StartingPattern(Randomise);
                 startingPattern(current);
             }
-            CreatureManager.Log("Generation: " + generation);
+            */
 
             lastX = x;
             lastY = y;
-        }        
+        }
+
+        public float ellapsed = 0;
+        public float toPass = 0.5f;
+        public int leftD = -1;
+
     }
 }
