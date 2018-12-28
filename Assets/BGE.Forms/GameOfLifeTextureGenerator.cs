@@ -150,12 +150,6 @@ namespace BGE.Forms
         void Awake()
         {
             GenerateTexture();
-        }
-
-        void Start()
-        {
-
-            generation = 0;
             current = new Color[size, size];
             next = new Color[size, size];
             //MakeGosperGun(size / 2, size / 2);
@@ -164,9 +158,20 @@ namespace BGE.Forms
             startingPattern = new StartingPattern(GridStartingPattern);
             startingPattern(current);
 
+        }
+
+        void Start()
+        {
+
+            generation = 0;
+            
             //Randomise();
-            StartCoroutine("UpdateBoard");
             //StartCoroutine("Spawner");
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine("UpdateBoard");
         }
 
         IEnumerator Spawner()
