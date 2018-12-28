@@ -514,10 +514,15 @@ namespace BGE.Forms
 
             if (topD != -1 && ellapsed > toPass)
             {
-                StartCoroutine(SetGroundMaterial(topD));                
+                SetGroundMaterialASync(topD);                
                 topD = -1;
             }
             ellapsed += Time.deltaTime;
+        }
+
+        public void SetGroundMaterialASync(int index)
+        {
+            StartCoroutine(SetGroundMaterial(index));
         }
 
         System.Collections.IEnumerator SetGroundMaterial(int index)
