@@ -27,6 +27,7 @@ public class SandWorm : MonoBehaviour {
         Debug.Log("Sandworm restart");
         float depth = radius * 0.1f;
         Vector3 start = -Vector3.forward * bodySegments * depth * 2;
+        GameObject previous = null;
         for (int i = 0; i < transform.childCount; i++)
         {
             float r = radius;
@@ -49,8 +50,27 @@ public class SandWorm : MonoBehaviour {
             bodyPart.GetComponent<Rigidbody>().MoveRotation(rot);
             bodyPart.GetComponent<Rigidbody>().velocity = Vector3.zero;
             bodyPart.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            // Destroy and readd the hingejoints
             HingeJoint hj = bodyPart.GetComponent<HingeJoint>();
-            // Maybe have to remove and readd
+            if (hj != null)
+            {
+                Destroy(hj);
+            }
+            if (previous != null)
+            {
+                HingeJoint j = bodyPart.gameObject.AddComponent<HingeJoint>();
+                j.connectedBody = previous.GetComponent<Rigidbody>();
+                j.autoConfigureConnectedAnchor = false;
+                j.axis = Vector3.right;
+                j.anchor = new Vector3(0, 0, -2f);
+                j.connectedAnchor = new Vector3(0, 0, 2f);
+                j.useSpring = true;
+                JointSpring js = j.spring;
+                js.spring = spring;
+                js.damper = damper;
+                j.spring = js;
+            }
+            previous = bodyPart.gameObject;
         }
     }
 
