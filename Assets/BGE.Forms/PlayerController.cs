@@ -206,6 +206,7 @@ namespace BGE.Forms
             StateMachine sm = GetComponent<StateMachine>();
             while (true)
             {
+                WorldGenerator.Instance.SetGroundMaterialASync(0);
                 while (logoIndex < ctc.leftEffects.Count)
                 {
                     sm.ChangeState(new JourneyingState());

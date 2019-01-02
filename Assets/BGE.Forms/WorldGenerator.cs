@@ -487,8 +487,8 @@ namespace BGE.Forms
             mr.castShadows = false;
             mr.receiveShadows = false;
             mr.material = ceilingMaterial;
-            mr.material.SetTexture("_MainTex", textureGenerator.texture);
-            mr.material.SetTexture("_EmissionMap", textureGenerator.texture);
+            mr.material.SetTexture("_MainTex", textureGenerator.secondaryTexture);
+            mr.material.SetTexture("_EmissionMap", textureGenerator.secondaryTexture);
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;

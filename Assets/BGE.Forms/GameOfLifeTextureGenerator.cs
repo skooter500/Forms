@@ -6,6 +6,7 @@ namespace BGE.Forms
     public class GameOfLifeTextureGenerator : TextureGenerator
     {
         public Color backGround = Color.black;
+        public Color secondaryBackGround = Color.white;
         public Color foreGround = Color.gray;
 
         public float updatesPerSecond = 30.0f;
@@ -144,6 +145,10 @@ namespace BGE.Forms
                 texture = new Texture2D(size, size);
                 texture.filterMode = FilterMode.Point;
                 texture.wrapMode = TextureWrapMode.Mirror;
+
+                secondaryTexture = new Texture2D(size, size);
+                secondaryTexture.filterMode = FilterMode.Point;
+                secondaryTexture.wrapMode = TextureWrapMode.Mirror;
             }
         }
 
@@ -396,6 +401,11 @@ namespace BGE.Forms
                             Color to = (current[y, x] == Color.black) ? backGround : current[y, x];
                             Color c = Color.Lerp(from, to, t);
                             texture.SetPixel(x, y, c);
+
+                            from = (next[y, x] == Color.black) ? secondaryBackGround: next[y, x];
+                            to = (current[y, x] == Color.black) ? secondaryBackGround : current[y, x];
+                            c = Color.Lerp(from, to, t);
+                            secondaryTexture.SetPixel(x, y, c);
                         }
                     }
                     t += tDelta;
@@ -408,6 +418,7 @@ namespace BGE.Forms
                         alpha += delay / 3.0f;
                     }
                     texture.Apply();
+                    secondaryTexture.Apply();
                     yield return new WaitForSeconds(delay);
                 }
 
