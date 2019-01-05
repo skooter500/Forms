@@ -76,24 +76,30 @@ namespace BGE.Forms
                 programmableTexture.Apply();
                 genTexture.wrapMode = TextureWrapMode.Mirror;
             }
-            if (tg == null)
+
+            switch (textureSource)
             {
-                texture = genTexture; // FindObjectOfType<GameOfLifeTextureGenerator>().texture;
-            }
-            else
-            {
-                texture = tg.texture;
-            }
+                case TextureSource.Gradient:
+                    texture = genTexture;
+                    break;
+                case TextureSource.PrimaryLife:
+                    texture = GameOfLifeTextureGenerator.Instance.texture;
+                    break;
+                case TextureSource.SecondaryLife:
+                    texture = GameOfLifeTextureGenerator.Instance.secondaryTexture;
+                    break;
+            }            
         }
 
-
+        public enum TextureSource { Gradient, PrimaryLife, SecondaryLife }
+        public TextureSource textureSource = TextureSource.Gradient;
+        
         // Use this for initialization
         void Start()
         {
-            tg = GetComponent<TextureGenerator>();
+            //tg = GetComponent<TextureGenerator>();
             InitializeProgrammableTexture();
-            
-
+         
             FadeIn();
         }
 

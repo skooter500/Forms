@@ -487,8 +487,8 @@ namespace BGE.Forms
             mr.castShadows = false;
             mr.receiveShadows = false;
             mr.material = ceilingMaterial;
-            mr.material.SetTexture("_MainTex", textureGenerator.secondaryTexture);
-            mr.material.SetTexture("_EmissionMap", textureGenerator.secondaryTexture);
+            mr.material.SetTexture("_MainTex", textureGenerator.texture);
+            mr.material.SetTexture("_EmissionMap", textureGenerator.texture);
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
             
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
@@ -533,30 +533,28 @@ namespace BGE.Forms
             {
                 if (r.name.StartsWith("Tile"))
                 {
+                    Texture t = null;
+                    switch (index)
+                    {
+                        case 0:
+                            t = textureGenerator.texture;
+                            break;
+                        case 1:
+                            t = textureGenerator.secondaryTexture;
+                            break;
+                        case 2:
+                            t = textureGenerator.texture;
+                            break;
+                        case 3:
+                            t = textureGenerator.secondaryTexture;
+                            break;
+                    }
                     r.material = groundMaterials[groundMaterialIndex];
-                    r.material.SetTexture("_MainTex", textureGenerator.texture);
-                    r.material.SetTexture("_EmissionMap", textureGenerator.texture);
+                    r.material.SetTexture("_MainTex", t);
+                    r.material.SetTexture("_EmissionMap", t);
                     yield return null;
                 }
-            }
-            Color c = Color.black;
-            switch (index)
-            {
-                case 0:
-                    c = Color.black;
-                    break;
-                case 1:
-                    c = Color.white;
-                    break;
-                case 2:
-                    c = Color.black;
-                    break;
-                case 3:
-                    c = Color.white;
-                    break;
-            }
-            c.a = 0;
-            GetComponent<GameOfLifeTextureGenerator>().backGround = c;            
+            }                   
         }
 
         public float ellapsed = 0;

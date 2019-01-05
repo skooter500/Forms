@@ -24,7 +24,7 @@ namespace BGE.Forms
             ClearBoard(current);
         }
 
-        
+        public static GameOfLifeTextureGenerator Instance;
             
         public float sat = 1.0f;
         public float brightness = 1.0f;
@@ -154,6 +154,7 @@ namespace BGE.Forms
 
         void Awake()
         {
+            Instance = this;
             GenerateTexture();
             current = new Color[size, size];
             next = new Color[size, size];

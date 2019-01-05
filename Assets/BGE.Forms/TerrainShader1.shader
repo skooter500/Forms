@@ -3,7 +3,8 @@
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
+		_Metallic("Metallic", Range(0,1)) = 0.0
+		_Offset("Offset", Range(0,1)) = 0.0
 		_ColorScale("ColorScale", Range(0,0.01))=.0001
 	}
 	SubShader {
@@ -27,6 +28,7 @@
 		half _Glossiness;
 		half _Metallic;
 		half _ColorScale;
+		half _Offset;
 		half _HeightOffset=0;
 
 		fixed4 _Color;
