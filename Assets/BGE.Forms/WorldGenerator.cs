@@ -38,16 +38,14 @@ namespace BGE.Forms
         public Vector3[] vertices;
         public Vector3[] normals;
         public Vector2[] uv;
-        public Color[] colors;
         public int[] triangles;
 
-        public GeneratedMesh(int vertexCount)
+        public GeneratedMesh(int vertexCount, int triangleCount)
         {
             vertices = new Vector3[vertexCount];
             normals = new Vector3[vertexCount];
             uv = new Vector2[vertexCount];
-            triangles = new int[vertexCount];
-            colors = new Color[vertexCount];
+            triangles = new int[triangleCount];
         }
     }
 
@@ -241,7 +239,7 @@ namespace BGE.Forms
                         tiles[tilename] = tile;
                         StartCoroutine(ChangeMaterialToOpaque(t, 4));
                         //StaticBatchingUtility.Combine(this.gameObject);
-                        yield return WaitFor.Frames(Random.Range(1, 3));
+                        yield return WaitFor.Frames(Random.Range(5, 10));
                     }
 
                     //destroy all tiles not just created or with time updated
@@ -303,22 +301,23 @@ namespace BGE.Forms
 
             int verticesPerSegment = 6;
 
-            int vertexCount = verticesPerSegment * ((int)quadsPerTile) * ((int)quadsPerTile);
-        
+            int triangleCount = verticesPerSegment * ((int)quadsPerTile) * ((int)quadsPerTile);
+            int vertexCount = 4 * ((int)quadsPerTile) * ((int)quadsPerTile);
+
             int vertex = 0;
             // What cell is x and z for the bottom left of this tile in world space
             Vector3 tileBottomLeft = new Vector3();
             tileBottomLeft.x = -(quadsPerTile * cellSize) / 2;
             tileBottomLeft.z = -(quadsPerTile * cellSize) / 2;
         
-            GeneratedMesh gm = new GeneratedMesh(vertexCount);
+            GeneratedMesh gm = new GeneratedMesh(vertexCount, triangleCount);
             
             Vector2 texOrigin = position / cellSize;
             texOrigin.x = texOrigin.x % textureGenerator.size;
             texOrigin.y = texOrigin.y % textureGenerator.size;
 
             float tilesPerTexture = textureGenerator.size / quadsPerTile;
-
+            int triangleVertex = 0;
             for (int z = 0; z < quadsPerTile; z++)
             {
                 for (int x = 0; x < quadsPerTile; x++)
@@ -343,37 +342,29 @@ namespace BGE.Forms
                     cellBottomRight.y = SampleCell(cell.x + 1, cell.z);
 
                     // Make the vertices
+                    startVertex = vertex;
                     gm.vertices[vertex++] = cellBottomLeft;
                     gm.vertices[vertex++] = cellTopLeft;
                     gm.vertices[vertex++] = cellTopRight;
-                    gm.vertices[vertex++] = cellTopRight;
                     gm.vertices[vertex++] = cellBottomRight;
-                    gm.vertices[vertex++] = cellBottomLeft;
-
+                    
                     vertex = startVertex;
                     gm.uv[vertex++] = MakeUV(position, x, z);
                     gm.uv[vertex++] = MakeUV(position, x, z + 1);
                     gm.uv[vertex++] = MakeUV(position, x + 1, z + 1);
-                    gm.uv[vertex++] = MakeUV(position, x + 1, z + 1);
                     gm.uv[vertex++] = MakeUV(position, x + 1, z);
-                    gm.uv[vertex++] = MakeUV(position, x, z);
-             
 
-                    // Make the triangles                
-                    for (int i = 0; i < 6; i++)
-                    {
-                        int vertexIndex = startVertex + i;
-                        gm.triangles[vertexIndex] = vertexIndex;
-                        gm.colors[vertexIndex] = color;
-
-                    }
-                }
+                    gm.triangles[triangleVertex++] = startVertex;
+                    gm.triangles[triangleVertex++] = startVertex + 1;
+                    gm.triangles[triangleVertex++] = startVertex + 3;
+                    gm.triangles[triangleVertex++] = startVertex + 3;
+                    gm.triangles[triangleVertex++] = startVertex + 1;
+                    gm.triangles[triangleVertex++] = startVertex + 2;                }
             }
             Mesh mesh = new Mesh();
             mesh.vertices = gm.vertices;
             mesh.uv = gm.uv;
             mesh.triangles = gm.triangles;
-            mesh.colors = gm.colors;
             mesh.RecalculateNormals();
 
             return mesh;
@@ -456,7 +447,7 @@ namespace BGE.Forms
             tileTopRight.x = (quadsPerTile * cellSize) / 2;
             tileTopRight.z = (quadsPerTile * cellSize) / 2;
 
-            GeneratedMesh gm = new GeneratedMesh(6);
+            GeneratedMesh gm = new GeneratedMesh(6,6);
             
             gm.vertices[0] = tileTopRight;
             gm.vertices[1] = new Vector3(tileBottomLeft.x, 0, tileTopRight.z);
@@ -481,7 +472,6 @@ namespace BGE.Forms
             mesh.vertices = gm.vertices;
             mesh.uv = gm.uv;
             mesh.triangles = gm.triangles;
-            mesh.colors = gm.colors;
             mesh.RecalculateNormals();
             
             mf.mesh = mesh;
