@@ -28,8 +28,8 @@ public class WorldColours : MonoBehaviour {
         {
             Color c = Color.HSVToRGB(hue, saturation, brightness);
             gol.backGround = c;
-            //RenderSettings.fogColor = c;
-            //RenderSettings.fog = false;
+            RenderSettings.fogColor = c;
+            RenderSettings.fog = false;
             Camera[] cams = FindObjectsOfType<Camera>();
             foreach (Camera cam in cams)
             {

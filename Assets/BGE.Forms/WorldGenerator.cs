@@ -440,6 +440,8 @@ namespace BGE.Forms
 
         GameObject MakeSurface(Vector3 position)
         {
+            
+
             // Make the surface
             GameObject surface = new GameObject();
             MeshRenderer mr = surface.AddComponent<MeshRenderer>();
