@@ -2,7 +2,7 @@
 
 Shader "Custom/CreatureColours" {
 	Properties {
-		_MainTex ("Albedo (RGB)", 2D) = "white" {}
+		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_PositionScale("PositionScale", Range(0, 1000)) = 250
@@ -21,7 +21,7 @@ Shader "Custom/CreatureColours" {
 		#pragma target 3.0
 
 		sampler2D _MainTex;
-
+		
 		struct Input {
 			float2 uv_MainTex;
 			float3 worldPos;

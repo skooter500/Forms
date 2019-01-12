@@ -88,10 +88,10 @@ namespace BGE.Forms
                 case TextureSource.SecondaryLife:
                     texture = GameOfLifeTextureGenerator.Instance.secondaryTexture;
                     break;
-            }            
+            }
         }
 
-        public enum TextureSource { Gradient, PrimaryLife, SecondaryLife }
+        public enum TextureSource { Gradient, PrimaryLife, SecondaryLife}
         public TextureSource textureSource = TextureSource.Gradient;
         
         // Use this for initialization
