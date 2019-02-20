@@ -76,7 +76,7 @@ namespace BGE.Forms
                 float a = sp.followCameraHalfFOV;
                 float angle = Random.Range(-a, a);
                 
-                Vector3 lp = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
+                Vector3 lp = Quaternion.Euler(30, angle, 0) * Vector3.forward;
                 lp.Normalize();
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);

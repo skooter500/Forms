@@ -27,9 +27,9 @@ public class WorldColours : MonoBehaviour {
         if (oh != hue || os != saturation || ob != brightness)
         {
             Color c = Color.HSVToRGB(hue, saturation, brightness);
-            gol.backGround = c;
-            RenderSettings.fogColor = c;
-            RenderSettings.fog = false;
+            //gol.backGround = c;
+            //RenderSettings.fogColor = c;
+            //RenderSettings.fog = false;
             Camera[] cams = FindObjectsOfType<Camera>();
             foreach (Camera cam in cams)
             {
