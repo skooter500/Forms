@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Ibuprogames.CameraTransitionsAsset;
+using UnityEngine.SceneManagement;
 
 namespace BGE.Forms
 {
@@ -182,8 +183,7 @@ namespace BGE.Forms
         public void Awake()
         {
             PlayerController.Instance = this;
-            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
-            ConfigureBuild();
+            ctc = GameObject.FindObjectOfType<CameraTransitionController>();            
         }
 
         int logoIndex = 0;
@@ -196,8 +196,6 @@ namespace BGE.Forms
         public float delayMin = 30.0f;
         public float delayMax = 40.0f;
 
-        public float creatureDelayMin = 30.0f;
-        public float creatureDelayMax = 40.0f;
         public int creatureReps = 1;
         float creaturesToLogosRatio = 1.5f;
 
@@ -270,9 +268,8 @@ namespace BGE.Forms
                     ctc.left = logoIndexToad;
                     ctc.ShowLeftEffect();
                     logoIndexToad++;
-                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                    ctc.HideEffect();                    
-                    yield return new WaitForSeconds(2);                    
+                    yield return new WaitForSeconds(Random.Range(delayMin * 2, delayMax * 2));                    
+                    //yield return new WaitForSeconds(2);                    
                 }
                 while (reactiveIndexToad < ctc.rightEffects.Count)
                 {                    
@@ -282,9 +279,7 @@ namespace BGE.Forms
                     ctc.right = reactiveIndexToad;
                     ctc.ShowRightEffect();
                     reactiveIndexToad++;
-                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
-                    ctc.HideEffect();
-                    yield return new WaitForSeconds(2);                    
+                    yield return new WaitForSeconds(Random.Range(delayMin * 2, delayMax * 2));
                 }
                 newToad.Toad();
                 logoIndex = 0;
@@ -294,6 +289,8 @@ namespace BGE.Forms
                 logoIndexToad = 0;
             }
         }
+
+
 
         GameObject PickNewTarget()
         {

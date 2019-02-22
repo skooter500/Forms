@@ -109,7 +109,6 @@ namespace BGE.Forms
             instance = this;
             style.fontSize = 18;
             style.normal.textColor = Color.white;
-            DontDestroyOnLoad(this);
             Cursor.visible = false;
 
             DisablePrefabs();
@@ -186,6 +185,10 @@ namespace BGE.Forms
                 for (int i = 0; i < boids.Count; i++)
                 {
                     Boid boid = boids[i];
+                    if (boid == null)
+                    {
+                        continue;
+                    }
                     if (boid.suspended)
                     {
                         suspended++;

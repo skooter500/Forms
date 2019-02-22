@@ -111,9 +111,15 @@ namespace BGE.Forms
         }
 
         // Use this for initialization
-        void Start()
+        void OnEnable()
         {
             StartCoroutine(SpawnJellys());
+        }
+
+        void Awake()
+        {
+            alive.Clear();
+            dead.Clear();
         }
 
         // Update is called once per frame

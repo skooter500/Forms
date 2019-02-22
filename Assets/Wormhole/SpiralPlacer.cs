@@ -15,12 +15,15 @@ public class SpiralPlacer : ItemGenerator {
 
 	    for (int i = 0; i < pipe.CurveSegmentCount; i++)
 		{
-			TunnellItem item = Instantiate<TunnellItem>(
-				itemPrefabs[Random.Range(0, itemPrefabs.Length)]);
-			float pipeRotation =
-                //start that direcection
-				(start + i * direction) * 360f / pipe.pipeSegmentCount;
-			item.Position(pipe, i * angleStep, pipeRotation);
+            if (Random.Range(0.0f, 1.0f) < 0.2f)
+            {
+                TunnellItem item = Instantiate<TunnellItem>(
+                    itemPrefabs[Random.Range(0, itemPrefabs.Length)]);
+                float pipeRotation =
+                    //start that direcection
+                    (start + i * direction) * 360f / pipe.pipeSegmentCount;
+                item.Position(pipe, i * angleStep, pipeRotation);
+            }
 		}
 	}
 }

@@ -139,8 +139,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1167055193}
+  m_Children: []
   m_Father: {fileID: 1826438039}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -489,97 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefabs:
   - {fileID: 1826438038}
---- !u!1 &1167055192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1167055193}
-  - component: {fileID: 1167055196}
-  - component: {fileID: 1167055195}
-  - component: {fileID: 1167055194}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1167055193
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167055192}
-  m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.2, z: 0.3}
-  m_Children: []
-  m_Father: {fileID: 441868957}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
---- !u!65 &1167055194
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167055192}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1167055195
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167055192}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1167055196
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167055192}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1240238667
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +536,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -855,6 +763,7 @@ GameObject:
   - component: {fileID: 1677699405}
   - component: {fileID: 1677699404}
   - component: {fileID: 1677699406}
+  - component: {fileID: 1677699407}
   m_Layer: 0
   m_Name: cameraRig
   m_TagString: Untagged
@@ -876,7 +785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pipeSystem: {fileID: 478229297}
   rotationVelocity: 75
-  velocity: 3
+  velocity: 0
 --- !u!4 &1677699405
 Transform:
   m_ObjectHideFlags: 0
@@ -901,23 +810,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1677699403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f211f4e74b0a83429a85e3ec2553e00, type: 3}
+  m_Script: {fileID: 11500000, guid: c10c37805d7bec3439aa3d31953ea260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildType: 3
-  controlType: 0
-  oculusStuff: {fileID: 0}
-  viveStuff: {fileID: 0}
-  mother: {fileID: 0}
-  journeying: 5
-  delayMin: 30
-  delayMax: 40
-  creatureDelayMin: 30
-  creatureDelayMax: 40
-  creatureReps: 1
-  ellapsed: 0
-  toPass: 0.5
-  clickCount: 0
+  scenes:
+  - Scene1
+  - Tunnell
+--- !u!114 &1677699407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677699403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20e805fdd3663b479475f3fec2b0bf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: /Pictures/Infinite Forms
+  filePrefix: 'Infinite Forms '
 --- !u!1 &1826438037
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +840,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1826438039}
   - component: {fileID: 1826438038}
-  - component: {fileID: 1826438040}
   m_Layer: 0
   m_Name: tunnellItem
   m_TagString: Untagged
@@ -963,28 +874,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1826438040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826438037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transMaterial: {fileID: 2100000, guid: 9e1823e506a5a2148a8bebde12e9a81d, type: 2}
-  opaqueMaterial: {fileID: 2100000, guid: 152ac98c5156b144485c42bf9b4a4727, type: 2}
-  colorMapScaling: 10
-  texture: {fileID: 0}
-  particleTexture: {fileID: 0}
-  colorScale: 10
-  textureMode: 1
-  targetAlpha: 0.9
-  waitAFrame: 0
-  textureSource: 1
 --- !u!1 &1977345588
 GameObject:
   m_ObjectHideFlags: 0

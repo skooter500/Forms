@@ -420,8 +420,10 @@ namespace BGE.Forms
                 tagged.Clear();
 
                 float inRangeSq = inRange * inRange;
-                foreach (Boid boid in school.boids)
+                for(int i = 0; i <  school.boids.Count; i ++)
                 {
+                    Boid boid = school.boids[i];
+                
                     if (boid != this && ! boid.suspended)
                     {
                         if ((position - boid.position).sqrMagnitude < inRangeSq)
