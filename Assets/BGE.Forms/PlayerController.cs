@@ -25,11 +25,12 @@ namespace BGE.Forms
 
         }
 
+        private bool assigned = false;
+
         class JourneyingState : State
         {
             PlayerController pc;
             Cruise c;
-            private static bool assigned = false;
             public override void Enter()
             {
                 Debug.Log("Journeying state");
@@ -37,9 +38,9 @@ namespace BGE.Forms
                 pc.controlType = ControlType.Journeying;
                 c = pc.cruise;
                 //c.preferredHeight = pos.y - BGE.Forms.WorldGenerator.Instance.SamplePos(pos.x, pos.z);
-                if (!assigned)
+                if (!pc.assigned)
                 {
-                    assigned = true;
+                    pc.assigned = true;
                     pc.playerCruise.transform.position = pc.player.transform.position;
                 }
                 
