@@ -82,6 +82,12 @@ namespace BGE.Forms
                 lp.Normalize();
                 lp *= pc.distance;
                 Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
+                float y = WorldGenerator.Instance.SamplePos(p.x, p.z);
+                if (p.y < y)
+                {
+                    p.y = y + 50;
+                }
+
                 /*Debug.Log("Angle: " + angle);
                 Debug.Log("lp: " + lp);
                 Debug.Log("Desired position: " + p);
