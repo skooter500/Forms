@@ -197,7 +197,7 @@ namespace BGE.Forms
         int reactiveIndex = 0;
         int logoIndexToad = 0;
         int reactiveIndexToad = 0;
-        int videoIndex = 0;
+        int videoIndex = 100;
 
         public float journeying = 5.0f;
         public float delayMin = 30.0f;
@@ -275,7 +275,7 @@ namespace BGE.Forms
                     ctc.left = logoIndexToad;
                     ctc.ShowLeftEffect();
                     logoIndexToad++;
-                    yield return new WaitForSeconds(Random.Range(delayMin * 2, delayMax * 2));                    
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));                    
                     //yield return new WaitForSeconds(2);                    
                 }
                 while (reactiveIndexToad < ctc.rightEffects.Count)
@@ -286,7 +286,7 @@ namespace BGE.Forms
                     ctc.right = reactiveIndexToad;
                     ctc.ShowRightEffect();
                     reactiveIndexToad++;
-                    yield return new WaitForSeconds(Random.Range(delayMin * 2, delayMax * 2));
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
                 }
                 newToad.Toad();
                 logoIndex = 0;
@@ -298,12 +298,15 @@ namespace BGE.Forms
         }
 
 
+        int nextSpecies = 0;
 
         GameObject PickNewTarget()
         {
+            nextSpecies = nextSpecies % mother.alive.Count;
             species = mother.alive[
-                Random.Range(0, mother.alive.Count)
+                nextSpecies
                 ].gameObject;
+            nextSpecies = (nextSpecies + 1) % mother.alive.Count;
             creature = Mother.Instance.GetCreature(species);
             distance = species.GetComponent<SpawnParameters>().viewingDistance;
             return creature;
