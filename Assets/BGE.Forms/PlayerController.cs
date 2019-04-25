@@ -204,7 +204,7 @@ namespace BGE.Forms
         public float delayMax = 40.0f;
 
         public int creatureReps = 1;
-        float creaturesToLogosRatio = 1.5f;
+        public float creaturesToLogosRatio = 1.5f;
 
         public System.Collections.IEnumerator Show()
         {
