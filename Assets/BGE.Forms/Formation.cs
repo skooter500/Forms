@@ -35,8 +35,9 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled && leaderBoid != null)
+            if (isActiveAndEnabled && leaderBoid != null && boid.drawGizmos)
             {
+
                 Gizmos.color = Color.yellow;
                 if (Application.isPlaying)
                 {

@@ -10,10 +10,13 @@ namespace BGE.Forms
     {
         public override void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
-            if (boid != null)
+            if (boid.drawGizmos)
             {
-                Gizmos.DrawLine(boid.transform.position, boid.transform.position + (force));
+                Gizmos.color = Color.yellow;
+                if (boid != null)
+                {
+                    Gizmos.DrawLine(boid.transform.position, boid.transform.position + (force));
+                }
             }
         }
 

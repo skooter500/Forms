@@ -190,7 +190,8 @@ namespace BGE.Forms
         public void Awake()
         {
             PlayerController.Instance = this;
-            ctc = GameObject.FindObjectOfType<CameraTransitionController>();            
+            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
+            ConfigureBuild();
         }
 
         int logoIndex = 0;
@@ -362,7 +363,7 @@ namespace BGE.Forms
                     viveStuff.SetActive(true);
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = true;
-                    mother.maxcreatures = 5;
+                    mother.maxcreatures = 3;
                     GetComponent<OculusController>().enabled = false;
                     GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;

@@ -44,7 +44,7 @@ namespace BGE.Forms
 
         public virtual void OnDrawGizmos()
         {
-            if (isActiveAndEnabled)
+            if (isActiveAndEnabled && boid.drawGizmos)
             {
                 Gizmos.color = Color.blue;
                 Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward * distance, transform);

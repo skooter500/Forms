@@ -13,7 +13,7 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled)
+            if (isActiveAndEnabled && boid.drawGizmos)
             {
                 Gizmos.color = Color.cyan;
                 if (targetGameObject != null)

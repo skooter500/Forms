@@ -80,6 +80,8 @@ namespace BGE.Forms
         [HideInInspector] Vector3 playerForward;
         Transform player;
 
+        public bool drawGizmos = false;
+
         public float TimeDelta
         {
             get
