@@ -22,6 +22,8 @@ public class SpawnParameters : MonoBehaviour {
 
     BGE.Forms.Boid masterBoid;
 
+    public GameObject[] effects;
+   
     // Use this for initialization
     void Start () {
 		

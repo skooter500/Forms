@@ -228,7 +228,14 @@ namespace BGE.Forms
                     {
                         sm.ChangeState(new FollowState());
                         yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
-                    }                    
+                        SpawnParameters sp = species.GetComponent<SpawnParameters>();
+                        if (sp.effects.Length > 0)
+                        {
+                            int ei = Random.Range(0, sp.effects.Length);
+                            ctc.ShowEffect(sp.effects[ei]);
+                            yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        }
+                    }
                 }
                 while (reactiveIndex < ctc.rightEffects.Count)
                 {
@@ -245,6 +252,13 @@ namespace BGE.Forms
                     {
                         sm.ChangeState(new FollowState());
                         yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        SpawnParameters sp = species.GetComponent<SpawnParameters>();
+                        if (sp.effects.Length > 0)
+                        {
+                            int ei = Random.Range(0, sp.effects.Length);
+                            ctc.ShowEffect(sp.effects[ei]);
+                            yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        }
                     }                    
                 }
                 while (videoIndex < ctc.videoPlayer.videos.Count)
@@ -261,6 +275,13 @@ namespace BGE.Forms
                     {
                         sm.ChangeState(new FollowState());
                         yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        SpawnParameters sp = species.GetComponent<SpawnParameters>();
+                        if (sp.effects.Length > 0)
+                        {
+                            int ei = Random.Range(0, sp.effects.Length);
+                            ctc.ShowEffect(sp.effects[ei]);
+                            yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        }
                     }
                     videoIndex++;
                 }

@@ -23,6 +23,27 @@ public class CameraTransitionController : MonoBehaviour
 
     public State state = State.Hidden;
 
+    public void ShowEffect(GameObject effect)
+    {
+        int leftIndex = leftEffects.IndexOf(effect);
+        if (leftIndex != -1)
+        {
+            left = leftIndex;
+            ShowLeftEffect();
+            return;
+        }
+        int rightIndex = rightEffects.IndexOf(effect);
+        if (rightIndex != -1)
+        {
+            right = rightIndex;
+            ShowRightEffect();
+            return;
+        }
+
+
+    }
+
+
 
     // Use this for initialization
     void Start()
