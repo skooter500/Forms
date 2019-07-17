@@ -23,7 +23,7 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void AddSpine(SpineAnimator sa, int system)
     {
-        //CreateSystems();
+        CreateSystems();
         systems[0].AddSpine(sa);
     }
 
