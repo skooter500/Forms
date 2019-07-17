@@ -106,7 +106,7 @@ namespace ECSBoids
         {
             Entity boidEntity = entityManager.CreateEntity(boidArchitype);
 
-            Position p = new Position();
+            Translation p = new Translation();
             p.Value = pos;
 
             Rotation r = new Rotation();
@@ -141,7 +141,7 @@ namespace ECSBoids
             // Make the head
             Entity headEntity = entityManager.CreateEntity(headArchitype);
 
-            Position headPosition = new Position();
+            Translation headPosition = new Translation();
             headPosition.Value = pos + (q * Vector3.forward) * size;
             entityManager.SetComponentData(headEntity, headPosition);
             Rotation headRotation = new Rotation();
@@ -155,7 +155,7 @@ namespace ECSBoids
 
             // Make the tail
             Entity tailEntity = entityManager.CreateEntity(tailArchitype);
-            Position tailPosition = new Position();
+            Translation tailPosition = new Translation();
             tailPosition.Value = pos - (q * Vector3.forward) * size;
             entityManager.SetComponentData(tailEntity, tailPosition);
             Rotation tailRotation = new Rotation();
@@ -190,10 +190,10 @@ namespace ECSBoids
         void Awake()
         {
             Cursor.visible = false;
-            entityManager = World.Active.GetOrCreateManager<EntityManager>();
+            entityManager = World.Active.GetOrCreateSystem<EntityManager>();
 
             boidArchitype = entityManager.CreateArchetype(
-                typeof(Position),
+                typeof(Translation),
                 typeof(Rotation),
                 typeof(Scale),
                 typeof(Boid),
@@ -206,14 +206,14 @@ namespace ECSBoids
             );
 
             headArchitype = entityManager.CreateArchetype(
-                typeof(Position),
+                typeof(Translation),
                 typeof(Rotation),
                 typeof(Scale),
                 typeof(Head)
                 );
 
             tailArchitype = entityManager.CreateArchetype(
-                        typeof(Position),
+                        typeof(Translation),
                         typeof(Rotation),
                         typeof(Scale),
                         typeof(Tail)
