@@ -102,6 +102,7 @@ namespace ew
         {
             Instance = this;
             bootstrap = GameObject.FindObjectOfType<BoidBootstrap>();
+            Enabled = false;
         }
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {

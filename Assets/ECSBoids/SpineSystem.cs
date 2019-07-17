@@ -107,6 +107,8 @@ namespace ew
             positions = new NativeArray<Vector3>(MAX_SPINES, Allocator.Persistent);
             rotations = new NativeArray<Quaternion>(MAX_SPINES, Allocator.Persistent);
             numSpines = 0;
+            
+            Enabled = false;
         }
 
         protected override void OnDestroyManager()
@@ -118,6 +120,8 @@ namespace ew
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
+            
+
             var ctj = new CopyTransformsToSpineJob()
             {
                 positions = this.positions,

@@ -626,9 +626,7 @@ namespace ew
         {
             Instance = this;
             bootstrap = GameObject.FindObjectOfType<BoidBootstrap>();
-
-            // Want to use this but it hangs when I try and access it
-            // neighbours = new NativeMultiHashMap<int, int>(10000, Allocator.Persistent);
+            Enabled = false;
             neighbours = new NativeArray<int>(bootstrap.numBoids * maxNeighbours, Allocator.Persistent);
             positions = new NativeArray<Vector3>(bootstrap.numBoids, Allocator.Persistent);
             rotations = new NativeArray<Quaternion>(bootstrap.numBoids, Allocator.Persistent);
