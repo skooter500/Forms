@@ -94,7 +94,7 @@ namespace ew
     [UpdateAfter(typeof(SpineSystem))]
     public class HeadsAndTailsSystem : JobComponentSystem
     {
-        BoidBootstrap bootstrap;
+        public BoidBootstrap bootstrap;
 
         public static HeadsAndTailsSystem Instance;
 

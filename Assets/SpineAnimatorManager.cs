@@ -23,14 +23,24 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public void AddSpine(SpineAnimator sa, int system)
     {
+        //CreateSystems();
         systems[0].AddSpine(sa);
     }
 
     public void Awake()
     {
-        for (int i = 0; i < numSystems; i++)
+        CreateSystems();
+        
+    }
+
+    private void CreateSystems()
+    {
+        if (systems.Count == 0)
         {
-            systems.Add(new SpineAnimatorSystem());
+            for (int i = 0; i < numSystems; i++)
+            {
+                systems.Add(new SpineAnimatorSystem());
+            }
         }
     }
 

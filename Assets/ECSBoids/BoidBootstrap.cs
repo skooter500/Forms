@@ -366,6 +366,11 @@ public class BoidBootstrap : MonoBehaviour
 
     public void Update()
     {
+
+
+        BoidJobSystem.Instance.bootstrap = this;
+        SpineSystem.Instance.bootstrap = this;
+        HeadsAndTailsSystem.Instance.bootstrap = this;
         if (Input.GetKeyDown(KeyCode.Joystick1Button8))
         {
             StartCoroutine(CreateBoids());

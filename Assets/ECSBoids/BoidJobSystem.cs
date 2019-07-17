@@ -620,7 +620,7 @@ namespace ew
 
         int maxNeighbours = 100;
 
-        BoidBootstrap bootstrap;
+        public BoidBootstrap bootstrap;
 
         protected override void OnCreateManager()
         {
@@ -645,7 +645,6 @@ namespace ew
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-
             Unity.Mathematics.Random ran = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(1, 100000));
 
             // Copy entities to the native arrays 
