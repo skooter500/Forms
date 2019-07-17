@@ -72,6 +72,9 @@ public class BoidBootstrap : MonoBehaviour
         entityManager.DestroyEntity(allTheBoids);
         entityManager.DestroyEntity(allTheheadsAndTails);
         entityManager.DestroyEntity(allTheSpines);
+        BoidJobSystem.Instance.Enabled = false;
+        SpineSystem.Instance.Enabled = false;
+        HeadsAndTailsSystem.Instance.Enabled = false;
     }
 
     Entity CreateSmallBoid(Vector3 pos, Quaternion q, int boidId, float size)
@@ -339,7 +342,10 @@ public class BoidBootstrap : MonoBehaviour
     IEnumerator CreateBoids()
     {
         int created = 0;
-        while(created < numBoids)
+        BoidJobSystem.Instance.Enabled = true;
+        SpineSystem.Instance.Enabled = true;
+        HeadsAndTailsSystem.Instance.Enabled = true;
+        while (created < numBoids)
         {
             Vector3 pos = UnityEngine.Random.insideUnitSphere * radius;
             Quaternion q = Quaternion.Euler(UnityEngine.Random.Range(-20, 20), UnityEngine.Random.Range(0, 360), 0);

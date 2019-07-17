@@ -173,6 +173,8 @@ public class SpineAnimatorSystem
     public bool dependsOnOtherJob = false;
     public JobHandle dependsOn;
 
+    
+
     public void AddSpine(SpineAnimator sa)
     {
         roots[numJobs] = numBones;
