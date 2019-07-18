@@ -55,12 +55,13 @@ namespace AudioVisualizer
             }
             //start streaming the mic through an audio clip
             aSource.clip = Microphone.Start(currentAudioInput, true, 5, (int)freq);
-
+            aSource.loop = true;
             //hookup the AudioMixerGroup to the AudioSource
             aSource.outputAudioMixerGroup = mixer;
             
             //start playing back the audio streamed in from the mic
             //we won't hear the mic played back, because it's muted through the AudioMixerGroup
+            while(!(Microphone.GetPosition(null) > 0)) { }
             aSource.Play();
         }
 
