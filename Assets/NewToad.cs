@@ -35,7 +35,7 @@ public class NewToad : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        cam = Camera.main;
+        //cam = Camera.main;
         startFOV = cam.fieldOfView;
         targetFOV = startFOV;
     }

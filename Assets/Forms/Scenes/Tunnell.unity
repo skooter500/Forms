@@ -891,6 +891,11 @@ PrefabInstance:
       propertyPath: scenes.Array.data[2]
       value: PureECSScene
       objectReference: {fileID: 0}
+    - target: {fileID: 1501612561447464525, guid: 1498f5bcbcd8f294e9e2fea5aa4f75f6,
+        type: 3}
+      propertyPath: scenes.Array.data[0]
+      value: paradiso1stbirthday
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1498f5bcbcd8f294e9e2fea5aa4f75f6, type: 3}
 --- !u!1 &1731255811 stripped
