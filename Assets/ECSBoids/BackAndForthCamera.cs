@@ -28,6 +28,13 @@ namespace ew
             }
             //Vector3 pos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * speed);
 
+            if (Vector3.Distance(transform.position, targetPos) < 10)
+            {
+                float dist = Random.Range(maxDist - 1000, maxDist + 1000);
+                targetPos = Random.insideUnitSphere.normalized * dist;
+
+            }
+
             transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 3.0f, speed);
 
             //transform.position = pos;

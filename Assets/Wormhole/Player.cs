@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
     private void Update()
     {
         //distance that it has traveled increases with time to change effects
-        velocity = Mathf.Lerp(velocity, 4 * Input.GetAxis("LeftTrigger"), Time.deltaTime / 2);
+        velocity = Mathf.Lerp(velocity, 4, Time.deltaTime / 2);
         float delta = velocity * Time.deltaTime;
         distanceTraveled += delta;
         //convert the delta into a rotation, used to update the system's orientation.

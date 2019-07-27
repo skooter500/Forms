@@ -420,6 +420,116 @@ namespace ew
         public float toPass = 0.3f;
         public int clickCount = 0;
 
+        void DoExplosion(int expType)
+        {
+            switch (expType)
+            {
+                case 1:
+                    radius = 10;
+                    totalNeighbours = 1;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    //constrainPosition = Camera.main.transform.position;
+                    break;
+                case 2:
+                    radius = 2000;
+                    cohesionWeight = 0;
+                    totalNeighbours = 100;
+                    neighbourDistance = 100;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 3:
+                    radius = 3000;
+                    cohesionWeight = 0;
+                    totalNeighbours = 100;
+                    neighbourDistance = 100;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 4:
+                    radius = 4000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 0;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 5:
+                    radius = 5000;
+                    neighbourDistance = 0;
+                    totalNeighbours = 100;
+                    cohesionWeight = 0;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 6:
+                    radius = 2000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 7:
+                    radius = 3000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 8:
+                    radius = 4000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 9:
+                    radius = 5000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 10:
+                    seekWeight = 1;
+                    radius = 5000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    fleeWeight = 3.0f;
+                    cohesionWeight = 2;
+                    constrainWeight = 0;
+                    limitUpAndDown = 0.9f;
+                    break;
+            }
+        }
+
+        Coroutine showCoRoutine = null;
+
+        IEnumerator Show()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(20);
+                DoExplosion(1);
+                yield return new WaitForSeconds(10);
+                int exp = UnityEngine.Random.Range(2, 10);
+                DoExplosion(exp);
+                Debug.Log(exp);
+            }
+        }
+
 
         void Explosion()
         {
@@ -432,100 +542,27 @@ namespace ew
 
             if (ellapsed > toPass && clickCount > 0)
             {
+
                 Debug.Log(clickCount);
-                switch (clickCount)
+
+                if (clickCount == 10)
                 {
-                    case 1:
-                        radius = 10;
-                        totalNeighbours = 1;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        //constrainPosition = Camera.main.transform.position;
-                        break;
-                    case 2:
-                        radius = 2000;
-                        cohesionWeight = 0;
-                        totalNeighbours = 100;
-                        neighbourDistance = 100;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 3:
-                        radius = 3000;
-                        cohesionWeight = 0;
-                        totalNeighbours = 100;
-                        neighbourDistance = 100;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 4:
-                        radius = 4000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 0;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 5:
-                        radius = 5000;
-                        neighbourDistance = 0;
-                        totalNeighbours = 100;
-                        cohesionWeight = 0;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 6:
-                        radius = 2000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 7:
-                        radius = 3000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 8:
-                        radius = 4000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 9:
-                        radius = 5000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 10:
-                        seekWeight = 1;
-                        radius = 5000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        fleeWeight = 3.0f;
-                        cohesionWeight = 2;
-                        constrainWeight = 0;
-                        limitUpAndDown = 0.9f;
-                        break;
+                    if (showCoRoutine != null)
+                    {
+                        StopCoroutine(showCoRoutine);
+                        showCoRoutine = null;
+                    }
+                    else
+                    {
+                        showCoRoutine = StartCoroutine(Show());
+                    }
+                }
+                else {
+                    DoExplosion(clickCount);
                 }
                 clickCount = 0;
             }
+            
         }
     }
 }
