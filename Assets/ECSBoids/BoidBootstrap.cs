@@ -362,7 +362,7 @@ namespace ew
             {
                 Vector3 pos = UnityEngine.Random.insideUnitSphere * radius;
                 Quaternion q = Quaternion.Euler(UnityEngine.Random.Range(-20, 20), UnityEngine.Random.Range(0, 360), 0);
-                CreateBoidWithTail(transform.position + pos, q, created, size);
+                CreateSmallBoid(transform.position + pos, q, created, size);
                 created++;
                 if (created % maxBoidsPerFrame == 0)
                 {

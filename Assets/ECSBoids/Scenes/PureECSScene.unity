@@ -655,7 +655,7 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: size
-      value: 17
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
@@ -666,6 +666,26 @@ PrefabInstance:
         type: 3}
       propertyPath: neighbourDistance
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: numBoids
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: seperationWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: wanderWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: radius
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cc519a4a14b8604594a4856a4a49a79, type: 3}
