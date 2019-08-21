@@ -655,7 +655,7 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: size
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
@@ -670,12 +670,12 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: numBoids
-      value: 8000
+      value: 25000
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: seperationWeight
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
@@ -685,7 +685,52 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: radius
-      value: 1000
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: fleeWeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: fleeDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: headAmplitude
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: tailAmplitude
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: animationFrequency
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: totalNeighbours
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: maxBoidsPerFrame
+      value: 25000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: spineLength
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cc519a4a14b8604594a4856a4a49a79, type: 3}
