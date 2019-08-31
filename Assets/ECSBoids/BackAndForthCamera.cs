@@ -25,6 +25,7 @@ namespace ew
             {
                 float dist = Random.Range(maxDist - 1000, maxDist + 1000);
                 targetPos = Random.insideUnitSphere.normalized * dist;
+                targetPos.y = 0;
             }
             //Vector3 pos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * speed);
 
@@ -32,6 +33,7 @@ namespace ew
             {
                 float dist = Random.Range(maxDist - 1000, maxDist + 1000);
                 targetPos = Random.insideUnitSphere.normalized * dist;
+                targetPos.y = 0;
 
             }
 
