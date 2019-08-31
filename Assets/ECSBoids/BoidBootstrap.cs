@@ -432,7 +432,7 @@ namespace ew
                     //constrainPosition = Camera.main.transform.position;
                     break;
                 case 2:
-                    radius = 2000;
+                    radius = 500;
                     cohesionWeight = 0;
                     totalNeighbours = 100;
                     neighbourDistance = 100;
@@ -441,7 +441,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 3:
-                    radius = 3000;
+                    radius = 1000;
                     cohesionWeight = 0;
                     totalNeighbours = 100;
                     neighbourDistance = 100;
@@ -450,7 +450,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 4:
-                    radius = 4000;
+                    radius = 1500;
                     neighbourDistance = 150;
                     totalNeighbours = 100;
                     cohesionWeight = 0;
@@ -459,7 +459,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 5:
-                    radius = 5000;
+                    radius = 2000;
                     neighbourDistance = 0;
                     totalNeighbours = 100;
                     cohesionWeight = 0;
@@ -468,7 +468,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 6:
-                    radius = 2000;
+                    radius = 500;
                     neighbourDistance = 150;
                     totalNeighbours = 100;
                     cohesionWeight = 2;
@@ -477,7 +477,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 7:
-                    radius = 3000;
+                    radius = 1000;
                     neighbourDistance = 150;
                     totalNeighbours = 100;
                     cohesionWeight = 2;
@@ -485,7 +485,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 8:
-                    radius = 4000;
+                    radius = 1500;
                     neighbourDistance = 150;
                     totalNeighbours = 100;
                     cohesionWeight = 2;
@@ -494,7 +494,7 @@ namespace ew
                     constrainWeight = baseConstrainWeight;
                     break;
                 case 9:
-                    radius = 5000;
+                    radius = 2000;
                     neighbourDistance = 150;
                     totalNeighbours = 100;
                     cohesionWeight = 2;
@@ -504,7 +504,7 @@ namespace ew
                     break;
                 case 10:
                     seekWeight = 1;
-                    radius = 5000;
+                    radius = 2000;
                     neighbourDistance = 150;
                     totalNeighbours = 100;
                     fleeWeight = 3.0f;
@@ -523,7 +523,7 @@ namespace ew
             {
                 yield return new WaitForSeconds(20);
                 DoExplosion(1);
-                yield return new WaitForSeconds(10);
+                yield return new WaitForSeconds(5);
                 int exp = UnityEngine.Random.Range(2, 10);
                 DoExplosion(exp);
                 Debug.Log(exp);

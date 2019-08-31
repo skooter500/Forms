@@ -4,7 +4,7 @@ Shader "Custom/Boid" {
 	Properties {
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_PositionScale("PositionScale", Range(0, 1000)) = 250
+		_PositionScale("PositionScale", Range(0, 100000)) = 250
 		_Fade("Fade", Range(0, 1)) = 1
 		_Offset("Offset", Float) = 0
 	}
