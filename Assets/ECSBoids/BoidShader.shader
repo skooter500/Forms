@@ -6,7 +6,7 @@ Shader "Custom/Boid" {
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_PositionScale("PositionScale", Range(0, 100000)) = 250
 		_Fade("Fade", Range(0, 1)) = 1
-		_Offset("Offset", Float) = 0
+		_Offset("Offset", Range(0, 100000)) = 0
 	}
 	SubShader {
 		Tags {"Queue" = "Transparent" "RenderType"="Transparent" }
@@ -61,7 +61,7 @@ Shader "Custom/Boid" {
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			float hue = abs((IN.worldPos.x + IN.worldPos.z) / _PositionScale) % 1.0;
+			float hue = abs((IN.worldPos.x + IN.worldPos.z + _Offset) / _PositionScale) % 1.0;
 			fixed3 c = hsv_to_rgb(float3(hue, 1, 1));
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
