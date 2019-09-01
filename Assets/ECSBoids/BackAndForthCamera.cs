@@ -33,7 +33,7 @@ namespace ew
             }
             //Vector3 pos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * speed);
 
-            if (Vector3.Distance(transform.position, targetPos) < 1)
+            if (Vector3.Distance(transform.position, targetPos) < .2)
             {
                 float dist = Random.Range(maxDist - range, maxDist + range);
                 targetPos = Random.insideUnitSphere.normalized * dist;
