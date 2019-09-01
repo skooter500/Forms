@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 300
-  maxDist: 1800
+  maxDist: 1700
   range: 300
   target: 0
   targetPos: {x: 0, y: 0, z: 0}
@@ -808,7 +808,7 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: radius
-      value: 800
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
