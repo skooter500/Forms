@@ -144,7 +144,103 @@ namespace ew
             entityManager.SetComponentData(tailEntity, tailRotation);
             entityManager.AddSharedComponentData(tailEntity, bodyMesh);
             entityManager.SetComponentData(tailEntity, s);
-            entityManager.SetComponentData(tailEntity, new Tail() { boidId = boidId, spineId = boidId });
+            entityManager.SetComponentData(tailEntity, new Tail() { boidId = boidId, spineId = (spineLength + 1) * boidId });
+            // End tail
+
+            return boidEntity;
+        }
+
+        Entity CreateSmallBoidWithTrail(Vector3 pos, Quaternion q, int boidId, float size)
+        {
+            Entity boidEntity = entityManager.CreateEntity(boidArchitype);
+            allTheBoids[boidId] = boidEntity;
+
+            Position p = new Position();
+            p.Value = pos;
+
+            Rotation r = new Rotation();
+            r.Value = q;
+
+            entityManager.SetComponentData(boidEntity, p);
+            entityManager.SetComponentData(boidEntity, r);
+
+            Scale s = new Scale();
+            s.Value = new Vector3(size * 0.5f, size, size);
+            //s.Value = new Vector3(2, 4, 10);
+
+            entityManager.SetComponentData(boidEntity, s);
+
+
+            entityManager.SetComponentData(boidEntity, new Boid() { boidId = boidId, mass = 1, maxSpeed = 100, maxForce = 400, weight = 200 });
+            entityManager.SetComponentData(boidEntity, new Seperation());
+            entityManager.SetComponentData(boidEntity, new Alignment());
+            entityManager.SetComponentData(boidEntity, new Cohesion());
+            entityManager.SetComponentData(boidEntity, new Constrain());
+            entityManager.SetComponentData(boidEntity, new Flee());
+            entityManager.SetComponentData(boidEntity, new Wander()
+            {
+                distance = 2
+                ,
+                radius = 1.2f,
+                jitter = 80,
+                target = UnityEngine.Random.insideUnitSphere * 1.2f
+            });
+            //entityManager.SetComponentData(boidEntity, new Spine() { parent = -1, spineId = boidId });
+            entityManager.SetComponentData(boidEntity, new Spine() { parent = -1, spineId = (spineLength + 1) * boidId });
+            entityManager.AddSharedComponentData(boidEntity, bodyMesh);
+
+            // Make the spine
+            for (int i = 0; i < spineLength; i++)
+            {
+                int parentId = (boidId * (spineLength + 1)) + i;
+                Position sp = new Position
+                {
+                    Value = pos + (q * Vector3.forward) * size * (float)(i + 1)
+                };
+                Entity spineEntity = entityManager.CreateEntity(spineArchitype);
+                int spineIndex = (boidId * spineLength) + i;
+                allTheSpines[spineIndex] = spineEntity;
+
+                entityManager.SetComponentData(spineEntity, sp);
+                entityManager.SetComponentData(spineEntity, r);
+                entityManager.SetComponentData(spineEntity, new Spine() { parent = parentId, spineId = parentId + 1, offset = new Vector3(0, 0, -size) });
+                entityManager.AddSharedComponentData(spineEntity, bodyMesh);
+                s = new Scale
+                {
+                    Value = new Vector3(0.1f, Map(i, 0, spineLength, size, 0.1f * size), size)
+                };
+                //s.Value = new Vector3(2, 4, 10);
+                entityManager.SetComponentData(spineEntity, s);
+            }
+
+            // Make the head
+            Entity headEntity = entityManager.CreateEntity(headArchitype);
+            allTheheadsAndTails[boidId * 2] = headEntity;
+
+            Position headPosition = new Position();
+            headPosition.Value = pos + (q * Vector3.forward) * size;
+            entityManager.SetComponentData(headEntity, headPosition);
+            Rotation headRotation = new Rotation();
+            headRotation.Value = q;
+            entityManager.SetComponentData(headEntity, headRotation);
+            entityManager.AddSharedComponentData(headEntity, bodyMesh);
+            entityManager.SetComponentData(headEntity, s);
+            entityManager.SetComponentData(headEntity, new Head() { boidId = boidId, spineId = (spineLength + 1) * boidId });
+            // End head
+            
+            // Make the tail
+            Entity tailEntity = entityManager.CreateEntity(tailArchitype);
+            allTheheadsAndTails[(boidId * 2) + 1] = tailEntity;
+
+            Position tailPosition = new Position();
+            tailPosition.Value = pos - (q * Vector3.forward) * size;
+            entityManager.SetComponentData(tailEntity, tailPosition);
+            Rotation tailRotation = new Rotation();
+            tailRotation.Value = q;
+            entityManager.SetComponentData(tailEntity, tailRotation);
+            entityManager.AddSharedComponentData(tailEntity, bodyMesh);
+            entityManager.SetComponentData(tailEntity, s);
+            entityManager.SetComponentData(tailEntity, new Tail() { boidId = boidId, spineId = (spineLength + 1) * boidId });
             // End tail
 
             return boidEntity;
@@ -362,7 +458,7 @@ namespace ew
             {
                 Vector3 pos = UnityEngine.Random.insideUnitSphere * radius;
                 Quaternion q = Quaternion.Euler(UnityEngine.Random.Range(-20, 20), UnityEngine.Random.Range(0, 360), 0);
-                CreateSmallBoid(transform.position + pos, q, created, size);
+                CreateSmallBoidWithTrail(transform.position + pos, q, created, size);
                 created++;
                 if (created % maxBoidsPerFrame == 0)
                 {
