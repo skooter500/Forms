@@ -12,17 +12,31 @@ public class SceneSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.U))
         {
+            int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
+            string[] scenes = new string[sceneCount];
             string sceneName = SceneManager.GetActiveScene().name;
-
             int i = 0;
-            for (i = 0; i < scenes.Length; i++)
+            for (i = 0; i < sceneCount; i++)
+            {
+                scenes[i] = System.IO.Path.GetFileNameWithoutExtension(UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i));
+                
+            }
+            for (i = 0; i < sceneCount; i++)
             {
                 if (sceneName == scenes[i])
                 {
                     break;
                 }
             }
+
             i = (i + 1) % scenes.Length;
+
+            ew.BoidBootstrap bb = FindObjectOfType<ew.BoidBootstrap>();
+            if (bb != null)
+            {
+                bb.DestroyEntities();
+            }
+
             SceneManager.LoadScene(scenes[i]);            
         }
     }

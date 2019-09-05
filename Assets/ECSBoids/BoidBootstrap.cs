@@ -8,11 +8,18 @@ using Unity.Jobs;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 namespace ew
 {
     public class BoidBootstrap : MonoBehaviour
     {
+
+        public static int MAX_BOIDS = 25000;
+        public static int MAX_SPINES = 50;
+        public static int MAX_NEIGHBOURS = 150;
+
+
         private EntityArchetype boidArchitype;
         private EntityArchetype headArchitype;
         private EntityArchetype tailArchitype;
@@ -67,14 +74,20 @@ namespace ew
             return m1 + ((dist / range1) * range2);
         }
 
-        void DestroyEntities()
+        public void DestroyEntities()
         {
+            if (!isContainer)
+            {
             entityManager.DestroyEntity(allTheBoids);
             entityManager.DestroyEntity(allTheheadsAndTails);
             entityManager.DestroyEntity(allTheSpines);
+            allTheBoids.Dispose();
+            allTheheadsAndTails.Dispose();
+            allTheSpines.Dispose();
             BoidJobSystem.Instance.Enabled = false;
             SpineSystem.Instance.Enabled = false;
             HeadsAndTailsSystem.Instance.Enabled = false;
+            }
         }
 
         Entity CreateSmallBoid(Vector3 pos, Quaternion q, int boidId, float size)
@@ -284,7 +297,7 @@ namespace ew
 
             entityManager.SetComponentData(boidEntity, s);
 
-            entityManager.SetComponentData(boidEntity, new Boid() { boidId = boidId, mass = 1, maxSpeed = 100, maxForce = 400, weight = 200 });
+            entityManager.SetComponentData(boidEntity, new Boid() { boidId = boidId, mass = 1, maxSpeed = 100 * UnityEngine.Random.Range(0.9f, 1.1f), maxForce = 400, weight = 200 });
             entityManager.SetComponentData(boidEntity, new Seperation());
             entityManager.SetComponentData(boidEntity, new Alignment());
             entityManager.SetComponentData(boidEntity, new Cohesion());
@@ -380,16 +393,6 @@ namespace ew
 
         public bool isContainer = false;
 
-        private void OnDestroy()
-        {
-            if (!isContainer)
-            {
-                allTheBoids.Dispose();
-                allTheSpines.Dispose();
-                allTheheadsAndTails.Dispose();
-            }
-        }
-
         // Start is called before the first frame update
         void Start()
         {
@@ -447,6 +450,7 @@ namespace ew
                     mesh = mesh,
                     material = material
                 };
+                StartCoroutine(CreateBoids());
             }
 
             //StartCoroutine(CreateBoids());
@@ -461,7 +465,8 @@ namespace ew
 
             Cursor.visible = false;
 
-            StartCoroutine(CreateBoids());
+            StartCoroutine(Show());
+
             //Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -532,6 +537,20 @@ namespace ew
         float ellapsed = 1000;
         public float toPass = 0.3f;
         public int clickCount = 0;
+
+        void Awake()
+        {
+            //SceneManager.sceneUnloaded += DestroyTheBoids;
+        }
+
+        void DestroyTheBoids<Scene>(Scene scene)
+        {
+            if (!isContainer)
+            {
+                Debug.Log("Destroying the boids in " + SceneManager.GetActiveScene().name);
+                DestroyEntities();
+            }
+        }
 
         void DoExplosion(int expType)
         {

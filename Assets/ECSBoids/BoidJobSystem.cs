@@ -627,11 +627,11 @@ namespace ew
             Instance = this;
             bootstrap = GameObject.FindObjectOfType<BoidBootstrap>();
             Enabled = false;
-            neighbours = new NativeArray<int>(bootstrap.numBoids * maxNeighbours, Allocator.Persistent);
-            positions = new NativeArray<Vector3>(bootstrap.numBoids, Allocator.Persistent);
-            rotations = new NativeArray<Quaternion>(bootstrap.numBoids, Allocator.Persistent);
-            speeds = new NativeArray<float>(bootstrap.numBoids, Allocator.Persistent); // Needed for the animations
-            cells = new NativeMultiHashMap<int, int>(bootstrap.numBoids, Allocator.Persistent);
+            neighbours = new NativeArray<int>(BoidBootstrap.MAX_BOIDS * BoidBootstrap.MAX_NEIGHBOURS, Allocator.Persistent);
+            positions = new NativeArray<Vector3>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent);
+            rotations = new NativeArray<Quaternion>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent);
+            speeds = new NativeArray<float>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent); // Needed for the animations
+            cells = new NativeMultiHashMap<int, int>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent);
         }
 
         protected override void OnDestroyManager()
