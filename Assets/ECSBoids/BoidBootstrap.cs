@@ -494,8 +494,10 @@ namespace ew
         public int cellSize = 50;
         public int gridSize = 10000;
         public bool usePartitioning = true;
+        
+        Material boidMaterial;
 
-
+        public float colorSpeed = 100;
 
         public void Update()
         {
@@ -505,6 +507,28 @@ namespace ew
             BoidJobSystem.Instance.bootstrap = this;
             SpineSystem.Instance.bootstrap = this;
             HeadsAndTailsSystem.Instance.bootstrap = this;
+
+            if (Input.GetAxis("DPadX") == -1)
+            {
+                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") - colorSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetAxis("DPadX") == 1)
+            {
+                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") + colorSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetAxis("DPadY") == -1)
+            {
+                material.SetFloat("_Offset", material.GetFloat("_Offset") - colorSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetAxis("DPadY") == 1)
+            {
+                material.SetFloat("_Offset", material.GetFloat("_Offset") + colorSpeed * Time.deltaTime);
+            }
+
+
             if (Input.GetKeyDown(KeyCode.Joystick1Button8))
             {
                 StartCoroutine(CreateBoids());

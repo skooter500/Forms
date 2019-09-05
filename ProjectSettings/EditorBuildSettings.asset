@@ -17,10 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ECSBoids/Scenes/TrailsScene.unity
     guid: 871c53e3e7e8697418020c65c56db9ff
-  - enabled: 0
-    path: Assets/Forms/Scenes/Scene1.unity
-    guid: 2956517db4da67b458a13e1a283fc8fb
-  - enabled: 0
-    path: Assets/Forms/Scenes/CreativeShowReel.unity
-    guid: 6868e1d12831d4945bd5012e8f6ca585
   m_configObjects: {}
