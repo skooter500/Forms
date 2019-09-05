@@ -376,7 +376,7 @@ namespace BGE.Forms
                     vrController.enabled = true;
                     mother.maxcreatures = 3;
                     GetComponent<ViveController>().enabled = false;
-                    GetComponent<AudioSource>().enabled = true;
+                    //GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;
                     break;
                 case BuildType.Vive:
@@ -386,7 +386,7 @@ namespace BGE.Forms
                     vrController.enabled = true;
                     mother.maxcreatures = 3;
                     GetComponent<OculusController>().enabled = false;
-                    GetComponent<AudioSource>().enabled = true;
+                    //GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;
                     break;
                 case BuildType.PC:
