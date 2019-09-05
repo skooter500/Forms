@@ -502,7 +502,9 @@ namespace ew
         
         Material boidMaterial;
 
-        public float colorSpeed = 100;
+        public float colorSpeed = 100; 
+
+        public float colorAdd = 0;
 
         public void Update()
         {
@@ -513,25 +515,30 @@ namespace ew
             SpineSystem.Instance.bootstrap = this;
             HeadsAndTailsSystem.Instance.bootstrap = this;
 
-            if (Input.GetAxis("DPadX") == -1)
+            /*if (Input.GetAxis("DPadX") == -1)
             {
-                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") - colorSpeed * Time.deltaTime);
+                colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);
+                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") + colorAdd);
             }
 
             if (Input.GetAxis("DPadX") == 1)
             {
-                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") + colorSpeed * Time.deltaTime);
+                colorAdd = Mathf.Lerp(colorAdd, +colorSpeed, Time.deltaTime);
+                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") + colorAdd);
             }
+            */
 
             if (Input.GetAxis("DPadY") == -1)
             {
-                material.SetFloat("_Offset", material.GetFloat("_Offset") - colorSpeed * Time.deltaTime);
+                colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);                
             }
 
             if (Input.GetAxis("DPadY") == 1)
             {
-                material.SetFloat("_Offset", material.GetFloat("_Offset") + colorSpeed * Time.deltaTime);
+                colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);
             }
+            material.SetFloat("_Offset", material.GetFloat("_Offset") + colorAdd);
+            colorAdd = Mathf.Lerp(colorAdd, 0, Time.deltaTime);
 
 
             if (Input.GetKeyDown(KeyCode.Joystick1Button8))

@@ -774,7 +774,7 @@ PrefabInstance:
         type: 3}
       propertyPath: material
       value: 
-      objectReference: {fileID: 2100000, guid: 3eed7dac13da17543a8dca75fb843ef2, type: 2}
+      objectReference: {fileID: 2100000, guid: d39f620037f359d42b9d4f2763386eea, type: 2}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: size
@@ -859,6 +859,11 @@ PrefabInstance:
         type: 3}
       propertyPath: limitUpAndDown
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
+        type: 3}
+      propertyPath: colorSpeed
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cc519a4a14b8604594a4856a4a49a79, type: 3}

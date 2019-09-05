@@ -863,7 +863,7 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: colorSpeed
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cc519a4a14b8604594a4856a4a49a79, type: 3}
