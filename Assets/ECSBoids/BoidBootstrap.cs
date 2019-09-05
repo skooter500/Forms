@@ -66,6 +66,8 @@ namespace ew
         NativeArray<Entity> allTheheadsAndTails;
         NativeArray<Entity> allTheSpines;
 
+        public Coroutine cr;
+
         public static float Map(float value, float r1, float r2, float m1, float m2)
         {
             float dist = value - r1;
@@ -470,7 +472,7 @@ namespace ew
 
             Cursor.visible = false;
 
-            StartCoroutine(Show());
+            cr = StartCoroutine(Show());
 
             //Cursor.lockState = CursorLockMode.Locked;
         }
@@ -538,17 +540,18 @@ namespace ew
                 colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);
             }
             material.SetFloat("_Offset", material.GetFloat("_Offset") + colorAdd);
-            colorAdd = Mathf.Lerp(colorAdd, 0, Time.deltaTime);
+            colorAdd = Mathf.Lerp(colorAdd, 0, Time.deltaTime * 0.4f);
 
 
-            if (Input.GetKeyDown(KeyCode.Joystick1Button8))
-            {
-                StartCoroutine(CreateBoids());
-            }
-            if (Input.GetKeyDown(KeyCode.Joystick1Button9))
-            {
-                DestroyEntities();
-            }
+            //if (Input.GetKeyDown(KeyCode.Joystick1Button8))
+            //{
+            //    StartCoroutine(CreateBoids());
+                
+            //}
+            //if (Input.GetKeyDown(KeyCode.Joystick1Button9))
+            //{
+            //    DestroyEntities();
+            //}
 
             if (Input.GetKey(KeyCode.Joystick1Button2))
             {
@@ -683,9 +686,7 @@ namespace ew
             }
         }
 
-        Coroutine showCoRoutine = null;
-
-        IEnumerator Show()
+        public IEnumerator Show()
         {
             while(true)
             {
@@ -703,7 +704,7 @@ namespace ew
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.J))
             {
-                clickCount = (clickCount + 1) % 11;
+                clickCount = (clickCount + 1) % 10;
                 ellapsed = 0;
             }
             ellapsed += Time.deltaTime;
@@ -712,22 +713,7 @@ namespace ew
             {
 
                 Debug.Log(clickCount);
-
-                if (clickCount == 10)
-                {
-                    if (showCoRoutine != null)
-                    {
-                        StopCoroutine(showCoRoutine);
-                        showCoRoutine = null;
-                    }
-                    else
-                    {
-                        showCoRoutine = StartCoroutine(Show());
-                    }
-                }
-                else {
-                    DoExplosion(clickCount);
-                }
+                DoExplosion(clickCount);                
                 clickCount = 0;
             }
             

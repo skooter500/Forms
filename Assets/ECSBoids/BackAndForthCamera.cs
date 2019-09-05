@@ -16,6 +16,7 @@ namespace ew
         public float timeToNext = 2.0f;
 
         Coroutine cr = null;
+        BoidBootstrap bb;
 
         IEnumerator Automatic()
         {
@@ -35,6 +36,7 @@ namespace ew
             transform.rotation = Quaternion.LookRotation(-transform.position);
 
             cr = StartCoroutine(Automatic());
+            bb = FindObjectOfType<BoidBootstrap>();
 
         }
 
@@ -48,11 +50,14 @@ namespace ew
                 if (cr == null)
                 {
                     cr = StartCoroutine(Automatic());
+                    bb.cr = StartCoroutine(bb.Show());
                 }
                 else
                 {
                     StopCoroutine(cr);
                     cr = null;
+                    StopCoroutine(bb.cr);
+                    bb.cr = null;
                 }
             }
 
