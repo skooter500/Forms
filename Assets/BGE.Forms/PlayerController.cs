@@ -374,7 +374,7 @@ namespace BGE.Forms
                     viveStuff.SetActive(false);
                     vrController = GetComponent<OculusController>();
                     vrController.enabled = true;
-                    mother.maxcreatures = 3;
+                    mother.maxcreatures = 1;
                     GetComponent<ViveController>().enabled = false;
                     //GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;
@@ -384,7 +384,7 @@ namespace BGE.Forms
                     viveStuff.SetActive(true);
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = true;
-                    mother.maxcreatures = 3;
+                    mother.maxcreatures = 1;
                     GetComponent<OculusController>().enabled = false;
                     //GetComponent<AudioSource>().enabled = true;
                     ctc.enabled = false;
