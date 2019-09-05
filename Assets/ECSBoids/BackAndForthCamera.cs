@@ -15,9 +15,17 @@ namespace ew
 
         public float timeToNext = 2.0f;
 
+        Coroutine cr = null;
+
         IEnumerator Automatic()
         {
-
+            while(true)
+            {
+                float dist = Random.Range(maxDist - range, maxDist + range);
+                targetPos = Random.insideUnitSphere.normalized * dist;
+                targetPos.y *= 0.0f;
+                yield return new WaitForSeconds(timeToNext + Random.Range(-1, 1));
+            }
         }
 
         void Start()
@@ -25,6 +33,8 @@ namespace ew
             transform.position = new Vector3(0, 0, maxDist);
             targetPos = transform.position;
             transform.rotation = Quaternion.LookRotation(-transform.position);
+
+            cr = StartCoroutine(Automatic());
 
         }
 
@@ -35,20 +45,16 @@ namespace ew
         {
             if (Input.GetKeyDown(KeyCode.Joystick1Button3))
             {
-                float dist = Random.Range(maxDist - range, maxDist + range);
-                targetPos = Random.insideUnitSphere.normalized * dist;
-                targetPos.y = 0;
+                if (cr == null)
+                {
+                    cr = StartCoroutine(Automatic());
+                }
+                else
+                {
+                    StopCoroutine(cr);
+                    cr = null;
+                }
             }
-            //Vector3 pos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * speed);
-
-            if (Vector3.Distance(transform.position, targetPos) < 0.05)
-            {
-                float dist = Random.Range(maxDist - range, maxDist + range);
-                targetPos = Random.insideUnitSphere.normalized * dist;
-                targetPos.y *= 0.0f;                
-
-            }
-            
 
             //transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 3.0f, speed);
             transform.position = Vector3.Slerp(transform.position, targetPos, Time.deltaTime);
