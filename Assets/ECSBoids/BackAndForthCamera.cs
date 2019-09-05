@@ -12,6 +12,14 @@ namespace ew
         public float range = 200;
         public float target;
         public Vector3 targetPos;
+
+        public float timeToNext = 2.0f;
+
+        IEnumerator Automatic()
+        {
+
+        }
+
         void Start()
         {
             transform.position = new Vector3(0, 0, maxDist);
