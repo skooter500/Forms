@@ -265,7 +265,7 @@ MonoBehaviour:
   range: 300
   target: 0
   targetPos: {x: 0, y: 0, z: 0}
-  timeToNext: 12
+  timeToNext: 10
   targetQuaternion: {x: 0, y: 0, z: 0, w: 1}
 --- !u!4 &882082063
 Transform:
@@ -884,7 +884,7 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: numBoids
-      value: 6000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
@@ -944,7 +944,7 @@ PrefabInstance:
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}
       propertyPath: spineLength
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8338481168226626139, guid: 7cc519a4a14b8604594a4856a4a49a79,
         type: 3}

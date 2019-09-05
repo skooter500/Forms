@@ -67,9 +67,9 @@ Material:
     - _Metallic: 0.22
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Offset: -71207.55
+    - _Offset: -202252.64
     - _Parallax: 0.02
-    - _PositionScale: 5500
+    - _PositionScale: 3000
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

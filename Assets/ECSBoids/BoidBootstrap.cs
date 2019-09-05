@@ -540,7 +540,7 @@ namespace ew
                 colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);
             }
             material.SetFloat("_Offset", material.GetFloat("_Offset") + colorAdd);
-            colorAdd = Mathf.Lerp(colorAdd, 0, Time.deltaTime * 0.4f);
+            colorAdd = Mathf.Lerp(colorAdd, 0, Time.deltaTime * 0.5f);
 
 
             //if (Input.GetKeyDown(KeyCode.Joystick1Button8))
