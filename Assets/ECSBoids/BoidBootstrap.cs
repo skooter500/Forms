@@ -74,6 +74,11 @@ namespace ew
             return m1 + ((dist / range1) * range2);
         }
 
+        public void OnDestroy()
+        {
+            DestroyEntities();
+        }
+
         public void DestroyEntities()
         {
             if (!isContainer)
