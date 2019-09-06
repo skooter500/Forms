@@ -690,9 +690,9 @@ namespace ew
         {
             while(true)
             {
-                yield return new WaitForSeconds(40);
+                yield return new WaitForSeconds(30);
                 DoExplosion(1);
-                yield return new WaitForSeconds(UnityEngine.Random.Range(3,5));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(4,6));
                 int exp = UnityEngine.Random.Range(2, 10);
                 DoExplosion(exp);
                 Debug.Log(exp);

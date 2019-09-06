@@ -265,7 +265,7 @@ MonoBehaviour:
   range: 300
   target: 0
   targetPos: {x: 0, y: 0, z: 0}
-  timeToNext: 10
+  timeToNext: 9
   targetQuaternion: {x: 0, y: 0, z: 0, w: 1}
 --- !u!4 &882082063
 Transform:
