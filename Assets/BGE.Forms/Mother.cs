@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -148,7 +149,7 @@ namespace BGE.Forms
             float delay = 1.0f / (float)spawnRate;
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
 
-            int nextCreature = 0;
+            int nextSpecies = 0;
 
             while (true)
             {
@@ -178,82 +179,87 @@ namespace BGE.Forms
                 {
                     // Find a spawn point
                     // Calculate the position
-                    Vector3 newPos = Vector3.zero;
-                    GameObject newcreature = null;
-
-                    SpawnParameters sp = prefabs[nextCreature].GetComponent<SpawnParameters>();
-                    if (sp.singleton && aliveMap.ContainsKey(prefabs[nextCreature]))
-                    {
-                        nextCreature = (nextCreature + 1) % prefabs.Length;
-                        continue;
-                    }
-                    if (suspended.ContainsKey(prefabs[nextCreature]))
-                    {
-                        newcreature = suspended.Get(prefabs[nextCreature]);
-                        if (FindPlace(newcreature, out newPos))
-                        {
-                            suspended.Remove(prefabs[nextCreature], newcreature);                            
-                            Teleport(newcreature, newPos);
-                            newcreature.SetActive(true);
-                            if (newcreature.GetComponent<LifeColours>())
-                            {
-                                newcreature.GetComponent<LifeColours>().FadeIn();
-                            }
-                            if (newcreature.GetComponentInChildren<CreatureController>())
-                            {
-                                newcreature.GetComponentInChildren<CreatureController>().Restart();
-                            }
-                            // Change the school size every time we teleport a school
-                            SchoolGenerator sg = newcreature.GetComponentInChildren<SchoolGenerator>();
-                            if (sg != null)
-                            {
-                                sg.transform.position = newPos;
-                                sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
-                            }
-                            alive.Add(newcreature);
-                            aliveMap[prefabs[nextCreature]] = newcreature;
-                            /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                            cube.transform.position = newPos;
-                            cube.transform.localScale = Vector3.one * 5;
-                            */
-                        }
-                    }
-                    else
-                    {
-                        //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
-                        if (FindPlace(prefabs[nextCreature], out newPos))
-                        {
-                            newcreature = GameObject.Instantiate<GameObject>(prefabs[nextCreature], newPos
-                                , prefabs[nextCreature].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
-                            );
-                            
-                            newcreature.GetComponent<SpawnParameters>().Species = prefabs[nextCreature];
-                            if (school != null)
-                            {
-                                Boid b = newcreature.GetComponent<Boid>();
-                                b.school = school;
-                                school.boids.Add(b);
-                            }
-
-                            if (newcreature.GetComponentInChildren<CreatureController>())
-                            {
-                                newcreature.GetComponentInChildren<CreatureController>().mother = this;
-                            }
-
-                            newcreature.transform.parent = this.transform;
-                            newcreature.transform.position = newPos;
-                            newcreature.SetActive(true);
-                            alive.Add(newcreature);
-                        }
-                        else
-                        {
-                            Debug.Log("Couldnt find a place for the new creature");
-                        }                        
-                    }
-                    nextCreature = (nextCreature + 1) % prefabs.Length;
+                    GetSpecies(nextSpecies);
+                    nextSpecies = (nextSpecies + 1) % prefabs.Length;
                 }
                 yield return new WaitForSeconds(delay);
             }
+        }
+
+        public GameObject GetSpecies(int nextSpecies)
+        {
+            Vector3 newPos = Vector3.zero;
+            GameObject newSpecies = null;
+
+            SpawnParameters sp = prefabs[nextSpecies].GetComponent<SpawnParameters>();
+            if (sp.singleton && aliveMap.ContainsKey(prefabs[nextSpecies]))
+            {
+                return aliveMap[prefabs[nextSpecies]];
+            }
+            if (suspended.ContainsKey(prefabs[nextSpecies]))
+            {
+                newSpecies = suspended.Get(prefabs[nextSpecies]);
+                if (FindPlace(newSpecies, out newPos))
+                {
+                    suspended.Remove(prefabs[nextSpecies], newSpecies);
+                    Teleport(newSpecies, newPos);
+                    newSpecies.SetActive(true);
+                    if (newSpecies.GetComponent<LifeColours>())
+                    {
+                        newSpecies.GetComponent<LifeColours>().FadeIn();
+                    }
+                    if (newSpecies.GetComponentInChildren<CreatureController>())
+                    {
+                        newSpecies.GetComponentInChildren<CreatureController>().Restart();
+                    }
+                    // Change the school size every time we teleport a school
+                    SchoolGenerator sg = newSpecies.GetComponentInChildren<SchoolGenerator>();
+                    if (sg != null)
+                    {
+                        sg.transform.position = newPos;
+                        sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
+                    }
+                    alive.Add(newSpecies);
+                    aliveMap[prefabs[nextSpecies]] = newSpecies;
+                    /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.transform.position = newPos;
+                    cube.transform.localScale = Vector3.one * 5;
+                    */                    
+                }
+            }
+            else
+            {
+                //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
+                if (FindPlace(prefabs[nextSpecies], out newPos))
+                {
+                    newSpecies = GameObject.Instantiate<GameObject>(prefabs[nextSpecies], newPos
+                        , prefabs[nextSpecies].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
+                    );
+
+                    newSpecies.GetComponent<SpawnParameters>().Species = prefabs[nextSpecies];
+                    if (school != null)
+                    {
+                        Boid b = newSpecies.GetComponent<Boid>();
+                        b.school = school;
+                        school.boids.Add(b);
+                    }
+
+                    if (newSpecies.GetComponentInChildren<CreatureController>())
+                    {
+                        newSpecies.GetComponentInChildren<CreatureController>().mother = this;
+                    }
+
+                    newSpecies.transform.parent = this.transform;
+                    newSpecies.transform.position = newPos;
+                    newSpecies.SetActive(true);
+                    alive.Add(newSpecies);
+                }
+                else
+                {
+                    Debug.Log("Couldnt find a place for the new creature");
+                }                
+            }
+            return newSpecies;
         }
 
         public GameObject GetCreature(GameObject species)
@@ -269,7 +275,7 @@ namespace BGE.Forms
                 {
                     Debug.Log("school 0");
                 }
-                return sg.alive[Random.Range(0, sg.alive.Count - 1)].GetComponentInChildren<Boid>().gameObject;
+                return sg.alive[UnityEngine.Random.Range(0, sg.alive.Count - 1)].GetComponentInChildren<Boid>().gameObject;
             }
             else if (species.GetComponent<FormationGenerator>() != null)
             {
@@ -341,6 +347,7 @@ namespace BGE.Forms
                 creature.transform.position = newPos;
             }
         }
+
 
         private void AfterGenesis()
         {
