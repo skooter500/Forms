@@ -324,11 +324,11 @@ namespace BGE.Forms
 
         GameObject PickNewTarget()
         {
-            nextSpecies = nextSpecies % mother.alive.Count;
+            //nextSpecies = nextSpecies % mother.alive.Count;
+            nextSpecies = (nextSpecies + 1) % mother.alive.Count;
             species = mother.alive[
                 nextSpecies
                 ].gameObject;
-            nextSpecies = (nextSpecies + 1) % mother.alive.Count;
             creature = Mother.Instance.GetCreature(species);
             distance = species.GetComponent<SpawnParameters>().viewingDistance;
             return creature;
