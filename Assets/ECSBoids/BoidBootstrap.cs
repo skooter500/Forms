@@ -78,7 +78,7 @@ namespace ew
 
         public void OnDestroy()
         {
-            DestroyEntities();
+            //DestroyEntities();
         }
 
         public void DestroyEntities()
