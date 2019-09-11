@@ -325,7 +325,7 @@ namespace BGE.Forms
         GameObject PickNewTarget()
         {
             //nextSpecies = nextSpecies % mother.alive.Count;
-            nextSpecies = (nextSpecies + 1) % mother.alive.Count;
+            nextSpecies = (nextSpecies + 1) % mother.prefabs.Length;
             species = mother.alive[
                 nextSpecies
                 ].gameObject;
