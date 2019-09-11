@@ -61,6 +61,69 @@ namespace BGE.Forms
             }
         }
 
+        public void StartFollowing()
+        {
+            StartCoroutine(FollowCoRoutine());
+        }
+
+        System.Collections.IEnumerator FollowCoRoutine()
+        {
+            PlayerController pc;
+            pc = this;
+            pc.PickNewSpecies();
+            yield return new WaitForSeconds(0.1f);
+            pc.PickNewTarget();
+            pc.controlType = ControlType.Following;
+            pc.player.GetComponent<Rigidbody>().isKinematic = true;
+            pc.vrController.enabled = false;
+            pc.fc.enabled = false;
+
+            // Calculate the position to move to
+            SpawnParameters sp = pc.species.GetComponent<SpawnParameters>();
+            float a = sp.followCameraHalfFOV;
+            float angle = Random.Range(-a, a);
+
+            Vector3 lp = Quaternion.Euler(30, angle, 0) * Vector3.forward;
+            lp.Normalize();
+            lp *= pc.distance;
+            Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
+            //p = Utilities.TransformPointNoScale(lp, pc.creature.GetComponent<Boid>().transform);
+            float y = WorldGenerator.Instance.SamplePos(p.x, p.z);
+            if (p.y < y)
+            {
+                p.y = y + 50;
+            }
+
+            /*Debug.Log("Angle: " + angle);
+            Debug.Log("lp: " + lp);
+            Debug.Log("Desired position: " + p);
+            Debug.Log("Viewing distance: " + sp.viewingDistance);
+            Debug.Log("Boid pos: " + pc.creature.GetComponent<Boid>().position);
+            Debug.Log("Camera pos: " + p);
+            Debug.Log("leader: " + pc.creature);
+            */
+
+            //
+            pc.playerBoid.enabled = true;
+            pc.playerBoid.maxSpeed = pc.species.GetComponent<SpawnParameters>().followCameraSpeed;
+            pc.playerBoid.desiredPosition = p;
+            pc.playerBoid.transform.position = p;
+            pc.playerBoid.UpdateLocalFromTransform();
+
+            pc.op.leader = pc.creature;
+            pc.playerBoid.velocity = pc.creature.GetComponent<Boid>().velocity;
+            pc.op.Start();
+            Utilities.SetActive(pc.sceneAvoidance, true);
+            Utilities.SetActive(pc.op, true);
+            pc.player.transform.position = p;
+            pc.player.transform.rotation =
+                Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
+
+            Utilities.SetActive(pc.op, true);
+            Utilities.SetActive(pc.seek, false);
+            Utilities.SetActive(pc.sceneAvoidance, true);
+        }
+
         class FollowState : State
         {
             PlayerController pc;
@@ -68,54 +131,11 @@ namespace BGE.Forms
             public override void Enter()
             {
                 pc = owner.GetComponent<PlayerController>();
-                pc.controlType = ControlType.Following;
-                pc.player.GetComponent<Rigidbody>().isKinematic = true;
-                pc.vrController.enabled = false;
-                pc.fc.enabled = false;
-                pc.PickNewTarget();
-                // Calculate the position to move to
-                SpawnParameters sp = pc.species.GetComponent<SpawnParameters>();
-                float a = sp.followCameraHalfFOV;
-                float angle = Random.Range(-a, a);
+                pc.StartFollowing();
+
+
+
                 
-                Vector3 lp = Quaternion.Euler(30, angle, 0) * Vector3.forward;
-                lp.Normalize();
-                lp *= pc.distance;
-                Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
-                float y = WorldGenerator.Instance.SamplePos(p.x, p.z);
-                if (p.y < y)
-                {
-                    p.y = y + 50;
-                }
-
-                /*Debug.Log("Angle: " + angle);
-                Debug.Log("lp: " + lp);
-                Debug.Log("Desired position: " + p);
-                Debug.Log("Viewing distance: " + sp.viewingDistance);
-                Debug.Log("Boid pos: " + pc.creature.GetComponent<Boid>().position);
-                Debug.Log("Camera pos: " + p);
-                Debug.Log("leader: " + pc.creature);
-                */
-
-                //
-                pc.playerBoid.enabled = true;
-                pc.playerBoid.maxSpeed = pc.species.GetComponent<SpawnParameters>().followCameraSpeed;
-                pc.playerBoid.desiredPosition = p;
-                pc.playerBoid.transform.position = p;
-                pc.playerBoid.UpdateLocalFromTransform();
-
-                pc.op.leader = pc.creature;
-                pc.playerBoid.velocity = pc.creature.GetComponent<Boid>().velocity;
-                pc.op.Start();
-                Utilities.SetActive(pc.sceneAvoidance, true);
-                Utilities.SetActive(pc.op, true);
-                pc.player.transform.position = p;
-                pc.player.transform.rotation =
-                    Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
-
-                Utilities.SetActive(pc.op, true);
-                Utilities.SetActive(pc.seek, false);
-                Utilities.SetActive(pc.sceneAvoidance, true);
 
                 //pc.sm.ChangeStateDelayed(new FollowState(), Random.Range(20, 30));
 
@@ -322,8 +342,20 @@ namespace BGE.Forms
 
         int nextSpecies = 0;
 
+        GameObject PickNewSpecies()
+        {
+            species = mother.GetSpecies(nextSpecies, true);
+            nextSpecies = (nextSpecies + 1) % mother.prefabs.Length;
+            return species;
+        }
+
         GameObject PickNewTarget()
         {
+            creature = mother.GetCreature(species);
+            distance = species.GetComponent<SpawnParameters>().viewingDistance;
+            return creature;
+
+            /*
             //nextSpecies = nextSpecies % mother.alive.Count;
             nextSpecies = (nextSpecies + 1) % mother.prefabs.Length;
             species = mother.alive[
@@ -332,6 +364,7 @@ namespace BGE.Forms
             creature = Mother.Instance.GetCreature(species);
             distance = species.GetComponent<SpawnParameters>().viewingDistance;
             return creature;
+            */
         }
 
 

@@ -35,7 +35,7 @@ namespace BGE.Forms
             LifeColours lc = GetComponent<LifeColours>();
             while (true)
             {
-                yield return new WaitForSeconds(0.2f);
+                yield return null;
                 while (alive.Count < targetCreatureCount)
                 {                    
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
@@ -186,9 +186,11 @@ namespace BGE.Forms
             targetCreatureCount = Random.Range(minBoidCount, maxBoidCount);
         }
 
+        Coroutine cr = null;
+
         void OnEnable()
         {
-            StartCoroutine(ManageSchool());
+            cr = StartCoroutine(ManageSchool());
         }
     }
 }
