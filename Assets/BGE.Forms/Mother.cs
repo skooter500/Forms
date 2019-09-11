@@ -30,6 +30,8 @@ namespace BGE.Forms
 
         public float fov = 20;
 
+        public GameObject player;
+
         bool FindPlace(GameObject creature, out Vector3 newPos)
         {
             bool found = false;
@@ -169,7 +171,7 @@ namespace BGE.Forms
                     Vector3 camPos = Camera.main.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
 
-                    bool behind = Vector3.Dot(boidPos - camPos, Camera.main.transform.forward) < 0;
+                    bool behind = (Vector3.Dot(boidPos - camPos, Camera.main.transform.forward) < 0) && (dist > 50);
                     //Debug.Log(i + "\t" + dist);
                     if (dist > sp.end || behind)
                     {
