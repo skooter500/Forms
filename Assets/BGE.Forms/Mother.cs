@@ -28,6 +28,8 @@ namespace BGE.Forms
 
         public bool spawnInFront = true;
 
+        public float fov = 20;
+
         bool FindPlace(GameObject creature, out Vector3 newPos)
         {
             bool found = false;
@@ -46,11 +48,13 @@ namespace BGE.Forms
 
                 float start = Mathf.Min(sp.start, genesisSpawnDistance);
 
-                Vector3 r = Random.insideUnitSphere;
-                r.z = spawnInFront ? Mathf.Abs(r.z) : r.z;
-                r.y = 0;
-                r *= sp.end - start;
+                //Vector3 r = Vector3.forward; // Random.insideUnitSphere;
+                //r.z = spawnInFront ? Mathf.Abs(r.z) : r.z;
+                //r.y = 0;
+                Vector3 r = Vector3.forward;
+                r *= Random.Range(start, sp.end);
                 r += (r.normalized * start);
+                r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
 
                 newPos = Camera.main.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
@@ -162,10 +166,12 @@ namespace BGE.Forms
                     GameObject species = sp.Species;
                     Vector3 boidPos = GetCreaturePosition(creature);
 
+                    Vector3 camPos = Camera.main.transform.position;
+                    float dist = Vector3.Distance(boidPos, camPos);
 
-                    float dist = Vector3.Distance(boidPos, Camera.main.transform.position);
+                    bool behind = Vector3.Dot(boidPos - camPos, Camera.main.transform.forward) < 0;
                     //Debug.Log(i + "\t" + dist);
-                    if (dist > sp.end)
+                    if (dist > sp.end || behind)
                     {
                         Suspend(creature);
                         suspended.Add(species, creature);
