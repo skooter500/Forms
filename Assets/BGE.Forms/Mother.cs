@@ -58,7 +58,7 @@ namespace BGE.Forms
                 r += (r.normalized * start);
                 r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
 
-                newPos = Camera.main.transform.TransformPoint(r);
+                newPos = player.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
                 float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
                 float minHeight = sampleY + sp.minHeight;
@@ -111,10 +111,10 @@ namespace BGE.Forms
         private bool TestPos(Vector3 newPos, float spaceRequired)
         {
             // Testing visibility to the player
-            float dist = Vector3.Distance(Camera.main.transform.position, newPos);
+            float dist = Vector3.Distance(player.transform.position, newPos);
             RaycastHit rch;
-            bool hit = Physics.Raycast(Camera.main.transform.position
-                , newPos - Camera.main.transform.position
+            bool hit = Physics.Raycast(player.transform.position
+                , newPos - player.transform.position
                 , out rch
                 , dist
                 , environmentLM
@@ -168,10 +168,16 @@ namespace BGE.Forms
                     GameObject species = sp.Species;
                     Vector3 boidPos = GetCreaturePosition(creature);
 
-                    Vector3 camPos = Camera.main.transform.position;
+                    Vector3 camPos = player.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
 
-                    bool behind = (Vector3.Dot(boidPos - camPos, Camera.main.transform.forward) < 0) && (dist > 50);
+                    bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 50);
+
+                    if (sp.Species == PlayerController.Instance.species || sp.boi)
+                    {
+                        continue;
+                    }
+
                     //Debug.Log(i + "\t" + dist);
                     if (dist > sp.end || behind)
                     {
@@ -194,22 +200,22 @@ namespace BGE.Forms
             }
         }
 
-        public GameObject GetSpecies(int species, bool useExisting)
+        public GameObject GetSpecies(int speciesIndex, bool useExisting)
         {
             Vector3 newPos = Vector3.zero;
             GameObject newSpecies = null;
 
-            SpawnParameters sp = prefabs[species].GetComponent<SpawnParameters>();
-            if (useExisting && aliveMap.ContainsKey(prefabs[species]))
+            SpawnParameters sp = prefabs[speciesIndex].GetComponent<SpawnParameters>();
+            if (useExisting && aliveMap.ContainsKey(prefabs[speciesIndex]))
             {
-                return aliveMap[prefabs[species]];
+                return prefabs[speciesIndex];
             }
-            if (suspended.ContainsKey(prefabs[species]))
+            if (suspended.ContainsKey(prefabs[speciesIndex]))
             {
-                newSpecies = suspended.Get(prefabs[species]);
+                newSpecies = suspended.Get(prefabs[speciesIndex]);
                 if (FindPlace(newSpecies, out newPos))
                 {
-                    suspended.Remove(prefabs[species], newSpecies);
+                    suspended.Remove(prefabs[speciesIndex], newSpecies);
                     Teleport(newSpecies, newPos);
                     newSpecies.SetActive(true);
                     if (newSpecies.GetComponent<LifeColours>())
@@ -228,7 +234,7 @@ namespace BGE.Forms
                         sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                     }
                     alive.Add(newSpecies);
-                    aliveMap[prefabs[species]] = newSpecies;
+                    aliveMap[prefabs[speciesIndex]] = newSpecies;
                     /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     cube.transform.position = newPos;
                     cube.transform.localScale = Vector3.one * 5;
@@ -238,13 +244,13 @@ namespace BGE.Forms
             else
             {
                 //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
-                if (FindPlace(prefabs[species], out newPos))
+                if (FindPlace(prefabs[speciesIndex], out newPos))
                 {
-                    newSpecies = GameObject.Instantiate<GameObject>(prefabs[species], newPos
-                        , prefabs[species].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
+                    newSpecies = GameObject.Instantiate<GameObject>(prefabs[speciesIndex], newPos
+                        , prefabs[speciesIndex].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                     );
 
-                    newSpecies.GetComponent<SpawnParameters>().Species = prefabs[species];
+                    newSpecies.GetComponent<SpawnParameters>().Species = prefabs[speciesIndex];
                     if (school != null)
                     {
                         Boid b = newSpecies.GetComponent<Boid>();
@@ -262,22 +268,23 @@ namespace BGE.Forms
                     newSpecies.transform.position = newPos;
                     newSpecies.SetActive(true);
                     alive.Add(newSpecies);
-                    aliveMap[prefabs[species]] = newSpecies;
+                    aliveMap[prefabs[speciesIndex]] = newSpecies;
                 }
                 else
                 {
                     Debug.Log("Couldnt find a place for the new creature");
                 }
             }
-            return newSpecies;
+            return prefabs[speciesIndex];
         }
 
         public GameObject GetCreature(GameObject species)
         {
-            SchoolGenerator sg = species.GetComponent<SchoolGenerator>();
-            if (species.GetComponent<TenticleCreatureGenerator>() != null)
+            GameObject speciesInstance = aliveMap[species];
+            SchoolGenerator sg = speciesInstance.GetComponent<SchoolGenerator>();
+            if (speciesInstance.GetComponent<TenticleCreatureGenerator>() != null)
             {
-                return species.GetComponent<TenticleCreatureGenerator>().head.gameObject;
+                return speciesInstance.GetComponent<TenticleCreatureGenerator>().head.gameObject;
             }
             else if (sg != null)
             {
@@ -288,13 +295,13 @@ namespace BGE.Forms
                 }
                 return sg.alive[UnityEngine.Random.Range(0, sg.alive.Count)].GetComponentInChildren<Boid>().gameObject;
             }
-            else if (species.GetComponent<FormationGenerator>() != null)
+            else if (speciesInstance.GetComponent<FormationGenerator>() != null)
             {
-                return species.GetComponent<FormationGenerator>().leader.GetComponentInChildren<Boid>().gameObject;
+                return speciesInstance.GetComponent<FormationGenerator>().leader.GetComponentInChildren<Boid>().gameObject;
             }
             else
             {
-                return Utilities.FindBoidInHierarchy(species).gameObject;
+                return Utilities.FindBoidInHierarchy(speciesInstance).gameObject;
             }
         }
 
@@ -319,7 +326,7 @@ namespace BGE.Forms
             }
             else
             {
-                return creature.GetComponentInChildren<Boid>().position;
+                return creature.GetComponentInChildren<Boid>().transform.position;
             }
         }
 

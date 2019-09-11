@@ -186,8 +186,9 @@ namespace BGE.Forms
         SceneAvoidance sceneAvoidance;
         OffsetPursue op;
         GameObject player;
-        GameObject species;
-        GameObject creature;
+
+        public GameObject species;
+        public GameObject creature;
         GameObject playerCruise;
         MonoBehaviour vrController;
         ForceController fc;
