@@ -78,11 +78,19 @@ namespace ew
 
         public void OnDestroy()
         {
-            //DestroyEntities();
+            DestroyEntities();
+            /*if (!isContainer)
+            {
+                allTheBoids.Dispose();
+                allTheheadsAndTails.Dispose();
+                allTheSpines.Dispose();
+            }
+            */
         }
 
         public void DestroyEntities()
         {
+            Debug.Log("Destroying all entities");
             if (!isContainer)
             {
             entityManager.DestroyEntity(allTheBoids);

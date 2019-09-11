@@ -34,7 +34,7 @@ public class SceneSwitcher : MonoBehaviour
             ew.BoidBootstrap bb = FindObjectOfType<ew.BoidBootstrap>();
             if (bb != null)
             {
-                bb.DestroyEntities();
+                //bb.DestroyEntities();
             }
 
             SceneManager.LoadScene(scenes[i]);            
