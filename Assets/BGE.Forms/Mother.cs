@@ -173,7 +173,7 @@ namespace BGE.Forms
 
                     bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 50);
 
-                    if (sp.Species == PlayerController.Instance.species || sp.boi)
+                    if (sp.Species == PlayerController.Instance.species)
                     {
                         continue;
                     }
