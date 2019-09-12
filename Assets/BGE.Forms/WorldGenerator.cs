@@ -195,6 +195,8 @@ namespace BGE.Forms
             int xMove = int.MaxValue;
             int zMove = int.MaxValue;
 
+            player = Camera.main.gameObject;
+
             while (true)
             {
                 if (oldGameObjects.Count > 0)
