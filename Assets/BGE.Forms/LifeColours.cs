@@ -28,9 +28,7 @@ namespace BGE.Forms
 
         public float targetFade = 1.0f;
         public float startFade = 0.0f;
-
-
-
+        
         public bool waitAFrame = false;
 
         private TextureGenerator tg;
