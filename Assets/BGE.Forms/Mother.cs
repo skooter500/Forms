@@ -135,8 +135,12 @@ namespace BGE.Forms
             return true;
         }
 
-        public void Suspend(GameObject creature)
+        IEnumerator SuspendCoRoutine(GameObject species, GameObject creature)
         {
+            Debug.Log("Fading out a " + species);
+            species.GetComponent<LifeColours>().FadeOut();
+            yield return new WaitForSeconds(5);
+            Debug.Log("Suspending a " + species);
             Boid[] boids = creature.GetComponentsInChildren<Boid>();
             foreach (Boid b in boids)
             {
@@ -148,6 +152,14 @@ namespace BGE.Forms
                 sg.Suspend();
             }
             creature.SetActive(false);
+            suspended.Add(species, creature);
+            alive.Remove(creature);
+            aliveMap.Remove(species);
+        }
+
+        public void Suspend(GameObject creature, GameObject creature1)
+        {
+            
         }
 
 
@@ -183,10 +195,7 @@ namespace BGE.Forms
                     //Debug.Log(i + "\t" + dist);
                     if (dist > sp.end || behind)
                     {
-                        Suspend(creature);
-                        suspended.Add(species, creature);
-                        alive.Remove(creature);
-                        aliveMap.Remove(species);
+                        Suspend(species, creature);                        
                     }
                 }
 

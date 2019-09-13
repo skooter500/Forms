@@ -26,7 +26,10 @@ namespace BGE.Forms
 
         public TextureMode textureMode = TextureMode.CSharp;
 
-        public float targetAlpha = 1.0f;
+        public float targetFade = 1.0f;
+        public float startFade = 0.0f;
+
+
 
         public bool waitAFrame = false;
 
@@ -112,6 +115,19 @@ namespace BGE.Forms
             {
                 StopCoroutine(fadeInCoroutine);
             }
+            startFade = 0;
+            targetFade = 1;
+            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
+        }
+
+        public void FadeOut()
+        {
+            if (fadeInCoroutine != null)
+            {
+                StopCoroutine(fadeInCoroutine);
+            }
+            startFade = 1;
+            targetFade = 0;
             fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }
 
@@ -138,12 +154,12 @@ namespace BGE.Forms
                     child.material.mainTexture = texture;
                 }
                 child.material.SetTexture("_EmissionMap", texture);
-                child.material.SetFloat("_Fade", 0);
+                child.material.SetFloat("_Fade", startFade);
             }
             yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
-            float alpha = 0;
+            float fade = 0;
             float delta = 0.1f;
-            while (alpha <= targetAlpha)
+            while (fade <= targetFade)
             {
                 foreach (Renderer child in children)
                 {
@@ -153,13 +169,13 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        child.material.SetFloat("_Fade", alpha);
+                        child.material.SetFloat("_Fade", fade);
                     }
                 }
-                alpha += delta / 3.0f;
+                fade += delta / 3.0f;
                 yield return new WaitForSeconds(delta);
             }
-            if (targetAlpha == 1)
+            if (targetFade == 1 || targetFade == 0)
             {
                 foreach (Renderer child in children)
                 {
@@ -175,7 +191,7 @@ namespace BGE.Forms
                         child.material.SetFloat("_PositionScale", colorMapScaling);
                         //child.material.SetTexture("_EmissionMap", texture);
                         child.material.mainTexture = texture;
-                        child.material.SetFloat("_Fade", targetAlpha);
+                        child.material.SetFloat("_Fade", targetFade);
                     }
                 }
             }
