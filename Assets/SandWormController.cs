@@ -14,13 +14,7 @@ public class SandWormController : CreatureController
             float sp = sw.GetComponent<Rigidbody>().velocity.magnitude;
             if (sp > 50)
             {
-                mother.Suspend(this.gameObject);
-                mother.suspended.Add(
-                    GetComponent<SpawnParameters>().Species
-                    , this.gameObject
-                    );
-                mother.alive.Remove(this.gameObject);
-                mother.aliveMap.Remove(this.gameObject);
+                mother.Suspend(GetComponent<SpawnParameters>().Species, this.gameObject);
             }
             yield return new WaitForSeconds(0.5f);
         }

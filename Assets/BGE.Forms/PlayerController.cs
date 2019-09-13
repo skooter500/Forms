@@ -13,7 +13,7 @@ namespace BGE.Forms
 
             public override void Enter()
             {
-                Debug.Log("Player control state");
+                //Debug.Log("Player control state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
@@ -33,7 +33,7 @@ namespace BGE.Forms
             Cruise c;
             public override void Enter()
             {
-                Debug.Log("Journeying state");
+                //Debug.Log("Journeying state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Journeying;
                 c = pc.cruise;

@@ -126,8 +126,8 @@ namespace BGE.Forms
             {
                 StopCoroutine(fadeInCoroutine);
             }
-            startFade = 1;
-            targetFade = 0;
+            startFade = 1.0f;
+            targetFade = 0.0f;
             fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }
 
@@ -157,10 +157,19 @@ namespace BGE.Forms
                 child.material.SetFloat("_Fade", startFade);
             }
             yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
-            float fade = 0;
+            float fade = startFade;
             float delta = 0.1f;
-            while (fade <= targetFade)
+            if (startFade == 1)
             {
+                delta = -0.1f;
+            }
+            while (Mathf.Abs(fade - targetFade) > 0.01f)
+            {
+                if (startFade == 1)
+                {
+                    Debug.Log(fade);
+
+                }
                 foreach (Renderer child in children)
                 {
                     if (child.material.name.Contains("Trans"))
@@ -175,7 +184,7 @@ namespace BGE.Forms
                 fade += delta / 3.0f;
                 yield return new WaitForSeconds(delta);
             }
-            if (targetFade == 1 || targetFade == 0)
+            if (targetFade == 1)
             {
                 foreach (Renderer child in children)
                 {

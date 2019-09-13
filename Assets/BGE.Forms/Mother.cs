@@ -138,8 +138,11 @@ namespace BGE.Forms
         IEnumerator SuspendCoRoutine(GameObject species, GameObject creature)
         {
             Debug.Log("Fading out a " + species);
-            species.GetComponent<LifeColours>().FadeOut();
-            yield return new WaitForSeconds(5);
+            if (creature.activeInHierarchy)
+            {
+                creature.GetComponent<LifeColours>().FadeOut();
+                yield return new WaitForSeconds(2);
+            }
             Debug.Log("Suspending a " + species);
             Boid[] boids = creature.GetComponentsInChildren<Boid>();
             foreach (Boid b in boids)
@@ -155,11 +158,21 @@ namespace BGE.Forms
             suspended.Add(species, creature);
             alive.Remove(creature);
             aliveMap.Remove(species);
+            species.GetComponent<SpawnParameters>().isSuspending = false;
         }
 
-        public void Suspend(GameObject creature, GameObject creature1)
+        public void Suspend(GameObject species, GameObject creature)
         {
-            
+            SpawnParameters sp = species.GetComponent<SpawnParameters>();
+            if (sp.isSuspending)
+            {
+                return;
+            }
+            else
+            {
+                sp.isSuspending = true;
+                StartCoroutine(SuspendCoRoutine(species, creature));
+            }
         }
 
 
@@ -214,7 +227,7 @@ namespace BGE.Forms
         public GameObject GetSpecies(int speciesIndex, bool useExisting)
         {
             Vector3 newPos = Vector3.zero;
-            GameObject newSpecies = null;
+            GameObject newCreature = null;
 
             SpawnParameters sp = prefabs[speciesIndex].GetComponent<SpawnParameters>();
             if (useExisting && aliveMap.ContainsKey(prefabs[speciesIndex]))
@@ -223,29 +236,29 @@ namespace BGE.Forms
             }
             if (suspended.ContainsKey(prefabs[speciesIndex]))
             {
-                newSpecies = suspended.Get(prefabs[speciesIndex]);
-                if (FindPlace(newSpecies, out newPos))
+                newCreature = suspended.Get(prefabs[speciesIndex]);
+                if (FindPlace(newCreature, out newPos))
                 {
-                    suspended.Remove(prefabs[speciesIndex], newSpecies);
-                    Teleport(newSpecies, newPos);
-                    newSpecies.SetActive(true);
-                    if (newSpecies.GetComponent<LifeColours>())
+                    suspended.Remove(prefabs[speciesIndex], newCreature);
+                    Teleport(newCreature, newPos);
+                    newCreature.SetActive(true);
+                    if (newCreature.GetComponent<LifeColours>())
                     {
-                        newSpecies.GetComponent<LifeColours>().FadeIn();
+                        newCreature.GetComponent<LifeColours>().FadeIn();
                     }
-                    if (newSpecies.GetComponentInChildren<CreatureController>())
+                    if (newCreature.GetComponentInChildren<CreatureController>())
                     {
-                        newSpecies.GetComponentInChildren<CreatureController>().Restart();
+                        newCreature.GetComponentInChildren<CreatureController>().Restart();
                     }
                     // Change the school size every time we teleport a school
-                    SchoolGenerator sg = newSpecies.GetComponentInChildren<SchoolGenerator>();
+                    SchoolGenerator sg = newCreature.GetComponentInChildren<SchoolGenerator>();
                     if (sg != null)
                     {
                         sg.transform.position = newPos;
                         sg.targetCreatureCount = Random.Range(sg.minBoidCount, sg.maxBoidCount);
                     }
-                    alive.Add(newSpecies);
-                    aliveMap[prefabs[speciesIndex]] = newSpecies;
+                    alive.Add(newCreature);
+                    aliveMap[prefabs[speciesIndex]] = newCreature;
                     /*GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     cube.transform.position = newPos;
                     cube.transform.localScale = Vector3.one * 5;
@@ -257,29 +270,29 @@ namespace BGE.Forms
                 //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
                 if (FindPlace(prefabs[speciesIndex], out newPos))
                 {
-                    newSpecies = GameObject.Instantiate<GameObject>(prefabs[speciesIndex], newPos
+                    newCreature = GameObject.Instantiate<GameObject>(prefabs[speciesIndex], newPos
                         , prefabs[speciesIndex].transform.rotation * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up)
                     );
 
-                    newSpecies.GetComponent<SpawnParameters>().Species = prefabs[speciesIndex];
+                    newCreature.GetComponent<SpawnParameters>().Species = prefabs[speciesIndex];
                     if (school != null)
                     {
-                        Boid b = newSpecies.GetComponent<Boid>();
+                        Boid b = newCreature.GetComponent<Boid>();
                         b.school = school;
                         school.boids.Add(b);
                     }
 
-                    if (newSpecies.GetComponentInChildren<CreatureController>())
+                    if (newCreature.GetComponentInChildren<CreatureController>())
                     {
 
-                        newSpecies.GetComponentInChildren<CreatureController>().mother = this;
+                        newCreature.GetComponentInChildren<CreatureController>().mother = this;
                     }
 
-                    newSpecies.transform.parent = this.transform;
-                    newSpecies.transform.position = newPos;
-                    newSpecies.SetActive(true);
-                    alive.Add(newSpecies);
-                    aliveMap[prefabs[speciesIndex]] = newSpecies;
+                    newCreature.transform.parent = this.transform;
+                    newCreature.transform.position = newPos;
+                    newCreature.SetActive(true);
+                    alive.Add(newCreature);
+                    aliveMap[prefabs[speciesIndex]] = newCreature;
                 }
                 else
                 {
