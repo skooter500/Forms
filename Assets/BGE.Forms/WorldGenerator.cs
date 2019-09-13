@@ -187,6 +187,13 @@ namespace BGE.Forms
 
         Queue<GameObject> oldGameObjects = new Queue<GameObject>();
 
+        public bool forceCheck = false;
+
+        public void ForceCheck()
+        {
+            forceCheck = true;
+        }
+
         private System.Collections.IEnumerator GenerateWorldAroundPlayer()
         {
             yield return null;
@@ -203,10 +210,11 @@ namespace BGE.Forms
                 {
                     GameObject.Destroy(oldGameObjects.Dequeue());
                 }
-                if (Mathf.Abs(xMove) >= quadsPerTile * cellSize || Mathf.Abs(zMove) >= quadsPerTile * cellSize)
+                if (Mathf.Abs(xMove) >= quadsPerTile * cellSize || Mathf.Abs(zMove) >= quadsPerTile * cellSize || forceCheck)
                 {
+                    forceCheck = false;
                     float updateTime = Time.realtimeSinceStartup;
-
+                    
                     //force integer position and round to nearest tilesize
                     int playerX = (int)(Mathf.Floor((player.transform.position.x) / (quadsPerTile * cellSize)) * quadsPerTile);
                     int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (quadsPerTile * cellSize)) * quadsPerTile);

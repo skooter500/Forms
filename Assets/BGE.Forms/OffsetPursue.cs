@@ -24,8 +24,7 @@ namespace BGE.Forms
                 offset = transform.position - leader.transform.position;
                 offset = Quaternion.Inverse(leader.transform.rotation) * offset;
                 targetPos = transform.position;
-            }
-            Debug.Log("OP start called");
+            }            
         }
 
         public void OnDrawGizmos()

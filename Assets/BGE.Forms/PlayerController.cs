@@ -77,6 +77,7 @@ namespace BGE.Forms
             pc.player.GetComponent<Rigidbody>().isKinematic = true;
             pc.vrController.enabled = false;
             pc.fc.enabled = false;
+            WorldGenerator.Instance.ForceCheck();
 
             // Calculate the position to move to
             SpawnParameters sp = pc.species.GetComponent<SpawnParameters>();

@@ -150,6 +150,8 @@ namespace BGE.Forms
             creature.SetActive(false);
         }
 
+
+
         System.Collections.IEnumerator Spawn()
         {
             float delay = 1.0f / (float)spawnRate;
