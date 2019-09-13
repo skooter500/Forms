@@ -137,13 +137,14 @@ namespace BGE.Forms
 
         IEnumerator SuspendCoRoutine(GameObject species, GameObject creature)
         {
-            Debug.Log("Fading out a " + species);
             if (creature.activeInHierarchy)
             {
-                creature.GetComponent<LifeColours>().FadeOut();
+                if (creature.GetComponent<LifeColours>())
+                {
+                    creature.GetComponent<LifeColours>().FadeOut();
+                }
                 yield return new WaitForSeconds(2);
             }
-            Debug.Log("Suspending a " + species);
             Boid[] boids = creature.GetComponentsInChildren<Boid>();
             foreach (Boid b in boids)
             {

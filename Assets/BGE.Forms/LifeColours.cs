@@ -165,11 +165,6 @@ namespace BGE.Forms
             }
             while (Mathf.Abs(fade - targetFade) > 0.01f)
             {
-                if (startFade == 1)
-                {
-                    Debug.Log(fade);
-
-                }
                 foreach (Renderer child in children)
                 {
                     if (child.material.name.Contains("Trans"))
