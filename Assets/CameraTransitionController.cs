@@ -87,7 +87,7 @@ public class CameraTransitionController : MonoBehaviour
 
     public void ShowLeftEffect()
     {
-        //Debug.Log("Showing Left Effect");
+        Debug.Log("Showing Left Effect");
         state = State.FadeIn;
         leftEffects[left].SetActive(true);
         audioThing.SetActive(true);
@@ -96,7 +96,7 @@ public class CameraTransitionController : MonoBehaviour
 
     public void ShowRightEffect()
     {
-        //Debug.Log("Showing RightEffect");
+        Debug.Log("Showing RightEffect");
         state = State.FadeIn;
         rightEffects[right].SetActive(true);
         audioThing.SetActive(true);
@@ -234,6 +234,11 @@ public class CameraTransitionController : MonoBehaviour
     System.Collections.IEnumerator DisableEffectAfter(GameObject effect, float time)
     {
         yield return new WaitForSeconds(time);
+        SchoolGenerator sg = effect.GetComponent<SchoolGenerator>();
+        if (sg != null)
+        {
+            sg.Suspend();
+        }
         effect.SetActive(false);
     }
 }
