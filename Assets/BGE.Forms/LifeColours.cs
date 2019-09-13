@@ -26,6 +26,8 @@ namespace BGE.Forms
 
         public TextureMode textureMode = TextureMode.CSharp;
 
+        public float targetAlpha = 1.0f;
+
         public float targetFade = 1.0f;
         public float startFade = 0.0f;
         
@@ -114,7 +116,7 @@ namespace BGE.Forms
                 StopCoroutine(fadeInCoroutine);
             }
             startFade = 0;
-            targetFade = 1;
+            targetFade = targetAlpha;
             fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }
 
@@ -124,7 +126,7 @@ namespace BGE.Forms
             {
                 StopCoroutine(fadeInCoroutine);
             }
-            startFade = 1.0f;
+            startFade = targetAlpha;
             targetFade = 0.0f;
             fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }

@@ -200,14 +200,14 @@ namespace BGE.Forms
                     float dist = Vector3.Distance(boidPos, camPos);
 
                     bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 50);
-
+                    behind = Vector3.Angle(boidPos - camPos, player.transform.forward) > 60;
                     if (sp.Species == PlayerController.Instance.species)
                     {
                         continue;
                     }
 
                     //Debug.Log(i + "\t" + dist);
-                    if (dist > sp.end || behind)
+                    if (behind)
                     {
                         Suspend(species, creature);                        
                     }
