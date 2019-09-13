@@ -231,9 +231,14 @@ namespace BGE.Forms
             GameObject newCreature = null;
 
             SpawnParameters sp = prefabs[speciesIndex].GetComponent<SpawnParameters>();
+            
             if (useExisting && aliveMap.ContainsKey(prefabs[speciesIndex]))
             {
-                return prefabs[speciesIndex];
+                GameObject creature = aliveMap[prefabs[speciesIndex]];
+                if (!creature.GetComponent<SpawnParameters>().isSuspending)
+                {
+                    return prefabs[speciesIndex];
+                }
             }
             if (suspended.ContainsKey(prefabs[speciesIndex]))
             {
