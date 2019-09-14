@@ -135,9 +135,9 @@ namespace BGE.Forms
             return true;
         }
 
-        IEnumerator SuspendCoRoutine(GameObject species, GameObject creature)
+        IEnumerator SuspendCoRoutine(GameObject species, GameObject creature, bool fade)
         {
-            if (creature.activeInHierarchy)
+            if (fade && creature.activeInHierarchy)
             {
                 if (creature.GetComponent<LifeColours>())
                 {
@@ -162,7 +162,7 @@ namespace BGE.Forms
             species.GetComponent<SpawnParameters>().isSuspending = false;
         }
 
-        public void Suspend(GameObject species, GameObject creature)
+        public void Suspend(GameObject species, GameObject creature, bool fadeOut = false)
         {
             SpawnParameters sp = species.GetComponent<SpawnParameters>();
             if (sp.isSuspending)
@@ -172,7 +172,7 @@ namespace BGE.Forms
             else
             {
                 sp.isSuspending = true;
-                StartCoroutine(SuspendCoRoutine(species, creature));
+                StartCoroutine(SuspendCoRoutine(species, creature, fadeOut));
             }
         }
 
@@ -199,8 +199,8 @@ namespace BGE.Forms
                     Vector3 camPos = player.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
 
-                    bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 50);
-                    behind = Vector3.Angle(boidPos - camPos, player.transform.forward) > 60;
+                    bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 100);
+                    //behind = Vector3.Angle(boidPos - camPos, player.transform.forward) > 60;
                     if (sp.Species == PlayerController.Instance.species)
                     {
                         continue;
