@@ -267,6 +267,29 @@ namespace ew
             }
         }
 
+        /*
+
+        [BurstCompile]
+        struct AttractorJob : IJobProcessComponentData<Boid, Attractor>
+        {
+            [NativeDisableParallelForRestriction]
+            public NativeArray<Vector3> positions;
+
+            [NativeDisableParallelForRestriction]
+            public NativeArray<Vector3> targets;
+            public float distance;
+            public float weight;
+
+            public void Execute(ref Boid b, ref Attractor a)
+            {
+                Vector3 desired = targetPos - positions[b.boidId];
+                desired.Normalize();
+                desired *= b.maxSpeed;
+                b.seekForce = (desired - b.velocity) * weight;
+            }
+        }
+        */
+
         [BurstCompile]
         struct CohesionJob : IJobProcessComponentData<Boid, Cohesion>
         {
