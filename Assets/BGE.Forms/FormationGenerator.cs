@@ -26,37 +26,37 @@ namespace BGE.Forms
         void GenerateCreaturePosition(Vector3 pos, Vector3 startPos, int current, int depth)
         {
             // Make sure its above ground
-            float groundHeight = WorldGenerator.Instance.SamplePos(pos.x, pos.z);
+            /*float groundHeight = WorldGenerator.Instance.SamplePos(pos.x, pos.z);
             if (pos.y < groundHeight)
             {
                 pos.y = groundHeight + UnityEngine.Random.Range(10, 100);
             }
+            */
             positions.Add(pos);
             pos.z = startPos.z;
             if (current < depth)
             {
-                if (pos.x <= transform.position.x)
-                {
-                    Vector3 left = new Vector3(-1, 0, -1) * gap;
+                Vector3 left = new Vector3(-1, 0, -1) * gap * current;
                     left.x *= Random.Range(1.0f, 1.0f - variance);
                     left.y += gap * Random.Range(-variance, variance);
-                    left.z *= - Random.Range(1.0f - variance, 1.0f + variance);
-                    GenerateCreaturePosition(pos + left, startPos, current + 1, depth);
+                    //left.z *= Random.Range(1.0f - variance, 1.0f + variance);
+                    GenerateCreaturePosition(transform.TransformPoint(left), startPos, current + 1, depth);
                 
                 }
                 if (pos.x >= transform.position.x)
                 {
-                    Vector3 right = new Vector3(1, 0, -1) * gap;
+                    Vector3 right = new Vector3(1, 0, -1) * gap * current;
                     right.x *= Random.Range(1.0f, 1.0f - variance);
                     right.y += gap * Random.Range(-variance, variance);
-                    right.z *= - Random.Range(1.0f - variance, 1.0f + variance);
-                    GenerateCreaturePosition(pos + right, startPos, current + 1, depth);
+                    //right.z += Random.Range(1.0f - variance, 1.0f + variance);
+                    GenerateCreaturePosition(transform.TransformPoint(right), startPos, current + 1, depth);
                 }
             }
         }
 
         public void GeneratePositions()
         {
+            sideWidth = Random.Range(minSideWith, maxSideWith + 1);
             positions.Clear();
             
             GenerateCreaturePosition(transform.position, transform.position, 0, sideWidth);
@@ -71,7 +71,7 @@ namespace BGE.Forms
                 {
                     foreach (Vector3 pos in positions)
                     {
-                        Gizmos.color = Color.magenta;
+                        Gizmos.color = Color.green;
                         Gizmos.DrawCube(pos, Vector3.one * gap * 0.5f);
                     }
                 }
@@ -137,8 +137,8 @@ namespace BGE.Forms
 
 
         // Use this for initialization
-        void Start () {
-            sideWidth = Random.Range(minSideWith, maxSideWith + 1);
+        void Awake () {
+            
             GeneratePositions();
             for (int i = 0; i < positions.Count; i++)
             {
@@ -147,6 +147,7 @@ namespace BGE.Forms
                 {
                     leader = GameObject.Instantiate<GameObject>(leaderPrefab);
                     leader.transform.position = positions[i];
+                    leader.transform.rotation = this.transform.rotation;
                     leader.transform.parent = transform;
                     leader.SetActive(true);
                     boid = leader.GetComponentInChildren<Boid>();
@@ -156,6 +157,7 @@ namespace BGE.Forms
                     GameObject follower = GameObject.Instantiate<GameObject>(followerPrefab);
                     follower.transform.position = positions[i];
                     follower.transform.parent = transform;
+                    follower.transform.rotation = this.transform.rotation;
                     follower.SetActive(true);
                     boid = follower.GetComponentInChildren<Boid>();
                     followers.Add(follower);

@@ -9,7 +9,7 @@ namespace BGE.Forms
     public class Mother : MonoBehaviour
     {
         public int spawnRate = 5;
-        public int maxcreatures = 20;
+        public int maxcreatures = 1;
 
         public float playerRadius = 1000;
 
@@ -199,7 +199,7 @@ namespace BGE.Forms
                     Vector3 camPos = player.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
 
-                    bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 100);
+                    bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 5000);
                     //behind = Vector3.Angle(boidPos - camPos, player.transform.forward) > 60;
                     if (sp.Species == PlayerController.Instance.species)
                     {
