@@ -198,9 +198,9 @@ namespace BGE.Forms
 
                     Vector3 camPos = player.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
-
-                    bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 5000);
-                    //behind = Vector3.Angle(boidPos - camPos, player.transform.forward) > 60;
+                    bool behind;
+                    //bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 500);
+                    behind = Vector3.Angle(boidPos - camPos, player.transform.forward) > 80 && (dist > 2000);
                     if (sp.Species == PlayerController.Instance.species)
                     {
                         continue;
