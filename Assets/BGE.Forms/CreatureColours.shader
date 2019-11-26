@@ -109,9 +109,9 @@ Shader "Custom/CreatureColours" {
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			float u,v;			
-			u = abs(IN.worldPos.x / _PositionScale);
+			u = abs(IN.worldPos.x + _Offset / _PositionScale);
 			//u -= (int)u;
-            v = abs(IN.worldPos.z / _PositionScale);
+            v = abs(IN.worldPos.z + _Offset / _PositionScale);
 			//v -= (int)v;
 			fixed4 c = tex2D (_MainTex, float2(u,v));
 			o.Albedo = c.rgb;
