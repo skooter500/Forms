@@ -398,6 +398,8 @@ namespace BGE.Forms
 
             newToad = GetComponent<NewToad>();
 
+            Invoke("LateStart", 5);
+
         }
 
         public void ConfigureBuild()
@@ -458,6 +460,13 @@ namespace BGE.Forms
         public float ellapsed = 0;
         public float toPass = 0.5f;
         public int clickCount = 0;
+
+        public void LateStart()
+        {
+            StopAllCoroutines();
+            showCoroutine = null;
+            showCoroutine = StartCoroutine(Show());
+        }
 
         private void Update()
         {
