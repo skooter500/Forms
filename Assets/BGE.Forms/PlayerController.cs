@@ -465,7 +465,7 @@ namespace BGE.Forms
         {
             StopAllCoroutines();
             showCoroutine = null;
-            showCoroutine = StartCoroutine(Show());
+            //showCoroutine = StartCoroutine(Show());
         }
 
         private void Update()
