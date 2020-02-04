@@ -196,7 +196,7 @@ namespace BGE.Forms
                     GameObject species = sp.Species;
                     Vector3 boidPos = GetCreaturePosition(creature);
 
-                    Vector3 camPos = player.transform.position;
+                    Vector3 camPos = Camera.main.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
                     bool behind;
                     //bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 500);

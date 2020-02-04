@@ -10,7 +10,7 @@ public class SceneSwitcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.U) ||  Input.GetButtonDown("Fire3"))
         {
             int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
             string[] scenes = new string[sceneCount];
