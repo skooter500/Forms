@@ -24,7 +24,6 @@ public class SandWorm : MonoBehaviour {
 
     public void Restart()
     {
-        Debug.Log("Sandworm restart");
         float depth = radius * 0.1f;
         Vector3 start = -Vector3.forward * bodySegments * depth * 2;
         GameObject previous = null;

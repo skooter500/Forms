@@ -267,6 +267,29 @@ namespace ew
             }
         }
 
+        /*
+
+        [BurstCompile]
+        struct AttractorJob : IJobProcessComponentData<Boid, Attractor>
+        {
+            [NativeDisableParallelForRestriction]
+            public NativeArray<Vector3> positions;
+
+            [NativeDisableParallelForRestriction]
+            public NativeArray<Vector3> targets;
+            public float distance;
+            public float weight;
+
+            public void Execute(ref Boid b, ref Attractor a)
+            {
+                Vector3 desired = targetPos - positions[b.boidId];
+                desired.Normalize();
+                desired *= b.maxSpeed;
+                b.seekForce = (desired - b.velocity) * weight;
+            }
+        }
+        */
+
         [BurstCompile]
         struct CohesionJob : IJobProcessComponentData<Boid, Cohesion>
         {
@@ -627,11 +650,11 @@ namespace ew
             Instance = this;
             bootstrap = GameObject.FindObjectOfType<BoidBootstrap>();
             Enabled = false;
-            neighbours = new NativeArray<int>(bootstrap.numBoids * maxNeighbours, Allocator.Persistent);
-            positions = new NativeArray<Vector3>(bootstrap.numBoids, Allocator.Persistent);
-            rotations = new NativeArray<Quaternion>(bootstrap.numBoids, Allocator.Persistent);
-            speeds = new NativeArray<float>(bootstrap.numBoids, Allocator.Persistent); // Needed for the animations
-            cells = new NativeMultiHashMap<int, int>(bootstrap.numBoids, Allocator.Persistent);
+            neighbours = new NativeArray<int>(BoidBootstrap.MAX_BOIDS * BoidBootstrap.MAX_NEIGHBOURS, Allocator.Persistent);
+            positions = new NativeArray<Vector3>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent);
+            rotations = new NativeArray<Quaternion>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent);
+            speeds = new NativeArray<float>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent); // Needed for the animations
+            cells = new NativeMultiHashMap<int, int>(BoidBootstrap.MAX_BOIDS, Allocator.Persistent);
         }
 
         protected override void OnDestroyManager()

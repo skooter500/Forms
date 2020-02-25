@@ -23,11 +23,13 @@ public class SpawnParameters : MonoBehaviour {
     BGE.Forms.Boid masterBoid;
 
     public GameObject[] effects;
-   
+    internal bool isSuspending = false;
+
     // Use this for initialization
     void Start () {
-		
-	}
+        isSuspending = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

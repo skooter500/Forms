@@ -28,6 +28,9 @@ namespace BGE.Forms
 
         public float targetAlpha = 1.0f;
 
+        public float targetFade = 1.0f;
+        public float startFade = 0.0f;
+        
         public bool waitAFrame = false;
 
         private TextureGenerator tg;
@@ -112,6 +115,19 @@ namespace BGE.Forms
             {
                 StopCoroutine(fadeInCoroutine);
             }
+            startFade = 0;
+            targetFade = targetAlpha;
+            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
+        }
+
+        public void FadeOut()
+        {
+            if (fadeInCoroutine != null)
+            {
+                StopCoroutine(fadeInCoroutine);
+            }
+            startFade = targetAlpha;
+            targetFade = 0.0f;
             fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }
 
@@ -138,12 +154,16 @@ namespace BGE.Forms
                     child.material.mainTexture = texture;
                 }
                 child.material.SetTexture("_EmissionMap", texture);
-                child.material.SetFloat("_Fade", 0);
+                child.material.SetFloat("_Fade", startFade);
             }
             yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
-            float alpha = 0;
+            float fade = startFade;
             float delta = 0.1f;
-            while (alpha <= targetAlpha)
+            if (startFade == 1)
+            {
+                delta = -0.1f;
+            }
+            while (Mathf.Abs(fade - targetFade) > 0.01f)
             {
                 foreach (Renderer child in children)
                 {
@@ -153,13 +173,13 @@ namespace BGE.Forms
                     }
                     else
                     {
-                        child.material.SetFloat("_Fade", alpha);
+                        child.material.SetFloat("_Fade", fade);
                     }
                 }
-                alpha += delta / 3.0f;
+                fade += delta / 3.0f;
                 yield return new WaitForSeconds(delta);
             }
-            if (targetAlpha == 1)
+            if (targetFade == 1)
             {
                 foreach (Renderer child in children)
                 {
@@ -175,7 +195,7 @@ namespace BGE.Forms
                         child.material.SetFloat("_PositionScale", colorMapScaling);
                         //child.material.SetTexture("_EmissionMap", texture);
                         child.material.mainTexture = texture;
-                        child.material.SetFloat("_Fade", targetAlpha);
+                        child.material.SetFloat("_Fade", targetFade);
                     }
                 }
             }

@@ -18,17 +18,19 @@ public class SpineAnimatorManager : MonoBehaviour
 
     public SpineAnimatorManager()
     {
-        Instance = this;
+        
     }
 
     public void AddSpine(SpineAnimator sa, int system)
     {
         CreateSystems();
         systems[0].AddSpine(sa);
+        Instance = this;
     }
 
-    public void Awake()
+   void Awake()
     {
+        Instance = this;
         CreateSystems();
         
     }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace BGE.Forms
 {
-    public class FormationGenerator : School {
+    public class FormationGenerator : School
+    {
         public int minSideWith = 10;
-        public int maxSideWith = 10;
         public float gap = 50;
 
         [Range(0.0f, 1.0f)]
@@ -23,43 +23,28 @@ namespace BGE.Forms
 
         private int sideWidth;
 
-        void GenerateCreaturePosition(Vector3 pos, Vector3 startPos, int current, int depth)
+        private Vector3 VaryLocalPosition(Vector3 pos)
         {
-            // Make sure its above ground
-            float groundHeight = WorldGenerator.Instance.SamplePos(pos.x, pos.z);
-            if (pos.y < groundHeight)
-            {
-                pos.y = groundHeight + UnityEngine.Random.Range(10, 100);
-            }
-            positions.Add(pos);
-            pos.z = startPos.z;
-            if (current < depth)
-            {
-                if (pos.x <= transform.position.x)
-                {
-                    Vector3 left = new Vector3(-1, 0, -1) * gap;
-                    left.x *= Random.Range(1.0f, 1.0f - variance);
-                    left.y += gap * Random.Range(-variance, variance);
-                    left.z *= - Random.Range(1.0f - variance, 1.0f + variance);
-                    GenerateCreaturePosition(pos + left, startPos, current + 1, depth);
-                
-                }
-                if (pos.x >= transform.position.x)
-                {
-                    Vector3 right = new Vector3(1, 0, -1) * gap;
-                    right.x *= Random.Range(1.0f, 1.0f - variance);
-                    right.y += gap * Random.Range(-variance, variance);
-                    right.z *= - Random.Range(1.0f - variance, 1.0f + variance);
-                    GenerateCreaturePosition(pos + right, startPos, current + 1, depth);
-                }
-            }
-        }
+            pos.x *= Random.Range(1.0f, 1.0f - variance);
+            pos.y += gap * Random.Range(-variance, variance);
+            pos.z *= Random.Range(1.0f - variance, 1.0f + variance);
 
+            return pos;
+        }
+        
         public void GeneratePositions()
         {
+            sideWidth = minSideWith;
             positions.Clear();
-            
-            GenerateCreaturePosition(transform.position, transform.position, 0, sideWidth);
+            positions.Add(transform.position);
+            for (int i = 1; i <= sideWidth; i++)
+            {
+                Vector3 offset = VaryLocalPosition(new Vector3(gap * i, 0, -gap * i));
+                positions.Add(transform.TransformPoint(offset));
+
+                offset = VaryLocalPosition(new Vector3(-gap * i, 0, -gap * i));
+                positions.Add(transform.TransformPoint(offset));
+            }
         }
 
         void OnDrawGizmos()
@@ -137,9 +122,10 @@ namespace BGE.Forms
 
 
         // Use this for initialization
-        void Start () {
-            sideWidth = Random.Range(minSideWith, maxSideWith + 1);
+        void Start()
+        {
             GeneratePositions();
+
             for (int i = 0; i < positions.Count; i++)
             {
                 Boid boid;
@@ -147,6 +133,7 @@ namespace BGE.Forms
                 {
                     leader = GameObject.Instantiate<GameObject>(leaderPrefab);
                     leader.transform.position = positions[i];
+                    leader.transform.rotation = this.transform.rotation;
                     leader.transform.parent = transform;
                     leader.SetActive(true);
                     boid = leader.GetComponentInChildren<Boid>();
@@ -155,6 +142,7 @@ namespace BGE.Forms
                 {
                     GameObject follower = GameObject.Instantiate<GameObject>(followerPrefab);
                     follower.transform.position = positions[i];
+                    follower.transform.rotation = this.transform.rotation;
                     follower.transform.parent = transform;
                     follower.SetActive(true);
                     boid = follower.GetComponentInChildren<Boid>();
@@ -168,17 +156,12 @@ namespace BGE.Forms
                     formation.leader = leader;
                     formation.leaderBoid = leader.GetComponentInChildren<Boid>();
                     follower.GetComponentInChildren<Boid>().school = this;
-                
+
                 }
                 boids.Add(boid);
             }
-            
+
             Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);
-        }
-	
-        // Update is called once per frame
-        void Update () {
-	
         }
     }
 }

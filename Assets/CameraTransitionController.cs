@@ -234,6 +234,11 @@ public class CameraTransitionController : MonoBehaviour
     System.Collections.IEnumerator DisableEffectAfter(GameObject effect, float time)
     {
         yield return new WaitForSeconds(time);
+        SchoolGenerator sg = effect.GetComponent<SchoolGenerator>();
+        if (sg != null)
+        {
+            sg.Suspend();
+        }
         effect.SetActive(false);
     }
 }

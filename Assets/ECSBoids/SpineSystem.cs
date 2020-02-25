@@ -92,7 +92,7 @@ namespace ew
         public NativeArray<Vector3> positions;
         public NativeArray<Quaternion> rotations;
 
-        public const int MAX_SPINES = 300000;
+        public const int MAX_SPINES = 100000;
         public int numSpines = 0;
 
         public static SpineSystem Instance;

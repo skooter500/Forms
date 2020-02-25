@@ -8,11 +8,18 @@ using Unity.Jobs;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 namespace ew
 {
     public class BoidBootstrap : MonoBehaviour
     {
+
+        public static int MAX_BOIDS = 25000;
+        public static int MAX_SPINES = 50;
+        public static int MAX_NEIGHBOURS = 150;
+
+
         private EntityArchetype boidArchitype;
         private EntityArchetype headArchitype;
         private EntityArchetype tailArchitype;
@@ -59,6 +66,8 @@ namespace ew
         NativeArray<Entity> allTheheadsAndTails;
         NativeArray<Entity> allTheSpines;
 
+        public Coroutine cr;
+
         public static float Map(float value, float r1, float r2, float m1, float m2)
         {
             float dist = value - r1;
@@ -67,14 +76,33 @@ namespace ew
             return m1 + ((dist / range1) * range2);
         }
 
-        void DestroyEntities()
+        public void OnDestroy()
         {
+            DestroyEntities();
+            /*if (!isContainer)
+            {
+                allTheBoids.Dispose();
+                allTheheadsAndTails.Dispose();
+                allTheSpines.Dispose();
+            }
+            */
+        }
+
+        public void DestroyEntities()
+        {
+            Debug.Log("Destroying all entities");
+            if (!isContainer)
+            {
             entityManager.DestroyEntity(allTheBoids);
             entityManager.DestroyEntity(allTheheadsAndTails);
             entityManager.DestroyEntity(allTheSpines);
+            allTheBoids.Dispose();
+            allTheheadsAndTails.Dispose();
+            allTheSpines.Dispose();
             BoidJobSystem.Instance.Enabled = false;
             SpineSystem.Instance.Enabled = false;
             HeadsAndTailsSystem.Instance.Enabled = false;
+            }
         }
 
         Entity CreateSmallBoid(Vector3 pos, Quaternion q, int boidId, float size)
@@ -247,7 +275,7 @@ namespace ew
             tailRotation.Value = q;
             s = new Scale
             {
-                Value = new Vector3(size * 0.2f, size * 0.1f, size)
+               Value = new Vector3(size * 0.2f, size * 0.1f, size)
             };
             //s.Value = new Vector3(2, 4, 10);
             entityManager.SetComponentData(tailEntity, s);
@@ -255,6 +283,117 @@ namespace ew
             entityManager.AddSharedComponentData(tailEntity, bodyMesh);
             entityManager.SetComponentData(tailEntity, s);
             entityManager.SetComponentData(tailEntity, new Tail() { boidId = boidId, spineId = (boidId * (spineLength + 1)) + spineLength });
+            // End tail    
+
+            return boidEntity;
+        }
+
+        Entity CreateBoidWithTrail(Vector3 pos, Quaternion q, int boidId, float size)
+        {
+            Entity boidEntity = entityManager.CreateEntity(boidArchitype);
+            allTheBoids[boidId] = boidEntity;
+            Position p = new Position
+            {
+                Value = pos
+            };
+
+            Rotation r = new Rotation
+            {
+                Value = q
+            };
+
+            entityManager.SetComponentData(boidEntity, p);
+            entityManager.SetComponentData(boidEntity, r);
+
+            Scale s = new Scale
+            {
+                Value = new Vector3(size * 0.3f, size, size)
+            };
+
+            entityManager.SetComponentData(boidEntity, s);
+
+            entityManager.SetComponentData(boidEntity, new Boid() { boidId = boidId, mass = 1, maxSpeed = 100 * UnityEngine.Random.Range(0.9f, 1.1f), maxForce = 400, weight = 200 });
+            entityManager.SetComponentData(boidEntity, new Seperation());
+            entityManager.SetComponentData(boidEntity, new Alignment());
+            entityManager.SetComponentData(boidEntity, new Cohesion());
+            entityManager.SetComponentData(boidEntity, new Constrain());
+            entityManager.SetComponentData(boidEntity, new Flee());
+            entityManager.SetComponentData(boidEntity, new Wander()
+            {
+                distance = 2
+                ,
+                radius = 1.2f,
+                jitter = 80,
+                target = UnityEngine.Random.insideUnitSphere * 1.2f
+            });
+            entityManager.SetComponentData(boidEntity, new Spine() { parent = -1, spineId = (spineLength + 1) * boidId });
+
+            entityManager.AddSharedComponentData(boidEntity, bodyMesh);
+
+            for (int i = 0; i < spineLength; i++)
+            {
+                int parentId = (boidId * (spineLength + 1)) + i;
+                Position sp = new Position
+                {
+                    Value = pos - (q * Vector3.forward) * size * (float)(i + 1)
+                };
+                Entity spineEntity = entityManager.CreateEntity(spineArchitype);
+                int spineIndex = (boidId * spineLength) + i;
+                allTheSpines[spineIndex] = spineEntity;
+
+                entityManager.SetComponentData(spineEntity, sp);
+                entityManager.SetComponentData(spineEntity, r);
+                entityManager.SetComponentData(spineEntity, new Spine() { parent = parentId, spineId = parentId + 1, offset = new Vector3(0, 0, -size) });
+                entityManager.AddSharedComponentData(spineEntity, bodyMesh);
+                s = new Scale
+                {
+                    Value = new Vector3(0.01f, Map(i, 0, spineLength, size, 0.01f * size), size)
+                };
+                //s.Value = new Vector3(2, 4, 10);
+                entityManager.SetComponentData(spineEntity, s);
+
+            }
+
+            // Make the head
+
+            Entity headEntity = entityManager.CreateEntity(headArchitype);
+            allTheheadsAndTails[boidId * 2] = headEntity;
+            Position headPosition = new Position();
+            headPosition.Value = pos + (q * Vector3.forward) * size;
+            entityManager.SetComponentData(headEntity, headPosition);
+            Rotation headRotation = new Rotation();
+            headRotation.Value = q;
+            entityManager.SetComponentData(headEntity, headRotation);
+            entityManager.AddSharedComponentData(headEntity, bodyMesh);
+            entityManager.SetComponentData(headEntity, s);
+            s = new Scale
+            {
+                Value = new Vector3(size * 0.3f, size, size)
+            };
+            //s.Value = new Vector3(2, 4, 10);
+            entityManager.SetComponentData(headEntity, s);
+            entityManager.SetComponentData(headEntity, new Head() { spineId = boidId * (spineLength + 1), boidId = boidId });
+            // End head
+
+            // Make the tail
+            Entity tailEntity = entityManager.CreateEntity(tailArchitype);
+            allTheheadsAndTails[(boidId * 2) + 1] = tailEntity;
+            Position tailPosition = new Position();
+            tailPosition.Value = pos - (q * Vector3.forward) * size;
+            //tailPosition.Value = pos - (q * Vector3.forward) * size * (spineLength + 2);
+            entityManager.SetComponentData(tailEntity, tailPosition);
+            Rotation tailRotation = new Rotation();
+            tailRotation.Value = q;
+            s = new Scale
+            {
+                Value = new Vector3(size * 0.3f, size, size)
+            };
+            //s.Value = new Vector3(2, 4, 10);
+            entityManager.SetComponentData(tailEntity, s);
+            entityManager.SetComponentData(tailEntity, tailRotation);
+            entityManager.AddSharedComponentData(tailEntity, bodyMesh);
+            entityManager.SetComponentData(tailEntity, s);
+            entityManager.SetComponentData(tailEntity, new Tail() { boidId = boidId, spineId = boidId * (spineLength + 1) });
             // End tail    
 
             return boidEntity;
@@ -268,16 +407,6 @@ namespace ew
         public float speed = 1.0f;
 
         public bool isContainer = false;
-
-        private void OnDestroy()
-        {
-            if (!isContainer)
-            {
-                allTheBoids.Dispose();
-                allTheSpines.Dispose();
-                allTheheadsAndTails.Dispose();
-            }
-        }
 
         // Start is called before the first frame update
         void Start()
@@ -336,6 +465,7 @@ namespace ew
                     mesh = mesh,
                     material = material
                 };
+                StartCoroutine(CreateBoids());
             }
 
             //StartCoroutine(CreateBoids());
@@ -349,6 +479,9 @@ namespace ew
             */
 
             Cursor.visible = false;
+
+            cr = StartCoroutine(Show());
+
             //Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -362,7 +495,7 @@ namespace ew
             {
                 Vector3 pos = UnityEngine.Random.insideUnitSphere * radius;
                 Quaternion q = Quaternion.Euler(UnityEngine.Random.Range(-20, 20), UnityEngine.Random.Range(0, 360), 0);
-                CreateBoidWithTail(transform.position + pos, q, created, size);
+                CreateBoidWithTrail(transform.position + pos, q, created, size);
                 created++;
                 if (created % maxBoidsPerFrame == 0)
                 {
@@ -376,8 +509,12 @@ namespace ew
         public int cellSize = 50;
         public int gridSize = 10000;
         public bool usePartitioning = true;
+        
+        Material boidMaterial;
 
+        public float colorSpeed = 100; 
 
+        public float colorAdd = 0;
 
         public void Update()
         {
@@ -387,14 +524,42 @@ namespace ew
             BoidJobSystem.Instance.bootstrap = this;
             SpineSystem.Instance.bootstrap = this;
             HeadsAndTailsSystem.Instance.bootstrap = this;
-            if (Input.GetKeyDown(KeyCode.Joystick1Button8))
+
+            /*if (Input.GetAxis("DPadX") == -1)
             {
-                StartCoroutine(CreateBoids());
+                colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);
+                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") + colorAdd);
             }
-            if (Input.GetKeyDown(KeyCode.Joystick1Button9))
+
+            if (Input.GetAxis("DPadX") == 1)
             {
-                DestroyEntities();
+                colorAdd = Mathf.Lerp(colorAdd, +colorSpeed, Time.deltaTime);
+                material.SetFloat("_PositionScale", material.GetFloat("_PositionScale") + colorAdd);
             }
+            */
+
+            if (Input.GetAxis("DPadY") == -1)
+            {
+                colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);                
+            }
+
+            if (Input.GetAxis("DPadY") == 1)
+            {
+                colorAdd = Mathf.Lerp(colorAdd, -colorSpeed, Time.deltaTime);
+            }
+            material.SetFloat("_Offset", material.GetFloat("_Offset") + colorAdd);
+            colorAdd = Mathf.Lerp(colorAdd, 0, Time.deltaTime * 0.5f);
+
+
+            //if (Input.GetKeyDown(KeyCode.Joystick1Button8))
+            //{
+            //    StartCoroutine(CreateBoids());
+                
+            //}
+            //if (Input.GetKeyDown(KeyCode.Joystick1Button9))
+            //{
+            //    DestroyEntities();
+            //}
 
             if (Input.GetKey(KeyCode.Joystick1Button2))
             {
@@ -420,112 +585,146 @@ namespace ew
         public float toPass = 0.3f;
         public int clickCount = 0;
 
+        void Awake()
+        {
+            //SceneManager.sceneUnloaded += DestroyTheBoids;
+        }
+
+        void DestroyTheBoids<Scene>(Scene scene)
+        {
+            if (!isContainer)
+            {
+                Debug.Log("Destroying the boids in " + SceneManager.GetActiveScene().name);
+                DestroyEntities();
+            }
+        }
+
+        void DoExplosion(int expType)
+        {
+            switch (expType)
+            {
+                case 1:
+                    radius = 10;
+                    totalNeighbours = 1;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    //constrainPosition = Camera.main.transform.position;
+                    break;
+                case 2:
+                    radius = 1000;
+                    cohesionWeight = 0;
+                    totalNeighbours = 100;
+                    neighbourDistance = 100;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 3:
+                    radius = 1300;
+                    cohesionWeight = 0;
+                    totalNeighbours = 100;
+                    neighbourDistance = 100;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 4:
+                    radius = 1500;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 0;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 5:
+                    radius = 2000;
+                    neighbourDistance = 0;
+                    totalNeighbours = 100;
+                    cohesionWeight = 0;
+                    limitUpAndDown = 1;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 6:
+                    radius = 800;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 7:
+                    radius = 1000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 8:
+                    radius = 1500;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 9:
+                    radius = 2000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    cohesionWeight = 2;
+                    limitUpAndDown = 0.9f;
+                    seekWeight = 0;
+                    constrainWeight = baseConstrainWeight;
+                    break;
+                case 10:
+                    seekWeight = 1;
+                    radius = 2000;
+                    neighbourDistance = 150;
+                    totalNeighbours = 100;
+                    fleeWeight = 3.0f;
+                    cohesionWeight = 2;
+                    constrainWeight = 0;
+                    limitUpAndDown = 0.9f;
+                    break;
+            }
+        }
+
+        public IEnumerator Show()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(30);
+                DoExplosion(1);
+                yield return new WaitForSeconds(UnityEngine.Random.Range(4,6));
+                int exp = UnityEngine.Random.Range(2, 10);
+                DoExplosion(exp);
+                Debug.Log(exp);
+            }
+        }
+
 
         void Explosion()
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.J))
             {
-                clickCount = (clickCount + 1) % 11;
+                clickCount = (clickCount + 1) % 10;
                 ellapsed = 0;
             }
             ellapsed += Time.deltaTime;
 
             if (ellapsed > toPass && clickCount > 0)
             {
+
                 Debug.Log(clickCount);
-                switch (clickCount)
-                {
-                    case 1:
-                        radius = 10;
-                        totalNeighbours = 1;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        //constrainPosition = Camera.main.transform.position;
-                        break;
-                    case 2:
-                        radius = 2000;
-                        cohesionWeight = 0;
-                        totalNeighbours = 100;
-                        neighbourDistance = 100;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 3:
-                        radius = 3000;
-                        cohesionWeight = 0;
-                        totalNeighbours = 100;
-                        neighbourDistance = 100;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 4:
-                        radius = 4000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 0;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 5:
-                        radius = 5000;
-                        neighbourDistance = 0;
-                        totalNeighbours = 100;
-                        cohesionWeight = 0;
-                        limitUpAndDown = 1;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 6:
-                        radius = 2000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 7:
-                        radius = 3000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 8:
-                        radius = 4000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 9:
-                        radius = 5000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        cohesionWeight = 2;
-                        limitUpAndDown = 0.9f;
-                        seekWeight = 0;
-                        constrainWeight = baseConstrainWeight;
-                        break;
-                    case 10:
-                        seekWeight = 1;
-                        radius = 5000;
-                        neighbourDistance = 150;
-                        totalNeighbours = 100;
-                        fleeWeight = 3.0f;
-                        cohesionWeight = 2;
-                        constrainWeight = 0;
-                        limitUpAndDown = 0.9f;
-                        break;
-                }
+                DoExplosion(clickCount);                
                 clickCount = 0;
             }
+            
         }
     }
 }
