@@ -15,6 +15,8 @@ public class SpawnParameters : MonoBehaviour {
 
     public float radiusRequired = 0;
 
+    public bool underneath = true;
+
     [HideInInspector]
     public GameObject Species;
 
