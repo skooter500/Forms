@@ -10,7 +10,7 @@ namespace BGE.Forms
     {
         public override void OnDrawGizmos()
         {
-            if (boid.drawGizmos)
+            if (GetComponent<Boid>().drawGizmos)
             {
                 Gizmos.color = Color.yellow;
                 if (boid != null)
