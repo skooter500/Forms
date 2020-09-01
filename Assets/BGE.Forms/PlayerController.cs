@@ -83,8 +83,8 @@ namespace BGE.Forms
             SpawnParameters sp = pc.species.GetComponent<SpawnParameters>();
             float a = sp.followCameraHalfFOV;
             float angle = Random.Range(-a, a);
-
-            Vector3 lp = Quaternion.Euler(30, angle, 0) * Vector3.forward;
+            
+            Vector3 lp = Quaternion.Euler(sp.underneath ? 30 : 0, angle, 0) * Vector3.forward;
             lp.Normalize();
             lp *= pc.distance;
             Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
@@ -220,7 +220,7 @@ namespace BGE.Forms
         int reactiveIndex = 0;
         int logoIndexToad = 0;
         int reactiveIndexToad = 0;
-        int videoIndex = 100;
+        int videoIndex = 0;
 
         public float journeying = 5.0f;
         public float delayMin = 30.0f;
@@ -398,6 +398,8 @@ namespace BGE.Forms
 
             newToad = GetComponent<NewToad>();
 
+            Invoke("LateStart", 5);
+
         }
 
         public void ConfigureBuild()
@@ -458,6 +460,13 @@ namespace BGE.Forms
         public float ellapsed = 0;
         public float toPass = 0.5f;
         public int clickCount = 0;
+
+        public void LateStart()
+        {
+            StopAllCoroutines();
+            showCoroutine = null;
+            showCoroutine = StartCoroutine(Show());
+        }
 
         private void Update()
         {
