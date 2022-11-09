@@ -1,0 +1,344 @@
+Using pre-set license
+Built from '2022.1/staging' branch; Version is '2022.1.20f1 (01d83b40d570) revision 120891'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19042) 64bit Education' Language: 'en' Physical Memory: 16256 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.1.20f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/skooter500/Documents/projects/Forms
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+63566
+Successfully changed project path to: C:/Users/skooter500/Documents/projects/Forms
+C:/Users/skooter500/Documents/projects/Forms
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 194.23 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.1.20f1 (01d83b40d570)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.1.20f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/skooter500/Documents/projects/Forms/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 (ID=0x1c20)
+    Vendor:   NVIDIA
+    VRAM:     6052 MB
+    Driver:   27.21.14.5687
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.1.20f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.1.20f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.1.20f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56660
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.20f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.013713 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 140.13 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.770 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1778ms)
+		BeginReloadAssembly (170ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (2ms)
+		EndReloadAssembly (1408ms)
+			LoadAssemblies (165ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (233ms)
+				TypeCache.Initialize (232ms)
+					TypeCache.ScanAssembly (229ms)
+				ResolveRequiredComponents (1ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (61ms)
+			SetupLoadedEditorAssemblies (951ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (131ms)
+				SetLoadedEditorAssemblies (30ms)
+				RefreshPlugins (140ms)
+				BeforeProcessingInitializeOnLoad (3ms)
+				ProcessInitializeOnLoadAttributes (212ms)
+				ProcessInitializeOnLoadMethodAttributes (433ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.045422 seconds.
+Assembly 'Unity.Properties.Codegen' is a CodeGen assembly and cannot be Auto Referenced (Packages/com.unity.properties/Unity.Properties.Codegen/Unity.Properties.Codegen.asmdef)
+Android Extension - Scanning For ADB Devices 1096 ms
+Assembly 'Unity.Properties.Codegen' is a CodeGen assembly and cannot be Auto Referenced (Packages/com.unity.properties/Unity.Properties.Codegen/Unity.Properties.Codegen.asmdef)
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.87 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Assembly 'Unity.Properties.Codegen' is a CodeGen assembly and cannot be Auto Referenced (Packages/com.unity.properties/Unity.Properties.Codegen/Unity.Properties.Codegen.asmdef)
+Mono: successfully reloaded assembly
+- Completed reload, in  1.418 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1419ms)
+		BeginReloadAssembly (219ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (7ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (34ms)
+		EndReloadAssembly (999ms)
+			LoadAssemblies (144ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (292ms)
+				TypeCache.Initialize (292ms)
+					TypeCache.ScanAssembly (287ms)
+				ResolveRequiredComponents (1ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (65ms)
+			SetupLoadedEditorAssemblies (455ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (38ms)
+				SetLoadedEditorAssemblies (10ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (208ms)
+				ProcessInitializeOnLoadAttributes (152ms)
+				ProcessInitializeOnLoadMethodAttributes (33ms)
+				AfterProcessingInitializeOnLoad (13ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 1.60 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3552 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 65 unused Assets / (1.3 MB). Loaded Objects now: 3988.
+Memory consumption went from 0.57 GB to 0.57 GB.
+Total: 3.963200 ms (FindLiveObjects: 0.392200 ms CreateObjectMapping: 0.429400 ms MarkObjects: 2.825400 ms  DeleteObjects: 0.314900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 57207.696753 seconds.
+  path: Assets/[CameraRig].prefab
+  artifactKey: Guid(b1c46c63f2f64524584455087c5dc576) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/[CameraRig].prefab using Guid(b1c46c63f2f64524584455087c5dc576) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f929cdab771e22e553232f027130148') in 0.063830 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/circle.prefab
+  artifactKey: Guid(e7fa47dfb1e358c4b9ea5adf5530f9c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/circle.prefab using Guid(e7fa47dfb1e358c4b9ea5adf5530f9c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '794f47da47a80619924270f9adca54bc') in 0.159886 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/BlueMaterial.mat
+  artifactKey: Guid(80b3c060e6192c0418bf454be3c7d92c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BlueMaterial.mat using Guid(80b3c060e6192c0418bf454be3c7d92c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f498a9e565111828389c351e74496443') in 0.593391 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/DIT_Low_01.fbx
+  artifactKey: Guid(9e41ce570fd8c2143a5cd4d10ab1fcb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DIT_Low_01.fbx using Guid(9e41ce570fd8c2143a5cd4d10ab1fcb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9edf40278d534091df70bf984ef5dcc') in 0.632069 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.267506 seconds.
+  path: Assets/dmt.prefab
+  artifactKey: Guid(43e28cb8911a9eb4aa2c76444cfc62da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/dmt.prefab using Guid(43e28cb8911a9eb4aa2c76444cfc62da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58516f7f0cb13c0aa3d8bb40fc4774bc') in 0.028347 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Post-Processing Profile.asset
+  artifactKey: Guid(bce69b3095379f54e86ae446de1748b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Post-Processing Profile.asset using Guid(bce69b3095379f54e86ae446de1748b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7a3f20b6eb8516ac17126b732ae680e') in 0.016364 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/steveCreatureParts1.prefab
+  artifactKey: Guid(e705880bf90a8504692f49253cbfc51f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/steveCreatureParts1.prefab using Guid(e705880bf90a8504692f49253cbfc51f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58c24ebc7975047d88801063f10cf5f3') in 0.026236 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/GoldFishMaterial.mat
+  artifactKey: Guid(c76bdf629cd412f4cb3543cc09e305a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldFishMaterial.mat using Guid(c76bdf629cd412f4cb3543cc09e305a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e765469e2c8fb8cbc13888c615756d9') in 0.024434 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/New Material.mat
+  artifactKey: Guid(48596809397ba504ea5f88a1819d40ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Material.mat using Guid(48596809397ba504ea5f88a1819d40ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8630604a6aa2bc5750c574408ad48e14') in 0.141283 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/rayCreature.prefab
+  artifactKey: Guid(af86ab398288f954ba169cfa8cd14993) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/rayCreature.prefab using Guid(af86ab398288f954ba169cfa8cd14993) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f471a321905afe96bfdc52989b14f6a') in 0.278460 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/MermainMaterial.mat
+  artifactKey: Guid(162f40e2610d0bb40b8e9688e1644c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MermainMaterial.mat using Guid(162f40e2610d0bb40b8e9688e1644c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40c77a480869ad767c9ac358b4123e96') in 0.015513 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/SkyMaterial.mat
+  artifactKey: Guid(afde7ae2d81e0ff44abbefc649d7d54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SkyMaterial.mat using Guid(afde7ae2d81e0ff44abbefc649d7d54b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb246c25eac9a72a4f01f657179a4bda') in 0.018002 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/New Physic Material.physicMaterial
+  artifactKey: Guid(38c0ee67a739699428aa1d1228f83a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Physic Material.physicMaterial using Guid(38c0ee67a739699428aa1d1228f83a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ceef8df78ae0ad8f20b12886b7e58b01') in 0.010257 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Red.mat
+  artifactKey: Guid(de5e45a1972b1924db02a54ab81d8d79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Red.mat using Guid(de5e45a1972b1924db02a54ab81d8d79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ce09156ec52cd2b1cede7214a92e102') in 0.017281 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/PlaneMaterial.mat
+  artifactKey: Guid(42b7b445cfbea2d47a6073864ecda53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PlaneMaterial.mat using Guid(42b7b445cfbea2d47a6073864ecda53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a76618a137c81db96538cf76d9ea48ca') in 0.018384 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/formation.prefab
+  artifactKey: Guid(ecdd83c9feaa66f4eb06cb8c9463c03e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/formation.prefab using Guid(ecdd83c9feaa66f4eb06cb8c9463c03e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1296306ec20862390e0b4b52c97d91b0') in 0.058958 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/steve1.prefab
+  artifactKey: Guid(948c01802e9895447a097dc374ba4fa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/steve1.prefab using Guid(948c01802e9895447a097dc374ba4fa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9d2e4d866fb3c672a518c1fb8444614') in 0.014210 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000090 seconds.
+  path: Assets/EngineParticle.psd
+  artifactKey: Guid(c0c081b01991d4c5d994839b85bf6bf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EngineParticle.psd using Guid(c0c081b01991d4c5d994839b85bf6bf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d21d6ed921335fea43a3317fb6744f5') in 0.036451 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/emissivetest.mat
+  artifactKey: Guid(4a3d3bdc044b6f94f853cb84f7f8488e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/emissivetest.mat using Guid(4a3d3bdc044b6f94f853cb84f7f8488e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b792adb1bf4bf38168889fe79af33fb4') in 0.026104 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/MistySystem.prefab
+  artifactKey: Guid(b3d32388e548a3b4995339e756e946de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MistySystem.prefab using Guid(b3d32388e548a3b4995339e756e946de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '450300e0e1f63467779d5753c65e3dba') in 0.022795 seconds 
