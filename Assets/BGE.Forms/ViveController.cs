@@ -6,8 +6,8 @@ namespace BGE.Forms
 {
     public class ViveController : MonoBehaviour {
 
-        public SteamVR_TrackedObject leftTrackedObject;
-        public SteamVR_TrackedObject rightTrackedObject;
+        //public SteamVR_TrackedObject leftTrackedObject;
+        //public SteamVR_TrackedObject rightTrackedObject;
         private Rigidbody rigidBody;
 
         public GameObject leftEngine;
@@ -20,21 +20,21 @@ namespace BGE.Forms
         public static ViveController Instance;
 
         public Boid boid; // Am I controlling a boid?
-        private SteamVR_Controller.Device leftController
-        {
-            get
-            {
-                return SteamVR_Controller.Input((int)leftTrackedObject.index);
-            }
-        }
+        //private SteamVR_Controller.Device leftController
+        //{
+        //    get
+        //    {
+        //        return SteamVR_Controller.Input((int)leftTrackedObject.index);
+        //    }
+        //}
 
-        private SteamVR_Controller.Device rightController
-        {
-            get
-            {
-                return SteamVR_Controller.Input((int)rightTrackedObject.index);
-            }
-        }
+        //private SteamVR_Controller.Device rightController
+        //{
+        //    get
+        //    {
+        //        return SteamVR_Controller.Input((int)rightTrackedObject.index);
+        //    }
+        //}
 
         void Awake()
         {
@@ -117,114 +117,115 @@ namespace BGE.Forms
         // Update is called once per frame
         void Update()
         {
-            float leftTrig = 0.0f;
-            float rightTrig = 0.0f;
+            
+        //    float leftTrig = 0.0f;
+        //    float rightTrig = 0.0f;
 
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                haptics = !haptics;
-            }
-            CreatureManager.Log("Haptics: " + haptics);
+        //    if (Input.GetKeyDown(KeyCode.H))
+        //    {
+        //        haptics = !haptics;
+        //    }
+        //    CreatureManager.Log("Haptics: " + haptics);
 
-            if (leftTrackedObject != null && leftTrackedObject.isActiveAndEnabled)
-            {
-                // The trigger button
-                leftTrig = leftController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
+        //    if (leftTrackedObject != null && leftTrackedObject.isActiveAndEnabled)
+        //    {
+        //        // The trigger button
+        //        leftTrig = leftController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
 
-                if (leftTrig > 0.2f)
-                {
-                    if (boid == null)
-                    {
-                        rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-                        leftEngine.GetComponent<JetFire>().fire = leftTrig;
-                    }
-                    else
-                    {
-                        boid.speed = boid.maxSpeed * leftTrig;
-                        HarmonicController hc  = boid.GetComponent<HarmonicController>();
-                        if (hc != null)
-                        {
-                            boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
-                        }
+        //        if (leftTrig > 0.2f)
+        //        {
+        //            if (boid == null)
+        //            {
+        //                rigidBody.AddForceAtPosition(leftTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
+        //                leftEngine.GetComponent<JetFire>().fire = leftTrig;
+        //            }
+        //            else
+        //            {
+        //                boid.speed = boid.maxSpeed * leftTrig;
+        //                HarmonicController hc  = boid.GetComponent<HarmonicController>();
+        //                if (hc != null)
+        //                {
+        //                    boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
+        //                }
 
-                    }
-                }
-                else
-                {
-                    leftEngine.GetComponent<JetFire>().fire = 0;
-                }
-            }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            leftEngine.GetComponent<JetFire>().fire = 0;
+        //        }
+        //    }
 
-            if (rightTrackedObject != null && rightTrackedObject.isActiveAndEnabled)
-            {
-                // The trigger button
-                rightTrig = rightController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
+        //    if (rightTrackedObject != null && rightTrackedObject.isActiveAndEnabled)
+        //    {
+        //        // The trigger button
+        //        rightTrig = rightController.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis1).x;
 
-                if (rightTrig > 0.2f)
-                {
-                    if (boid == null)
-                    {
-                        rigidBody.AddForceAtPosition(rightTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
-                        rightEngine.GetComponent<JetFire>().fire = rightTrig;
-                    }
-                    else
-                    {
-                        //boid.maxSpeed *= rightTrig;
-                        //boid.GetComponent<Harmonic>().speed *= rightTrig;
-                    }
-                }
-                else
-                {
-                    rightEngine.GetComponent<JetFire>().fire = 0;
-                }
-            }
+        //        if (rightTrig > 0.2f)
+        //        {
+        //            if (boid == null)
+        //            {
+        //                rigidBody.AddForceAtPosition(rightTrackedObject.transform.forward * power * leftTrig, leftTrackedObject.transform.position);
+        //                rightEngine.GetComponent<JetFire>().fire = rightTrig;
+        //            }
+        //            else
+        //            {
+        //                //boid.maxSpeed *= rightTrig;
+        //                //boid.GetComponent<Harmonic>().speed *= rightTrig;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            rightEngine.GetComponent<JetFire>().fire = 0;
+        //        }
+        //    }
 
-            //rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
+        //    //rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
 
-            float max = 3500;
+        //    float max = 3500;
 
-            if (haptics && boid == null)
-            {
-                try
-                {
+        //    if (haptics && boid == null)
+        //    {
+        //        try
+        //        {
 
-                    SteamVR_Controller.Device l = SteamVR_Controller.Input(
-                        SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost));
-                    if (l != null)
-                    {
-                        l.TriggerHapticPulse((ushort)(leftTrig * max));
-                    }
+        //            SteamVR_Controller.Device l = SteamVR_Controller.Input(
+        //                SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost));
+        //            if (l != null)
+        //            {
+        //                l.TriggerHapticPulse((ushort)(leftTrig * max));
+        //            }
 
-                    SteamVR_Controller.Device r = SteamVR_Controller.Input(
-                        SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost));
-                    if (r != null)
-                    {
-                        r.TriggerHapticPulse((ushort)(rightTrig * max));
-                    }
-                }
-                catch (IndexOutOfRangeException e)
-                {
+        //            SteamVR_Controller.Device r = SteamVR_Controller.Input(
+        //                SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost));
+        //            if (r != null)
+        //            {
+        //                r.TriggerHapticPulse((ushort)(rightTrig * max));
+        //            }
+        //        }
+        //        catch (IndexOutOfRangeException e)
+        //        {
 
-                }
-            }
+        //        }
+        //    }
 
-            /*
-            if (leftTrig > 0.2f && rightTrig > 0.2f)
-            {
-                rigidBody.AddForce(head.transform.forward * power * 10);
-            }
-            else if (leftTrig > 0.2f)
-            {
-                desiredYaw *= Quaternion.AngleAxis(leftTrig * 0.5f, Vector3.up);
-            }
-            else if (rightTrig > 0.2f)
-            {
-                desiredYaw *= Quaternion.AngleAxis(rightTrig * 0.5f, -Vector3.up);
-            }
+        //    /*
+        //    if (leftTrig > 0.2f && rightTrig > 0.2f)
+        //    {
+        //        rigidBody.AddForce(head.transform.forward * power * 10);
+        //    }
+        //    else if (leftTrig > 0.2f)
+        //    {
+        //        desiredYaw *= Quaternion.AngleAxis(leftTrig * 0.5f, Vector3.up);
+        //    }
+        //    else if (rightTrig > 0.2f)
+        //    {
+        //        desiredYaw *= Quaternion.AngleAxis(rightTrig * 0.5f, -Vector3.up);
+        //    }
 
-            float currentYaw = transform.rotation.eulerAngles.y;
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredYaw, Time.deltaTime);
-            */
+        //    float currentYaw = transform.rotation.eulerAngles.y;
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, desiredYaw, Time.deltaTime);
+        //    */
         }
     }
 }
