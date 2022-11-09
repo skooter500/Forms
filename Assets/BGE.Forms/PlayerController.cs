@@ -407,14 +407,14 @@ namespace BGE.Forms
             switch (buildType)
             {
                 case BuildType.Oculus:
-                    oculusStuff.SetActive(true);
-                    viveStuff.SetActive(false);
-                    vrController = GetComponent<OculusController>();
-                    vrController.enabled = true;
-                    mother.maxcreatures = 2;
-                    GetComponent<ViveController>().enabled = false;
-                    //GetComponent<AudioSource>().enabled = true;
-                    ctc.enabled = false;
+                    //oculusStuff.SetActive(true);
+                    //viveStuff.SetActive(false);
+                    //vrController = GetComponent<OculusController>();
+                    //vrController.enabled = true;
+                    //mother.maxcreatures = 2;
+                    //GetComponent<ViveController>().enabled = false;
+                    ////GetComponent<AudioSource>().enabled = true;
+                    //ctc.enabled = false;
                     break;
                 case BuildType.Vive:
                     oculusStuff.SetActive(false);
