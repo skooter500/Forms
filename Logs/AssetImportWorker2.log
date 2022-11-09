@@ -1641,3 +1641,539 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.033614 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.28 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.15 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00044] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:271 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x000b0] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:256 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x000a5] in <686f40992bed4a6ebc158b4beb1e91db>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Completed reload, in  5.170 seconds
+Domain Reload Profiling:
+	ReloadAssembly (5182ms)
+		BeginReloadAssembly (1662ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (23ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (1ms)
+			CreateAndSetChildDomain (874ms)
+		EndReloadAssembly (3266ms)
+			LoadAssemblies (437ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (669ms)
+				TypeCache.Initialize (649ms)
+					TypeCache.ScanAssembly (639ms)
+				ResolveRequiredComponents (20ms)
+			ReleaseScriptCaches (3ms)
+			RebuildScriptCaches (147ms)
+			SetupLoadedEditorAssemblies (1765ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (52ms)
+				SetLoadedEditorAssemblies (18ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (275ms)
+				ProcessInitializeOnLoadAttributes (812ms)
+				ProcessInitializeOnLoadMethodAttributes (500ms)
+				AfterProcessingInitializeOnLoad (103ms)
+				EditorAssembliesLoaded (2ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (56ms)
+Platform modules already initialized, skipping
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Refreshing native plugins compatible for Editor in 14.94 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.19 ms.
+Unloading 3947 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 68 unused Assets / (0.7 MB). Loaded Objects now: 4605.
+Memory consumption went from 0.62 GB to 0.62 GB.
+Total: 11.828800 ms (FindLiveObjects: 0.448500 ms CreateObjectMapping: 0.497100 ms MarkObjects: 10.384100 ms  DeleteObjects: 0.497700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.029523 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.50 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.16 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00044] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:271 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x000b0] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:256 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x000a5] in <686f40992bed4a6ebc158b4beb1e91db>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Completed reload, in  3.164 seconds
+Domain Reload Profiling:
+	ReloadAssembly (3169ms)
+		BeginReloadAssembly (368ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (22ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (101ms)
+		EndReloadAssembly (2535ms)
+			LoadAssemblies (232ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (493ms)
+				TypeCache.Initialize (481ms)
+					TypeCache.ScanAssembly (471ms)
+				ResolveRequiredComponents (12ms)
+			ReleaseScriptCaches (3ms)
+			RebuildScriptCaches (147ms)
+			SetupLoadedEditorAssemblies (1282ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (45ms)
+				SetLoadedEditorAssemblies (17ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (252ms)
+				ProcessInitializeOnLoadAttributes (618ms)
+				ProcessInitializeOnLoadMethodAttributes (327ms)
+				AfterProcessingInitializeOnLoad (20ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (40ms)
+Platform modules already initialized, skipping
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Refreshing native plugins compatible for Editor in 7.29 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.11 ms.
+Unloading 3947 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 68 unused Assets / (0.7 MB). Loaded Objects now: 4611.
+Memory consumption went from 0.62 GB to 0.62 GB.
+Total: 10.001300 ms (FindLiveObjects: 0.545000 ms CreateObjectMapping: 0.544800 ms MarkObjects: 8.322100 ms  DeleteObjects: 0.587800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2360.391507 seconds.
+  path: Assets/Cylinder.prefab
+  artifactKey: Guid(75f7cd5c7f38b084998a2b54183fcd70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Cylinder.prefab using Guid(75f7cd5c7f38b084998a2b54183fcd70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ef84afea16044524ea61b457f9ee42e') in 0.667550 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.453191 seconds.
+  path: Assets/Jet_Engine_Flames
+  artifactKey: Guid(a88f492e80e5d324586c88757081da6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames using Guid(a88f492e80e5d324586c88757081da6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '102ee11f6a70f912da8a448b0eabff02') in 0.033694 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.763366 seconds.
+  path: Assets/Jet_Engine_Flames/Prefabs
+  artifactKey: Guid(bd9139f7b867de84c924ddf3afe9ff61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Prefabs using Guid(bd9139f7b867de84c924ddf3afe9ff61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ed60a059910478896383485b288f024') in 0.036397 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000082 seconds.
+  path: Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_B.prefab
+  artifactKey: Guid(217ce1aa316bdd240bbe19c9960b1ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_B.prefab using Guid(217ce1aa316bdd240bbe19c9960b1ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a81c42c1ea0adc516b7643e4ddefd4e6') in 0.068874 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_C.prefab
+  artifactKey: Guid(a5d648a608b2bf4469f3e160e3443ce3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_C.prefab using Guid(a5d648a608b2bf4469f3e160e3443ce3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e250cbe68c152e35c0322be7449f5e2f') in 0.063311 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000116 seconds.
+  path: Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Smoke_Audio.prefab
+  artifactKey: Guid(922adcfc860b50c45a047eacf8f6a4b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Smoke_Audio.prefab using Guid(922adcfc860b50c45a047eacf8f6a4b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57c0d5ccf8c1d8f208c8ece0f8af2947') in 0.064254 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000090 seconds.
+  path: Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_D.prefab
+  artifactKey: Guid(35b5c2a92e6ae13439dc86be5ec9fff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_D.prefab using Guid(35b5c2a92e6ae13439dc86be5ec9fff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '941e014fa10015ce4e38104ebc1b7142') in 0.062948 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_A.prefab
+  artifactKey: Guid(60833e80de3ebb84db46c2a99c0f09bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Prefabs/Jet_Engine_Flames_A.prefab using Guid(60833e80de3ebb84db46c2a99c0f09bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24d6da6bb816207117f4f77a8481afe8') in 0.068040 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 286.600480 seconds.
+  path: Assets/Forms3/Samples/XR Interaction Toolkit/2.0.3/Starter Assets/XRI Default Continuous Move.preset
+  artifactKey: Guid(91f9da00cfdac5d49955df2d2d820b9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Forms3/Samples/XR Interaction Toolkit/2.0.3/Starter Assets/XRI Default Continuous Move.preset using Guid(91f9da00cfdac5d49955df2d2d820b9c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdc3a886c9352ce614414607583ce6de') in 0.181036 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000072 seconds.
+  path: Assets/Forms3/Samples/XR Interaction Toolkit/2.0.3/Starter Assets/XRI Default Left Controller.preset
+  artifactKey: Guid(ffd8268f7307a0c48a067dad4a8fe060) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Forms3/Samples/XR Interaction Toolkit/2.0.3/Starter Assets/XRI Default Left Controller.preset using Guid(ffd8268f7307a0c48a067dad4a8fe060) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9ad5234f5302c8c5316554ebe0dc085') in 0.082977 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000118 seconds.
+  path: Assets/Forms3/Samples/XR Interaction Toolkit/2.0.3/Starter Assets/XRI Default Input Actions.inputactions
+  artifactKey: Guid(c348712bda248c246b8c49b3db54643f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Forms3/Samples/XR Interaction Toolkit/2.0.3/Starter Assets/XRI Default Input Actions.inputactions using Guid(c348712bda248c246b8c49b3db54643f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '578dfa7c9996acb2cfb455e7d6e7cde1') in 0.126903 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.074044 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.98 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.27 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00044] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:271 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x000b0] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:256 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x000a5] in <686f40992bed4a6ebc158b4beb1e91db>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Completed reload, in  7.875 seconds
+Domain Reload Profiling:
+	ReloadAssembly (7879ms)
+		BeginReloadAssembly (628ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (31ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (184ms)
+		EndReloadAssembly (5873ms)
+			LoadAssemblies (882ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (1087ms)
+				TypeCache.Initialize (1048ms)
+					TypeCache.ScanAssembly (1029ms)
+				ResolveRequiredComponents (39ms)
+			ReleaseScriptCaches (6ms)
+			RebuildScriptCaches (309ms)
+			SetupLoadedEditorAssemblies (3369ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (136ms)
+				SetLoadedEditorAssemblies (41ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (658ms)
+				ProcessInitializeOnLoadAttributes (1535ms)
+				ProcessInitializeOnLoadMethodAttributes (960ms)
+				AfterProcessingInitializeOnLoad (34ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (21ms)
+Platform modules already initialized, skipping
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Refreshing native plugins compatible for Editor in 16.22 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.19 ms.
+Unloading 3946 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 68 unused Assets / (0.7 MB). Loaded Objects now: 4617.
+Memory consumption went from 0.62 GB to 0.62 GB.
+Total: 24.401900 ms (FindLiveObjects: 0.585600 ms CreateObjectMapping: 0.545800 ms MarkObjects: 22.296000 ms  DeleteObjects: 0.972200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 107.642787 seconds.
+  path: Assets/Jet_Engine_Flames/FBX/Materials/Eject_Seat.mat
+  artifactKey: Guid(4368ab18ea9271641949eaa41a4f2351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/FBX/Materials/Eject_Seat.mat using Guid(4368ab18ea9271641949eaa41a4f2351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3195f8e8f9aa7e497671934d65155df4') in 1.671625 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Jet_Engine_Flames/FBX/Materials/Jet_Engine_B_mtl.mat
+  artifactKey: Guid(6855f3d5d3464364280cad3cce55564a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/FBX/Materials/Jet_Engine_B_mtl.mat using Guid(6855f3d5d3464364280cad3cce55564a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6617631431899ac8ede0113df126b48') in 0.099370 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Jet_Engine_Flames/FBX/Materials/Plane_Body_mtl.mat
+  artifactKey: Guid(8f8b0dc84eb32c94883f7401ef11f19b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/FBX/Materials/Plane_Body_mtl.mat using Guid(8f8b0dc84eb32c94883f7401ef11f19b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6139aab74de79c7e21c12ab092e8785a') in 2.533872 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Jet_Engine_Flames/FBX/Materials/Plane_Seat_mtl.mat
+  artifactKey: Guid(26e8b7a4b1e34bb4f935f94761067ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/FBX/Materials/Plane_Seat_mtl.mat using Guid(26e8b7a4b1e34bb4f935f94761067ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cedca5a611d7741c5ba7c42a0355938a') in 0.536381 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000108 seconds.
+  path: Assets/Jet_Engine_Flames/FBX/Materials/Glass_Cockpit.mat
+  artifactKey: Guid(94bb3d7fd4a160945964f9c6c607799c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/FBX/Materials/Glass_Cockpit.mat using Guid(94bb3d7fd4a160945964f9c6c607799c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37c859836a50712221ce27d5cfed6ba4') in 0.319913 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 32.909558 seconds.
+  path: Assets/Jet_Engine_Flames/Textures/Jet_Engine_A_TextureSheet.tif
+  artifactKey: Guid(e9a446e7781d29a42b424986ec5b3594) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/Textures/Jet_Engine_A_TextureSheet.tif using Guid(e9a446e7781d29a42b424986ec5b3594) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ecbc2c648b1fc75a8b45bbd831f248b') in 1.451003 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.240071 seconds.
+  path: Assets/Jet_Engine_Flames/FBX/Materials/Jet_Engine_A_mtl.mat
+  artifactKey: Guid(51e7e0001c69b3144a62a0bc97f40cfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Jet_Engine_Flames/FBX/Materials/Jet_Engine_A_mtl.mat using Guid(51e7e0001c69b3144a62a0bc97f40cfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '550b01f3e43a05b75dd579145a9a5068') in 0.268624 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.035265 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.46 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.21 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x00044] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:271 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x000b0] in C:\Users\skooter500\Documents\projects\Forms\Library\PackageCache\com.unity.xr.oculus@3.0.2\Runtime\OculusLoader.cs:256 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <3dd5df5ef4974f29afeb2d3ba227c5da>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x000a5] in <686f40992bed4a6ebc158b4beb1e91db>:0 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Completed reload, in  5.247 seconds
+Domain Reload Profiling:
+	ReloadAssembly (5251ms)
+		BeginReloadAssembly (274ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (12ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (73ms)
+		EndReloadAssembly (4765ms)
+			LoadAssemblies (191ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (1804ms)
+				TypeCache.Initialize (1763ms)
+					TypeCache.ScanAssembly (1742ms)
+				ResolveRequiredComponents (41ms)
+			ReleaseScriptCaches (4ms)
+			RebuildScriptCaches (114ms)
+			SetupLoadedEditorAssemblies (2167ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (47ms)
+				SetLoadedEditorAssemblies (25ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (280ms)
+				ProcessInitializeOnLoadAttributes (661ms)
+				ProcessInitializeOnLoadMethodAttributes (1004ms)
+				AfterProcessingInitializeOnLoad (145ms)
+				EditorAssembliesLoaded (2ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (106ms)
+Platform modules already initialized, skipping
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Refreshing native plugins compatible for Editor in 11.90 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.18 ms.
+Unloading 3946 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 68 unused Assets / (0.7 MB). Loaded Objects now: 4623.
+Memory consumption went from 0.62 GB to 0.62 GB.
+Total: 16.451900 ms (FindLiveObjects: 0.574200 ms CreateObjectMapping: 0.638800 ms MarkObjects: 14.474200 ms  DeleteObjects: 0.762700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
