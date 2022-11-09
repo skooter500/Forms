@@ -31,11 +31,11 @@ public class SceneSwitcher : MonoBehaviour
 
             i = (i + 1) % scenes.Length;
 
-            ew.BoidBootstrap bb = FindObjectOfType<ew.BoidBootstrap>();
-            if (bb != null)
-            {
-                //bb.DestroyEntities();
-            }
+            //ew.BoidBootstrap bb = FindObjectOfType<ew.BoidBootstrap>();
+            //if (bb != null)
+            //{
+            //    //bb.DestroyEntities();
+            //}
 
             SceneManager.LoadScene(scenes[i]);            
         }

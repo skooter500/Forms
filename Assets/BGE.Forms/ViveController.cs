@@ -50,16 +50,17 @@ namespace BGE.Forms
 
         public bool GetGrip()
         {
-            if (leftTrackedObject == null || rightTrackedObject == null || !leftTrackedObject.isActiveAndEnabled || !rightTrackedObject.isActiveAndEnabled)
-            {
-                return false;
-            }
-            else
-            {
-                return
-                    leftController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)
-                    || rightController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip);
-            }
+            //if (leftTrackedObject == null || rightTrackedObject == null || !leftTrackedObject.isActiveAndEnabled || !rightTrackedObject.isActiveAndEnabled)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
+            //    return
+            //        leftController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)
+            //        || rightController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip);
+            //}
+            return false;
         }
 
         System.Collections.IEnumerator StraightenUp()

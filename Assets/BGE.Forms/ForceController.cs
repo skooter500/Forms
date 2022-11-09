@@ -139,7 +139,7 @@ namespace BGE.Forms
             {
                 Yaw(mouseX * Time.deltaTime * contAngularSpeed);
             }
-            else if (mouseY != 0 && !UnityEngine.XR.XRDevice.isPresent)
+            else if (mouseY != 0 && false /* !UnityEngine.XR.XRDevice.isPresent */ )
             {
                 Pitch(-mouseY * Time.deltaTime * contAngularSpeed);
             }
@@ -151,7 +151,7 @@ namespace BGE.Forms
 
             if (Mathf.Abs(joyY) > 0.1f)
             {
-                if (!UnityEngine.XR.XRDevice.isPresent)
+                if (false /*!UnityEngine.XR.XRDevice.isPresent */)
                 {
                     Pitch(-joyY * contAngularSpeed * Time.deltaTime);
                 }

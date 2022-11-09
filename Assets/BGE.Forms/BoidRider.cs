@@ -13,7 +13,7 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
-            vrMode = UnityEngine.XR.XRDevice.isPresent;
+            vrMode = true; //  UnityEngine.XR.XRDevice.isPresent;
         }
 
 
