@@ -119,6 +119,7 @@ namespace BGE.Forms
         void FixedUpdate()
         {
 
+
             rotating = false;
             float mouseX, mouseY;
             float contSpeed = this.speed;
