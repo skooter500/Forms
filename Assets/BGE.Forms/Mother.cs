@@ -417,11 +417,16 @@ namespace BGE.Forms
         {
             school = GetComponent<School>();
 
-            for(int i = 0; i < 1; i ++)
+            for(int i = 0; i < prefabs.Length; i ++)
             {
                 // Find a spawn point
                 // Calculate the position
+                Debug.Log("Making a: " + prefabs[i]);
                 GetSpecies(i, prefabs[i].GetComponent<SpawnParameters>().singleton);
+                if (i >= maxcreatures)
+                {
+
+                }
             }
 
             //StartCoroutine(Spawn());
