@@ -136,10 +136,10 @@ namespace BGE.Forms
         {
             
             Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);
-            if (head != null && GetComponent<SpawnParameters>() != null)
-            {
-                GetComponent<SpawnParameters>().boid = head.GetComponent<Boid>();
-            }
+            //if (head != null && GetComponent<SpawnParameters>() != null)
+            //{
+            //    GetComponent<SpawnParameters>().boid = head.GetComponent<Boid>();
+            //}
         }
 	
         // Update is called once per frame

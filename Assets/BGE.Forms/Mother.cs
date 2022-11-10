@@ -177,7 +177,7 @@ namespace BGE.Forms
         }
 
 
-
+        /*
         System.Collections.IEnumerator Spawn()
         {
             float delay = 1.0f / (float)spawnRate;
@@ -227,6 +227,7 @@ namespace BGE.Forms
                 yield return new WaitForSeconds(delay);
             }
         }
+        */
 
         public GameObject GetSpecies(int speciesIndex, bool useExisting)
         {
@@ -249,7 +250,7 @@ namespace BGE.Forms
                 if (FindPlace(newCreature, out newPos))
                 {
                     suspended.Remove(prefabs[speciesIndex], newCreature);
-                    Teleport(newCreature, newPos);
+                    //Teleport(newCreature, newPos);
                     newCreature.SetActive(true);
                     if (newCreature.GetComponent<LifeColours>())
                     {
@@ -404,15 +405,15 @@ namespace BGE.Forms
         {
             school = GetComponent<School>();
 
-            for(int i = 0; i < prefabs.Length; i ++)
+            for(int i = 0; i < 1 ; i ++)
             {
                 Debug.Log("Making a: " + prefabs[i]);
                 GameObject s = GetSpecies(i, false);
                 
                 if (i >= maxcreatures)
                 {
-                    Debug.Log("     Suspending a: " + s);
-                    Suspend(prefabs[i], s);
+                    //Debug.Log("     Suspending a: " + s);
+                    //Suspend(prefabs[i], s);
                 }
             }
 
