@@ -54,10 +54,11 @@ public class OculusController : MonoBehaviour {
         //CreatureManager.Log("Haptics: " + haptics);
 
         float l = left.input.action.ReadValue<float>();
+        float r = right.input.action.ReadValue<float>();
 
         if (boid != null)
         {
-            boid.speed = boid.maxSpeed * l;
+            boid.speed = boid.maxSpeed * l * r;
             HarmonicController hc = boid.GetComponent<HarmonicController>();
             if (hc != null)
             {

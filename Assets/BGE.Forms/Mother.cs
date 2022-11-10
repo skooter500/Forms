@@ -406,8 +406,9 @@ namespace BGE.Forms
 
             for(int i = 0; i < prefabs.Length; i ++)
             {
+                Debug.Log("Making a: " + prefabs[i]);
                 GameObject s = GetSpecies(i, false);
-                Debug.Log("Making a: " + s);
+                
                 if (i >= maxcreatures)
                 {
                     Debug.Log("     Suspending a: " + s);
