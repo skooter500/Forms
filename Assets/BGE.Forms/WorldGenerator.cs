@@ -219,9 +219,9 @@ namespace BGE.Forms
                     int playerX = (int)(Mathf.Floor((player.transform.position.x) / (quadsPerTile * cellSize)) * quadsPerTile);
                     int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (quadsPerTile * cellSize)) * quadsPerTile);
                     List<Vector3> newTiles = new List<Vector3>();
-                    for (int x = -halfTile; x < halfTile; x++)
+                    for (int x = -halfTile; x <= halfTile; x++)
                     {
-                        for (int z = -halfTile; z < halfTile; z++)
+                        for (int z = -halfTile + 1; z <= halfTile+1; z++)
                         {
                             Vector3 pos = new Vector3((x * quadsPerTile + playerX),
                                 0,
@@ -514,11 +514,11 @@ namespace BGE.Forms
             }
             lastY = y;
 
-            if (topD != -1 && ellapsed > toPass)
-            {
-                SetGroundMaterialASync(topD);                
-                topD = -1;
-            }
+            //if (topD != -1 && ellapsed > toPass)
+            //{
+            //    SetGroundMaterialASync(topD);                
+            //    topD = -1;
+            //}
             ellapsed += Time.deltaTime;
         }
 

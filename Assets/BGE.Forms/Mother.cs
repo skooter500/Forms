@@ -26,7 +26,7 @@ namespace BGE.Forms
 
         School school;
 
-        public bool spawnInFront = true;
+        public bool spawnInFront = false;
 
         public float fov = 20;
 

@@ -16,7 +16,7 @@ namespace BGE.Forms
                 //Debug.Log("Player control state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
-                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                //pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.vrController.enabled = true;
                 pc.fc.enabled = true;
             }
@@ -44,7 +44,7 @@ namespace BGE.Forms
                     pc.playerCruise.transform.position = pc.player.transform.position;
                 }
                 
-                pc.player.GetComponent<Rigidbody>().isKinematic = true;
+                // pc.player.GetComponent<Rigidbody>().isKinematic = true;
                 pc.player.transform.parent = pc.playerCruise.transform;
                 pc.player.transform.localPosition = Vector3.zero;
                 pc.player.transform.rotation = pc.cruise.transform.rotation;
@@ -56,7 +56,7 @@ namespace BGE.Forms
             public override void Exit()
             {
                 pc.player.transform.parent = null;
-                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+               // pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 c.enabled = false;
             }
         }
@@ -160,7 +160,7 @@ namespace BGE.Forms
                 Utilities.SetActive(pc.sceneAvoidance, false);
                 Utilities.SetActive(pc.op, false);
 
-                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                //pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.vrController.enabled = true;
                 pc.fc.enabled = true;
 

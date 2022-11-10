@@ -26,16 +26,13 @@ namespace BGE.Forms
 
         public bool spawmInWorld = true;
 
-        System.Collections.IEnumerator ManageSchool()
+        void ManageSchool()
         {
             int maxAudioBoids = 5;
             int audioBoids = 0;
 
             WorldGenerator wg = FindObjectOfType<WorldGenerator>();
             LifeColours lc = GetComponent<LifeColours>();
-            while (true)
-            {
-                yield return null;
                 while (alive.Count < targetCreatureCount)
                 {                    
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
@@ -43,18 +40,9 @@ namespace BGE.Forms
 
                     GameObject fish = null;
                     TrailRenderer tr;
-                    if (suspended.Count > 0)
-                    {
-                        fish = suspended[suspended.Count - 1];
-                        suspended.RemoveAt(suspended.Count - 1);
-                        fish.SetActive(true);
-                        fish.GetComponentInChildren<Boid>().suspended = false;                                                
-                    }
-                    else
-                    {
-                        fish = GameObject.Instantiate<GameObject>(prefab, pos, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));                       
-                    }
-
+                   
+                    fish = GameObject.Instantiate<GameObject>(prefab, pos, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));                       
+                    
                     alive.Add(fish);
 
                     if (wg != null && spawmInWorld)
@@ -100,46 +88,33 @@ namespace BGE.Forms
                         boids.Add(boid);
                     }
 
-                    AudioSource audioSource = fish.GetComponent<AudioSource>();
-                    if (audioSource != null)
-                    {
-                        if (audioBoids < maxAudioBoids)
-                        {
-                            audioSource.enabled = true;
-                            audioSource.loop = true;
-                            audioSource.Play();
-                            audioBoids++;
-                        }
-                        else
-                        {
-                            audioSource.enabled = false;
-                        }
-                    }
-
+                   
+                   
                     if (lc != null)
                     {
-                        lc.FadeIn();
+                        //lc.FadeIn();
                     }
                     // Wait for a frame
-                    yield return null;
+                    //yield return null;
                     // Suspend any that we dont need                    
                 }
-                while (alive.Count > targetCreatureCount)
-                {
-                    // Suspend the creature
-                    GameObject creature = alive[alive.Count - 1];
-                    creature.SetActive(false);
-                    Boid b = creature.GetComponentInChildren<Boid>();
-                    if (b != null)
-                    {
-                        b.suspended = true;
-                    }
-                    suspended.Add(creature);
-                    alive.RemoveAt(alive.Count - 1);
-                    boids.Remove(b);
-                    yield return null;
-                }
-            }
+                
+                //while (alive.Count > targetCreatureCount)
+                //{
+                //    // Suspend the creature
+                //    GameObject creature = alive[alive.Count - 1];
+                //    creature.SetActive(false);
+                //    Boid b = creature.GetComponentInChildren<Boid>();
+                //    if (b != null)
+                //    {
+                //        b.suspended = true;
+                //    }
+                //    suspended.Add(creature);
+                //    alive.RemoveAt(alive.Count - 1);
+                //    boids.Remove(b);
+                //    yield return null;
+                //}
+
         }
 
         public void Suspend()
@@ -184,13 +159,9 @@ namespace BGE.Forms
                 return;
             }
             targetCreatureCount = Random.Range(minBoidCount, maxBoidCount);
+            ManageSchool();
         }
 
         Coroutine cr = null;
-
-        void OnEnable()
-        {
-            cr = StartCoroutine(ManageSchool());
-        }
     }
 }

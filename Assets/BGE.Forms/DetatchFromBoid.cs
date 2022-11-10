@@ -13,6 +13,22 @@ public class DetatchFromBoid : MonoBehaviour {
 	
 	}
 
+    System.Collections.IEnumerator StraightenUp()
+    {
+        float t = 0;
+        Quaternion current = transform.rotation;
+        Vector3 cv = current.eulerAngles;
+        Quaternion desired = Quaternion.Euler(0, cv.y, 0);
+        while (t < 1.0f)
+        {
+            transform.rotation = Quaternion.Slerp(current, desired, t);
+            t += Time.deltaTime * 0.2f;
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.Euler(0, cv.y, 0);
+    }
+
     public void Detatch(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed)
@@ -61,6 +77,8 @@ public class DetatchFromBoid : MonoBehaviour {
             {
                 vt.Vary();
             }
+
+            StraightenUp();
 
             RotateMe[] r = FindObjectsOfType<RotateMe>();
             foreach (RotateMe rm in r)
