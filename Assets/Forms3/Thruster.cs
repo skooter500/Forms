@@ -24,7 +24,7 @@ public class Thruster : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {        
         float fire = (readInput) ? input.action.ReadValue<float>() : 0;
         CreatureManager.Log("Fire: " + fire);

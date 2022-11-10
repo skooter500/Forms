@@ -2,25 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BGE.Forms;
+using UnityEngine.Windows;
 
 public class OculusController : MonoBehaviour {
-    public Transform leftHand;
-    public Transform rightHand;
-
-    GameObject leftEngine;
-    GameObject rightEngine;
-
-    private JetFire leftJet;
-    private JetFire rightJet;
-    private Rigidbody rb;
-
-    public GameObject head;
-    public float maxSpeed = 250.0f;
-    public float power = 1000.0f;
-
-    public bool haptics = false;
+    public Thruster left;
+    public Thruster right;
 
     public static OculusController Instance;
+
+    private Rigidbody rb;
 
     void Awake()
     {
@@ -36,7 +26,7 @@ public class OculusController : MonoBehaviour {
         //rightEngine = rightHand.GetChild(0).gameObject;
         //rightJet = rightEngine.GetComponentInChildren<JetFire>();
 
-        //rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 	}
 
     public Boid boid;
@@ -62,6 +52,27 @@ public class OculusController : MonoBehaviour {
         //    haptics = !haptics;
         //}
         //CreatureManager.Log("Haptics: " + haptics);
+
+        float f = left.input.action.ReadValue<float>();
+
+        //if (boid == null)
+        //{
+        //    rb.AddForceAtPosition(leftHand.forward * power * leftTrig, leftEngine.transform.position);
+        //    leftJet.fire = leftTrig;
+        //    if (haptics)
+        //    {
+        //        OVRInput.SetControllerVibration(leftTrig * 0.5f, leftTrig * 0.5f, OVRInput.Controller.LTouch);
+        //    }
+        //}
+        //else
+        //{
+        //    boid.speed = boid.maxSpeed * leftTrig;
+        //    HarmonicController hc = boid.GetComponent<HarmonicController>();
+        //    if (hc != null)
+        //    {
+        //        boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
+        //    }
+        }
 
 
         //if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch))
@@ -91,7 +102,7 @@ public class OculusController : MonoBehaviour {
         //    }
         //    else
         //    {
-                
+
         //        leftJet.fire = 0;
         //        if (haptics)
         //        {

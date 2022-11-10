@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 
 namespace BGE.Forms
@@ -110,7 +111,31 @@ namespace BGE.Forms
         private Coroutine fadeInCoroutine;
 
         public void FadeIn()
-        {
+        {            
+            {
+                children = GetComponentsInChildren<Renderer>();
+
+                foreach (Renderer child in children)
+                {
+                    if (child.material.name.Contains("Trans"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        child.material = transMaterial;
+                        child.material.SetFloat("_Fade", targetFade);
+                        float offs = child.material.GetFloat("_Offset");
+                        //child.material = opaqueMaterial;
+                        child.material.SetFloat("_Offset", offs);
+                        child.material.SetFloat("_PositionScale", colorMapScaling);
+                        //child.material.SetTexture("_EmissionMap", texture);
+                        child.material.mainTexture = texture;
+                        child.material.SetFloat("_Fade", targetFade);
+                    }
+                }
+            }
+            /*
             if (fadeInCoroutine != null)
             {
                 StopCoroutine(fadeInCoroutine);
@@ -118,6 +143,7 @@ namespace BGE.Forms
             startFade = 0;
             targetFade = targetAlpha;
             fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
+            */
         }
 
         public void FadeOut()

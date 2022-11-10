@@ -273,7 +273,7 @@ namespace BGE.Forms
             }
             else
             {
-                //Debug.Log("Instiantiating a new: " + prefabs[nextCreature]);
+                Debug.Log("Instiantiating a new: " + prefabs[speciesIndex]);
                 if (FindPlace(prefabs[speciesIndex], out newPos))
                 {
                     newCreature = GameObject.Instantiate<GameObject>(prefabs[speciesIndex], newPos
@@ -340,6 +340,10 @@ namespace BGE.Forms
             //return creature.transform.position;
             if (creature.GetComponent<TenticleCreatureGenerator>() != null)
             {
+                if (creature.GetComponent<TenticleCreatureGenerator>().head == null)
+                {
+                    return creature.transform.position;
+                }
                 return creature.GetComponent<TenticleCreatureGenerator>().head.GetComponent<Boid>().position;
             }
             else if (creature.GetComponent<SchoolGenerator>() != null)
@@ -416,6 +420,17 @@ namespace BGE.Forms
         void Start()
         {
             school = GetComponent<School>();
+
+            for(int i = 0; i < prefabs.Length; i ++)
+            {
+                GameObject s = GetSpecies(i, false);
+                Debug.Log("Making a: " + s);
+                if (i >= maxcreatures)
+                {
+                    Debug.Log("     Suspending a: " + s);
+                    Suspend(prefabs[i], s);
+                }
+            }
 
             StartCoroutine(Spawn());
         }

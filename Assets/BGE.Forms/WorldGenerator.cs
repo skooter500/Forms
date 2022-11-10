@@ -169,7 +169,9 @@ namespace BGE.Forms
             ((PerlinNoiseSampler)samplers[2]).origin = 113;
             */
             player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
-            
+
+
+
             //Random.seed = 42;
         }
 
@@ -181,7 +183,9 @@ namespace BGE.Forms
             startPos = Vector3.zero;
 
             textureGenerator = GetComponent<GameOfLifeTextureGenerator>();
-        
+            groundMaterials[0].SetTexture("_MainTex", textureGenerator.texture);
+            groundMaterials[0].SetTexture("_EmissionMap", textureGenerator.texture);
+
             StartCoroutine(GenerateWorldAroundPlayer());
         }
 
@@ -247,11 +251,12 @@ namespace BGE.Forms
                         t.name = tilename;
                         Tile tile = new Tile(t, updateTime);
                         tiles[tilename] = tile;
-                        StartCoroutine(ChangeMaterialToOpaque(t, 4));
+                        //StartCoroutine(ChangeMaterialToOpaque(t, 4));
                         //StaticBatchingUtility.Combine(this.gameObject);
                         yield return WaitFor.Frames(Random.Range(5, 10));
                     }
 
+                    /*
                     //destroy all tiles not just created or with time updated
                     //and put new tiles and tiles to be kepts in a new hashtable
                     Dictionary<string, Tile> newTerrain = new Dictionary<string, Tile>();
@@ -266,8 +271,10 @@ namespace BGE.Forms
                             newTerrain[tile.theTile.name] = tile;
                         }
                     }
+                    */
                     //copy new hashtable contents to the working hashtable
-                    tiles = newTerrain;
+                    //newTerrain[tile.theTile.name] = tile;
+                    //tiles = newTerrain;
                     startPos = player.transform.position;                  
                 }
                 yield return null;
@@ -412,9 +419,7 @@ namespace BGE.Forms
             meshFilter.mesh = mesh;
             
             renderer.material = groundMaterials[groundMaterialIndex];
-            renderer.material.SetTexture("_MainTex", textureGenerator.secondaryTexture);
-            renderer.material.SetTexture("_EmissionMap", textureGenerator.secondaryTexture);
-            Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
+            //Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             
 
             //renderer.material.color = color; //  new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
@@ -427,15 +432,15 @@ namespace BGE.Forms
             renderer.material = material;
         }
         */
-            meshCollider.sharedMesh = null;
+                    meshCollider.sharedMesh = null;
             meshCollider.sharedMesh = mesh;
 
-            GameObject surface = MakeSurface(position);
-            surface.transform.parent = tile.transform;
-            surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
-            tile.isStatic = true;
-            surface.isStatic = true;
-            //surface.SetActive(false);
+            //GameObject surface = MakeSurface(position);
+            //surface.transform.parent = tile.transform;
+            //surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
+            //tile.isStatic = true;
+            //surface.isStatic = true;
+            ////surface.SetActive(false);
             return tile;
         }
 

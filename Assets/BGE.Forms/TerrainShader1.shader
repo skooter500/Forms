@@ -4,8 +4,11 @@
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-		_Offset("Offset", Range(0,1)) = 0.0
-		_ColorScale("ColorScale", Range(0,0.01))=.0001
+		_HueStart("Hue Start", Range(0,1)) = 0.0
+		_HueEnd("Hue End", Range(0,1)) = 0.1
+		_HeightRange("Height Range", Range(0,10000)) = 5000
+		_HeightOffset("Height Offset", Range(0,1000)) = 0
+
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -27,9 +30,10 @@
 
 		half _Glossiness;
 		half _Metallic;
-		half _ColorScale;
-		half _Offset;
-		half _HeightOffset=0;
+		half _HueStart;
+		half _HueEnd;
+		half _HeightRange;
+		half _HeightOffset;
 
 		fixed4 _Color;
 
@@ -59,13 +63,68 @@
 			return (RGB);
 		}
 
+		float pingpongMap(float a, float b, float c, float d, float e)
+		{
+			float range1 = c - b;
+			float range2 = e-d;
+			if (range1 == 0)
+			{
+				return d;
+			}
+			
+			if (range2 == 0)
+			{
+				return d;
+			}
+			
+			float howFar = a - b;
+			
+			float howMany = floor(howFar / range1);
+			float fraction = (howFar - (howMany * range1)) / range1;
+			//println(a + " howMany" + howMany + " fraction: " + fraction);
+			//println(range2 + " " + fraction);
+			if (howMany % 2 == 0)
+			{
+				return d + (fraction * range2);
+			}
+			else
+			{
+				//return d + (fraction * range2);
+				return e - (fraction * range2);
+			}
+			
+		}
+
+		float3 shift_col(float3 RGB, float3 shift)
+		{
+			float3 RESULT = float3(RGB);
+			float VSU = shift.z*shift.y*cos(shift.x*3.14159265/180);
+			float VSW = shift.z*shift.y*sin(shift.x*3.14159265/180);
+			
+			RESULT.x = (.299*shift.z+.701*VSU+.168*VSW)*RGB.x
+			+ (.587*shift.z-.587*VSU+.330*VSW)*RGB.y
+			+ (.114*shift.z-.114*VSU-.497*VSW)*RGB.z;
+			
+			RESULT.y = (.299*shift.z-.299*VSU-.328*VSW)*RGB.x
+			+ (.587*shift.z+.413*VSU+.035*VSW)*RGB.y
+			+ (.114*shift.z-.114*VSU+.292*VSW)*RGB.z;
+			
+			RESULT.z = (.299*shift.z-.3*VSU+1.25*VSW)*RGB.x
+			+ (.587*shift.z-.588*VSU-1.05*VSW)*RGB.y
+			+ (.114*shift.z+.886*VSU-.203*VSW)*RGB.z;
+			
+			return (RESULT);
+		}
+
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			//fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			float hue = (((IN.worldPos.y * _ColorScale) % 1.0) + _HeightOffset) % 1.0;
-			fixed3 t = tex2D(_MainTex, IN.uv_MainTex);			
-			fixed3 c = hsv_to_rgb(float3(hue, 1, 1)) * t;
+			//float hue = (((IN.worldPos.y * _ColorScale) % 1.0) + _HeightOffset) % 1.0;
 
+			float h = pingpongMap(IN.worldPos.y, _HeightOffset, _HeightRange, _HueStart, _HueEnd);
+			fixed3 t = tex2D(_MainTex, IN.uv_MainTex);		
+			fixed3 c = t; // hsv_to_rgb(float3(t, 1, 1));
+			
 			o.Albedo = c.rgb;
 
 			// Metallic and smoothness come from slider variables
