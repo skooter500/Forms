@@ -197,6 +197,7 @@ namespace BGE.Forms
                     if (sp.boid == null)
                     {
                         Debug.Log(creature + " has no boid");
+                        continue;
                     }
                     Vector3 boidPos = sp.boid.position;
 

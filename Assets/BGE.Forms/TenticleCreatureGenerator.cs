@@ -139,6 +139,8 @@ namespace BGE.Forms
                 Utilities.RecursiveSetColor(this.gameObject, color);
             }
             Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);
+
+            GetComponent<SpawnParameters>().boid = head.GetComponent<Boid>();
         }
 	
         // Update is called once per frame

@@ -183,7 +183,7 @@ namespace BGE.Forms
 
         void Start()
         {
-            sp = GetComponent<SpawnParameters>();
+            
             if (!isActiveAndEnabled)
             {
                 return;
@@ -195,6 +195,7 @@ namespace BGE.Forms
 
         void OnEnable()
         {
+            sp = GetComponent<SpawnParameters>();
             cr = StartCoroutine(ManageSchool());
         }
     }
