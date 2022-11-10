@@ -246,6 +246,7 @@ namespace BGE.Forms
             }
             if (suspended.ContainsKey(prefabs[speciesIndex]))
             {
+
                 newCreature = suspended.Get(prefabs[speciesIndex]);
                 if (FindPlace(newCreature, out newPos))
                 {
