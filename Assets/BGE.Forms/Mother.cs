@@ -187,7 +187,6 @@ namespace BGE.Forms
 
             while (true)
             {
-
                 // Remove too far creatures
                 for (int i = alive.Count - 1; i >= 0; i--)
                 {
@@ -217,7 +216,6 @@ namespace BGE.Forms
                         Suspend(species, creature);                        
                     }
                 }
-
 
                 if (alive.Count < maxcreatures)
                 {
@@ -417,7 +415,7 @@ namespace BGE.Forms
                 }
             }
 
-            StartCoroutine(Spawn());
+            //StartCoroutine(Spawn());
         }
 
         // Update is called once per frame
