@@ -2,19 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BGE.Forms;
+using UnityEngine.Windows;
 
 public class OculusController : MonoBehaviour {
-    public Transform leftHand;
-    public Transform rightHand;
-
-    GameObject leftEngine;
-    GameObject rightEngine;
-
-    private JetFire leftJet;
-    private JetFire rightJet;
-    private Rigidbody rb;
-
-    public GameObject head;
+    public Thruster[] thrusters;
     public float maxSpeed = 250.0f;
     public float power = 1000.0f;
 
@@ -30,13 +21,8 @@ public class OculusController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        //leftEngine = leftHand.GetChild(0).gameObject;
-        //leftJet = leftEngine.GetComponentInChildren<JetFire>();
+        thrusters = GameObject.FindObjectsOfType<Thruster>();
 
-        //rightEngine = rightHand.GetChild(0).gameObject;
-        //rightJet = rightEngine.GetComponentInChildren<JetFire>();
-
-        //rb = GetComponent<Rigidbody>();
 	}
 
     public Boid boid;
@@ -62,6 +48,30 @@ public class OculusController : MonoBehaviour {
         //    haptics = !haptics;
         //}
         //CreatureManager.Log("Haptics: " + haptics);
+
+
+        float l = thrusters[0].input.action.ReadValue<float>();
+        float r = thrusters[1].input.action.ReadValue<float>();
+
+        if (l > 0.02f)
+        {
+            boid.speed = boid.maxSpeed * l;
+            HarmonicController hc = boid.GetComponent<HarmonicController>();
+            if (hc != null)
+            {
+                boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * l;
+            }
+        }
+
+        if (r > 0.02f)
+        {
+            boid.speed = boid.maxSpeed * l;
+            HarmonicController hc = boid.GetComponent<HarmonicController>();
+            if (hc != null)
+            {
+                boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * l;
+            }
+        }
 
 
         //if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch))
@@ -91,7 +101,7 @@ public class OculusController : MonoBehaviour {
         //    }
         //    else
         //    {
-                
+
         //        leftJet.fire = 0;
         //        if (haptics)
         //        {

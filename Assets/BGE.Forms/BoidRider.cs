@@ -40,6 +40,11 @@ namespace BGE.Forms
                 boid.GetComponent<Harmonic>().SetActive(true);
                 boid.GetComponent<Harmonic>().auto = false;
 
+                foreach(Thruster t in GameObject.FindObjectsOfType<Thruster>())
+                {
+                    t.readInput = false;
+                }
+
                 if (boid.GetComponent<Seek>() != null)
                 {
                     boid.GetComponent<Seek>().SetActive(false);
