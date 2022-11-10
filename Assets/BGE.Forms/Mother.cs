@@ -194,7 +194,11 @@ namespace BGE.Forms
                     GameObject creature = alive[i];
                     SpawnParameters sp = creature.GetComponent<SpawnParameters>();
                     GameObject species = sp.Species;
-                    Vector3 boidPos = GetCreaturePosition(creature);
+                    if (sp.boid == null)
+                    {
+                        Debug.Log(creature + " has no boid");
+                    }
+                    Vector3 boidPos = sp.boid.position;
 
                     Vector3 camPos = Camera.main.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
@@ -281,6 +285,7 @@ namespace BGE.Forms
                     );
 
                     newCreature.GetComponent<SpawnParameters>().Species = prefabs[speciesIndex];
+                    newCreature.GetComponent<SpawnParameters>().boid = newCreature.GetComponentInChildren<Boid>();
                     if (school != null)
                     {
                         Boid b = newCreature.GetComponent<Boid>();
@@ -335,69 +340,48 @@ namespace BGE.Forms
             }
         }
 
-        public Vector3 GetCreaturePosition(GameObject creature)
-        {
-            //return creature.transform.position;
-            if (creature.GetComponent<TenticleCreatureGenerator>() != null)
-            {
-                if (creature.GetComponent<TenticleCreatureGenerator>().head == null)
-                {
-                    return creature.transform.position;
-                }
-                return creature.GetComponent<TenticleCreatureGenerator>().head.GetComponent<Boid>().position;
-            }
-            else if (creature.GetComponent<SchoolGenerator>() != null)
-            {
-                return creature.transform.position;
-            }
-            else if (creature.GetComponent<FormationGenerator>() != null)
-            {
-                return creature.GetComponent<FormationGenerator>().leader.GetComponentInChildren<Boid>().position;
-            }
-            else if (creature.GetComponent<SandWorm>() != null)
-            {
-                return creature.transform.GetChild(0).transform.position;
-            }
-            else
-            {
-                return creature.GetComponentInChildren<Boid>().transform.position;
-            }
-        }
 
         private void Teleport(GameObject creature, Vector3 newPos)
         {
-            Vector3 boidPos = GetCreaturePosition(creature);
-            if (creature.GetComponent<SchoolGenerator>() == null && creature.GetComponent<SandWorm>() == null)
+            if (creature.GetComponent<SpawnParameters>().boid == null)
             {
-
-                Vector3 trans = newPos - boidPos;
-                creature.transform.position += trans;
-                Boid boid = Utilities.FindBoidInHierarchy(creature);
-                // Translate it to the new position                            
-                //boid.transform.position = newPos;
-                boid.position = boid.transform.position; // The boid
-                boid.desiredPosition = boid.position;
-                boid.suspended = false;
-                if (boid.GetComponent<Constrain>() != null)
-                {
-                    boid.GetComponent<Constrain>().centre = newPos;
-                }
-
-                if (boid.GetComponent<TrailRenderer>() != null)
-                {
-                    boid.GetComponent<TrailRenderer>().Clear();
-                }
-                FormationGenerator fg = creature.GetComponent<FormationGenerator>();
-                if (fg != null)
-                {
-                    fg.GeneratePositions();
-                    fg.Teleport();
-                }
+                Debug.Log("Trying to teleport: " + creature + " but it has no boid");
             }
-            else
-            {
-                creature.transform.position = newPos;
-            }
+            creature.transform.position = newPos;
+
+
+        //    Vector3 boidPos = creature.GetComponent<SpawnParameters>().boid.position;
+        //    if (creature.GetComponent<SchoolGenerator>() == null && creature.GetComponent<SandWorm>() == null)
+        //    {
+
+        //        Vector3 trans = newPos - boidPos;
+        //        creature.transform.position += trans;
+        //        Boid boid = Utilities.FindBoidInHierarchy(creature);
+        //        // Translate it to the new position                            
+        //        //boid.transform.position = newPos;
+        //        boid.position = boid.transform.position; // The boid
+        //        boid.desiredPosition = boid.position;
+        //        boid.suspended = false;
+        //        if (boid.GetComponent<Constrain>() != null)
+        //        {
+        //            boid.GetComponent<Constrain>().centre = newPos;
+        //        }
+
+        //        if (boid.GetComponent<TrailRenderer>() != null)
+        //        {
+        //            boid.GetComponent<TrailRenderer>().Clear();
+        //        }
+        //        FormationGenerator fg = creature.GetComponent<FormationGenerator>();
+        //        if (fg != null)
+        //        {
+        //            fg.GeneratePositions();
+        //            fg.Teleport();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        creature.transform.position = newPos;
+        //    }
         }
 
 

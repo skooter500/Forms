@@ -53,25 +53,16 @@ public class OculusController : MonoBehaviour {
         //}
         //CreatureManager.Log("Haptics: " + haptics);
 
-        float f = left.input.action.ReadValue<float>();
+        float l = left.input.action.ReadValue<float>();
 
-        //if (boid == null)
-        //{
-        //    rb.AddForceAtPosition(leftHand.forward * power * leftTrig, leftEngine.transform.position);
-        //    leftJet.fire = leftTrig;
-        //    if (haptics)
-        //    {
-        //        OVRInput.SetControllerVibration(leftTrig * 0.5f, leftTrig * 0.5f, OVRInput.Controller.LTouch);
-        //    }
-        //}
-        //else
-        //{
-        //    boid.speed = boid.maxSpeed * leftTrig;
-        //    HarmonicController hc = boid.GetComponent<HarmonicController>();
-        //    if (hc != null)
-        //    {
-        //        boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * leftTrig;
-        //    }
+        if (boid != null)
+        {
+            boid.speed = boid.maxSpeed * l;
+            HarmonicController hc = boid.GetComponent<HarmonicController>();
+            if (hc != null)
+            {
+                boid.GetComponent<Harmonic>().speed = boid.GetComponent<HarmonicController>().initialSpeed * l;
+            }
         }
 
 

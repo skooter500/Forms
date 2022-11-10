@@ -20,7 +20,7 @@ public class SpawnParameters : MonoBehaviour {
 
     public bool singleton = false;
 
-    BGE.Forms.Boid masterBoid;
+    public BGE.Forms.Boid boid;
 
     public GameObject[] effects;
     internal bool isSuspending = false;

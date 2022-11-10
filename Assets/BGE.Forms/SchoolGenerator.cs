@@ -26,6 +26,10 @@ namespace BGE.Forms
 
         public bool spawmInWorld = true;
 
+        SpawnParameters sp;
+
+
+
         System.Collections.IEnumerator ManageSchool()
         {
             int maxAudioBoids = 5;
@@ -35,7 +39,7 @@ namespace BGE.Forms
             LifeColours lc = GetComponent<LifeColours>();
             while (true)
             {
-                yield return null;
+                //yield return null;
                 while (alive.Count < targetCreatureCount)
                 {                    
                     Vector3 unit = UnityEngine.Random.insideUnitSphere;
@@ -96,8 +100,8 @@ namespace BGE.Forms
                         boid.position = pos;
                         boid.desiredPosition = pos;
                         boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
-
                         boids.Add(boid);
+                        sp.boid = boids[0];
                     }
 
                     AudioSource audioSource = fish.GetComponent<AudioSource>();
@@ -179,6 +183,7 @@ namespace BGE.Forms
 
         void Start()
         {
+            sp = GetComponent<SpawnParameters>();
             if (!isActiveAndEnabled)
             {
                 return;
