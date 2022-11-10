@@ -278,7 +278,7 @@ namespace BGE.Forms
         {
             for(int i = 0; i < prefabs.Length; i ++)
             {
-                GameObject newPlant = GameObject.Instantiate<GameObject>(prefabs[nextPlant]);
+                GameObject newPlant = GameObject.Instantiate<GameObject>(prefabs[i]);
                 newPlant.SetActive(false);
                 dead.Add(newPlant);
             }

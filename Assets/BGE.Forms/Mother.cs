@@ -56,50 +56,50 @@ namespace BGE.Forms
                 Vector3 r = Vector3.forward;
                 r *= Random.Range(start, sp.end);
                 r += (r.normalized * start);
-                r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
+                //r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
 
                 newPos = player.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
                 float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
                 float minHeight = sampleY + sp.minHeight;
                 int segments = 3;
-                if (sp.radiusRequired != 0)
-                {
-                    float[] heights = new float[segments + 1];
-                    heights[0] = sampleY;
-                    float sum = sampleY;
-                    float thetaInc = (Mathf.PI * 2.0f) / segments;
-                    for (int i = 0; i < segments; i++)
-                    {
-                        float theta = i * thetaInc;
-                        Vector3 p = new Vector3
-                            (Mathf.Sin(theta) * sp.radiusRequired
-                            , 0
-                            , Mathf.Cos(theta) * sp.radiusRequired
-                            );
+                //if (sp.radiusRequired != 0)
+                //{
+                //    float[] heights = new float[segments + 1];
+                //    heights[0] = sampleY;
+                //    float sum = sampleY;
+                //    float thetaInc = (Mathf.PI * 2.0f) / segments;
+                //    for (int i = 0; i < segments; i++)
+                //    {
+                //        float theta = i * thetaInc;
+                //        Vector3 p = new Vector3
+                //            (Mathf.Sin(theta) * sp.radiusRequired
+                //            , 0
+                //            , Mathf.Cos(theta) * sp.radiusRequired
+                //            );
 
-                        // Translate by newPos
-                        p += newPos;
+                //        // Translate by newPos
+                //        p += newPos;
 
-                        heights[i + 1] = WorldGenerator.Instance.SamplePos(p.x, p.z);
-                    }
-                    float stdDev = Utilities.StdDev(heights);
-                    if (stdDev > 2)
-                    {
-                        count++;
-                        continue;
-                    }
-                }
-                if (minHeight > worldMax)
-                {
-                    count++;
-                    continue;
-                }
-                if (count == 10)
-                {
-                    found = false;
-                    break;
-                }
+                //        heights[i + 1] = WorldGenerator.Instance.SamplePos(p.x, p.z);
+                //    }
+                //    float stdDev = Utilities.StdDev(heights);
+                //    if (stdDev > 2)
+                //    {
+                //        count++;
+                //        continue;
+                //    }
+                //}
+                //if (minHeight > worldMax)
+                //{
+                //    count++;
+                //    continue;
+                //}
+                //if (count == 10)
+                //{
+                //    found = false;
+                //    break;
+                //}
 
                 float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
                 newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
@@ -444,9 +444,9 @@ namespace BGE.Forms
                 // Calculate the position
                 //Debug.Log("Making a: " + prefabs[i]);
                 GetSpecies(i, prefabs[i].GetComponent<SpawnParameters>().singleton);
-                if (i >= maxcreatures)
+                if (i > maxcreatures)
                 {
-                    //Debug.Log("Suspending a: " + prefabs[i]);
+                    Debug.Log("Suspending a: " + prefabs[i]);
                     Suspend(i);
                 }
             }
