@@ -48,7 +48,7 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled && boid.drawGizmos)
+            if (isActiveAndEnabled && boid != null && boid.drawGizmos)
             {
                 int nf = ft == FeelerType.Forward ? 5 : 6;
                 for(int i = 0; i < nf; i ++)

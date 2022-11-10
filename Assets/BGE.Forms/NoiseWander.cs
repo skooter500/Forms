@@ -32,7 +32,7 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled && boid.drawGizmos)
+            if (isActiveAndEnabled && boid != null && boid.drawGizmos)
             {
                 Gizmos.color = Color.cyan;
                 Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward * distance, transform);

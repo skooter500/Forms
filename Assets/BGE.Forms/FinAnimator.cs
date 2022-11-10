@@ -45,11 +45,6 @@ namespace BGE.Forms
         // Update is called once per frame
         void FixedUpdate () {
             
-            if (suspended)
-            {
-                return;
-            }
-            
             if (harmonic != null)
             {
                 theta = harmonic.theta;
