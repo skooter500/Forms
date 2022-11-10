@@ -31,6 +31,8 @@ public class PlayerSteering : SteeringBehaviour
     [HideInInspector]
     public bool controlSpeed = true;
 
+    public Thruster[] thrusters;
+
     public void Start()
     {
         viveController = FindObjectOfType<ViveController>();
@@ -38,6 +40,8 @@ public class PlayerSteering : SteeringBehaviour
         harmonic = GetComponent<Harmonic>();
         vrMode = true; //  UnityEngine.XR.XRDevice.isPresent;
         maxSpeed = boid.maxSpeed;
+
+        thrusters = GameObject.FindObjectsOfType<Thruster>();
     }
     
 
@@ -49,7 +53,7 @@ public class PlayerSteering : SteeringBehaviour
         CreatureManager.Log("Player force: " + force);
         CreatureManager.Log("RightForce: " + rightForce);
 
-        
+
 
         // Control the boid
         //if (viveController != null)
@@ -92,7 +96,7 @@ public class PlayerSteering : SteeringBehaviour
         //        {
         //            Vector3 xyz = average.eulerAngles;
         //            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
-                    
+
         //        }
         //    }
         //}
@@ -105,6 +109,21 @@ public class PlayerSteering : SteeringBehaviour
 
         harmonic.theta += hSpeed * Time.deltaTime * harmonic.speed;
         */
+
+        average = Quaternion.Slerp(thrusters[0].transform.rotation
+                    , thrusters[1].transform.rotation, 0.5f);
+
+        if (controlType == ControlType.Tenticle)
+        {
+            Vector3 xyz = average.eulerAngles;
+            harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+        }
+        if (controlType == ControlType.TenticleFlipped)
+        {
+            Vector3 xyz = average.eulerAngles;
+            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+
+        }
 
         hSpeed = Mathf.Lerp(hSpeed
             ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)
