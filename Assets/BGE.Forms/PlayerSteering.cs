@@ -110,8 +110,8 @@ public class PlayerSteering : SteeringBehaviour
         harmonic.theta += hSpeed * Time.deltaTime * harmonic.speed;
         */
 
-        average = Quaternion.Slerp(thrusters[0].transform.rotation
-                    , thrusters[1].transform.rotation, 0.5f);
+        average = Quaternion.Slerp(thrusters[0].transform.parent.rotation
+                    , thrusters[1].transform.parent.rotation, 0.5f);
 
         if (controlType == ControlType.Tenticle)
         {

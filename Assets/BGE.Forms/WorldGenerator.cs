@@ -156,7 +156,7 @@ namespace BGE.Forms
                 Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
             }
         
-            Random.seed = (int)System.DateTime.Now.Ticks;
+            //Random.seed = (int)System.DateTime.Now.Ticks;
             foreach (Sampler s in samplers)
             {
                 ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);

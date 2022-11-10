@@ -4,6 +4,7 @@ using BGE.Forms;
 using UnityEngine.InputSystem;
 
 public class DetatchFromBoid : MonoBehaviour {
+    public Boid boid;
 
 
 
@@ -12,15 +13,15 @@ public class DetatchFromBoid : MonoBehaviour {
 	
 	}
 
-    void Detatch(InputAction.CallbackContext context)
+    public void Detatch(InputAction.CallbackContext context)
     {
-        Debug.Log("Detatch!!!");
         if (context.phase != InputActionPhase.Performed)
         {
             return;
         }
-        Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
+        //Debug.Log("Detatch!!!");
 
+        
         if (boid != null)
         {
             GetComponent<ForceController>().moveEnabled = true;
@@ -38,8 +39,9 @@ public class DetatchFromBoid : MonoBehaviour {
             }
             boid.GetComponent<PlayerSteering>().SetActive(false);
             boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            
             GetComponent<ForceController>().enabled = true;
 
             ViveController.Instance.boid = null;
@@ -59,12 +61,17 @@ public class DetatchFromBoid : MonoBehaviour {
                 vt.Vary();
             }
 
+            RotateMe[] r = FindObjectsOfType<RotateMe>();
+            foreach (RotateMe rm in r)
+            {
+                rm.speed = 0.1f;
+            }
+            transform.parent = null;
+
+            boid = null;
+
         }
-        RotateMe[] r = FindObjectsOfType<RotateMe>();
-        foreach (RotateMe rm in r)
-        {
-            rm.speed = 0.1f;
-        }
+        
     }
 	
 	// Update is called once per frame

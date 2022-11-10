@@ -442,11 +442,11 @@ namespace BGE.Forms
             {
                 // Find a spawn point
                 // Calculate the position
-                Debug.Log("Making a: " + prefabs[i]);
+                //Debug.Log("Making a: " + prefabs[i]);
                 GetSpecies(i, prefabs[i].GetComponent<SpawnParameters>().singleton);
                 if (i >= maxcreatures)
                 {
-                    Debug.Log("Suspending a: " + prefabs[i]);
+                    //Debug.Log("Suspending a: " + prefabs[i]);
                     Suspend(i);
                 }
             }

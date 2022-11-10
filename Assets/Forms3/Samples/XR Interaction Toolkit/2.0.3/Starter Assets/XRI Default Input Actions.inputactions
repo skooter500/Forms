@@ -1091,8 +1091,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "fa63c81e-9c2e-4ec6-9fc8-f4133aab8d7b",
-                    "path": "<OculusTouchController>/primaryTouched",
+                    "id": "6ba27d1c-ad7b-4953-9ca5-97587ad55323",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
