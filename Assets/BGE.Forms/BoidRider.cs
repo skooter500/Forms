@@ -21,10 +21,15 @@ namespace BGE.Forms
 
         public void OnTriggerEnter(Collider c)
         {
+            
             GameObject other = c.gameObject;
             if (other.tag == "Player" && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
-            {                
-                
+            {
+                if (other.GetComponent<DetatchFromBoid>().escaping)
+                {
+                    return;
+                }
+                Debug.Log("Attach");
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 other.transform.parent = this.transform.parent;
                 other.GetComponent<ForceController>().moveEnabled = false;

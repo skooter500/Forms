@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DetatchFromBoid : MonoBehaviour {
     public Boid boid;
 
-
+    public bool escaping = false;
 
     // Use this for initialization
     void Start () {
@@ -19,11 +19,12 @@ public class DetatchFromBoid : MonoBehaviour {
         {
             return;
         }
-        //Debug.Log("Detatch!!!");
+        //
 
         
         if (boid != null)
         {
+            Debug.Log("Detatch!!!");
             GetComponent<ForceController>().moveEnabled = true;
             GetComponent<ForceController>().attachedToCreature = false;
             boid.GetComponent<Harmonic>().SetActive(true);
@@ -70,8 +71,19 @@ public class DetatchFromBoid : MonoBehaviour {
 
             boid = null;
 
+            foreach(Thruster t in GameObject.FindObjectsOfType<Thruster>())
+            {
+                t.readInput = true;
+            }
+            escaping = true;
+            Invoke("StopEscaping", 5);
         }
         
+    }
+
+    void StopEscaping()
+    {
+        escaping = false;
     }
 	
 	// Update is called once per frame
