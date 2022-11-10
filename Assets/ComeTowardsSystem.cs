@@ -31,7 +31,7 @@ public class ComeTowardsSystem : MonoBehaviour
                 Vector3 target = CalculateTarget();
                 targets.Add(target);
                 axis.Add(Random.insideUnitCircle);
-                thing.GetComponent<BGE.Forms.LifeColours>().FadeIn();
+                //thing.GetComponent<BGE.Forms.LifeColours>().FadeIn();
             }
             yield return new WaitForSeconds(1.0f / spawnRate);
         }
@@ -71,7 +71,7 @@ public class ComeTowardsSystem : MonoBehaviour
             if (Vector3.Distance(t.transform.position, targets[i]) < 5)
             {
                 t.transform.position = this.transform.position;
-                t.GetComponent<BGE.Forms.LifeColours>().FadeIn();
+                //t.GetComponent<BGE.Forms.LifeColours>().FadeIn();
                 targets[i] = CalculateTarget();
             }
         }

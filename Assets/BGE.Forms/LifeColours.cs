@@ -111,25 +111,27 @@ namespace BGE.Forms
 
         public void FadeIn()
         {
-            if (fadeInCoroutine != null)
+            children = GetComponentsInChildren<Renderer>();
+            foreach (Renderer child in children)
             {
-                StopCoroutine(fadeInCoroutine);
+                if (child.material.name.Contains("Trans"))
+                {
+                    continue;
+                }
+                else
+                {
+                    float offs = transMaterial.GetFloat("_Offset");
+                    child.material = opaqueMaterial;
+                    child.material.SetFloat("_Offset", offs);
+                    child.material.SetFloat("_PositionScale", colorMapScaling);
+                    //child.material.SetTexture("_EmissionMap", texture);
+                    child.material.mainTexture = texture;
+                    child.material.SetFloat("_Fade", 1);
+                }
             }
-            startFade = 0;
-            targetFade = targetAlpha;
-            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
         }
 
-        public void FadeOut()
-        {
-            if (fadeInCoroutine != null)
-            {
-                StopCoroutine(fadeInCoroutine);
-            }
-            startFade = targetAlpha;
-            targetFade = 0.0f;
-            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
-        }
+      
 
         System.Collections.IEnumerator FadeInCoRoutine()
         {

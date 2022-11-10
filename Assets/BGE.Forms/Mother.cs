@@ -141,7 +141,7 @@ namespace BGE.Forms
             {
                 if (creature.GetComponent<LifeColours>())
                 {
-                    creature.GetComponent<LifeColours>().FadeOut();
+                    //creature.GetComponent<LifeColours>().FadeOut();
                 }
                 yield return new WaitForSeconds(2);
             }
@@ -271,7 +271,7 @@ namespace BGE.Forms
                     newCreature.SetActive(true);
                     if (newCreature.GetComponent<LifeColours>())
                     {
-                        newCreature.GetComponent<LifeColours>().FadeIn();
+                        //newCreature.GetComponent<LifeColours>().FadeIn();
                     }
                     if (newCreature.GetComponentInChildren<CreatureController>())
                     {

@@ -276,6 +276,12 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
+            for(int i = 0; i < prefabs.Length; i ++)
+            {
+                GameObject newPlant = GameObject.Instantiate<GameObject>(prefabs[nextPlant]);
+                newPlant.SetActive(false);
+                dead.Add(newPlant);
+            }
             StartCoroutine(SpawnPlantsNoise());
         }
 
