@@ -120,109 +120,109 @@ namespace BGE.Forms
         {
 
 
-            rotating = false;
-            float mouseX, mouseY;
-            float contSpeed = this.speed;
-            float contAngularSpeed = this.angularSpeed;
+            //rotating = false;
+            //float mouseX, mouseY;
+            //float contSpeed = this.speed;
+            //float contAngularSpeed = this.angularSpeed;
 
-            float runAxis = Input.GetAxis("Fire1");
+            //float runAxis = Input.GetAxis("Fire1");
 
-            if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
-            {
-                contSpeed *= 3f;
-                contAngularSpeed *= 2.0f;
-            }
+            //if (Input.GetKey(KeyCode.LeftShift) || runAxis != 0)
+            //{
+            //    contSpeed *= 3f;
+            //    contAngularSpeed *= 2.0f;
+            //}
 
-            mouseX = Input.GetAxis("Mouse X");
-            mouseY = Input.GetAxis("Mouse Y");
+            //mouseX = Input.GetAxis("Mouse X");
+            //mouseY = Input.GetAxis("Mouse Y");
 
-            if (mouseX != 0)
-            {
-                Yaw(mouseX * Time.deltaTime * contAngularSpeed);
-            }
-            else if (mouseY != 0 && false /* !UnityEngine.XR.XRDevice.isPresent */ )
-            {
-                Pitch(-mouseY * Time.deltaTime * contAngularSpeed);
-            }
+            //if (mouseX != 0)
+            //{
+            //    Yaw(mouseX * Time.deltaTime * contAngularSpeed);
+            //}
+            //else if (mouseY != 0 && false /* !UnityEngine.XR.XRDevice.isPresent */ )
+            //{
+            //    Pitch(-mouseY * Time.deltaTime * contAngularSpeed);
+            //}
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime);
 
-            float joyX = Input.GetAxis("Joy X");
-            float joyY = Input.GetAxis("Joy Y");
+            //float joyX = Input.GetAxis("Joy X");
+            //float joyY = Input.GetAxis("Joy Y");
 
-            if (Mathf.Abs(joyY) > 0.1f)
-            {
-                if (false /*!UnityEngine.XR.XRDevice.isPresent */)
-                {
-                    Pitch(-joyY * contAngularSpeed * Time.deltaTime);
-                }
-            }
-            if (Mathf.Abs(joyX) > 0.3f)
-            {
-                Yaw(joyX * contAngularSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.E))
-            {
-                Fly(Time.deltaTime * speed);
-            }
-            if (Input.GetKey(KeyCode.F))
-            {
-                Fly(-Time.deltaTime * speed);
-            }
+            //if (Mathf.Abs(joyY) > 0.1f)
+            //{
+            //    if (false /*!UnityEngine.XR.XRDevice.isPresent */)
+            //    {
+            //        Pitch(-joyY * contAngularSpeed * Time.deltaTime);
+            //    }
+            //}
+            //if (Mathf.Abs(joyX) > 0.3f)
+            //{
+            //    Yaw(joyX * contAngularSpeed * Time.deltaTime);
+            //}
+            //if (Input.GetKey(KeyCode.E))
+            //{
+            //    Fly(Time.deltaTime * speed);
+            //}
+            //if (Input.GetKey(KeyCode.F))
+            //{
+            //    Fly(-Time.deltaTime * speed);
+            //}
 
-            //Yaw(joyX * angularSpeed * Time.deltaTime);
-            //Fly(-joyY * contSpeed * Time.deltaTime);
+            ////Yaw(joyX * angularSpeed * Time.deltaTime);
+            ////Fly(-joyY * contSpeed * Time.deltaTime);
 
-            float contWalk = Input.GetAxis("Vertical");
-            float contStrafe = Input.GetAxis("Horizontal");
-            if (Mathf.Abs(contWalk) > 0.1f && moveEnabled)
-            {
-                Walk(contWalk * contSpeed * Time.deltaTime);
-            }
-            if (Mathf.Abs(contStrafe) > 0.1f && moveEnabled)
-            {
-                Strafe(contStrafe * contSpeed * Time.deltaTime);
-            }
+            //float contWalk = Input.GetAxis("Vertical");
+            //float contStrafe = Input.GetAxis("Horizontal");
+            //if (Mathf.Abs(contWalk) > 0.1f && moveEnabled)
+            //{
+            //    Walk(contWalk * contSpeed * Time.deltaTime);
+            //}
+            //if (Mathf.Abs(contStrafe) > 0.1f && moveEnabled)
+            //{
+            //    Strafe(contStrafe * contSpeed * Time.deltaTime);
+            //}
 
-            if (Input.GetKey(KeyCode.Joystick1Button5))
-            {
-                Fly(contSpeed * Time.deltaTime);
-            }
+            //if (Input.GetKey(KeyCode.Joystick1Button5))
+            //{
+            //    Fly(contSpeed * Time.deltaTime);
+            //}
 
-            if (Input.GetKey(KeyCode.Joystick1Button4))
-            {
-                Fly(-contSpeed * Time.deltaTime);
-            }
+            //if (Input.GetKey(KeyCode.Joystick1Button4))
+            //{
+            //    Fly(-contSpeed * Time.deltaTime);
+            //}
 
-            if (addFlow)
-            {
-                Vector3 p = transform.position;
-                float n = Mathf.PerlinNoise(p.x * flowScale, p.z * flowScale);
-                Vector3 force = Quaternion.AngleAxis(
-                    Utilities.Map(n, 0, 1, -180, 180)
-                    , Vector3.up)
-                    * Vector3.forward
-                    * flowForce
-                    ;
-                force += Quaternion.AngleAxis(
-                    Utilities.Map(n, 0, 1, -180, 180)
-                    , Vector3.right)
-                    * Vector3.forward
-                    * flowForce
-                    ;
+            //if (addFlow)
+            //{
+            //    Vector3 p = transform.position;
+            //    float n = Mathf.PerlinNoise(p.x * flowScale, p.z * flowScale);
+            //    Vector3 force = Quaternion.AngleAxis(
+            //        Utilities.Map(n, 0, 1, -180, 180)
+            //        , Vector3.up)
+            //        * Vector3.forward
+            //        * flowForce
+            //        ;
+            //    force += Quaternion.AngleAxis(
+            //        Utilities.Map(n, 0, 1, -180, 180)
+            //        , Vector3.right)
+            //        * Vector3.forward
+            //        * flowForce
+            //        ;
 
-                rigidBody.AddForce(force);                
-            }
+            //    rigidBody.AddForce(force);                
+            //}
 
-            if (transform.position.y > 20000)
-            {
-                Vector3 p = transform.position;
-                p.y = 20000;
-                transform.position = p;
-                desiredRotation = Quaternion.AngleAxis(-180, Vector3.right) * desiredRotation;
-                transform.rotation = desiredRotation;
-                GetComponent<Rigidbody>().velocity = -GetComponent<Rigidbody>().velocity;
-            }
+            //if (transform.position.y > 20000)
+            //{
+            //    Vector3 p = transform.position;
+            //    p.y = 20000;
+            //    transform.position = p;
+            //    desiredRotation = Quaternion.AngleAxis(-180, Vector3.right) * desiredRotation;
+            //    transform.rotation = desiredRotation;
+            //    GetComponent<Rigidbody>().velocity = -GetComponent<Rigidbody>().velocity;
+            //}
         }
 
         

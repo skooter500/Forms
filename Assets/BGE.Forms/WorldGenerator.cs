@@ -412,8 +412,8 @@ namespace BGE.Forms
             meshFilter.mesh = mesh;
             
             renderer.material = groundMaterials[groundMaterialIndex];
-            renderer.material.SetTexture("_MainTex", textureGenerator.secondaryTexture);
-            renderer.material.SetTexture("_EmissionMap", textureGenerator.secondaryTexture);
+            renderer.material.SetTexture("_MainTex", textureGenerator.texture);
+            renderer.material.SetTexture("_EmissionMap", textureGenerator.texture);
             Utilities.SetupMaterialWithBlendMode(renderer.material, BlendMode.Transparent);
             
 

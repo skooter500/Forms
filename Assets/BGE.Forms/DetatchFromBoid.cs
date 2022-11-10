@@ -86,15 +86,4 @@ public class DetatchFromBoid : MonoBehaviour {
         escaping = false;
     }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-        CreatureManager.Log("" + Input.GetKeyDown(KeyCode.JoystickButton0));
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)
-            || ViveController.Instance.GetGrip() || OculusController.Instance.GetGrip())
-            
-        {
-            //Detatch();
-        }
-	}
 }
