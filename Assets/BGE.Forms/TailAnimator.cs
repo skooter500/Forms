@@ -27,11 +27,6 @@ namespace BGE.Forms
         {
             if (boid == null) return;
 
-            if (suspended)
-            {
-                return;
-            }
-
             float angle = Mathf.Sin(theta) * amplitude;
             switch (axis)
             {

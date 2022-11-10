@@ -85,7 +85,7 @@ PlayerSettings:
   hideHomeButton: 0
   submitAnalytics: 1
   usePlayerLog: 1
-  bakeCollisionMeshes: 0
+  bakeCollisionMeshes: 1
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
   resizableWindow: 1
@@ -140,6 +140,13 @@ PlayerSettings:
   bundleVersion: 1.0
   preloadedAssets:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -179,7 +186,7 @@ PlayerSettings:
   ForceSDCardPermission: 0
   CreateWallpaper: 0
   APKExpansionFiles: 0
-  keepLoadedShadersAlive: 0
+  keepLoadedShadersAlive: 1
   StripUnusedMeshComponents: 0
   strictShaderVariantMatching: 0
   VertexChannelCompressionMask: 214
@@ -252,7 +259,7 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 5
+  AndroidTargetArchitectures: 2
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -381,6 +388,9 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1
     m_DynamicBatching: 1
+  - m_BuildTarget: Android
+    m_StaticBatching: 1
+    m_DynamicBatching: 0
   m_BuildTargetGraphicsJobs:
   - m_BuildTarget: WindowsStandaloneSupport
     m_GraphicsJobs: 0
@@ -389,7 +399,7 @@ PlayerSettings:
   - m_BuildTarget: LinuxStandaloneSupport
     m_GraphicsJobs: 0
   - m_BuildTarget: AndroidPlayer
-    m_GraphicsJobs: 0
+    m_GraphicsJobs: 1
   - m_BuildTarget: iOSSupport
     m_GraphicsJobs: 0
   - m_BuildTarget: PS4Player
@@ -493,6 +503,7 @@ PlayerSettings:
   openGLRequireES32: 0
   m_TemplateCustomTags: {}
   mobileMTRendering:
+    Android: 1
     iPhone: 1
     tvOS: 1
   m_BuildTargetGroupLightmapEncodingQuality:
@@ -502,12 +513,16 @@ PlayerSettings:
     m_EncodingQuality: 1
   - m_BuildTarget: PS4
     m_EncodingQuality: 1
+  - m_BuildTarget: Android
+    m_EncodingQuality: 2
   m_BuildTargetGroupHDRCubemapEncodingQuality:
   - m_BuildTarget: Standalone
     m_EncodingQuality: 2
   - m_BuildTarget: XboxOne
     m_EncodingQuality: 2
   - m_BuildTarget: PS4
+    m_EncodingQuality: 2
+  - m_BuildTarget: Android
     m_EncodingQuality: 2
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetNormalMapEncoding: []
@@ -789,6 +804,7 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
+    Android: 1
     Standalone: 0
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
