@@ -162,6 +162,27 @@ namespace BGE.Forms
             species.GetComponent<SpawnParameters>().isSuspending = false;
         }
 
+        public void Suspend(int i)
+        {
+            GameObject species = prefabs[i];
+            GameObject creature = aliveMap[species];
+            Boid[] boids = creature.GetComponentsInChildren<Boid>();
+            foreach (Boid b in boids)
+            {
+                b.suspended = true;
+            }
+            SchoolGenerator[] sgs = creature.GetComponentsInChildren<SchoolGenerator>();
+            foreach (SchoolGenerator sg in sgs)
+            {
+                sg.Suspend();
+            }
+            creature.SetActive(false);
+            suspended.Add(species, creature);
+            alive.Remove(creature);
+            aliveMap.Remove(species);
+        }
+
+
         public void Suspend(GameObject species, GameObject creature, bool fadeOut = false)
         {
             SpawnParameters sp = species.GetComponent<SpawnParameters>();
@@ -425,7 +446,8 @@ namespace BGE.Forms
                 GetSpecies(i, prefabs[i].GetComponent<SpawnParameters>().singleton);
                 if (i >= maxcreatures)
                 {
-
+                    Debug.Log("Suspending a: " + prefabs[i]);
+                    Suspend(i);
                 }
             }
 
