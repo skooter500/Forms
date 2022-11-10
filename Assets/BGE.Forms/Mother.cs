@@ -417,7 +417,14 @@ namespace BGE.Forms
         {
             school = GetComponent<School>();
 
-            StartCoroutine(Spawn());
+            for(int i = 0; i < 1; i ++)
+            {
+                // Find a spawn point
+                // Calculate the position
+                GetSpecies(i, prefabs[i].GetComponent<SpawnParameters>().singleton);
+            }
+
+            //StartCoroutine(Spawn());
         }
 
         // Update is called once per frame
