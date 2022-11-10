@@ -14,6 +14,7 @@ public class DetatchFromBoid : MonoBehaviour {
 
     void Detatch(InputAction.CallbackContext context)
     {
+        Debug.Log("Detatch!!!");
         if (context.phase != InputActionPhase.Performed)
         {
             return;
