@@ -23,6 +23,7 @@ public class DetatchFromBoid : MonoBehaviour {
         {
             transform.rotation = Quaternion.Slerp(current, desired, t);
             t += Time.deltaTime * 0.2f;
+            Debug.Log(t);
             yield return null;
         }
 
