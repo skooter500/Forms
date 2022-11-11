@@ -121,12 +121,21 @@ namespace BGE.Forms
                 else
                 {
                     float offs = transMaterial.GetFloat("_Offset");
-                    child.material = opaqueMaterial;
+                    if (targetAlpha < 1)
+                    {
+                        child.material = transMaterial;
+                        child.material.SetFloat("_Fade", targetAlpha);
+                        
+                    }
+                    else
+                    {
+                        child.material = opaqueMaterial;
+                    }
                     child.material.SetFloat("_Offset", offs);
                     child.material.SetFloat("_PositionScale", colorMapScaling);
                     //child.material.SetTexture("_EmissionMap", texture);
                     child.material.mainTexture = texture;
-                    child.material.SetFloat("_Fade", 1);
+                    
                 }
             }
         }

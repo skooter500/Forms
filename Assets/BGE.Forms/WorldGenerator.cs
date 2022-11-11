@@ -80,7 +80,7 @@ namespace BGE.Forms
         public int groundMaterialIndex = 0;
         public Material ceilingMaterial;
 
-        public int ceilingLayer= 20;
+        //public int ceilingLayer= 20;
         
 
         public Sampler[] GetSamplers()
@@ -496,7 +496,7 @@ namespace BGE.Forms
             
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
-            surface.layer = ceilingLayer;
+            //surface.layer = ceilingLayer;
             surface.name = "surface";
             return surface;
         }

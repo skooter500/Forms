@@ -49,7 +49,6 @@ namespace BGE.Forms
                     bool found = false;
                     int count = 0;
                     Vector3 newPos = Vector3.zero;
-                    while (!found)
                     {
                         Vector2 r = Random.insideUnitCircle;
                         newPos = Camera.main.transform.position
@@ -58,33 +57,7 @@ namespace BGE.Forms
                             , 0
                             , r.y * playerRadius);
                         newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(10, 50);
-                        found = true;
-                        /*
-                        float dist = Vector3.Distance(Camera.main.transform.position, newPos);
-                        RaycastHit rch;
-                        bool hit = Physics.Raycast(Camera.main.transform.position
-                            , newPos - Camera.main.transform.position
-                            , out rch
-                            , dist
-                            , environmentLM
-                            );
-
-                        if (hit)
-                        {
-                            found = true;
-                            break;
-                        }
-                        count++;
-                        if (count == 10)
-                        {
-                            found = false;
-                            break;
-                        }
-                        */
-                    }
-                    if (found)
-                    {
-                        GameObject newJelly = null;
+                       GameObject newJelly = null;
                         if (dead.Count > 0)
                         {
                             newJelly = dead[dead.Count - 1];
@@ -100,10 +73,6 @@ namespace BGE.Forms
                         newJelly.transform.position = newPos;
                         Utilities.FindBoidInHierarchy(newJelly).desiredPosition = newPos;
                         alive.Add(newJelly);
-                    }
-                    else
-                    {
-                        //Debug.Log("Couldnt find a place to spawn the jelly");
                     }
                 }
                 yield return new WaitForSeconds(delay);
