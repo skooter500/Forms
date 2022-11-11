@@ -78,7 +78,7 @@ public class DetatchFromBoid : MonoBehaviour {
                 vt.Vary();
             }
 
-            StraightenUp();
+            StartCoroutine(StraightenUp());
 
             RotateMe[] r = FindObjectsOfType<RotateMe>();
             foreach (RotateMe rm in r)

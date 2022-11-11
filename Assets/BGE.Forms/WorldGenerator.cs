@@ -92,6 +92,7 @@ namespace BGE.Forms
         {
             if (drawGizmos )
             {
+                Random.seed = 42;
                 samplers = GetSamplers();
                 textureGenerator = GetComponent<GameOfLifeTextureGenerator>();
                 if (samplers == null)
@@ -170,7 +171,7 @@ namespace BGE.Forms
             */
             player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
             
-            //Random.seed = 42;
+            Random.seed = 42;
         }
 
 
