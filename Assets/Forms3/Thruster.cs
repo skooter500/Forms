@@ -33,7 +33,7 @@ public class Thruster : MonoBehaviour
 
         Vector3 f = transform.forward * fire * newtons * Time.deltaTime;
         player.AddForce(-f);
-        audioSource.volume = newScale;
+        audioSource.volume = newScale * 2;
         audioSource.pitch = newScale * 2.0f;
     }
 }

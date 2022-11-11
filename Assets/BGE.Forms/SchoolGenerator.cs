@@ -152,7 +152,7 @@ namespace BGE.Forms
 
         }
 
-        void Start()
+        void Awake()
         {
             if (!isActiveAndEnabled)
             {
