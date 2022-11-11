@@ -174,16 +174,7 @@ namespace BGE.Forms
         {
             playerPosition = player.position;
             playerForward = player.forward;        
-            inFrontOfPlayer = Vector3.Dot(position - playerPosition, playerForward) > 0;
-            distanceToPlayer = Vector3.Distance(position, playerPosition);
-            if (autoSuspendWhenInvisible)
-            {
-                suspended = !inFrontOfPlayer;
-            }
-            if (suspended)
-            {
-                return;
-            }
+            
 
             time = Time.deltaTime;
             
