@@ -389,16 +389,14 @@ namespace BGE.Forms
             sceneAvoidance = playerBoid.GetComponent<SceneAvoidance>();
             op = playerBoid.GetComponent<OffsetPursue>();
             
-            sm = GetComponent<StateMachine>();
-            sm.ChangeState(new PlayerState());
+            //sm = GetComponent<StateMachine>();
+            //sm.ChangeState(new PlayerState());
 
             cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
             if (cameraTransition == null)
                 Debug.LogWarning(@"CameraTransition not found.");
 
             newToad = GetComponent<NewToad>();
-
-            GetComponent<Collider>().material.bounciness = 5.0f;
 
             Invoke("LateStart", 5);
 
