@@ -398,6 +398,8 @@ namespace BGE.Forms
 
             newToad = GetComponent<NewToad>();
 
+            GetComponent<Collider>().material.bounciness = 5.0f;
+
             Invoke("LateStart", 5);
 
         }
