@@ -56,7 +56,7 @@ namespace BGE.Forms
                             + new Vector3
                             (r.x * playerRadius
                             , 0
-                            , Mathf.Abs(r.y) * playerRadius);
+                            , r.y * playerRadius);
                         newPos.y = wg.SamplePos(newPos.x, newPos.z) + Random.Range(10, 50);
                         found = true;
                         /*
