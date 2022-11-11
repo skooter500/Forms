@@ -9,7 +9,7 @@ Shader "Custom/HeightColor"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" }
         LOD 200
 
         CGPROGRAM
@@ -120,13 +120,13 @@ Shader "Custom/HeightColor"
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             
-			float h = pingpongMap(IN.worldPos.y, 0, 10000, 0.6, 0.8);
-			fixed3 c = hsv_to_rgb(float3(0.5, 1, 1));
+			float h = pingpongMap(IN.worldPos.y, 0, 500, 0.0, 1);
+			fixed3 c = hsv_to_rgb(float3(h, 1, 1));
 			o.Albedo = c;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			o.Alpha = 1;
+			o.Alpha = 0.8;
         }
         ENDCG
     }
