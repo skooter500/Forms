@@ -14,15 +14,13 @@ namespace BGE.Forms
 
         public float playerRadius = 1000;
 
-        public Dictionary<SpawnParameters, SpawnParameters> alive = new Dictionary<SpawnParameters, SpawnParameters>();
-        public Dictionary<SpawnParameters, SpawnParameters> suspended = new Dictionary<SpawnParameters, SpawnParameters>();
+        public List<SpawnParameters> alive = new List<SpawnParameters>();
+        public List<SpawnParameters> dead = new List<SpawnParameters>();
         public SpawnParameters[] prefabs;
 
         public LayerMask environmentLM;
 
         public static Mother Instance;
-
-        public float genesisSpawnDistance = 100;
 
         School school;
 
@@ -33,14 +31,10 @@ namespace BGE.Forms
         public GameObject player;
 
         Vector3 FindPlace(SpawnParameters sp)
-        {
-            bool found = false;
-            int count = 0;
-            Vector3 newPos = Vector3.zero;
+        {           
             if (sp == null)
             {
                 Debug.Log("Creature : " + sp.gameObject + " doesnt have spawn parameters!!!");
-                found = false;
                 return Vector3.zero;
             }
 
@@ -54,7 +48,7 @@ namespace BGE.Forms
             r += (r.normalized * start);
             //r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
 
-            newPos = player.transform.TransformPoint(r);
+            Vector3 newPos = player.transform.TransformPoint(r);
             float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
             float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
             float minHeight = sampleY + sp.minHeight;                
@@ -63,63 +57,6 @@ namespace BGE.Forms
             return newPos;
         }
       
-        public SpawnParameters GetCreature(SpawnParameters prefab)
-        {
-            if (alive.ContainsKey(prefab))
-            {
-                return alive[prefab];
-            }
-            else
-            {
-                if (suspended.ContainsKey(prefab))
-                {
-                    SpawnParameters sp = suspended[prefab];
-                    Vector3 pos = FindPlace(prefab);
-                    sp.Teleport(pos);
-                    suspended.Remove(prefab);
-                    alive[prefab] = sp;
-                    sp.gameObject.SetActive(true);
-                }
-                else
-                {
-                    Vector3 pos = FindPlace(prefab);
-                    SpawnParameters sp = GameObject.Instantiate(prefab, pos, Quaternion.identity) as SpawnParameters;
-                    alive[prefab] = sp;
-                }
-            }
-
-        }
-
-
-        System.Collections.IEnumerator Spawn()
-        {
-            float delay = 1.0f / (float)spawnRate;
-            WorldGenerator wg = FindObjectOfType<WorldGenerator>();
-
-            int nextSpecies = 0;
-
-            while (true)
-            {
-                if (alive.Count <= maxcreatures)
-                {
-                    GetCreature(nextSpecies);
-                    yield return null;
-                }
-                
-                
-                foreach(SpawnParameters sp in alive)
-                {
-                    if (sp.boid. )
-                    sp.gameObject.SetActive(false);
-                    yield return null;
-                }
-            }
-
-
-
-        }
-
-
         private void Awake()
         {
             Instance = this;
@@ -128,27 +65,59 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {           
-            for(int i = 0; i < prefabs.Length; i ++)
-            {
-                // Find a spawn point
-                // Calculate the position
-                //Debug.Log("Making a: " + prefabs[i]);
-                GetCreature(i);
-                if (i > maxcreatures)
-                {
-                    Debug.Log("Suspending a: " + prefabs[i]);
-                    Suspend(i);
-                }
-            }
-
             StartCoroutine(Spawn());
+        }
+
+        System.Collections.IEnumerator Spawn()
+        {
+            for(int i = 0; i < prefabs.Length; i++)
+            {
+                Vector3 pos = FindPlace(prefabs[i]);
+                SpawnParameters creature = GameObject.Instantiate(prefabs[i], pos, Quaternion.identity);
+                if (i >= maxcreatures)
+                {
+                    creature.gameObject.SetActive(false);
+                    dead.Add(creature);
+                }
+                else
+                {
+                    creature.gameObject.SetActive(true);
+                    alive.Add(creature);
+                }                
+                creature.gameObject.transform.parent = this.transform;
+            }
+            //while(true)
+            //{
+            //    // Remove too far
+            //    for(int i = alive.Count - 1; i >= 0; i --)
+            //    {
+            //        SpawnParameters sp = alive[i];
+            //        if (Vector3.Distance(sp.transform.position, player.transform.position) > 5000)
+            //        {
+            //            sp.gameObject.SetActive(false);
+            //            dead.Add(sp);
+            //            alive.RemoveAt(i);
+            //        }
+            //    }
+            //    // Create as needed
+            //    if (alive.Count < maxcreatures)
+            //    {
+            //        SpawnParameters creature = dead[0];
+            //        Vector3 pos = FindPlace(creature);
+            //        creature.Teleport(pos);
+            //        creature.gameObject.SetActive(true);
+            //        dead.RemoveAt(0);
+            //        alive.Add(creature);
+                 
+            //    yield return null;
+            //}            
         }
 
         // Update is called once per frame
         void Update()
         {
             CreatureManager.Log("Alive species: " + alive.Count);
-            CreatureManager.Log("Suspended species: " + suspended.Count);
+            CreatureManager.Log("Suspended species: " + dead.Count);
         }
     }
 }
