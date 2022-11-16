@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class SpawnParameters : MonoBehaviour {
 
     public bool singleton = false;
 
-    BGE.Forms.Boid masterBoid;
+    BGE.Forms.Boid boid;
 
     public GameObject[] effects;
     internal bool isSuspending = false;
@@ -35,4 +36,10 @@ public class SpawnParameters : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void Teleport(Vector3 pos)
+    {
+        Debug.Log("Teleporting");
+        transform.position = pos;
+    }
 }
