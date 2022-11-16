@@ -16,7 +16,7 @@ namespace BGE.Forms
 
         public List<SpawnParameters> alive = new List<SpawnParameters>();
         public List<SpawnParameters> dead = new List<SpawnParameters>();
-        public SpawnParameters[] prefabs;
+        public GameObject[] prefabs;
 
         public LayerMask environmentLM;
 
@@ -72,8 +72,8 @@ namespace BGE.Forms
         {
             for(int i = 0; i < prefabs.Length; i++)
             {
-                Vector3 pos = FindPlace(prefabs[i]);
-                SpawnParameters creature = GameObject.Instantiate(prefabs[i], pos, Quaternion.identity);
+                Vector3 pos = FindPlace(prefabs[i].GetComponent<SpawnParameters>());
+                SpawnParameters creature = GameObject.Instantiate(prefabs[i], pos, Quaternion.identity).GetComponent<SpawnParameters>();
                 if (i >= maxcreatures)
                 {
                     creature.gameObject.SetActive(false);
@@ -108,9 +108,10 @@ namespace BGE.Forms
             //        creature.gameObject.SetActive(true);
             //        dead.RemoveAt(0);
             //        alive.Add(creature);
-                 
+
             //    yield return null;
-            //}            
+            //}
+            yield return null;
         }
 
         // Update is called once per frame

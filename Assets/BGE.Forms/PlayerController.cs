@@ -346,14 +346,14 @@ namespace BGE.Forms
 
         GameObject PickNewSpecies()
         {
-            species = mother.GetSpecies(nextSpecies, true);
+            //species = mother.GetSpecies(nextSpecies, true);
             nextSpecies = (nextSpecies + 1) % mother.prefabs.Length;
             return species;
         }
 
         GameObject PickNewTarget()
         {
-            creature = mother.GetCreature(species);
+            //creature = mother.GetCreature(species);
             distance = species.GetComponent<SpawnParameters>().viewingDistance;
             return creature;
 
