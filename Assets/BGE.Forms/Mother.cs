@@ -47,13 +47,19 @@ namespace BGE.Forms
             r *= Random.Range(start, sp.end);
             r += (r.normalized * start);
             //r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
-
             Vector3 newPos = player.transform.TransformPoint(r);
             float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
             float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
             float minHeight = sampleY + sp.minHeight;                
             float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
             newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
+
+            GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            temp.transform.position = newPos;
+            temp.GetComponent<Collider>().enabled = false;
+            temp.transform.localScale = new Vector3(200, 1000, 200);
+
+
             return newPos;
         }
       
@@ -140,7 +146,7 @@ namespace BGE.Forms
                 {
                     SpawnParameters sp = alive[i];
                     float f = Vector3.Distance(sp.boid.position, player.transform.position);
-                    if (f > 15000)
+                    if (f > 10000)
                     {
                         Debug.Log("Removing: " + sp);
                         sp.gameObject.SetActive(false);
