@@ -122,7 +122,7 @@ namespace BGE.Forms
 
 
         // Use this for initialization
-        void Start()
+        void Awake()
         {
             GeneratePositions();
 
@@ -162,6 +162,8 @@ namespace BGE.Forms
             }
 
             Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);
+
+            GetComponent<SpawnParameters>().boid = leader.GetComponentInChildren<Boid>();
         }
     }
 }

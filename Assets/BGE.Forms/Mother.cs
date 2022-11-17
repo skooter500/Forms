@@ -68,14 +68,61 @@ namespace BGE.Forms
             StartCoroutine(Spawn());
         }
 
+        private void Teleport(SpawnParameters creature, Vector3 newPos)
+        {
+            Debug.Log("Teleporting: " + creature);
+            Vector3 boidPos = creature.boid.position;
+            if (creature.GetComponent<SchoolGenerator>() == null && creature.GetComponent<SandWorm>() == null)
+            {
+
+                Vector3 trans = newPos - boidPos;
+                creature.transform.position += trans;
+                Boid boid = creature.boid;
+                // Translate it to the new position                            
+                //boid.transform.position = newPos;
+                boid.position = boid.transform.position; // The boid
+                boid.desiredPosition = boid.position;
+                boid.suspended = false;
+                if (boid.GetComponent<Constrain>() != null)
+                {
+                    boid.GetComponent<Constrain>().centre = newPos;
+                }
+
+                if (boid.GetComponent<TrailRenderer>() != null)
+                {
+                    boid.GetComponent<TrailRenderer>().Clear();
+                }
+                FormationGenerator fg = creature.GetComponent<FormationGenerator>();
+                if (fg != null)
+                {
+                    fg.GeneratePositions();
+                    fg.Teleport();
+                }
+            }
+            else
+            {
+                creature.transform.position = newPos;
+            }
+        }
+
+
         System.Collections.IEnumerator Spawn()
         {
-            for(int i = 0; i < prefabs.Length; i++)
+            for (int i = 0; i < prefabs.Length; i++)
             {
-                Vector3 pos = FindPlace(prefabs[i].GetComponent<SpawnParameters>());
+                GameObject prefab = prefabs[i];
+                Vector3 pos = FindPlace(prefab.GetComponent<SpawnParameters>());
                 SpawnParameters creature = GameObject.Instantiate(prefabs[i], pos, Quaternion.identity).GetComponent<SpawnParameters>();
+                if (creature.boid == null)
+                {
+                    
+                    creature.boid = creature.GetComponentInChildren<Boid>();
+                    Debug.Log("Assigning boid to: " + creature.boid + " for creature: " + creature);
+                }
                 if (i >= maxcreatures)
                 {
+                    creature.gameObject.SetActive(true);
+                    yield return null;
                     creature.gameObject.SetActive(false);
                     dead.Add(creature);
                 }
@@ -83,39 +130,38 @@ namespace BGE.Forms
                 {
                     creature.gameObject.SetActive(true);
                     alive.Add(creature);
-                }                
+                }
                 creature.gameObject.transform.parent = this.transform;
             }
-            //while(true)
-            //{
-            //    // Remove too far
-            //    for(int i = alive.Count - 1; i >= 0; i --)
-            //    {
-            //        SpawnParameters sp = alive[i];
-            //        if (Vector3.Distance(sp.transform.position, player.transform.position) > 5000)
-            //        {
-            //            sp.gameObject.SetActive(false);
-            //            dead.Add(sp);
-            //            alive.RemoveAt(i);
-            //        }
-            //    }
-            //    // Create as needed
-            //    if (alive.Count < maxcreatures)
-            //    {
-            //        SpawnParameters creature = dead[0];
-            //        Vector3 pos = FindPlace(creature);
-            //        creature.Teleport(pos);
-            //        creature.gameObject.SetActive(true);
-            //        dead.RemoveAt(0);
-            //        alive.Add(creature);
-
-            //    yield return null;
-            //}
-            yield return null;
+            while (true)
+            {
+                // Remove too far
+                for (int i = alive.Count - 1; i >= 0; i--)
+                {
+                    SpawnParameters sp = alive[i];
+                    if (Vector3.Distance(sp.transform.position, player.transform.position) > 5000)
+                    {
+                        sp.gameObject.SetActive(false);
+                        dead.Add(sp);
+                        alive.RemoveAt(i);
+                    }
+                }
+                // Create as needed
+                if (alive.Count < maxcreatures)
+                {
+                    SpawnParameters creature = dead[0];
+                    Vector3 pos = FindPlace(creature);
+                    Teleport(creature, pos);
+                    creature.gameObject.SetActive(true);
+                    dead.RemoveAt(0);
+                    alive.Add(creature);
+                }
+                yield return null;
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+            // Update is called once per frame
+            void Update()
         {
             CreatureManager.Log("Alive species: " + alive.Count);
             CreatureManager.Log("Suspended species: " + dead.Count);

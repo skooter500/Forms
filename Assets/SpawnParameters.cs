@@ -33,13 +33,5 @@ public class SpawnParameters : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void Teleport(Vector3 pos)
-    {
-        Debug.Log("Teleporting");
-        transform.position = pos;
-    }
 }

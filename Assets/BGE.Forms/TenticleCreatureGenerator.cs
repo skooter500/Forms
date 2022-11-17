@@ -69,10 +69,12 @@ namespace BGE.Forms
             return list;
         }
 
+        Boid boid = null;
+
         void CreateCreature()
         {
             List<CreaturePart> parts = CreateCreatureParams();
-            Boid boid = null;
+            
             GameObject temp = new GameObject();
             temp.transform.position = transform.position;
             for(int i = 0; i < parts.Count; i ++)
@@ -127,6 +129,12 @@ namespace BGE.Forms
         void Awake()
         {
             CreateCreature();
+
+            SpawnParameters sp = GetComponent<SpawnParameters>();
+            if (sp != null)
+            {
+                sp.boid = boid;
+            }
         }
 
     
