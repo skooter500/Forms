@@ -122,7 +122,7 @@ namespace BGE.Forms
                 if (i >= maxcreatures)
                 {
                     creature.gameObject.SetActive(true);
-                    yield return null;
+                    //yield return null;
                     creature.gameObject.SetActive(false);
                     dead.Add(creature);
                 }
@@ -135,12 +135,14 @@ namespace BGE.Forms
             }
             while (true)
             {
-                // Remove too far
+                //Remove too far
                 for (int i = alive.Count - 1; i >= 0; i--)
                 {
                     SpawnParameters sp = alive[i];
-                    if (Vector3.Distance(sp.transform.position, player.transform.position) > 5000)
+                    float f = Vector3.Distance(sp.boid.position, player.transform.position);
+                    if (f > 15000)
                     {
+                        Debug.Log("Removing: " + sp);
                         sp.gameObject.SetActive(false);
                         dead.Add(sp);
                         alive.RemoveAt(i);
