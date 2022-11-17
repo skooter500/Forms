@@ -105,7 +105,7 @@ namespace BGE.Forms
             SchoolGenerator sg = creature.GetComponentInChildren<SchoolGenerator>();
             if (sg != null)
             {
-                //sg.Teleport(newPos);
+                sg.Teleport(newPos);
             }
         }
 
@@ -142,7 +142,7 @@ namespace BGE.Forms
                 {
                     SpawnParameters sp = alive[i];
                     float f = Vector3.Distance(sp.boid.position, player.transform.position);
-                    if (f > 10000)
+                    if (f > 8000)
                     {
                         sp.gameObject.SetActive(false);
                         dead.Add(sp);

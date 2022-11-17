@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1629482085562020134}
   - component: {fileID: 6814145674062692409}
   - component: {fileID: 4651150953671175248}
-  - component: {fileID: 2101688263113489795}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2103690562315584403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3249776956687967228}
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2f3ee7652c36c44bba596cc23c3beda, type: 2}
+  - {fileID: 2100000, guid: 5f832c36240cca0468d3419091990a0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2101688263113489795
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2103690562315584403}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6677399020577072297
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +95,7 @@ GameObject:
   - component: {fileID: 368059267600567058}
   - component: {fileID: 5499043215450579422}
   - component: {fileID: 2195395632658079389}
+  - component: {fileID: 4790937217227920687}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -144,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0349b2db7746942847435524aef8f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
 --- !u!96 &5499043215450579422
 TrailRenderer:
   serializedVersion: 3
@@ -166,7 +153,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2f3ee7652c36c44bba596cc23c3beda, type: 2}
+  - {fileID: 2100000, guid: 5f832c36240cca0468d3419091990a0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,7 +174,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 20
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -266,7 +253,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3ea98cdc9c45bf340b506efe018769a6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7066ba719d7f6504da06c26926c3ed67, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -352,3 +339,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4790937217227920687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6677399020577072297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76707a94bd7a21438f3f1cf655ab1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transMaterial: {fileID: 0}
+  opaqueMaterial: {fileID: 0}
+  colorMapScaling: 50
+  texture: {fileID: 0}
+  particleTexture: {fileID: 0}
+  colorScale: 0.7
+  textureMode: 1
+  targetAlpha: 1
+  targetFade: 1
+  startFade: 0
+  waitAFrame: 0
+  textureSource: 0

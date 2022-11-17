@@ -126,7 +126,7 @@ Shader "Custom/HeightColor"
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			o.Alpha = 0.8;
+			o.Alpha = 0.5;
         }
         ENDCG
     }
