@@ -31,7 +31,7 @@ namespace BGE.Forms
         public GameObject player;
 
         Vector3 FindPlace(SpawnParameters sp)
-        {           
+        {
             if (sp == null)
             {
                 Debug.Log("Creature : " + sp.gameObject + " doesnt have spawn parameters!!!");
@@ -50,7 +50,7 @@ namespace BGE.Forms
             Vector3 newPos = player.transform.TransformPoint(r);
             float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
             float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
-            float minHeight = sampleY + sp.minHeight;                
+            float minHeight = sampleY + sp.minHeight;
             float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
             newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
 
@@ -62,7 +62,7 @@ namespace BGE.Forms
 
             return newPos;
         }
-      
+
         private void Awake()
         {
             Instance = this;
@@ -70,7 +70,7 @@ namespace BGE.Forms
 
         // Use this for initialization
         void Start()
-        {           
+        {
             StartCoroutine(Spawn());
         }
 
@@ -78,39 +78,36 @@ namespace BGE.Forms
         {
             Debug.Log("Teleporting: " + creature);
             Vector3 boidPos = creature.boid.position;
-            if (creature.GetComponent<SchoolGenerator>() == null && creature.GetComponent<SandWorm>() == null)
+            Vector3 trans = newPos - boidPos;
+            creature.transform.position += trans;
+            Boid boid = creature.boid;
+            // Translate it to the new position                            
+            //boid.transform.position = newPos;
+            boid.position = boid.transform.position; // The boid
+            boid.desiredPosition = boid.position;
+            boid.suspended = false;
+            if (boid.GetComponent<Constrain>() != null)
             {
-
-                Vector3 trans = newPos - boidPos;
-                creature.transform.position += trans;
-                Boid boid = creature.boid;
-                // Translate it to the new position                            
-                //boid.transform.position = newPos;
-                boid.position = boid.transform.position; // The boid
-                boid.desiredPosition = boid.position;
-                boid.suspended = false;
-                if (boid.GetComponent<Constrain>() != null)
-                {
-                    boid.GetComponent<Constrain>().centre = newPos;
-                }
-
-                if (boid.GetComponent<TrailRenderer>() != null)
-                {
-                    boid.GetComponent<TrailRenderer>().Clear();
-                }
-                FormationGenerator fg = creature.GetComponent<FormationGenerator>();
-                if (fg != null)
-                {
-                    fg.GeneratePositions();
-                    fg.Teleport();
-                }
+                boid.GetComponent<Constrain>().centre = newPos;
             }
-            else
+
+            if (boid.GetComponent<TrailRenderer>() != null)
             {
-                creature.transform.position = newPos;
+                boid.GetComponent<TrailRenderer>().Clear();
+            }
+            FormationGenerator fg = creature.GetComponent<FormationGenerator>();
+            if (fg != null)
+            {
+                fg.GeneratePositions();
+                fg.Teleport();
+            }
+
+            SchoolGenerator sg = creature.GetComponentInChildren<SchoolGenerator>();
+            if (sg != null)
+            {
+                sg.Teleport(newPos);
             }
         }
-
 
         System.Collections.IEnumerator Spawn()
         {
@@ -123,7 +120,6 @@ namespace BGE.Forms
                 {
                     
                     creature.boid = creature.GetComponentInChildren<Boid>();
-                    Debug.Log("Assigning boid to: " + creature.boid + " for creature: " + creature);
                 }
                 if (i >= maxcreatures)
                 {
@@ -148,7 +144,6 @@ namespace BGE.Forms
                     float f = Vector3.Distance(sp.boid.position, player.transform.position);
                     if (f > 10000)
                     {
-                        Debug.Log("Removing: " + sp);
                         sp.gameObject.SetActive(false);
                         dead.Add(sp);
                         alive.RemoveAt(i);

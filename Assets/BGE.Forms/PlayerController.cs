@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Ibuprogames.CameraTransitionsAsset;
+//using Ibuprogames.CameraTransitionsAsset;
 using UnityEngine.SceneManagement;
 
 namespace BGE.Forms
@@ -194,7 +194,7 @@ namespace BGE.Forms
         MonoBehaviour vrController;
         ForceController fc;
         Cruise cruise;
-        CameraTransition cameraTransition;
+        //CameraTransition cameraTransition;
 
         public Mother mother;
 
@@ -392,9 +392,9 @@ namespace BGE.Forms
             //sm = GetComponent<StateMachine>();
             //sm.ChangeState(new PlayerState());
 
-            cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
-            if (cameraTransition == null)
-                Debug.LogWarning(@"CameraTransition not found.");
+            //cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
+            //if (cameraTransition == null)
+            //    Debug.LogWarning(@"CameraTransition not found.");
 
             newToad = GetComponent<NewToad>();
 

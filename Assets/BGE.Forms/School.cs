@@ -31,7 +31,7 @@ namespace BGE.Forms
         [Range(0, 1)]
         public float preferredTimeDelta = 0;
 
-        public virtual void Teleport(Vector3 newHome, Vector3 trans, Boid calculationBoid)
+        public virtual void Teleport(Vector3 newHome)
         {
             SchoolGenerator sg = GetComponent<SchoolGenerator>();
             foreach (Boid b in boids)
@@ -55,19 +55,7 @@ namespace BGE.Forms
                     {
                         b.GetComponent<Constrain>().centre = pos;
                     }
-                }
-                else
-                {
-                    if (b != calculationBoid)
-                    {
-                        b.position += trans;
-                        b.desiredPosition += trans;
-                        if (b.GetComponent<Constrain>() != null)
-                        {
-                            b.GetComponent<Constrain>().centre += trans;
-                        }
-                    }
-                }
+                }                
                 b.suspended = false;
                 if (b.GetComponent<TrailRenderer>() != null)
                 {

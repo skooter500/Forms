@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ibuprogames.CameraTransitionsAsset;
 using BGE.Forms;
 
 public class CameraTransitionController : MonoBehaviour
@@ -9,7 +8,7 @@ public class CameraTransitionController : MonoBehaviour
 
     public GameObject audioThing;
 
-    CameraTransition cameraTransition;
+    //CameraTransition cameraTransition;
     public List<GameObject> leftEffects = new List<GameObject>();
     public List<GameObject> rightEffects = new List<GameObject>();
 
@@ -48,23 +47,23 @@ public class CameraTransitionController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
-        cameraTransition.ProgressMode = CameraTransition.ProgressModes.Manual;
-        if (cameraTransition == null)
-            Debug.LogWarning(@"CameraTransition not found.");
-        cameraTransition.DoTransition(CameraTransitionEffects.Simple, cameraA, cameraB, 2.0f, false, null);
+        //cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
+        //cameraTransition.ProgressMode = CameraTransition.ProgressModes.Manual;
+        //if (cameraTransition == null)
+        //    Debug.LogWarning(@"CameraTransition not found.");
+        //cameraTransition.DoTransition(CameraTransitionEffects.Simple, cameraA, cameraB, 2.0f, false, null);
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            GameObject effect = transform.GetChild(i).gameObject;
-            effect.SetActive(false);
-        }
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    GameObject effect = transform.GetChild(i).gameObject;
+        //    effect.SetActive(false);
+        //}
 
-        left = -1;
-        right = -1;
-        video = -1;
-        state = State.Hidden;
-        ellapsed = 0;
+        //left = -1;
+        //right = -1;
+        //video = -1;
+        //state = State.Hidden;
+        //ellapsed = 0;
     }
 
     public Camera cameraA;
@@ -212,7 +211,7 @@ public class CameraTransitionController : MonoBehaviour
                 }
                 break;
         }
-        cameraTransition.Progress = Utilities.Map(t, 0, 1, 0.0f, overlayOpacity);
+        //cameraTransition.Progress = Utilities.Map(t, 0, 1, 0.0f, overlayOpacity);
 
         ellapsed += Time.deltaTime;
         if (state == State.Hidden && ellapsed > toPass)
