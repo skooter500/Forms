@@ -26,6 +26,34 @@ namespace BGE.Forms
 
         public bool spawmInWorld = true;
 
+        public virtual void Teleport(Vector3 newHome)
+        {
+            foreach (Boid b in boids)
+            {
+                Vector3 unit = UnityEngine.Random.insideUnitSphere;
+                Vector3 pos = newHome + unit * UnityEngine.Random.Range(0, radius * spread);
+                WorldGenerator wg = WorldGenerator.Instance;
+                if (wg != null)
+                {
+                    float groundHeight = wg.SamplePos(pos.x, pos.z);
+                    if (pos.y < groundHeight)
+                    {
+                        pos.y = groundHeight + UnityEngine.Random.Range(10, radius * spread);
+                    }
+                }
+                b.position = pos;
+                b.desiredPosition = pos;
+                if (b.GetComponent<Constrain>() != null)
+                {
+                    b.GetComponent<Constrain>().centre = pos;
+                }
+                if (b.GetComponent<TrailRenderer>() != null)
+                {
+                    b.GetComponent<TrailRenderer>().Clear();
+                }
+            }
+        }
+
         void ManageSchool()
         {
             int maxAudioBoids = 5;
@@ -83,8 +111,6 @@ namespace BGE.Forms
                         //boid.transform.position = pos;
                         boid.position = pos;
                         boid.desiredPosition = pos;
-                        boid.maxSpeed += boid.maxSpeed * UnityEngine.Random.Range(-speedVariation, speedVariation);
-
                         boids.Add(boid);
                     }
 

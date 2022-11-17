@@ -150,8 +150,6 @@ namespace BGE.Forms
         [HideInInspector]
         public float gravityAcceleration = 0;
 
-        public bool autoSuspendWhenInvisible = false;
-
         private Renderer renderer = null;
         public bool isVisible()
         {

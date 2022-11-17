@@ -54,10 +54,10 @@ namespace BGE.Forms
             float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
             newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
 
-            GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            temp.transform.position = newPos;
-            temp.GetComponent<Collider>().enabled = false;
-            temp.transform.localScale = new Vector3(200, 1000, 200);
+            //GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //temp.transform.position = newPos;
+            //temp.GetComponent<Collider>().enabled = false;
+            //temp.transform.localScale = new Vector3(200, 1000, 200);
 
 
             return newPos;
@@ -79,11 +79,11 @@ namespace BGE.Forms
             Debug.Log("Teleporting: " + creature);
             Vector3 boidPos = creature.boid.position;
             Vector3 trans = newPos - boidPos;
-            creature.transform.position += trans;
+            creature.transform.position = newPos;
             Boid boid = creature.boid;
             // Translate it to the new position                            
             //boid.transform.position = newPos;
-            boid.position = boid.transform.position; // The boid
+            boid.position = newPos; // The boid
             boid.desiredPosition = boid.position;
             boid.suspended = false;
             if (boid.GetComponent<Constrain>() != null)
@@ -105,7 +105,7 @@ namespace BGE.Forms
             SchoolGenerator sg = creature.GetComponentInChildren<SchoolGenerator>();
             if (sg != null)
             {
-                sg.Teleport(newPos);
+                //sg.Teleport(newPos);
             }
         }
 
@@ -116,6 +116,7 @@ namespace BGE.Forms
                 GameObject prefab = prefabs[i];
                 Vector3 pos = FindPlace(prefab.GetComponent<SpawnParameters>());
                 SpawnParameters creature = GameObject.Instantiate(prefabs[i], pos, Quaternion.identity).GetComponent<SpawnParameters>();
+                creature.gameObject.SetActive(true);
                 if (creature.boid == null)
                 {
                     
@@ -123,8 +124,7 @@ namespace BGE.Forms
                 }
                 if (i >= maxcreatures)
                 {
-                    creature.gameObject.SetActive(true);
-                    //yield return null;
+                    
                     creature.gameObject.SetActive(false);
                     dead.Add(creature);
                 }
@@ -147,6 +147,8 @@ namespace BGE.Forms
                         sp.gameObject.SetActive(false);
                         dead.Add(sp);
                         alive.RemoveAt(i);
+                        Debug.Log("Suspending: " + sp);
+                        yield return null;
                     }
                 }
                 // Create as needed
@@ -158,6 +160,7 @@ namespace BGE.Forms
                     creature.gameObject.SetActive(true);
                     dead.RemoveAt(0);
                     alive.Add(creature);
+                    yield return null;
                 }
                 yield return null;
             }

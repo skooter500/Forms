@@ -32,12 +32,12 @@ namespace BGE.Forms
         {
             if (Vector3.Distance(boid.position, target) < fleeRange)
             {
-                boid.maxSpeed = originalSpeed * 5.0f;
+                //boid.maxSpeed = originalSpeed * 5.0f;
                 return boid.FleeForce(target);
             }
             else
             {
-                boid.maxSpeed = originalSpeed;
+                //boid.maxSpeed = originalSpeed;
                 return Vector3.zero;
             }    
         }
