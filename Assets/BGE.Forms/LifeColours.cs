@@ -120,7 +120,6 @@ namespace BGE.Forms
                 }
                 else
                 {
-                    float offs = transMaterial.GetFloat("_Offset");
                     if (targetAlpha < 1)
                     {
                         child.material = transMaterial;
@@ -131,7 +130,7 @@ namespace BGE.Forms
                     {
                         child.material = opaqueMaterial;
                     }
-                    child.material.SetFloat("_Offset", offs);
+                    //child.material.SetFloat("_Offset", o);
                     child.material.SetFloat("_PositionScale", colorMapScaling);
                     //child.material.SetTexture("_EmissionMap", texture);
                     child.material.mainTexture = texture;
