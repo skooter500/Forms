@@ -380,14 +380,14 @@ namespace BGE.Forms
 
             sm = GetComponent<StateMachine>();
             vrController = player.GetComponent<ViveController>();
-            cruise = playerCruise.GetComponent<Cruise>();
+            //cruise = playerCruise.GetComponent<Cruise>();
             
 
 
-            playerBoid = GameObject.FindGameObjectWithTag("PlayerBoid").GetComponent<Boid>();
-            seek = playerBoid.GetComponent<Seek>();
-            sceneAvoidance = playerBoid.GetComponent<SceneAvoidance>();
-            op = playerBoid.GetComponent<OffsetPursue>();
+            //playerBoid = GameObject.FindGameObjectWithTag("PlayerBoid").GetComponent<Boid>();
+            //seek = playerBoid.GetComponent<Seek>();
+            //sceneAvoidance = playerBoid.GetComponent<SceneAvoidance>();
+            //op = playerBoid.GetComponent<OffsetPursue>();
             
             //sm = GetComponent<StateMachine>();
             //sm.ChangeState(new PlayerState());

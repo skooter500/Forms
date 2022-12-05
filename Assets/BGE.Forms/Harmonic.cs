@@ -96,7 +96,7 @@ namespace BGE.Forms
             if (auto)
             {
                 rampedSpeed = Mathf.Lerp(rampedSpeed, speed, Time.deltaTime);
-                this.theta += Time.deltaTime * rampedSpeed * Mathf.Deg2Rad;
+                this.theta += Time.deltaTime * rampedSpeed * Mathf.Deg2Rad * boid.timeMultiplier;
             }
         }
     }
