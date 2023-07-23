@@ -189,6 +189,7 @@ namespace BGE.Forms
 
             for (int i = 0; i < numParts; i++)
             {
+
                 float partSize = 0;
                 if (makeRotator && i == 0)
                 {
