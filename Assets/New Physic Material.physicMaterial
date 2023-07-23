@@ -4,10 +4,11 @@
 PhysicMaterial:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: New Physic Material
-  dynamicFriction: 2
-  staticFriction: 2
-  bounciness: 0
+  dynamicFriction: 1
+  staticFriction: 1
+  bounciness: 1
   frictionCombine: 0
   bounceCombine: 0

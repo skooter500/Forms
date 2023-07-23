@@ -13,7 +13,7 @@ namespace BGE.Forms
         // Use this for initialization
         void Start()
         {
-            vrMode = UnityEngine.XR.XRDevice.isPresent;
+            vrMode = true; //  UnityEngine.XR.XRDevice.isPresent;
         }
 
 
@@ -21,10 +21,15 @@ namespace BGE.Forms
 
         public void OnTriggerEnter(Collider c)
         {
+            
             GameObject other = c.gameObject;
             if (other.tag == "Player" && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
-            {                
-                
+            {
+                if (other.GetComponent<DetatchFromBoid>().escaping)
+                {
+                    return;
+                }
+                Debug.Log("Attach");
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 other.transform.parent = this.transform.parent;
                 other.GetComponent<ForceController>().moveEnabled = false;
@@ -33,12 +38,18 @@ namespace BGE.Forms
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 FindObjectOfType<ViveController>().boid = boid;
+                FindObjectOfType<DetatchFromBoid>().boid = boid;
                 FindObjectOfType<OculusController>().boid = boid;
                 ps = boid.GetComponent<PlayerSteering>();
                 ps.SetActive(true);
                 ps.hSpeed = 1.0f;
                 boid.GetComponent<Harmonic>().SetActive(true);
                 boid.GetComponent<Harmonic>().auto = false;
+
+                foreach(Thruster t in GameObject.FindObjectsOfType<Thruster>())
+                {
+                    t.readInput = false;
+                }
 
                 if (boid.GetComponent<Seek>() != null)
                 {
@@ -87,7 +98,7 @@ namespace BGE.Forms
         {
             GameObject other = c.gameObject;
             // iF its a player and still attached
-            if (other.tag == "Player" && other.transform.parent == this.transform.parent && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
+            if (other.tag == "Player" && other.transform.parent == this.transform.parent)
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);                
                 // Dont do this in VR

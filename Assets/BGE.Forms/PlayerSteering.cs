@@ -31,13 +31,17 @@ public class PlayerSteering : SteeringBehaviour
     [HideInInspector]
     public bool controlSpeed = true;
 
+    public Thruster[] thrusters;
+
     public void Start()
     {
         viveController = FindObjectOfType<ViveController>();
         oculusController = FindObjectOfType<OculusController>();
         harmonic = GetComponent<Harmonic>();
-        vrMode = UnityEngine.XR.XRDevice.isPresent;
+        vrMode = true; //  UnityEngine.XR.XRDevice.isPresent;
         maxSpeed = boid.maxSpeed;
+
+        thrusters = GameObject.FindObjectsOfType<Thruster>();
     }
     
 
@@ -49,51 +53,53 @@ public class PlayerSteering : SteeringBehaviour
         CreatureManager.Log("Player force: " + force);
         CreatureManager.Log("RightForce: " + rightForce);
 
+
+
         // Control the boid
-        if (viveController != null)
-        {
-            if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null  && viveController.leftTrackedObject.isActiveAndEnabled)
-            {
+        //if (viveController != null)
+        //{
+        //    if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null  && viveController.leftTrackedObject.isActiveAndEnabled)
+        //    {
 
-                average = Quaternion.Slerp(viveController.leftTrackedObject.transform.rotation
-                    , viveController.rightTrackedObject.transform.rotation, 0.5f);
+        //        average = Quaternion.Slerp(viveController.leftTrackedObject.transform.rotation
+        //            , viveController.rightTrackedObject.transform.rotation, 0.5f);
 
-                if (controlType == ControlType.Tenticle)
-                {
-                    Vector3 xyz = average.eulerAngles;
-                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
-                }
-                if (controlType == ControlType.TenticleFlipped)
-                {
-                    Vector3 xyz = average.eulerAngles;
-                    harmonic.theta = Mathf.Deg2Rad * (xyz.x);
-                }
+        //        if (controlType == ControlType.Tenticle)
+        //        {
+        //            Vector3 xyz = average.eulerAngles;
+        //            harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+        //        }
+        //        if (controlType == ControlType.TenticleFlipped)
+        //        {
+        //            Vector3 xyz = average.eulerAngles;
+        //            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+        //        }
 
 
-            }
-        }
+        //    }
+        //}
 
-        if (oculusController != null && oculusController.isActiveAndEnabled)
-        {
-            if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) || OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch))
-            {
+        //if (oculusController != null && oculusController.isActiveAndEnabled)
+        //{
+        //    if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) || OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch))
+        //    {
 
-                average = Quaternion.Slerp(oculusController.leftHand.rotation
-                    , oculusController.rightHand.rotation, 0.5f);
+        //        average = Quaternion.Slerp(oculusController.leftHand.rotation
+        //            , oculusController.rightHand.rotation, 0.5f);
 
-                if (controlType == ControlType.Tenticle)
-                {
-                    Vector3 xyz = average.eulerAngles;
-                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
-                }
-                if (controlType == ControlType.TenticleFlipped)
-                {
-                    Vector3 xyz = average.eulerAngles;
-                    harmonic.theta = Mathf.Deg2Rad * (xyz.x);
-                    
-                }
-            }
-        }
+        //        if (controlType == ControlType.Tenticle)
+        //        {
+        //            Vector3 xyz = average.eulerAngles;
+        //            harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+        //        }
+        //        if (controlType == ControlType.TenticleFlipped)
+        //        {
+        //            Vector3 xyz = average.eulerAngles;
+        //            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+
+        //        }
+        //    }
+        //}
 
         /*
               hSpeed = Mathf.Lerp(hSpeed
@@ -103,6 +109,21 @@ public class PlayerSteering : SteeringBehaviour
 
         harmonic.theta += hSpeed * Time.deltaTime * harmonic.speed;
         */
+
+        average = Quaternion.Slerp(thrusters[0].transform.parent.rotation
+                    , thrusters[1].transform.parent.rotation, 0.5f);
+
+        if (controlType == ControlType.Tenticle)
+        {
+            Vector3 xyz = average.eulerAngles;
+            harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+        }
+        if (controlType == ControlType.TenticleFlipped)
+        {
+            Vector3 xyz = average.eulerAngles;
+            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+
+        }
 
         hSpeed = Mathf.Lerp(hSpeed
             ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)

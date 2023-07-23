@@ -10,8 +10,7 @@ public class SceneSwitcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Input.GetKeyDown(KeyCode.Joystick1Button6) || 
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.U) ||  Input.GetButtonDown("Fire3"))
         {
             int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
             string[] scenes = new string[sceneCount];
@@ -32,11 +31,11 @@ public class SceneSwitcher : MonoBehaviour
 
             i = (i + 1) % scenes.Length;
 
-            ew.BoidBootstrap bb = FindObjectOfType<ew.BoidBootstrap>();
-            if (bb != null)
-            {
-                //bb.DestroyEntities();
-            }
+            //ew.BoidBootstrap bb = FindObjectOfType<ew.BoidBootstrap>();
+            //if (bb != null)
+            //{
+            //    //bb.DestroyEntities();
+            //}
 
             SceneManager.LoadScene(scenes[i]);            
         }

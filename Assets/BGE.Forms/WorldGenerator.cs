@@ -80,7 +80,7 @@ namespace BGE.Forms
         public int groundMaterialIndex = 0;
         public Material ceilingMaterial;
 
-        public int ceilingLayer= 20;
+        //public int ceilingLayer= 20;
         
 
         public Sampler[] GetSamplers()
@@ -155,22 +155,14 @@ namespace BGE.Forms
             {
                 Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
             }
-        
-            Random.seed = (int)System.DateTime.Now.Ticks;
-            foreach (Sampler s in samplers)
-            {
-                ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
-            }
-            
+                    
 
             /*
             ((PerlinNoiseSampler)samplers[0]).origin = 750;
             ((PerlinNoiseSampler)samplers[1]).origin = -747;
             ((PerlinNoiseSampler)samplers[2]).origin = 113;
             */
-            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
-            
-            //Random.seed = 42;
+            //player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
         }
 
 
@@ -219,9 +211,9 @@ namespace BGE.Forms
                     int playerX = (int)(Mathf.Floor((player.transform.position.x) / (quadsPerTile * cellSize)) * quadsPerTile);
                     int playerZ = (int)(Mathf.Floor((player.transform.position.z) / (quadsPerTile * cellSize)) * quadsPerTile);
                     List<Vector3> newTiles = new List<Vector3>();
-                    for (int x = -halfTile; x < halfTile; x++)
+                    for (int x = -halfTile; x <= halfTile; x++)
                     {
-                        for (int z = -halfTile; z < halfTile; z++)
+                        for (int z = -halfTile + 1; z <= halfTile+1; z++)
                         {
                             Vector3 pos = new Vector3((x * quadsPerTile + playerX),
                                 0,
@@ -495,7 +487,7 @@ namespace BGE.Forms
             
             surface.AddComponent<MeshCollider>().sharedMesh = mesh;
             //Utilities.SetupMaterialWithBlendMode(mr.material, BlendMode.Transparent);
-            surface.layer = ceilingLayer;
+            //surface.layer = ceilingLayer;
             surface.name = "surface";
             return surface;
         }
@@ -514,11 +506,11 @@ namespace BGE.Forms
             }
             lastY = y;
 
-            if (topD != -1 && ellapsed > toPass)
-            {
-                SetGroundMaterialASync(topD);                
-                topD = -1;
-            }
+            //if (topD != -1 && ellapsed > toPass)
+            //{
+            //    SetGroundMaterialASync(topD);                
+            //    topD = -1;
+            //}
             ellapsed += Time.deltaTime;
         }
 

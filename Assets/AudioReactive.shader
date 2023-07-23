@@ -54,6 +54,19 @@
 	float _PositionScale;
 	half _Offset;
 
+	float pingpong(float min, float max, float value)
+{
+    // Calculate the range of the ping pong
+    float range = max - min;
+
+    // Use the frac function to get the fractional part of the value
+    float fraction = frac(value);
+
+    // Use the lerp function to linearly interpolate between the min and max values
+    // based on the fractional part of the value
+    return lerp(min, max, fraction);
+}
+
 	v2f vert(appdata_t v)
 	{
 		v2f o;

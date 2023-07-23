@@ -26,7 +26,7 @@ namespace BGE.Forms
 
         School school;
 
-        public bool spawnInFront = true;
+        public bool spawnInFront = false;
 
         public float fov = 20;
 
@@ -55,51 +55,56 @@ namespace BGE.Forms
                 //r.y = 0;
                 Vector3 r = Vector3.forward;
                 r *= Random.Range(start, sp.end);
+<<<<<<< HEAD
                 //r += (r.normalized * start);
                 r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
+=======
+                r += (r.normalized * start);
+                //r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
+>>>>>>> celtic_select
 
                 newPos = player.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);
                 float worldMax = WorldGenerator.Instance.surfaceHeight - sp.minDistanceFromSurface;
                 float minHeight = sampleY + sp.minHeight;
                 int segments = 3;
-                if (sp.radiusRequired != 0)
-                {
-                    float[] heights = new float[segments + 1];
-                    heights[0] = sampleY;
-                    float sum = sampleY;
-                    float thetaInc = (Mathf.PI * 2.0f) / segments;
-                    for (int i = 0; i < segments; i++)
-                    {
-                        float theta = i * thetaInc;
-                        Vector3 p = new Vector3
-                            (Mathf.Sin(theta) * sp.radiusRequired
-                            , 0
-                            , Mathf.Cos(theta) * sp.radiusRequired
-                            );
+                //if (sp.radiusRequired != 0)
+                //{
+                //    float[] heights = new float[segments + 1];
+                //    heights[0] = sampleY;
+                //    float sum = sampleY;
+                //    float thetaInc = (Mathf.PI * 2.0f) / segments;
+                //    for (int i = 0; i < segments; i++)
+                //    {
+                //        float theta = i * thetaInc;
+                //        Vector3 p = new Vector3
+                //            (Mathf.Sin(theta) * sp.radiusRequired
+                //            , 0
+                //            , Mathf.Cos(theta) * sp.radiusRequired
+                //            );
 
-                        // Translate by newPos
-                        p += newPos;
+                //        // Translate by newPos
+                //        p += newPos;
 
-                        heights[i + 1] = WorldGenerator.Instance.SamplePos(p.x, p.z);
-                    }
-                    float stdDev = Utilities.StdDev(heights);
-                    if (stdDev > 2)
-                    {
-                        count++;
-                        continue;
-                    }
-                }
-                if (minHeight > worldMax)
-                {
-                    count++;
-                    continue;
-                }
-                if (count == 10)
-                {
-                    found = false;
-                    break;
-                }
+                //        heights[i + 1] = WorldGenerator.Instance.SamplePos(p.x, p.z);
+                //    }
+                //    float stdDev = Utilities.StdDev(heights);
+                //    if (stdDev > 2)
+                //    {
+                //        count++;
+                //        continue;
+                //    }
+                //}
+                //if (minHeight > worldMax)
+                //{
+                //    count++;
+                //    continue;
+                //}
+                //if (count == 10)
+                //{
+                //    found = false;
+                //    break;
+                //}
 
                 float maxHeight = Mathf.Min(sampleY + sp.maxHeight, worldMax);
                 newPos.y = Mathf.Min(Random.Range(minHeight, maxHeight), worldMax);
@@ -141,7 +146,7 @@ namespace BGE.Forms
             {
                 if (creature.GetComponent<LifeColours>())
                 {
-                    creature.GetComponent<LifeColours>().FadeOut();
+                    //creature.GetComponent<LifeColours>().FadeOut();
                 }
                 yield return new WaitForSeconds(2);
             }
@@ -161,6 +166,27 @@ namespace BGE.Forms
             aliveMap.Remove(species);
             species.GetComponent<SpawnParameters>().isSuspending = false;
         }
+
+        public void Suspend(int i)
+        {
+            GameObject species = prefabs[i];
+            GameObject creature = aliveMap[species];
+            Boid[] boids = creature.GetComponentsInChildren<Boid>();
+            foreach (Boid b in boids)
+            {
+                b.suspended = true;
+            }
+            SchoolGenerator[] sgs = creature.GetComponentsInChildren<SchoolGenerator>();
+            foreach (SchoolGenerator sg in sgs)
+            {
+                sg.Suspend();
+            }
+            creature.SetActive(false);
+            suspended.Add(species, creature);
+            alive.Remove(creature);
+            aliveMap.Remove(species);
+        }
+
 
         public void Suspend(GameObject species, GameObject creature, bool fadeOut = false)
         {
@@ -196,7 +222,7 @@ namespace BGE.Forms
                     GameObject species = sp.Species;
                     Vector3 boidPos = GetCreaturePosition(creature);
 
-                    Vector3 camPos = player.transform.position;
+                    Vector3 camPos = Camera.main.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
                     bool behind;
                     //bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 500);
@@ -250,7 +276,7 @@ namespace BGE.Forms
                     newCreature.SetActive(true);
                     if (newCreature.GetComponent<LifeColours>())
                     {
-                        newCreature.GetComponent<LifeColours>().FadeIn();
+                        //newCreature.GetComponent<LifeColours>().FadeIn();
                     }
                     if (newCreature.GetComponentInChildren<CreatureController>())
                     {
@@ -417,7 +443,20 @@ namespace BGE.Forms
         {
             school = GetComponent<School>();
 
-            StartCoroutine(Spawn());
+            for(int i = 0; i < prefabs.Length; i ++)
+            {
+                // Find a spawn point
+                // Calculate the position
+                //Debug.Log("Making a: " + prefabs[i]);
+                GetSpecies(i, prefabs[i].GetComponent<SpawnParameters>().singleton);
+                if (i > maxcreatures)
+                {
+                    Debug.Log("Suspending a: " + prefabs[i]);
+                    Suspend(i);
+                }
+            }
+
+            //StartCoroutine(Spawn());
         }
 
         // Update is called once per frame

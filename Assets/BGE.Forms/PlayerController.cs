@@ -16,7 +16,7 @@ namespace BGE.Forms
                 //Debug.Log("Player control state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
-                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                //pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.vrController.enabled = true;
                 pc.fc.enabled = true;
             }
@@ -44,7 +44,7 @@ namespace BGE.Forms
                     pc.playerCruise.transform.position = pc.player.transform.position;
                 }
                 
-                pc.player.GetComponent<Rigidbody>().isKinematic = true;
+                // pc.player.GetComponent<Rigidbody>().isKinematic = true;
                 pc.player.transform.parent = pc.playerCruise.transform;
                 pc.player.transform.localPosition = Vector3.zero;
                 pc.player.transform.rotation = pc.cruise.transform.rotation;
@@ -56,7 +56,7 @@ namespace BGE.Forms
             public override void Exit()
             {
                 pc.player.transform.parent = null;
-                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+               // pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 c.enabled = false;
             }
         }
@@ -160,7 +160,7 @@ namespace BGE.Forms
                 Utilities.SetActive(pc.sceneAvoidance, false);
                 Utilities.SetActive(pc.op, false);
 
-                pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                //pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.vrController.enabled = true;
                 pc.fc.enabled = true;
 
@@ -389,8 +389,8 @@ namespace BGE.Forms
             sceneAvoidance = playerBoid.GetComponent<SceneAvoidance>();
             op = playerBoid.GetComponent<OffsetPursue>();
             
-            sm = GetComponent<StateMachine>();
-            sm.ChangeState(new PlayerState());
+            //sm = GetComponent<StateMachine>();
+            //sm.ChangeState(new PlayerState());
 
             cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
             if (cameraTransition == null)
@@ -407,14 +407,14 @@ namespace BGE.Forms
             switch (buildType)
             {
                 case BuildType.Oculus:
-                    oculusStuff.SetActive(true);
-                    viveStuff.SetActive(false);
-                    vrController = GetComponent<OculusController>();
-                    vrController.enabled = true;
-                    mother.maxcreatures = 2;
-                    GetComponent<ViveController>().enabled = false;
-                    //GetComponent<AudioSource>().enabled = true;
-                    ctc.enabled = false;
+                    //oculusStuff.SetActive(true);
+                    //viveStuff.SetActive(false);
+                    //vrController = GetComponent<OculusController>();
+                    //vrController.enabled = true;
+                    //mother.maxcreatures = 2;
+                    //GetComponent<ViveController>().enabled = false;
+                    ////GetComponent<AudioSource>().enabled = true;
+                    //ctc.enabled = false;
                     break;
                 case BuildType.Vive:
                     oculusStuff.SetActive(false);
@@ -465,64 +465,65 @@ namespace BGE.Forms
         {
             StopAllCoroutines();
             showCoroutine = null;
-            showCoroutine = StartCoroutine(Show());
+            //showCoroutine = StartCoroutine(Show());
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
-            {
-                clickCount = (clickCount + 1) % 6;
-                ellapsed = 0;                
-            }
-            ellapsed += Time.deltaTime;
-            if (ellapsed > toPass && clickCount > 0)
-            {
-                switch (clickCount)
-                {
-                    case 1:
-                        StopAllCoroutines();
-                        showCoroutine = null;
-                        sm.ChangeState(new JourneyingState());
-                        break;
-                    case 2:
-                        StopAllCoroutines();
-                        if (showCoroutine == null || ! (sm.currentState is FollowState))
-                        {                            
-                            sm.ChangeState(new FollowState());
-                        }
-                        showCoroutine = null;
-                        break;
-                    case 3:
-                        StopAllCoroutines();
-                        showCoroutine = null;
-                        sm.ChangeState(new PlayerState());
-                        break;
-                    case 4:
-                        StopAllCoroutines();
-                        showCoroutine = null;
-                        showCoroutine = StartCoroutine(Show());
-                        break;
-                    case 5:
-                        newToad.Toad();
-                        break;
-                }
-                clickCount = 0;
-            }
 
-            switch (controlType)
-            {
-                case ControlType.Journeying:
-                    player.transform.localPosition = Vector3.zero;
-                    break;
-                case ControlType.Following:
-                    player.transform.position = playerBoid.transform.position;
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                        , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
-                        , Time.deltaTime / 2
-                    );
-                    break;
-            }
+        //    if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
+        //    {
+        //        clickCount = (clickCount + 1) % 6;
+        //        ellapsed = 0;                
+        //    }
+        //    ellapsed += Time.deltaTime;
+        //    if (ellapsed > toPass && clickCount > 0)
+        //    {
+        //        switch (clickCount)
+        //        {
+        //            case 1:
+        //                StopAllCoroutines();
+        //                showCoroutine = null;
+        //                sm.ChangeState(new JourneyingState());
+        //                break;
+        //            case 2:
+        //                StopAllCoroutines();
+        //                if (showCoroutine == null || ! (sm.currentState is FollowState))
+        //                {                            
+        //                    sm.ChangeState(new FollowState());
+        //                }
+        //                showCoroutine = null;
+        //                break;
+        //            case 3:
+        //                StopAllCoroutines();
+        //                showCoroutine = null;
+        //                sm.ChangeState(new PlayerState());
+        //                break;
+        //            case 4:
+        //                StopAllCoroutines();
+        //                showCoroutine = null;
+        //                showCoroutine = StartCoroutine(Show());
+        //                break;
+        //            case 5:
+        //                newToad.Toad();
+        //                break;
+        //        }
+        //        clickCount = 0;
+        //    }
+
+        //    switch (controlType)
+        //    {
+        //        case ControlType.Journeying:
+        //            player.transform.localPosition = Vector3.zero;
+        //            break;
+        //        case ControlType.Following:
+        //            player.transform.position = playerBoid.transform.position;
+        //            player.transform.rotation = Quaternion.Slerp(player.transform.rotation
+        //                , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
+        //                , Time.deltaTime / 2
+        //            );
+        //            break;
+        //    }
         }
     }
 }

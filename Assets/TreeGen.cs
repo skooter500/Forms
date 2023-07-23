@@ -87,7 +87,7 @@ public class TreeGen : MonoBehaviour {
         mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         mr.receiveShadows = false;
         mf.sharedMesh = mesh;
-        mr.enabled = false;
+        mr.enabled = true;
 
         for (int i = 0; i < transform.childCount; i++)
         {
