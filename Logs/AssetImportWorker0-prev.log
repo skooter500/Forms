@@ -1,0 +1,382 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.0f1 (c7b5465681fb) revision 13088070'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19045.4651; Version 2009; 64bit' Language: 'en' Physical Memory: 16253 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/302275/Documents/Forms
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+55717
+Successfully changed project path to: C:/Users/302275/Documents/Forms
+C:/Users/302275/Documents/Forms
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 122.09 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 1.31 ms.
+Initialize engine version: 2020.3.0f1 (c7b5465681fb)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/302275/Documents/Forms/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 (ID=0x1c20)
+    Vendor:   
+    VRAM:     6029 MB
+    Driver:   32.0.15.5585
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56900
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002570 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 97.85 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.10 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.488 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.019030 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 101.39 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.16 ms.
+[ScriptCompilation] NOT recompiling all scripts because this is an import worker process. Reason to compile was: Define symbols changed
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.932 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Hidden/Camera Transitions/Warp Wave': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Simple': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cross Zoom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Mosaic': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fold': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flash': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Circle': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Valentine': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Doom': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Glitch': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gradient': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl NoShadows': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Smooth Line': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Radial': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Color': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Linear Blur': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Cube': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Swap': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Flip': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Random Grid': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Fade To Grayscale': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Page Curl Advanced': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Pixelate': fallback shader 'Transition Fallback' not found
+Shader 'Hidden/Camera Transitions/Gate': fallback shader 'Transition Fallback' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 2.22 ms, found 5 plugins.
+Preloading 1 native plugins for Editor in 0.25 ms.
+Unloading 3992 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 166.2 MB.
+System memory in use after: 166.4 MB.
+
+Unloading 68 unused Assets to reduce memory usage. Loaded Objects now: 4399.
+Total: 5.480700 ms (FindLiveObjects: 0.515300 ms CreateObjectMapping: 0.385100 ms MarkObjects: 4.392300 ms  DeleteObjects: 0.185300 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Post-Processing Profile.asset
+  artifactKey: Guid(bce69b3095379f54e86ae446de1748b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Post-Processing Profile.asset using Guid(bce69b3095379f54e86ae446de1748b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38c1793a146354287a03be9d02a271f6') in 0.057022 seconds
+  Import took 0.068793 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000888 seconds.
+  path: Assets/AudioSampler.prefab
+  artifactKey: Guid(34ed939cef7cae74e896f740cee0884e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AudioSampler.prefab using Guid(34ed939cef7cae74e896f740cee0884e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea6a9575272b3ebc5f010ac6a11b0172') in 0.054603 seconds
+  Import took 0.067215 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/[CameraRig].prefab
+  artifactKey: Guid(b1c46c63f2f64524584455087c5dc576) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/[CameraRig].prefab using Guid(b1c46c63f2f64524584455087c5dc576) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23b1c17b25a7f14e0ec11c882c5b4ea3') in 0.022664 seconds
+  Import took 0.034855 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/sceneSwitcher.prefab
+  artifactKey: Guid(1498f5bcbcd8f294e9e2fea5aa4f75f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/sceneSwitcher.prefab using Guid(1498f5bcbcd8f294e9e2fea5aa4f75f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a90ae034c0743da93aedc1c21a671b1') in 0.020566 seconds
+  Import took 0.031908 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000297 seconds.
+  path: Assets/GoldFishMaterial.mat
+  artifactKey: Guid(c76bdf629cd412f4cb3543cc09e305a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldFishMaterial.mat using Guid(c76bdf629cd412f4cb3543cc09e305a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cff77504823ca60bf0f19aab94b34ef') in 0.526798 seconds
+  Import took 0.535444 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000268 seconds.
+  path: Assets/allPrefabs.prefab
+  artifactKey: Guid(29477c63d700796458fced7b7d715d16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/allPrefabs.prefab using Guid(29477c63d700796458fced7b7d715d16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b842c0e15bf667d09b0de0f6468e9f55') in 0.053410 seconds
+  Import took 0.062716 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000234 seconds.
+  path: Assets/circle.prefab
+  artifactKey: Guid(e7fa47dfb1e358c4b9ea5adf5530f9c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/circle.prefab using Guid(e7fa47dfb1e358c4b9ea5adf5530f9c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d269d48c5d5a90bfbfff603a398e203') in 0.029695 seconds
+  Import took 0.044180 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000238 seconds.
+  path: Assets/CircleWaveforms.prefab
+  artifactKey: Guid(b3d276b198a3cf74593746588cd9b742) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CircleWaveforms.prefab using Guid(b3d276b198a3cf74593746588cd9b742) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edba051ff0c2acef2ae0610833234f01') in 0.026111 seconds
+  Import took 0.039688 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000233 seconds.
+  path: Assets/New Material.mat
+  artifactKey: Guid(48596809397ba504ea5f88a1819d40ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Material.mat using Guid(48596809397ba504ea5f88a1819d40ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d58af3b9d075d3f12127666e06fe636') in 0.158030 seconds
+  Import took 0.166761 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000290 seconds.
+  path: Assets/DiscoBall.prefab
+  artifactKey: Guid(03fe5504b3de6cc4bb6a0453b2edd481) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DiscoBall.prefab using Guid(03fe5504b3de6cc4bb6a0453b2edd481) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59e39b70c7ca992f8b9b8f6fc278cd4b') in 0.031978 seconds
+  Import took 0.039326 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000271 seconds.
+  path: Assets/rayCreature.prefab
+  artifactKey: Guid(af86ab398288f954ba169cfa8cd14993) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/rayCreature.prefab using Guid(af86ab398288f954ba169cfa8cd14993) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3902db3d3630fc28724f6efb39efa69') in 0.552553 seconds
+  Import took 0.560037 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000275 seconds.
+  path: Assets/player.prefab
+  artifactKey: Guid(74925faad6067ce49a39feb6c92efb44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/player.prefab using Guid(74925faad6067ce49a39feb6c92efb44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '609f2c36a8de656ca991ac620f7face9') in 0.022924 seconds
+  Import took 0.031759 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000264 seconds.
+  path: Assets/school (1).prefab
+  artifactKey: Guid(2f3d8561371dde749a34ed5f60ee0b02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/school (1).prefab using Guid(2f3d8561371dde749a34ed5f60ee0b02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b4879e2b7cc1da197e0f8a1b183609e') in 0.013378 seconds
+  Import took 0.021473 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000285 seconds.
+  path: Assets/GreenMaterial.mat
+  artifactKey: Guid(daf10682bd5dbd04fa7da86a08e5a6b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GreenMaterial.mat using Guid(daf10682bd5dbd04fa7da86a08e5a6b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '014b32f027f058b78bb47662cec5d85b') in 0.020423 seconds
+  Import took 0.027632 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000326 seconds.
+  path: Assets/MermainMaterial.mat
+  artifactKey: Guid(162f40e2610d0bb40b8e9688e1644c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MermainMaterial.mat using Guid(162f40e2610d0bb40b8e9688e1644c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84218cad9b9437baf5e7ca3e123e0fb3') in 0.018736 seconds
+  Import took 0.026488 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000311 seconds.
+  path: Assets/BlueMaterial.mat
+  artifactKey: Guid(80b3c060e6192c0418bf454be3c7d92c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BlueMaterial.mat using Guid(80b3c060e6192c0418bf454be3c7d92c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75d79d141b619a216d497f34a3e13171') in 0.019298 seconds
+  Import took 0.028567 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000251 seconds.
+  path: Assets/New Physic Material.physicMaterial
+  artifactKey: Guid(38c0ee67a739699428aa1d1228f83a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Physic Material.physicMaterial using Guid(38c0ee67a739699428aa1d1228f83a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77dc8e8b582e07d085ff11181fb75b0f') in 0.016016 seconds
+  Import took 0.024843 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000206 seconds.
+  path: Assets/Red.mat
+  artifactKey: Guid(de5e45a1972b1924db02a54ab81d8d79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Red.mat using Guid(de5e45a1972b1924db02a54ab81d8d79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7ffaa3059b1ca891d260bcf49d9f798') in 0.020495 seconds
+  Import took 0.030029 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000355 seconds.
+  path: Assets/creatures.prefab
+  artifactKey: Guid(cd00efd2a0e963e46ad84231a3440b4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/creatures.prefab using Guid(cd00efd2a0e963e46ad84231a3440b4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14cafb7992e5375614ec867c7d025c7e') in 0.020988 seconds
+  Import took 0.029291 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000245 seconds.
+  path: Assets/Misty.mat
+  artifactKey: Guid(cc3f01e5ce2acdd44a8ca851007032c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Misty.mat using Guid(cc3f01e5ce2acdd44a8ca851007032c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a60dc85b5f3101c4a42e723947ff589') in 0.027205 seconds
+  Import took 0.036581 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000229 seconds.
+  path: Assets/Dodecahedron Variant.prefab
+  artifactKey: Guid(5dedf663e2174474fbccd175947317d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dodecahedron Variant.prefab using Guid(5dedf663e2174474fbccd175947317d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18c027d0e7466355f9e14e465c9cba3a') in 0.022541 seconds
+  Import took 0.031684 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000226 seconds.
+  path: Assets/PlaneMaterial.mat
+  artifactKey: Guid(42b7b445cfbea2d47a6073864ecda53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PlaneMaterial.mat using Guid(42b7b445cfbea2d47a6073864ecda53f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b083ece95417d08d4cb0ae15b7638858') in 0.023021 seconds
+  Import took 0.032654 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/EngineMaterial.mat
+  artifactKey: Guid(9475698742e944615b0ab2c4b4ecc1b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EngineMaterial.mat using Guid(9475698742e944615b0ab2c4b4ecc1b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e8b1a41de2838d6cbc407613fbb169a') in 0.053949 seconds
+  Import took 0.061159 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/formation.prefab
+  artifactKey: Guid(ecdd83c9feaa66f4eb06cb8c9463c03e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/formation.prefab using Guid(ecdd83c9feaa66f4eb06cb8c9463c03e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '822b0b119cd32976cc7ab22cd714ab2f') in 0.043548 seconds
+  Import took 0.052142 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000240 seconds.
+  path: Assets/Cylinder.prefab
+  artifactKey: Guid(75f7cd5c7f38b084998a2b54183fcd70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Cylinder.prefab using Guid(75f7cd5c7f38b084998a2b54183fcd70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5de0975cd753e341a6554547d77c3cd0') in 0.017295 seconds
+  Import took 0.024317 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000337 seconds.
+  path: Assets/dmt.prefab
+  artifactKey: Guid(43e28cb8911a9eb4aa2c76444cfc62da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/dmt.prefab using Guid(43e28cb8911a9eb4aa2c76444cfc62da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fa1a2ee79d59a489dc6875a8e5f0897') in 0.018655 seconds
+  Import took 0.026178 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000289 seconds.
+  path: Assets/EngineParticle.psd
+  artifactKey: Guid(c0c081b01991d4c5d994839b85bf6bf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EngineParticle.psd using Guid(c0c081b01991d4c5d994839b85bf6bf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '474ef444f130b37fbaddc4595b275521') in 0.029235 seconds
+  Import took 0.037942 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000249 seconds.
+  path: Assets/DIT_Low_01.fbx
+  artifactKey: Guid(9e41ce570fd8c2143a5cd4d10ab1fcb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DIT_Low_01.fbx using Guid(9e41ce570fd8c2143a5cd4d10ab1fcb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec438fbe7ee50120c540bc1fc5b71970') in 0.268125 seconds
+  Import took 0.278119 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000281 seconds.
+  path: Assets/hsl.jpg
+  artifactKey: Guid(f5cba4593a257d6448c977ee585c77fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/hsl.jpg using Guid(f5cba4593a257d6448c977ee585c77fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33847a9baf2c81f6dbd04f32f9cc6663') in 0.037846 seconds
+  Import took 0.046035 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000352 seconds.
+  path: Assets/emissivetest.mat
+  artifactKey: Guid(4a3d3bdc044b6f94f853cb84f7f8488e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/emissivetest.mat using Guid(4a3d3bdc044b6f94f853cb84f7f8488e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8c85a9fb7ef8b6ba236e840f33a929c') in 0.025728 seconds
+  Import took 0.036192 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000271 seconds.
+  path: Assets/Engine.prefab
+  artifactKey: Guid(cdf901dfb9b0045c0898cc8fc12f8238) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Engine.prefab using Guid(cdf901dfb9b0045c0898cc8fc12f8238) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d5afaaf57afe7fb867ab92cd021d0d4') in 0.015717 seconds
+  Import took 0.025158 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/MistySystem.prefab
+  artifactKey: Guid(b3d32388e548a3b4995339e756e946de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MistySystem.prefab using Guid(b3d32388e548a3b4995339e756e946de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d139a1b0b89b26ac387adac22b4d1dd') in 0.016796 seconds
+  Import took 0.025244 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

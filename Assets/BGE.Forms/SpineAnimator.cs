@@ -100,7 +100,7 @@ namespace BGE.Forms
     
         void DelayedMovement(Transform previous, Transform current, Vector3 bondOffset, int i)
         {
-            Vector3 wantedPosition = previous.TransformPointUnscaled(bondOffset);
+            Vector3 wantedPosition = previous.position + previous.rotation * bondOffset;
             Vector3 newPos = Vector3.Lerp(current.position, wantedPosition, time * bondDamping);
             current.transform.position = newPos;
             Quaternion wantedRotation;
