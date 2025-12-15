@@ -16,11 +16,7 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-<<<<<<< HEAD
-            if (isActiveAndEnabled && boid!= null && boid.drawGizmos)
-=======
             if (isActiveAndEnabled && boid != null && boid.drawGizmos)
->>>>>>> celtic_select
             {
                 Gizmos.color = Color.gray;
                 Gizmos.DrawWireSphere(centre, radius);

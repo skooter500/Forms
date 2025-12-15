@@ -47,7 +47,7 @@ public class SandWorm : MonoBehaviour {
             bodyPart.rotation = rot;
             bodyPart.GetComponent<Rigidbody>().MovePosition(pos);
             bodyPart.GetComponent<Rigidbody>().MoveRotation(rot);
-            bodyPart.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            bodyPart.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
             bodyPart.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             // Destroy and readd the hingejoints
             HingeJoint hj = bodyPart.GetComponent<HingeJoint>();

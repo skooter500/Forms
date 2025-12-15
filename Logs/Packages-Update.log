@@ -61,3 +61,35 @@ The following packages were removed:
   com.unity.xr.oculus.android@1.38.4
   com.unity.xr.oculus.standalone@1.38.2
   com.unity.xr.openvr.standalone@1.0.5
+
+=== Mon Dec 15 21:37:57 2025
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.modules.adaptiveperformance@1.0.0
+  com.unity.modules.vectorgraphics@1.0.0
+  com.unity.ai.navigation@2.0.9
+  com.unity.modules.accessibility@1.0.0
+  com.unity.multiplayer.center@1.0.1
+The following packages were updated:
+  com.unity.ads from version 4.3.0 to 4.16.4
+  com.unity.analytics from version 3.7.1 to 3.8.2
+  com.unity.burst from version 1.7.4 to 1.8.26
+  com.unity.collab-proxy from version 1.17.2 to 2.10.2
+  com.unity.collections from version 1.4.0 to 2.6.2
+  com.unity.ide.rider from version 3.0.15 to 3.0.38
+  com.unity.ide.visualstudio from version 2.0.16 to 2.0.25
+  com.unity.postprocessing from version 3.2.2 to 3.5.1
+  com.unity.properties from version 2.1.0-exp.2 to 2.1.0-exp.3
+  com.unity.purchasing from version 4.4.1 to 4.14.0
+  com.unity.test-framework from version 1.1.33 to 1.6.0
+  com.unity.test-framework.performance from version 1.3.3-preview to 3.2.0
+  com.unity.timeline from version 1.7.1 to 1.8.9
+  com.unity.ugui from version 1.0.0 to 2.0.0
+  com.unity.xr.interaction.toolkit from version 2.0.4 to 3.3.0
+  com.unity.xr.management from version 4.2.1 to 4.5.3
+  com.unity.xr.oculus from version 3.0.2 to 4.5.2
+The following packages were removed:
+  com.unity.textmeshpro@3.0.6

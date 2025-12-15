@@ -55,13 +55,10 @@ namespace BGE.Forms
                 //r.y = 0;
                 Vector3 r = Vector3.forward;
                 r *= Random.Range(start, sp.end);
-<<<<<<< HEAD
                 //r += (r.normalized * start);
                 r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
-=======
-                r += (r.normalized * start);
+                // r += (r.normalized * start);
                 //r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
->>>>>>> celtic_select
 
                 newPos = player.transform.TransformPoint(r);
                 float sampleY = WorldGenerator.Instance.SamplePos(newPos.x, newPos.z);

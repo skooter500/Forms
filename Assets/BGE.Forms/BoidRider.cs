@@ -35,7 +35,7 @@ namespace BGE.Forms
                 other.GetComponent<ForceController>().moveEnabled = false;
                 other.GetComponent<ForceController>().attachedToCreature = true;
 
-                other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                other.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 FindObjectOfType<ViveController>().boid = boid;
                 FindObjectOfType<DetatchFromBoid>().boid = boid;
