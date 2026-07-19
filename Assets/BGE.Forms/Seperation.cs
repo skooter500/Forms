@@ -22,7 +22,9 @@ namespace BGE.Forms
                 if (other != this.boid)
                 {
                     Vector3 toEntity = boid.position - other.position;
-                    steeringForce += (Vector3.Normalize(toEntity) / toEntity.magnitude);
+                    float distSq = toEntity.sqrMagnitude;
+                    if (distSq > 0f)
+                        steeringForce += toEntity / distSq;
                 }
             }
 

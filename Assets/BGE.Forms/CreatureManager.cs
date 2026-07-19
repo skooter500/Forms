@@ -19,6 +19,12 @@ namespace BGE.Forms
         [HideInInspector]
         public List<Boid> boids = new List<Boid>();
 
+        private volatile Boid[] boidsSnapshot = new Boid[0];
+        private readonly object boidsLock = new object();
+        private readonly HashSet<School> seenSchools = new HashSet<School>();
+
+        public static Transform PlayerTransform { get; private set; }
+
         StringBuilder message = new StringBuilder();
 
         static CreatureManager instance;
@@ -38,25 +44,19 @@ namespace BGE.Forms
         public static void Log(string message)
         {
             if (instance != null)
-            {
-                Instance.message.Append(message + "\n");
-            }
+                Instance.message.Append(message).Append('\n');
         }
 
         public static void PrintFloat(string message, float f)
         {
             if (instance != null)
-            {
-                Instance.message.Append(message + ": " + f + "\n");
-            }
+                Instance.message.Append(message).Append(": ").Append(f).Append('\n');
         }
 
         public static void PrintVector(string message, Vector3 v)
         {
             if (instance != null)
-            {
-                Instance.message.Append(message + ": (" + v.x + ", " + v.y + ", " + v.z + ")\n");
-            }
+                Instance.message.Append(message).Append(": (").Append(v.x).Append(", ").Append(v.y).Append(", ").Append(v.z).Append(")\n");
         }
 
         CreatureManager()
@@ -103,13 +103,24 @@ namespace BGE.Forms
             }
         }
 
+        public void AddBoid(Boid b)
+        {
+            lock (boidsLock)
+            {
+                boids.Add(b);
+                boidsSnapshot = boids.ToArray();
+            }
+        }
+
         void Awake()
         {
-
             instance = this;
             style.fontSize = 18;
             style.normal.textColor = Color.white;
             Cursor.visible = false;
+
+            var cam = GameObject.FindGameObjectWithTag("MainCamera");
+            if (cam != null) PlayerTransform = cam.transform;
 
             DisablePrefabs();
         }
@@ -173,34 +184,39 @@ namespace BGE.Forms
 
         void UpdateThread()
         {
-            float maxFPS = 100.0f;
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-            
+
             while (running)
             {
                 stopwatch.Reset();
                 stopwatch.Start();
                 suspended = 0;
-                // Update all the boids
-                for (int i = 0; i < boids.Count; i++)
+
+                Boid[] snapshot = boidsSnapshot; // single volatile read
+
+                // Rebuild spatial grids once per tick per school
+                seenSchools.Clear();
+                for (int i = 0; i < snapshot.Length; i++)
                 {
-                    Boid boid = boids[i];
-                    if (boid == null)
-                    {
-                        continue;
-                    }
-                    if (boid.suspended)
-                    {
-                        suspended++;
-                    }
-                    else
-                    {
-                        boid.force = boid.CalculateForce();
-                    }
+                    School s = snapshot[i] != null ? snapshot[i].school : null;
+                    if (s != null && seenSchools.Add(s))
+                        s.RebuildGrid();
                 }
+
+                // Update all boids
+                for (int i = 0; i < snapshot.Length; i++)
+                {
+                    Boid boid = snapshot[i];
+                    if (boid == null) continue;
+                    if (boid.suspended)
+                        suspended++;
+                    else
+                        boid.force = boid.CalculateForce();
+                }
+
                 stopwatch.Stop();
-                
-                threadTimeDelta = (float) ((double) stopwatch.ElapsedTicks / System.Diagnostics.Stopwatch.Frequency);
+
+                threadTimeDelta = (float)((double)stopwatch.ElapsedTicks / System.Diagnostics.Stopwatch.Frequency);
                 threadCount++;
                 if (threadTimeDelta < 0.01f)
                 {
@@ -225,11 +241,15 @@ namespace BGE.Forms
             running = true;
             Debug.Log("Starting thread...");
 
-            for (int i = 0; i < boids.Count; i++)
+            lock (boidsLock)
             {
-                Boid boid = boids[i];
-                boid.multiThreaded = true;
-                boid.UpdateLocalFromTransform();
+                for (int i = 0; i < boids.Count; i++)
+                {
+                    Boid boid = boids[i];
+                    boid.multiThreaded = true;
+                    boid.UpdateLocalFromTransform();
+                }
+                boidsSnapshot = boids.ToArray();
             }
             thread = new Thread(UpdateThread);
             thread.Start();

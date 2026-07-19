@@ -3,9 +3,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using System;
 
 namespace BGE.Forms
 {
+    public class SpatialGrid
+    {
+        private readonly Dictionary<int, List<Boid>> cells = new Dictionary<int, List<Boid>>();
+        private float inverseCellSize;
+
+        public void Rebuild(List<Boid> boids, int count, float cellSize)
+        {
+            inverseCellSize = 1f / cellSize;
+            foreach (var kvp in cells)
+                kvp.Value.Clear();
+
+            for (int i = 0; i < count; i++)
+            {
+                Boid b = boids[i];
+                if (b == null || b.suspended) continue;
+                int key = HashPos(b.position);
+                List<Boid> cell;
+                if (!cells.TryGetValue(key, out cell))
+                {
+                    cell = new List<Boid>(8);
+                    cells[key] = cell;
+                }
+                cell.Add(b);
+            }
+        }
+
+        public void Query(Vector3 pos, float range, List<Boid> results, Boid exclude)
+        {
+            results.Clear();
+            float rangeSq = range * range;
+            int x0 = (int)Math.Floor((pos.x - range) * inverseCellSize);
+            int x1 = (int)Math.Floor((pos.x + range) * inverseCellSize);
+            int y0 = (int)Math.Floor((pos.y - range) * inverseCellSize);
+            int y1 = (int)Math.Floor((pos.y + range) * inverseCellSize);
+            int z0 = (int)Math.Floor((pos.z - range) * inverseCellSize);
+            int z1 = (int)Math.Floor((pos.z + range) * inverseCellSize);
+
+            for (int x = x0; x <= x1; x++)
+            for (int y = y0; y <= y1; y++)
+            for (int z = z0; z <= z1; z++)
+            {
+                List<Boid> cell;
+                if (cells.TryGetValue(HashCell(x, y, z), out cell))
+                {
+                    for (int i = 0; i < cell.Count; i++)
+                    {
+                        Boid b = cell[i];
+                        if (b != exclude && (pos - b.position).sqrMagnitude < rangeSq)
+                            results.Add(b);
+                    }
+                }
+            }
+        }
+
+        private int HashPos(Vector3 pos)
+        {
+            return HashCell(
+                (int)Math.Floor(pos.x * inverseCellSize),
+                (int)Math.Floor(pos.y * inverseCellSize),
+                (int)Math.Floor(pos.z * inverseCellSize));
+        }
+
+        private static int HashCell(int x, int y, int z)
+        {
+            unchecked { return (x * 73856093) ^ (y * 19349663) ^ (z * 83492791); }
+        }
+    }
+
     public class School: MonoBehaviour
     {
         public float centerOfMassUpdatePerSecond = 1.0f;
@@ -14,6 +83,15 @@ namespace BGE.Forms
         public Vector3 centerOfMass = Vector3.zero;
 
         public float neighbourDistance;
+
+        public readonly SpatialGrid grid = new SpatialGrid();
+
+        public void RebuildGrid()
+        {
+            if (neighbourDistance <= 0) return;
+            int count = boids.Count; // snapshot count to avoid race if main thread adds boids
+            grid.Rebuild(boids, count, neighbourDistance);
+        }
 
         public float radius = 100;
 

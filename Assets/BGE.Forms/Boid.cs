@@ -94,8 +94,8 @@ namespace BGE.Forms
 
         public void Awake()
         {
-            player = GameObject.FindGameObjectWithTag("MainCamera").transform;
-            CreatureManager.Instance.boids.Add(this);
+            player = CreatureManager.PlayerTransform ?? GameObject.FindGameObjectWithTag("MainCamera").transform;
+            CreatureManager.Instance.AddBoid(this);
         }
 
         void Start()
@@ -254,15 +254,14 @@ namespace BGE.Forms
                 Vector3 bankUp = accelUp + globalUp;
                 // blend bankUp into vehicle's UP basis vector
                 smoothRate = timeAccMult;// * 3.0f;
-                Vector3 tempUp = transform.up;
+                Vector3 tempUp = up; // use cached value, avoids native transform property call
                 Utilities.BlendIntoAccumulator(smoothRate, bankUp, ref tempUp);
 
                 speed = velocity.magnitude;
                 if (speed > maxSpeed)
                 {
-                    velocity.Normalize();
-                    velocity *= maxSpeed;
-                    speed = velocity.magnitude;
+                    velocity *= (maxSpeed / speed); // reuse speed to avoid extra magnitude call
+                    speed = maxSpeed;
                 }
                 Utilities.checkNaN(velocity);
 
@@ -333,8 +332,7 @@ namespace BGE.Forms
             }
             else
             {
-                clampedForce = Vector3.Normalize(force) * remaining;
-
+                clampedForce = (force / toAdd) * remaining; // reuse toAdd to avoid Normalize's internal sqrt
             }
             runningTotal += clampedForce;
             return true;
@@ -419,21 +417,7 @@ namespace BGE.Forms
             float dice = Utilities.RandomRange(0.0f, 1.0f);
             if (dice < tagNeighboursDither)
             {
-                tagged.Clear();
-
-                float inRangeSq = inRange * inRange;
-                for(int i = 0; i <  school.boids.Count; i ++)
-                {
-                    Boid boid = school.boids[i];
-                
-                    if (boid != this && ! boid.suspended)
-                    {
-                        if ((position - boid.position).sqrMagnitude < inRangeSq)
-                        {
-                            tagged.Add(boid);
-                        }
-                    }
-                }
+                school.grid.Query(position, inRange, tagged, this);
             }
             return tagged.Count;
         }
