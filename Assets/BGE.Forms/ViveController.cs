@@ -6,8 +6,9 @@ namespace BGE.Forms
 {
     public class ViveController : MonoBehaviour {
 
-        public SteamVR_TrackedObject leftTrackedObject;
-        public SteamVR_TrackedObject rightTrackedObject;
+        // SteamVR removed from project
+        // public SteamVR_TrackedObject leftTrackedObject;
+        // public SteamVR_TrackedObject rightTrackedObject;
         private Rigidbody rigidBody;
 
         public GameObject leftEngine;
@@ -20,21 +21,22 @@ namespace BGE.Forms
         public static ViveController Instance;
 
         public Boid boid; // Am I controlling a boid?
-        private SteamVR_Controller.Device leftController
-        {
-            get
-            {
-                return SteamVR_Controller.Input((int)leftTrackedObject.index);
-            }
-        }
-
-        private SteamVR_Controller.Device rightController
-        {
-            get
-            {
-                return SteamVR_Controller.Input((int)rightTrackedObject.index);
-            }
-        }
+        // SteamVR removed from project
+        // private SteamVR_Controller.Device leftController
+        // {
+        //     get
+        //     {
+        //         return SteamVR_Controller.Input((int)leftTrackedObject.index);
+        //     }
+        // }
+        //
+        // private SteamVR_Controller.Device rightController
+        // {
+        //     get
+        //     {
+        //         return SteamVR_Controller.Input((int)rightTrackedObject.index);
+        //     }
+        // }
 
         void Awake()
         {
@@ -50,16 +52,18 @@ namespace BGE.Forms
 
         public bool GetGrip()
         {
-            if (leftTrackedObject == null || rightTrackedObject == null || !leftTrackedObject.isActiveAndEnabled || !rightTrackedObject.isActiveAndEnabled)
-            {
-                return false;
-            }
-            else
-            {
-                return
-                    leftController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)
-                    || rightController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip);
-            }
+            // SteamVR removed from project
+            // if (leftTrackedObject == null || rightTrackedObject == null || !leftTrackedObject.isActiveAndEnabled || !rightTrackedObject.isActiveAndEnabled)
+            // {
+            //     return false;
+            // }
+            // else
+            // {
+            //     return
+            //         leftController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)
+            //         || rightController.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip);
+            // }
+            return false;
         }
 
         System.Collections.IEnumerator StraightenUp()
@@ -126,6 +130,8 @@ namespace BGE.Forms
             }
             CreatureManager.Log("Haptics: " + haptics);
 
+            // SteamVR removed from project
+#if false
             if (leftTrackedObject != null && leftTrackedObject.isActiveAndEnabled)
             {
                 // The trigger button
@@ -207,6 +213,7 @@ namespace BGE.Forms
 
                 }
             }
+#endif
 
             /*
             if (leftTrig > 0.2f && rightTrig > 0.2f)

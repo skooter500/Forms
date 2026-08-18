@@ -43,14 +43,16 @@ public class OculusController : MonoBehaviour {
 
     public bool GetGrip()
     {
-        if (isActiveAndEnabled)
-        {
-            return (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.Touch) > 0.5f || OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger, OVRInput.Controller.Touch) > 0.5f);
-        }
-        else
-        {
-            return false;
-        }
+        // Oculus Integration removed from project
+        // if (isActiveAndEnabled)
+        // {
+        //     return (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.Touch) > 0.5f || OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger, OVRInput.Controller.Touch) > 0.5f);
+        // }
+        // else
+        // {
+        //     return false;
+        // }
+        return false;
     }
 	
 	// Update is called once per frame
@@ -62,7 +64,8 @@ public class OculusController : MonoBehaviour {
         }
         CreatureManager.Log("Haptics: " + haptics);
 
-
+        // Oculus Integration removed from project
+#if false
         if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch))
         {
             leftEngine.SetActive(true);
@@ -90,7 +93,7 @@ public class OculusController : MonoBehaviour {
             }
             else
             {
-                
+
                 leftJet.fire = 0;
                 if (haptics)
                 {
@@ -142,6 +145,7 @@ public class OculusController : MonoBehaviour {
         else
         {
             rightEngine.SetActive(false);
-        }       
+        }
+#endif
     }
 }

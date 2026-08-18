@@ -50,6 +50,8 @@ public class PlayerSteering : SteeringBehaviour
         CreatureManager.Log("RightForce: " + rightForce);
 
         // Control the boid
+        // SteamVR / Oculus Integration removed from project
+#if false
         if (viveController != null)
         {
             if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null  && viveController.leftTrackedObject.isActiveAndEnabled)
@@ -90,10 +92,11 @@ public class PlayerSteering : SteeringBehaviour
                 {
                     Vector3 xyz = average.eulerAngles;
                     harmonic.theta = Mathf.Deg2Rad * (xyz.x);
-                    
+
                 }
             }
         }
+#endif
 
         /*
               hSpeed = Mathf.Lerp(hSpeed

@@ -20,7 +20,9 @@ Category {
 			ConstantColor (0,0,0, [_Blend]) 
 			Combine texture Lerp(constant) previous
 		}
-		SetTexture[_] {Combine previous * primary Double}
+		// SetTexture[_] {Combine previous * primary Double}
+		// Removed: SetTexture[_] referenced an undeclared "_" property, whose
+		// auto-generated "__ST" uniform is rejected by GLSL (reserves names with "__").
 	}}
  
 	// pre-3GS devices, including the September 2009 8GB iPod touch
