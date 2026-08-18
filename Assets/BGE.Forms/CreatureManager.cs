@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Text;
 using System.Collections.Generic;
 
@@ -203,16 +204,20 @@ namespace BGE.Forms
                         s.RebuildGrid();
                 }
 
-                // Update all boids
-                for (int i = 0; i < snapshot.Length; i++)
-                {
-                    Boid boid = snapshot[i];
-                    if (boid == null) continue;
-                    if (boid.suspended)
-                        suspended++;
-                    else
+                // Calculate forces in parallel across all CPU cores
+                int suspendedCount = 0;
+                Parallel.For<int>(0, snapshot.Length,
+                    () => 0,
+                    (i, state, localSuspended) =>
+                    {
+                        Boid boid = snapshot[i];
+                        if (boid == null) return localSuspended;
+                        if (boid.suspended) return localSuspended + 1;
                         boid.force = boid.CalculateForce();
-                }
+                        return localSuspended;
+                    },
+                    localSuspended => Interlocked.Add(ref suspendedCount, localSuspended));
+                suspended = suspendedCount;
 
                 stopwatch.Stop();
 

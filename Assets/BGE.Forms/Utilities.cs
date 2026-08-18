@@ -31,7 +31,16 @@ namespace BGE.Forms
     {
         public const float TWO_PI = Mathf.PI * 2.0f;
         
-        private static System.Random Random = new System.Random(Guid.NewGuid().GetHashCode());
+        // One Random per thread — no lock needed, no contention
+        [System.ThreadStatic]
+        private static System.Random threadRandom;
+
+        private static System.Random GetThreadRandom()
+        {
+            if (threadRandom == null)
+                threadRandom = new System.Random(Guid.NewGuid().GetHashCode());
+            return threadRandom;
+        }
 
         public static float StdDev(float[] vals)
         {
@@ -63,7 +72,7 @@ namespace BGE.Forms
         // Cant use the Unity one on a thread
         public static float RandomRange(float min, float max)
         {
-            return RandomRange(Random, min, max);
+            return RandomRange(GetThreadRandom(), min, max);
         }
 
 
