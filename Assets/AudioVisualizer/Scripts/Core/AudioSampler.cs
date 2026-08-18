@@ -840,6 +840,12 @@ namespace AudioVisualizer
                 max = Mathf.Max(max, Mathf.Abs(input[i]));
             }
 
+            // silence (max == 0) would divide by zero and produce NaN; leave output at 0 instead.
+            if (max <= 0f)
+            {
+                return output;
+            }
+
             //divide everything by the max value
             for (int i = 0; i < input.Length; i++)
             {
